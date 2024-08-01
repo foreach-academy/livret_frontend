@@ -1,0 +1,24 @@
+/* src/StrategicInfo.css */
+.strategic-info {
+  text-align: center; /* Centre le texte horizontalement */
+  padding: 20px; /* Ajoute du padding autour du contenu */
+  max-width: 800px; /* Définit une largeur maximale pour un bon affichage */
+  margin: 0 auto; /* Centre le conteneur sur la page */
+}
+
+.strategic-info h1 {
+  font-size: 2rem; /* Taille de police pour le titre */
+  margin-bottom: 20px; /* Espacement sous le titre */
+  color: #333; /* Couleur du texte pour le titre */
+}
+
+.strategic-info h2 {
+  font-size: 1.5rem; /* Taille de police pour le sous-titre */
+  margin-bottom: 15px; /* Espacement sous le sous-titre */
+  color: #555; /* Couleur du texte pour le sous-titre */
+}
+
+.strategic-info p {
+  font-size: 1rem; /* Taille de police pour le paragraphe */
+  color: #666; /* Couleur du texte pour le paragraphe */
+}
