@@ -1,24 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FormationCard.css';
 
 const FormationCard = ({ title, description, moreInfoLink }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  const handleFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
-
   return (
-    <div className={`formation-card ${isFlipped ? 'flipped' : ''}`} onClick={handleFlip}>
-      <div className="card-front">
-        <h2>{title}</h2>
-        <p>{description}</p>
-      </div>
-      <div className="card-back">
-        {/* Modification du onClick pour ouvrir dans un nouvel onglet */}
-        <button onClick={() => window.open(moreInfoLink, '_blank', 'noopener,noreferrer')}>
-          En savoir plus
-        </button>
+    <div className="formation-card">
+      <div className="card-inner">
+        <div className="card-front">
+          <h2>{title}</h2>
+          <p>{description}</p>
+        </div>
+        <div className="card-back">
+          <button onClick={() => window.open(moreInfoLink, '_blank', 'noopener,noreferrer')}>
+            En savoir plus
+          </button>
+        </div>
       </div>
     </div>
   );
