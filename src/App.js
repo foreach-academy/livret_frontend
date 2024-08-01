@@ -6,6 +6,7 @@ import HomePage from './HomePage';
 import ForEachAcademy from './ForEachAcademy';
 import FormationDetail from './FormationDetail';
 
+
 function App() {
   return (
     <Router>
