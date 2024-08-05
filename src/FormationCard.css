@@ -1,19 +1,21 @@
 .formation-card {
-  perspective: 1000px; /* Pour activer la perspective */
-  margin: 20px; /* Espacement entre les cartes */
+  perspective: 1000px; 
+  margin: 20px;
 }
 
 .card-inner {
   width: 300px;
-  height: 200px;
+  height: 380px;
   position: relative;
   transition: transform 0.6s;
   transform-style: preserve-3d;
-  background-color: #292C42; /* Couleur de fond */
+  background-color: #292C42; 
+  border: 2px solid #ffffff; /* Bordure autour de la carte */
+  border-radius: 10px; 
 }
 
 .formation-card:hover .card-inner {
-  transform: rotateY(180deg); /* Rotation sur l'axe Y au survol */
+  transform: rotateY(180deg); 
 }
 
 .card-front, .card-back {
@@ -24,21 +26,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white; /* Couleur du texte */
+  color: white; 
   text-align: center;
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .card-front {
-  background-color: #292C42; /* Couleur de fond du côté avant */
+  background-color: #292C42; 
+  border: 1px solid #ffffff; 
 }
 
 .card-back {
-  background-color: #292C42; /* Couleur de fond du côté arrière */
-  transform: rotateY(180deg); /* Rotation initiale du côté arrière */
+  background-color: #292C42; 
+  transform: rotateY(180deg); 
+  border: 1px solid #ffffff; 
 }
 
 button {
-  background-color: #f39c12; /* Couleur du bouton */
+  background-color: #f39c12; 
   color: white;
   border: none;
   padding: 10px 20px;
@@ -48,5 +54,5 @@ button {
 }
 
 button:hover {
-  background-color: #e67e22; /* Couleur du bouton au survol */
+  background-color: #e67e22; 
 }

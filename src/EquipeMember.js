@@ -1,6 +1,6 @@
 // src/EquipeMember.js
 import React from 'react';
-import './EquipeMember.css'; // Créez ce fichier CSS pour le style
+import './EquipeMember.css';
 
 const EquipeMember = ({ photo, name, position, email }) => {
   return (
