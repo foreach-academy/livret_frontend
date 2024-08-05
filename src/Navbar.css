@@ -1,179 +1,187 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-  }
-  
-  header {
-    background-color: #2a2c42;
-    color: white;
-    padding: 15px 0;
-  }
-  
-  .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .logo a {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo-image {
-    width: 100px;
-    height: auto;
-  }
-  
-  .nav-links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    position: relative;
-  }
-  
-  .nav-links li {
-    position: relative;
-    margin: 0 15px;
-  }
-  
-  .nav-links a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 15px;
-    display: block;
-  }
-  
-  .dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #2a2c42;
-    border: 1px solid #444;
-    padding: 0;
-    list-style: none;
-    width: 200px;
-    z-index: 1000;
-  }
-  
-  .dropdown-menu li {
-    border-bottom: 1px solid #444;
-  }
-  
-  .dropdown-menu li:last-child {
-    border-bottom: none;
-  }
-  
-  .dropdown-menu a {
-    color: white;
-    padding: 10px 15px;
-    display: block;
-  }
-  
-  .dropdown-menu a:hover {
-    background-color: #f39c12; /* Couleur de fond lors du survol */
-  }
-  
-  /* Afficher le sous-menu au survol */
-  .dropdown:hover .dropdown-menu {
-    display: block;
-  }
-  
-  .cta {
-    background-color: #f39c12;
-    color: white;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 5px;
-  }
-  
-  .cta:hover {
-    background-color: #e67e22;
-  }
-  
-  body,
-  html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
+/* Réinitialisation du margin et padding pour éviter les conflits */
+body,
+html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Style pour le header (navbar) */
+header {
+  position: fixed; /* Fixe la navbar en haut de la page */
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2a2c42;
+  color: white;
+  padding: 15px 0;
+  z-index: 1000; /* Assure que la navbar est au-dessus des autres éléments */
+}
+
+/* Container pour aligner les éléments à l'intérieur du header */
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Style pour le logo */
+.logo a {
+  display: flex;
+  align-items: center;
+}
+
+.logo-image {
+  width: 100px;
+  height: auto;
+}
+
+/* Styles pour les liens de navigation */
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav-links li {
+  position: relative;
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+}
+
+/* Styles pour les menus déroulants */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #2a2c42;
+  border: 1px solid #444;
+  padding: 0;
+  list-style: none;
+  width: 200px;
+  z-index: 1000;
+}
+
+.dropdown-menu li {
+  border-bottom: 1px solid #444;
+}
+
+.dropdown-menu li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-menu a {
+  color: white;
+  padding: 10px 15px;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #f39c12; /* Couleur de fond lors du survol */
+}
+
+/* Afficher le sous-menu au survol */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Style pour le bouton CTA */
+.cta {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.cta:hover {
+  background-color: #e67e22;
+}
+
+/* Style pour le footer */
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: #2a2c42;
+  color: #fff;
+  padding: 20px;
+  margin-top: 60px; /* Ajouter un espace pour éviter le chevauchement avec la navbar fixe */
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin: 10px;
+  text-align: center;
+}
+
+.footer-section h3 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 5px;
+}
+
+.footer-section a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-logo-image {
+  max-width: 150px;
+  height: auto;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+.social-icons li {
+  margin-right: 10px;
+}
+
+.social-icons img {
+  max-width: 40px;
+  height: auto;
+}
+
+#footer-year {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9em;
+  color: #e67e22;
+}
+
+@media (max-width: 768px) {
   .footer-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    background-color: #2a2c42;
-    color: #fff;
-    padding: 20px;
+    align-items: stretch;
   }
-  
-  .footer-section {
-    flex: 1;
-    min-width: 200px;
-    margin: 10px;
-    text-align: center;
-  }
-  
-  .footer-section h3 {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-  }
-  
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .footer-section ul li {
-    margin-bottom: 5px;
-  }
-  
-  .footer-section a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  .footer-section a:hover {
-    text-decoration: underline;
-  }
-  
-  .footer-logo-image {
-    max-width: 150px;
-    height: auto;
-  }
-  
-  .social-icons {
-    display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .social-icons li {
-    margin-right: 10px;
-  }
-  
-  .social-icons img {
-    max-width: 40px;
-    height: auto;
-  }
-  
-  #footer-year {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9em;
-    color: #e67e22;
-  }
-  
-  @media (max-width: 768px) {
-    .footer-container {
-      align-items: stretch;
-    }
-  }
-  
+}
