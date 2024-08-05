@@ -1,19 +1,20 @@
 import React from 'react';
-import './HomePage.css';
+import './HomePage.css'; 
 import FormationCard from './FormationCard';
 import EquipeForEach from './EquipeForEach';
 import StrategicInfo from './StrategicInfo'; 
+import headerImage from './assets/images/slider-developpeur-web.jpeg'; 
 
 const HomePage = () => {
   return (
     <div className="homepage">
       <div className="header-image">
-        <img src="https://via.placeholder.com/1500x500" alt="Accueil" />
+        <img src={headerImage} alt="Accueil" />
       </div>
       <div className="presentation">
         <h1>Présentation de l'organisme</h1>
         <p>
-          A l’origine du projet foreach-academyForEach Academy, des professionnels du numérique exerçant dans la Région Hauts de France, réunis autour de
+          À l’origine du projet ForEach Academy, des professionnels du numérique exerçant dans la Région Hauts-de-France, réunis autour de
           valeurs communes. Depuis des années, cette équipe se retrouve à l’occasion de missions, de sessions de formation ou
           d’évènements professionnels. Ils échangent régulièrement sur leurs envies de prendre une part active à la formation initiale et
           permanente dans l’IT, de partager leurs expériences.

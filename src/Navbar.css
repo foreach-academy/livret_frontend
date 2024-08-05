@@ -1,4 +1,3 @@
-/* Réinitialisation du margin et padding pour éviter les conflits */
 body,
 html {
   margin: 0;
@@ -7,19 +6,19 @@ html {
   font-family: Arial, sans-serif;
 }
 
-/* Style pour le header (navbar) */
+
 header {
-  position: fixed; /* Fixe la navbar en haut de la page */
+  position: fixed; 
   top: 0;
   left: 0;
   width: 100%;
   background-color: #2a2c42;
   color: white;
   padding: 15px 0;
-  z-index: 1000; /* Assure que la navbar est au-dessus des autres éléments */
+  z-index: 1000; 
 }
 
-/* Container pour aligner les éléments à l'intérieur du header */
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -29,7 +28,7 @@ header {
   padding: 0 20px;
 }
 
-/* Style pour le logo */
+
 .logo a {
   display: flex;
   align-items: center;
@@ -40,7 +39,6 @@ header {
   height: auto;
 }
 
-/* Styles pour les liens de navigation */
 .nav-links {
   list-style: none;
   padding: 0;
@@ -60,7 +58,6 @@ header {
   display: block;
 }
 
-/* Styles pour les menus déroulants */
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -89,15 +86,14 @@ header {
 }
 
 .dropdown-menu a:hover {
-  background-color: #f39c12; /* Couleur de fond lors du survol */
+  background-color: #f39c12;
 }
 
-/* Afficher le sous-menu au survol */
 .dropdown:hover .dropdown-menu {
   display: block;
 }
 
-/* Style pour le bouton CTA */
+
 .cta {
   background-color: #f39c12;
   color: white;
@@ -110,7 +106,7 @@ header {
   background-color: #e67e22;
 }
 
-/* Style pour le footer */
+
 .footer-container {
   display: flex;
   flex-wrap: wrap;
@@ -118,7 +114,7 @@ header {
   background-color: #2a2c42;
   color: #fff;
   padding: 20px;
-  margin-top: 60px; /* Ajouter un espace pour éviter le chevauchement avec la navbar fixe */
+  margin-top: 60px; 
 }
 
 .footer-section {
