@@ -1,59 +1,71 @@
 .footer-container {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
   background-color: #292c42;
   padding: 20px;
   color: #fff;
-  flex-wrap: wrap;
-  gap: 40px; 
+  gap: 20px;
 }
 
 .footer-section {
   flex: 1;
-  margin: 10px;
+  margin: 5px;
   min-width: 150px;
 }
 
+.footer-section.logo-section {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  margin-bottom: 20px; 
+}
+
 .footer-logo-image {
-  max-width: 150px;
+  max-width: 200px; 
   height: auto;
+}
+
+.social-media {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .social-icons {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  justify-items: center;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 15px; 
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
 .social-icons img {
-  max-width: 40px;
+  max-width: 40px; 
   height: auto;
 }
 
 .footer-section h3 {
-  font-size: 1.2em;
-  margin-bottom: 15px; 
+  font-size: 1.1em;
+  margin-bottom: 10px;
 }
 
 .footer-section ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  line-height: 2; 
+  line-height: 1.6; 
 }
 
 .footer-section ul li {
-  margin-bottom: 10px; 
+  margin-bottom: 5px;
 }
 
 .footer-section p {
-  line-height: 1.8; 
-  margin-bottom: 10px; 
+  line-height: 1.5;
+  margin-bottom: 10px;
 }
 
 .footer-section a {
@@ -67,8 +79,8 @@
 
 #footer-year {
   text-align: center;
-  margin-top: 20px;
-  font-size: 0.9em;
+  margin-top: 10px;
+  font-size: 0.8em;
   color: #e67e22;
 }
 
@@ -81,5 +93,9 @@
   .footer-section {
     text-align: center;
     margin-bottom: 20px; 
+  }
+
+  .social-icons {
+    grid-template-columns: repeat(2, 1fr); 
   }
 }
