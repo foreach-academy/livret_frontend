@@ -1,9 +1,8 @@
-// src/HomePage.js
 import React from 'react';
 import './HomePage.css';
 import FormationCard from './FormationCard';
 import EquipeForEach from './EquipeForEach';
-import StrategicInfo from './StrategicInfo'; // Importation du composant
+import StrategicInfo from './StrategicInfo'; 
 
 const HomePage = () => {
   return (
@@ -49,8 +48,8 @@ const HomePage = () => {
           />
         </div>
       </div>
-      <EquipeForEach /> {/* Ajout du bloc EquipeForEach */}
-      <StrategicInfo /> {/* Placez StrategicInfo ici pour qu'il apparaisse après les formations */}
+      <EquipeForEach /> 
+      <StrategicInfo />
     </div>
   );
 };

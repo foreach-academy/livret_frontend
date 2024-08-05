@@ -1,4 +1,3 @@
-// src/EquipeMember.js
 import React from 'react';
 import './EquipeMember.css';
 

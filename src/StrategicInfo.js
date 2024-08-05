@@ -1,6 +1,5 @@
-// src/StrategicInfo.js
 import React from 'react';
-import './StrategicInfo.css'; // Assurez-vous que ce fichier existe
+import './StrategicInfo.css'; 
 
 const StrategicInfo = () => {
   return (
