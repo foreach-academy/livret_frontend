@@ -10,7 +10,7 @@
   transition: transform 0.6s;
   transform-style: preserve-3d;
   background-color: #292C42; 
-  border: 2px solid #ffffff; /* Bordure autour de la carte */
+  border: 2px solid #ffffff; 
   border-radius: 10px; 
 }
 
