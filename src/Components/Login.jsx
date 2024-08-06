@@ -74,6 +74,7 @@ const Login = () => {
                             onChange={handleEmailChange}
                             required
                             placeholder="Email" />
+                            <br />
                         {emailError && <span className="error">{emailError}</span>}
                     </div>
                     <div className="form-group">
@@ -84,6 +85,7 @@ const Login = () => {
                             onChange={handlePasswordChange}
                             required
                             placeholder="Mot de passe" />
+                            <br />
                         {passwordError && <span className="error">{passwordError}</span>}
                         <p className="p-forgot">Mot de passe oublié?</p>
                     </div>
