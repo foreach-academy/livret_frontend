@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-// src/App.js
-
-import React from 'react';
-import Footer from './Footer';
- 
-
-function App() {
-  return (
-    <div className="App">
-      <Footer />
-    </div>
-=======
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './Navbar';
@@ -33,7 +20,6 @@ function App() {
         </main>
       </div>
     </Router>
->>>>>>> homepage
   );
 }
 
