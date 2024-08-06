@@ -1,0 +1,12 @@
+.equipe-for-each {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .equipe-member-list {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
