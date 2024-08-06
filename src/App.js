@@ -5,7 +5,6 @@ import HomePage from './HomePage';
 import ForEachAcademy from './ForEachAcademy';
 import FormationDetail from './FormationDetail';
 import Login from './Components/Login'
-<<<<<<< HEAD
 import Footer from './Footer';
 
 import './App.css'; 
@@ -28,19 +27,6 @@ function App() {
         </Footer>
       </div>
 </Router>
-=======
-import Login from './Components/Login';
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/foreach-academy" element={<ForEachAcademy />} />
-        <Route path="/formations/:id" element={<FormationDetail />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </Router>
->>>>>>> pageConnexion
   );
 }
 
