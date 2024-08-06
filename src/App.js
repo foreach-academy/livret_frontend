@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import HomePage from './HomePage';
 import ForEachAcademy from './ForEachAcademy';
 import FormationDetail from './FormationDetail';
+import Footer from './Footer';
+
 import './App.css'; 
 
 function App() {
@@ -16,10 +18,14 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/foreach-academy" element={<ForEachAcademy />} />
             <Route path="/formations/:id" element={<FormationDetail />} />
+
           </Routes>
         </main>
+        <Footer>
+          
+        </Footer>
       </div>
-    </Router>
+</Router>
   );
 }
 
