@@ -7,6 +7,8 @@ import FormationDetail from './FormationDetail';
 import Login from './Components/Login'
 import Footer from './Footer';
 
+import DataConnexion from './DataConnexion';
+
 import './App.css'; 
 
 function App() {
@@ -20,6 +22,7 @@ function App() {
             <Route path="/foreach-academy" element={<ForEachAcademy />} />
             <Route path="/formations/:id" element={<FormationDetail />} />
             <Route path="/login" element={<Login/>} />
+            <Route path="/dataConnexion" element={<DataConnexion />} />
           </Routes>
         </main>
         <Footer>
