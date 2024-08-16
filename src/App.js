@@ -17,12 +17,14 @@ function App() {
       <div id="root">
         <Navbar />
         <main>
-          <Routes>
+          <Routes>       
+             <Route path="/dataConnexion/:role" element={<DataConnexion />} />
+
             <Route path="/" element={<HomePage />} />
             <Route path="/foreach-academy" element={<ForEachAcademy />} />
             <Route path="/formations/:id" element={<FormationDetail />} />
             <Route path="/login" element={<Login/>} />
-            <Route path="/dataConnexion" element={<DataConnexion />} />
+            
           </Routes>
         </main>
         <Footer>
