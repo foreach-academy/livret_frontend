@@ -1,4 +1,3 @@
-// src/ForEachAcademy.js
 import React from 'react';
 
 const ForEachAcademy = () => {

@@ -1,3 +1,79 @@
+EADME.md Livret d'apprentissage
+
+Ce projet est une application web pour la gestion et la consultation d'un livret d'apprentissage. Elle est développée avec ReactJS pour le frontend et NodeJS pour le backend.
+
+
+ Table des matières
+
+- [Fonctionnalités]
+- [Architecture du projet]
+- [Prérequis]
+- [Installation]
+- [Démarrage]
+- [Scripts disponibles]
+- [Dépendances]
+- [Contribuer]
+- [Licence]
+
+Fonctionnalités
+
+- Navigation générale (NavBar,Header, Footer)
+- Pages principales : Connexion, Accueil, Détail d'une formation, Vie pratique du stagiaire, Charte de confidentialité, Droits et devoirs de l'étudiant
+- Module d'administration : Liste des utilisateurs, Création / modification d'un utilisateur, Liste des modules, Création / modification d'un module
+
+ Architecture du projet
+
+-Frontend (ReactJS)
+
+
+-Backend (NodeJS)
+
+
+Prérequis
+
+- Node.js (version 14.x ou supérieure)
+- npm (version 6.x ou supérieure)
+
+Installation
+
+
+1. Clonez le dépôt :
+   bash
+   git clone
+
+
+
+Installation des dépendances pour le frontend et le backend :
+
+cd livret-dapprentissage
+cd frontend
+npm install
+cd ../backend
+npm install
+
+Démarrage du serveur backend :
+
+cd backend
+npm start
+
+
+Démarrez le serveur frontend :
+
+cd frontend
+npm start
+
+Scripts disponibles
+Frontend
+npm start : Démarre le serveur de développement.
+npm build : Compile l'application pour la production.
+Backend
+npm start : Démarre le serveur Node.js.
+Dépendances
+Frontend
+React
+React Router
+Axios
+Material-UI (ou Bootstrap)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
