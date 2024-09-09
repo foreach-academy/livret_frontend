@@ -1,5 +1,5 @@
 import React from 'react';
-import EquipeMember from './EquipeMember';
+import EquipeMember from '../EquipeMember/EquipeMember';
 import './EquipeForEach.css'; 
 
 import lauryPhoto from './assets/images/IMG_2147.jpg';
