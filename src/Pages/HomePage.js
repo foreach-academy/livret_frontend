@@ -1,8 +1,8 @@
 import React from 'react';
 import './HomePage.css'; 
-import FormationCard from './FormationCard';
-import EquipeForEach from './EquipeForEach';
-import StrategicInfo from './StrategicInfo'; 
+import FormationCard from '../Composent/FormationCard/FormationCard';
+import EquipeForEach from '../Composent/EquipeForEach/EquipeForEach';
+import StrategicInfo from '../Composent/StrategicInfo/StrategicInfo'; 
 import headerImage from './assets/images/slider-developpeur-web.jpeg'; 
 
 const HomePage = () => {
