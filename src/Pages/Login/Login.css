@@ -12,11 +12,13 @@ body {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    margin-bottom: 20rem;
   }
 
   .login-container {
     width: 40%;
     padding: 20px;
+ 
   }
   
   .login-form {
@@ -81,4 +83,6 @@ body {
     cursor: pointer;
   }
 
-  
+  .footer-container {
+    width: 100%;
+  };
