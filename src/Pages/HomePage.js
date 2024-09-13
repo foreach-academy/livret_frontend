@@ -1,9 +1,9 @@
 import React from 'react';
 import './HomePage.css'; 
-import FormationCard from '../Composent/FormationCard/FormationCard';
-import EquipeForEach from '../Composent/EquipeForEach/EquipeForEach';
-import StrategicInfo from '../Composent/StrategicInfo/StrategicInfo'; 
-import headerImage from './assets/images/slider-developpeur-web.jpeg'; 
+import FormationCard from '../components/FormationCard/FormationCard';
+import EquipeForEach from '../components/EquipeForEach/EquipeForEach';
+import StrategicInfo from '../components/StrategicInfo/StrategicInfo'; 
+import headerImage from '../assets/images/slider-developpeur-web.jpeg'; 
 
 const HomePage = () => {
   return (

@@ -2,9 +2,9 @@ import React from 'react';
 import EquipeMember from '../EquipeMember/EquipeMember';
 import './EquipeForEach.css'; 
 
-import lauryPhoto from './assets/images/IMG_2147.jpg';
-import florePhoto from './assets/images/Flore-1024x1018.png';
-import hugoPhoto from './assets/images/Copie_de_brown_white_elegant_welcome_to_our_shop_Instagram_Post.png';
+import lauryPhoto from '../../assets/images/IMG_2147.jpg';
+import florePhoto from '../../assets/images/Flore-1024x1018.png';
+import hugoPhoto from '../../assets/images/Copie_de_brown_white_elegant_welcome_to_our_shop_Instagram_Post.png';
 
 const members = [
   {
