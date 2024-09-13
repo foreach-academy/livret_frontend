@@ -7,6 +7,9 @@
   padding: 20px;
   color: #fff;
   gap: 20px;
+  min-width: 1500px;
+  position:fixed;
+  bottom: 0;
 }
 
 .footer-section {
