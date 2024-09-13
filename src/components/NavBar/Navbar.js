@@ -13,7 +13,7 @@ const Navbar = () => {
     <header>
       <div className="container">
         <div className="logo">
-          <a href="#">
+          <a href="/">
             <img
               src={logo} 
               alt="MonLogo"
