@@ -19,14 +19,12 @@ const HomePage = () => {
           d’évènements professionnels. Ils échangent régulièrement sur leurs envies de prendre une part active à la formation initiale et
           permanente dans l’IT, de partager leurs expériences.
         </p>
-
-        <p>Ainsi est née <a href="https://www.foreach-academy.fr" target="_blank" rel="noopener noreferrer">ForEach Academy</a>,</p>
-
+        <p id='link_PresentationP'>Ainsi est née <a id="link_presentationA" href="https://www.foreach-academy.fr" target="_blank" rel="noopener noreferrer">ForEach Academy...</a></p>
         <p>
-          Nous formons et accompagnons de nombreux stagiaires dans leurs projets professionnels.
-          Notre rattachement au groupe BAO, dans lequel est également présente l’ESN Symbol IT, nous permet d’intégrer nos offres de
-          formations dans l’écosystème numérique de la métropole Lilloise et de bénéficier de l’expertise des collaborateurs de cette ESN
-          dans notre équipe pédagogique.
+        Nous formons et accompagnons de nombreux stagiaires dans leurs projets professionnels.
+        Notre rattachement au groupe BAO, dans lequel est également présente l’ESN Symbol IT, nous permet d’intégrer nos offres de 
+        formations dans l’écosystème numérique de la métropole Lilloise et de bénéficier de l’expertise des collaborateurs de cette ESN 
+        dans notre équipe pédagogique.
         </p>
       </div>
       <div className="formations">
@@ -50,6 +48,13 @@ const HomePage = () => {
         </div>
       </div>
       <EquipeForEach /> 
+      <div id='dernier_text_homepage'>
+        <h2>La qualité étant une des valeurs que nous revendiquons </h2>
+        <p> Un Comité de Pilotage regroupant enseignants, stagiaires, 
+        financeurs, prescripteurs et clients qui valide les choix stratégiques <br/> de ForEach Academy.</p>
+        <p>Un Conseil Pédagogique organise les formations du catalogue, 
+        anime le pool des formateurs et décide des axes pédagogiques <br/> et des évaluations des sessions.</p>
+      </div>
       <StrategicInfo />
     </div>
   );

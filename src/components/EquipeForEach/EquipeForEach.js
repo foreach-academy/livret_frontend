@@ -4,7 +4,7 @@ import './EquipeForEach.css';
 
 import lauryPhoto from '../../assets/images/IMG_2147.jpg';
 import florePhoto from '../../assets/images/Flore-1024x1018.png';
-import hugoPhoto from '../../assets/images/Copie_de_brown_white_elegant_welcome_to_our_shop_Instagram_Post.png';
+import inesPhoto from '../../assets/images/img_ines_forEach_Livret.png';
 
 const members = [
   {
@@ -20,10 +20,10 @@ const members = [
     email: 'flore.wicart@foreach-academy.fr'
   },
   {
-    photo: hugoPhoto,
-    name: 'Hugo SANCHEZ',
-    position: 'Référent CDA-Assistante administrative',
-    email: 'hugo.sanchez@foreach-academy.fr'
+    photo: inesPhoto,
+    name: 'Inès HIMOUR',
+    position: 'Assistante administrative',
+    email: 'Ines.Himour@foreach-academy.fr'
   }
 ];
 

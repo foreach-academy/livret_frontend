@@ -11,15 +11,23 @@
   
   .presentation {
     padding: 20px;
-    text-align: center;
   }
   
   .presentation h1 {
     font-size: 2em;
     margin-bottom: 10px;
+    text-align: center;
   }
-  
+  .presentation #link_PresentationP{
+    color: #F6941D !important;
+  }
+  #link_presentationA{
+    color: #F6941D !important;
+    text-decoration: none !important;
+    font-size: 1.4rem !important;
+  }
   .presentation p {
+    margin-top: 3rem;
     font-size: 1.2em;
     line-height: 1.6em;
     color: #333;
@@ -39,5 +47,12 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+  }
+  #dernier_text_homepage{
+    text-align: center;
+    color: #333;
+  }
+  #dernier_text_homepage p{
+    margin-top: 2rem;
   }
   
