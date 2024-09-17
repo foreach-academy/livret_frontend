@@ -1,3 +1,13 @@
+@keyframes slideIn {
+  from {
+      transform: translateX(-100%);
+      opacity: 0;
+  }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
 
 .homepage {
     width: 100%;
@@ -11,12 +21,15 @@
   
   .presentation {
     padding: 20px;
+    position: relative;
   }
+  
   
   .presentation h1 {
     font-size: 2em;
     margin-bottom: 10px;
     text-align: center;
+    animation: slideIn 2s forwards;
   }
   .presentation #link_PresentationP{
     color: #F6941D !important;
@@ -31,11 +44,13 @@
     font-size: 1.2em;
     line-height: 1.6em;
     color: #333;
+    animation: slideIn 4s forwards;
   }
   
   .formations {
     padding: 20px;
     text-align: center;
+    animation: slideIn 6s forwards;
   }
   
   .formations h2 {
@@ -47,12 +62,15 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    animation: slideIn 8s forwards;
   }
   #dernier_text_homepage{
     text-align: center;
     color: #333;
+    animation: slideIn 14s forwards;
   }
   #dernier_text_homepage p{
     margin-top: 2rem;
+    animation: slideIn 16s forwards;
   }
   
