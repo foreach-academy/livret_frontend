@@ -65,7 +65,8 @@ function Footer() {
               https://www.foreach-academy.fr
             </a>
           </p>
-          <p>393 Rue du Général de Gaulle, 59700 Marcq-en-Barœul</p>
+          <p>393 Rue du Général de Gaulle,</p> 
+          <p>59700 Marcq-en-Barœul</p>
         </div>
         <div className="footer-section more-info">
           <h3>En savoir plus</h3>
