@@ -89,7 +89,7 @@ const Login = () => {
                         {passwordError && <span className="error">{passwordError}</span>}
                         <p className="p-forgot">Mot de passe oublié?</p>
                     </div>
-                    <button type="submit" disabled={!validateEmail(email) || !validatePassword(password)}>
+                    <button id='button_login' type="submit" disabled={!validateEmail(email) || !validatePassword(password)}>
                         Se connecter
                     </button>
                 </form>

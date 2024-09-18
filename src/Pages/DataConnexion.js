@@ -10,6 +10,7 @@ const [loading, setLoading] = useState(true); // État pour le chargement
 
 useEffect(() => {
     setLoading(true); // Le chargement commence
+    console.log({role})
     fetch(`http://127.0.0.1:3000/user/role/${role}`)
         .then(response => {
             console.log(response)

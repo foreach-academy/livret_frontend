@@ -1,0 +1,57 @@
+
+#premiere_ligne_liste{
+    margin-top: 7rem;
+    margin-bottom: 4rem;
+    display: flex;
+    margin-right: 19rem;
+    justify-content: center; 
+    align-items: center;
+}
+#button_addUser{
+    margin-left: 7rem;
+}
+.button_list{
+    background-color: #F6941D;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    width: 12rem;
+    height: 2.5rem
+}
+.button_list:hover{
+    cursor: pointer;
+    background-color: #d7831d;
+}
+#list_userAndAdd{
+    margin-left: 19.5rem;
+    margin-right: auto;
+}
+#contenu_liste{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+}
+.block_utilisateur{
+    padding: 5px 20px 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.info_utilisateur{
+    background-color: #108CB7;
+    color: white;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 2.5rem;
+    min-width: 23rem;
+}
+.button_ChangeRole{
+    margin-left: 1rem;
+}

@@ -59,7 +59,7 @@ body {
     font-size: xx-small;
   }
   
-  button {
+  #button_login {
     width: 40%;
     padding: 10px;
     background-color: #ED7F10;

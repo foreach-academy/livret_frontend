@@ -8,6 +8,14 @@
       opacity: 1;
   }
 }
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 
 .homepage {
     width: 100%;
@@ -21,15 +29,14 @@
   
   .presentation {
     padding: 20px;
-    position: relative;
   }
-  
   
   .presentation h1 {
     font-size: 2em;
     margin-bottom: 10px;
     text-align: center;
-    animation: slideIn 2s forwards;
+    opacity: 0; /* Initialement invisible */
+    animation: fadeIn 2s ease-in forwards; /* Animation pendant 3 secondes */
   }
   .presentation #link_PresentationP{
     color: #F6941D !important;
@@ -44,7 +51,8 @@
     font-size: 1.2em;
     line-height: 1.6em;
     color: #333;
-    animation: slideIn 4s forwards;
+    opacity: 0; /* Initialement invisible */
+    animation: fadeIn 5s ease-in forwards; /* Animation pendant 3 secondes */
   }
   
   .formations {
@@ -67,10 +75,12 @@
   #dernier_text_homepage{
     text-align: center;
     color: #333;
-    animation: slideIn 14s forwards;
+    opacity: 0; /* Initialement invisible */
+    animation: fadeIn 4s ease-in forwards; /* Animation pendant 3 secondes */
   }
   #dernier_text_homepage p{
     margin-top: 2rem;
-    animation: slideIn 16s forwards;
+    opacity: 0; /* Initialement invisible */
+    animation: fadeIn 7s ease-in forwards; /* Animation pendant 3 secondes */
   }
   

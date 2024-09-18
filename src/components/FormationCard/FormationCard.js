@@ -10,7 +10,7 @@ const FormationCard = ({ title, description, moreInfoLink }) => {
           <p>{description}</p>
         </div>
         <div className="card-back">
-          <button onClick={() => window.open(moreInfoLink, '_blank', 'noopener,noreferrer')}>
+          <button id='button_savoir_plus_formation_card' onClick={() => window.open(moreInfoLink, '_blank', 'noopener,noreferrer')}>
             En savoir plus
           </button>
         </div>

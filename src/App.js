@@ -7,6 +7,7 @@ import FormationDetail from './pages/FormationDetail';
 import Footer from './Footer/Footer';
 import DataConnexion from './pages/DataConnexion';
 import Login from './pages/Login/Login';
+import UserList from './pages/ListeUtilisateurAddByAdmin/listeUtilisateurAdd';
 
 import './App.css'; 
 
@@ -23,7 +24,7 @@ function App() {
             <Route path="/formations/:id" element={<FormationDetail />} />
             <Route path="/login" element={<Login/>} />
             <Route path="/users/:role" element={<DataConnexion />} />
-          
+            <Route path='/users' element={<UserList/>} />
 
           </Routes>
         </main>

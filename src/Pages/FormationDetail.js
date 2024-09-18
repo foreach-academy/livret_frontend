@@ -11,5 +11,4 @@ const FormationDetail = () => {
     </div>
   );
 };
-
 export default FormationDetail;
