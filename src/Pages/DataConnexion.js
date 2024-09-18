@@ -26,7 +26,7 @@ function DataConnexion() {
 
     return (
         <>  
-            <h1> Liste des utilisateurs</h1>
+            <h1 id='users-list'> Liste des utilisateurs</h1>
             <div className='list'>
                 <br></br>
                 {error && <p>{error}</p>}

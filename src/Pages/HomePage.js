@@ -48,13 +48,6 @@ const HomePage = () => {
         </div>
       </div>
       <EquipeForEach /> 
-      <div id='dernier_text_homepage'>
-        <h2>La qualité étant une des valeurs que nous revendiquons </h2>
-        <p> Un Comité de Pilotage regroupant enseignants, stagiaires, 
-        financeurs, prescripteurs et clients qui valide les choix stratégiques <br/> de ForEach Academy.</p>
-        <p>Un Conseil Pédagogique organise les formations du catalogue, 
-        anime le pool des formateurs et décide des axes pédagogiques <br/> et des évaluations des sessions.</p>
-      </div>
       <StrategicInfo />
     </div>
   );

@@ -5,6 +5,7 @@ html {
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
+
 footer {
   position: fixed; 
   bottom: 0;
@@ -13,7 +14,7 @@ footer {
   background-color: #2a2c42;
   color: white;
   padding: 15px 0;
-  z-index: 1000; 
+
 }
 
 .footer-container {
@@ -29,6 +30,13 @@ footer {
   bottom: 0;
 }
 
+.logo-icons-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+}
+
 .footer-section {
   flex: 1;
   margin: 10px;
@@ -39,7 +47,7 @@ footer {
   display: flex;
   justify-content: center; 
   align-items: right;
-  margin-bottom: 20px; 
+
 }
 
 .footer-logo-image {
@@ -49,14 +57,13 @@ footer {
 
 .social-media {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
 }
 
 .social-icons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); 
-  gap: 15px; 
+  display: flex;
+  gap: 5px; 
   padding: 0;
   margin: 0;
   list-style: none;
@@ -66,23 +73,28 @@ footer {
   max-width: 2rem; 
   height: auto;
 }
-
+.contact-info{
+display: flex;
+}
 .footer-section h3 {
   font-size: 1.1em;
-  margin-bottom: 10px;
+  padding-right: 5px;
 }
 
 .footer-section ul {
   list-style: none;
   padding: 0;
   margin: 0;
-  line-height: 1.6; 
+  line-height: 1; 
 }
 
 .footer-section ul li {
   margin-bottom: 5px;
 }
-
+#contact-details {
+  display: flex;
+  flex-direction: column;
+}
 .footer-section p {
   line-height: 1;
   margin-bottom: 10px;

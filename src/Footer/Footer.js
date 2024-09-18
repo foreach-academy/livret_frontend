@@ -11,62 +11,71 @@ function Footer() {
   return (
     <footer id="footer">
       <div className="footer-container">
-        <div className="footer-section logo-section">
-          <a href="#">
-            <img src={LogoImage} alt="MonLogo" className="footer-logo-image" />
-          </a>
-        </div>
-        <div className="footer-section social-media">
-          <h3>Suivez-nous</h3>
-          <ul className="social-icons">
-            <li>
-              <a
-                href="https://www.facebook.com/forEachAcademy"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={FacebookIcon} alt="Facebook" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.tiktok.com/@foreach_academy?_t=8oHqzvp6l9M&_r=1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={TikTokIcon} alt="TicToc" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/foreach_academy?igsh=MW1ieGNmdmdmaWRnNg=="
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={InstagramIcon} alt="Instagram" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.linkedin.com/school/foreach-academy/posts/?feedView=all"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img src={LinkedInIcon} alt="LinkedIn" />
-              </a>
-            </li>
-          </ul>
+        <div className="logo-icons-box">
+          <div className="footer-section logo-section">
+            <a href="#">
+              <img
+                src={LogoImage}
+                alt="MonLogo"
+                className="footer-logo-image"
+              />
+            </a>
+          </div>
+          <div className="footer-section social-media">
+            <h3>Suivez-nous</h3>
+            <ul className="social-icons">
+              <li>
+                <a
+                  href="https://www.facebook.com/forEachAcademy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={FacebookIcon} alt="Facebook" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.tiktok.com/@foreach_academy?_t=8oHqzvp6l9M&_r=1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={TikTokIcon} alt="TicToc" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/foreach_academy?igsh=MW1ieGNmdmdmaWRnNg=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={InstagramIcon} alt="Instagram" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/school/foreach-academy/posts/?feedView=all"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img src={LinkedInIcon} alt="LinkedIn" />
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
         <div className="footer-section contact-info">
-          <h3>Contact</h3>
-          <p>Téléphone : 03 20 74 87 30</p>
-          <p>
-            <a href="https://www.foreach-academy.fr">
-              https://www.foreach-academy.fr
-            </a>
-          </p>
-          <p>393 Rue du Général de Gaulle,</p> 
-          <p>59700 Marcq-en-Barœul</p>
+          <div id="contact-title">
+            <h3>Contact</h3>
+          </div>
+          <div id="contact-details">
+            <p>Téléphone : 03 20 74 87 30</p>
+            <p>
+              <a href="https://www.foreach-academy.fr">
+                https://www.foreach-academy.fr
+              </a>
+            </p>
+            <p>393 Rue du Général de Gaulle 59700 Marcq-en-Barœul</p>
+          </div>
         </div>
         <div className="footer-section more-info">
           <h3>En savoir plus</h3>
