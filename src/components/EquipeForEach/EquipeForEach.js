@@ -16,21 +16,21 @@ const members = [
   {
     photo: florePhoto, 
     name: 'Flore WICART',
-    position: 'Référente ARH',
+    position: 'Conseillère formation',
     email: 'flore.wicart@foreach-academy.fr'
   },
   {
     photo: inesPhoto,
     name: 'Inès HIMOUR',
     position: 'Assistante administrative',
-    email: 'Ines.Himour@foreach-academy.fr'
+    email: 'ines.himour@foreach-academy.fr'
   }
 ];
 
 const EquipeForEach = () => {
   return (
     <div className="equipe-for-each">
-      <h2>Equipe ForEach</h2>
+      <h2>Equipe ForEach Academy</h2>
       <div className="equipe-member-list">
         {members.map((member, index) => (
           <EquipeMember

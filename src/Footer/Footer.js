@@ -68,34 +68,35 @@ function Footer() {
             <h3>Contact</h3>
           </div>
           <div id="contact-details">
-            <p>Téléphone : 03 20 74 87 30</p>
+            <p>03 20 74 87 30</p>
             <p>
               <a href="https://www.foreach-academy.fr">
-                https://www.foreach-academy.fr
+                www.foreach-academy.fr
               </a>
             </p>
             <p>393 Rue du Général de Gaulle 59700 Marcq-en-Barœul</p>
           </div>
         </div>
         <div className="footer-section more-info">
-          <h3>En savoir plus</h3>
-          <ul>
-            <li>
-              <a href="#">Confidentialité</a>
-            </li>
-            <li>
-              <a href="#">Règlement</a>
-            </li>
-            <li>
-              <a href="#">Politique</a>
-            </li>
-          </ul>
-        </div>
-        <div className="footer-section cgu-info">
-          <h3>CGU</h3>
-          <p>
-            <a href="#">Conditions Générales d'Utilisation</a>
-          </p>
+          <div className="footer-section info-title">
+            <h3>En savoir plus</h3>
+          </div>
+          <div className="footer-section info-links">
+            <ul>
+              <li>
+              <a href="#">Conditions Générales d'Utilisation</a>
+              </li>
+              <li>
+                <a href="#">Confidentialité</a>
+              </li>
+              <li>
+                <a href="#">Règlement</a>
+              </li>
+              <li>
+                <a href="#">Politique</a>
+              </li>
+            </ul>
+            </div>
         </div>
       </div>
     </footer>
