@@ -1,5 +1,5 @@
 
-#premiere_ligne_liste{
+#first_line_list{
     margin-top: 7rem;
     margin-bottom: 3rem;
     display: flex;
@@ -29,7 +29,6 @@
 #contener_list{
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
     gap: 1rem;
     text-align: center;
 }
@@ -42,14 +41,16 @@
 .info_user{
     background-color: #108CB7;
     color: white;
-    padding-left: 1rem;
-    padding-right: 1rem;
     border-radius: 6px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     height: 2.5rem;
-    min-width: 15rem;
+    min-width: 13rem;
+}
+.info_user:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 .button_ChangeRole{
     margin-left: 1rem;
@@ -60,7 +61,7 @@
     margin: 0 30px;
     align-items: center;
 }
-.display_flex_block_users{
+.display_column_block_users{
     display: flex;
     flex-direction: column;
     justify-content: space-between;

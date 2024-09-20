@@ -7,17 +7,15 @@
 
 .strategic-info h1 {
   font-size: 2rem; 
-  margin-bottom: 20px; 
+  margin-bottom: 3rem; 
   color: #333; 
-}
-
-.strategic-info h2 {
-  font-size: 1.5rem; 
-  margin-bottom: 15px; 
-  color: #555; 
+  opacity: 0; /* Initialement invisible */
+  animation: fadeIn 3s ease-in forwards; /* Animation pendant 3 secondes */
 }
 
 .strategic-info p {
   font-size: 1rem; 
-  color: #666; 
+  color: #333; 
+  opacity: 0; /* Initialement invisible */
+  animation: fadeIn 5s ease-in forwards; /* Animation pendant 3 secondes */
 }

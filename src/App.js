@@ -8,6 +8,7 @@ import Footer from './Footer/Footer';
 import DataConnexion from './pages/DataConnexion';
 import Login from './pages/Login/Login';
 import UserList from './pages/ListeUtilisateurAddByAdmin/listeUtilisateurAdd';
+import AddUser from './pages/AddUser/AddUser';
 
 import './App.css'; 
 
@@ -25,6 +26,7 @@ function App() {
             <Route path="/login" element={<Login/>} />
             <Route path="/users/:role" element={<DataConnexion />} />
             <Route path='/users' element={<UserList/>} />
+            <Route path='/add' element={<AddUser/>} />
 
           </Routes>
         </main>

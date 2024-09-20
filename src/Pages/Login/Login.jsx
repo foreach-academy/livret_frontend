@@ -68,24 +68,28 @@ const Login = () => {
                     <h2 className='connexion-title'>Connexion</h2>
                     <div className="form-group">
                         <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={handleEmailChange}
-                            required
-                            placeholder="Email" />
-                            <br />
+                          class='input_login'
+                          type="email"
+                          id="email"
+                          value={email}
+                          onChange={handleEmailChange}
+                          required
+                          placeholder="Email" 
+                        />
+                        <br />
                         {emailError && <span className="error">{emailError}</span>}
                     </div>
                     <div className="form-group">
                         <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={handlePasswordChange}
-                            required
-                            placeholder="Mot de passe" />
-                            <br />
+                          class='input_login'
+                          type="password"
+                          id="password"
+                          value={password}
+                          onChange={handlePasswordChange}
+                          required
+                          placeholder="Mot de passe" 
+                        />
+                        <br />
                         {passwordError && <span className="error">{passwordError}</span>}
                         <p className="p-forgot">Mot de passe oublié?</p>
                     </div>
