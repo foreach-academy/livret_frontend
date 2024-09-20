@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import './DataConnexion.css';
+import '../../styles/DataConnexion/DataConnexion.css';
 
 function DataConnexion() {
 const { role } = useParams(); // Récupère le rôle depuis l'URL

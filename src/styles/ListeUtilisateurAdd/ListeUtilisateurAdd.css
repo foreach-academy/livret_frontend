@@ -22,6 +22,10 @@
     cursor: pointer;
     background-color: #d7831d;
 }
+#link_form_add{
+    text-decoration: none;
+    color: white;
+}
 #list_userAndAdd{
     margin-left: 19.5rem;
     margin-right: auto;

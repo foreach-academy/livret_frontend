@@ -1,5 +1,5 @@
 import React from 'react';
-import './FormationCard.css';
+import '../../styles/FormationCard/FormationCard.css';
 
 const FormationCard = ({ title, description, moreInfoLink }) => {
   return (

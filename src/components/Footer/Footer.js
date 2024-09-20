@@ -1,11 +1,11 @@
 import React from "react";
-import "./Footer.css";
+import "../../styles/Footer/Footer.css";
 
-import LogoImage from "../assets/images/ForEach_hor_white.png";
-import FacebookIcon from "../assets/images/icons8-facebook-nouveau-100.png";
-import TikTokIcon from "../assets/images/icons8-tic-tac-100.png";
-import InstagramIcon from "../assets/images/icons8-instagram-100.png";
-import LinkedInIcon from "../assets/images/icons8-linkedin-100-2.png";
+import LogoImage from "../../assets/images/ForEach_hor_white.png";
+import FacebookIcon from "../../assets/images/icons8-facebook-nouveau-100.png";
+import TikTokIcon from "../../assets/images/icons8-tic-tac-100.png";
+import InstagramIcon from "../../assets/images/icons8-instagram-100.png";
+import LinkedInIcon from "../../assets/images/icons8-linkedin-100-2.png";
 
 function Footer() {
   return (

@@ -1,5 +1,5 @@
 import React from 'react';
-import './EquipeMember.css';
+import '../../styles/EquipeMember/EquipeMember.css';
 
 const EquipeMember = ({ photo, name, position, email }) => {
   return (

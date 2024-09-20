@@ -1,6 +1,6 @@
 import React from 'react';
 import EquipeMember from '../EquipeMember/EquipeMember';
-import './EquipeForEach.css'; 
+import '../../styles/EquipeForEach/EquipeForEach.css'; 
 
 import lauryPhoto from '../../assets/images/IMG_2147.jpg';
 import florePhoto from '../../assets/images/Flore-1024x1018.png';

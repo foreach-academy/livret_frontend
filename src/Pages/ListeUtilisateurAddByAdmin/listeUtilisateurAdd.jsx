@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ListeUtilisateurAdd.css'; 
+import '../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css'; 
 import UserServices from '../../Services/UserServices';
 
 const UserList = () => {
@@ -31,7 +31,9 @@ const UserList = () => {
     <>
       <div id="first_line_list">
         <button id="button_addUser" className="button_list">
-          Ajouter un utilisateur
+          <a id='link_form_add' href="/add">
+            Ajouter un utilisateur
+          </a>
         </button>
         <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>
