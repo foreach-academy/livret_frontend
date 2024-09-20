@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../../styles/Login/Login.css';
+import AuthContext from '../../Context/AuthContext';
+import UserServices from '../../Services/UserServices';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [user, setUser] = useState({});
+  const {setIsAuthenticated, setToken} = useContext(AuthContext);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,13 +39,29 @@ const Login = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (validateEmail(email) && validatePassword(password)) {
-      console.log('Email:', email);
-      console.log('Password:', password);
-      // Vous pouvez ajouter la logique de connexion ici
-    }
+        try {
+            const user = { email, password };
+            const response = await UserServices.login(user);
+
+            if (response.data.token) {
+                UserServices.setAxiosToken(response.data.token);
+                window.localStorage.setItem('authToken', response.data.token);
+                setIsAuthenticated(true);
+                setToken(response.data.token);
+                console.log('Connexion réussie');
+            } else {
+                console.error('Erreur : aucun token dans la réponse');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la connexion :', error);
+        }
+    } else {
+        console.error('Validation échouée');
+      }
   };
 
   return (
