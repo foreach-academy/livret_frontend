@@ -2,3 +2,80 @@
     margin-top: 8rem;
     text-align: center;
 }
+#form_add_contener{
+    background-color: #108CB7;
+    border-radius: 6px;
+    max-width: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 5rem;
+    color: white;
+    padding: 5rem 3rem;
+}
+#form_add{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.input_add{
+    width: 20rem;
+    height: 1.8rem;
+    border: none;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-size: 1.05rem;
+}
+.label_add{
+    margin-right: 15rem;
+    font-size: 1.15rem;
+}
+.at_second_label{
+    margin-top: 1rem;
+}
+#surname_label_add{
+    margin-right: 15.8rem;
+}
+#email_label_add{
+    margin-right: 17.5rem;
+}
+#promo_label_add{
+    margin-right: 17rem;
+}
+#role_select_add{
+    margin-right: 5.2rem;
+    width: 15rem;
+    height: 1.8rem;
+    border: none;
+    border-radius: 4px;
+    margin-top: 5px;
+    font-size: 1.02rem;
+}
+#role_label_add{
+    margin-right: 18rem;
+}
+#company_label_add{
+    margin-right: 15.5rem;
+}
+#password_label_add{
+    margin-right: 15.3rem;
+}
+#confirm_label_add{
+    margin-right: 11.2rem;
+    font-size: 1.15rem;
+}
+#button_submit_add_user{
+    background-color: #F6941D;
+    border: none;
+    border-radius: 6px;
+    margin-top: 2rem;
+    color: white;
+    width: 13rem;
+    height: 2.2rem;
+}
+#button_submit_add_user:hover{
+    cursor: pointer;
+    background-color: #d27e17;
+}

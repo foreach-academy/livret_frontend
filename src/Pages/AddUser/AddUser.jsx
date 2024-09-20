@@ -8,15 +8,41 @@ function AddUser() {
         <form id='form_add'>
             <label class="label_add" htmlFor="">First name</label>
 
-            <input class="input_add" type="text" placeholder="Le prenom de l'utilisateur.." />
+            <input class="input_add" type="text"  />
 
-            <label class="label_add" htmlFor="">Surname</label>
+            <label id='surname_label_add' class="label_add at_second_label" htmlFor="">Surname</label>
 
-            <input class="input_add"  type="text" placeholder="Le nom de l'utilisateur.." />
+            <input class="input_add"  type="text"  />
 
-            <label class="label_add" htmlFor="">Email</label>
+            <label id='email_label_add' class="label_add at_second_label" htmlFor="">Email</label>
 
-            <input class="input_add" type="email" placeholder="L'email de l'utilisateur" />
+            <input class="input_add" type="email" />
+
+            <label htmlFor="" id='promo_label_add' class='label_add at_second_label'>Promo</label>
+
+            <input type="text" class="input_add"/>
+
+            <label htmlFor="" id='role_label_add' class="label_add at_second_label">Role</label>
+
+            <select name="role" id="role_select_add">
+              <option value="Apprenant" default>Apprenant</option>
+              <option value="Formateur">Formateur</option>
+              <option value="Admin">Admin</option>
+            </select>
+
+            <label id='company_label_add' class="label_add at_second_label" htmlFor="">Company</label>
+
+            <input class="input_add" type="text" />
+
+            <label id='password_label_add' class="label_add at_second_label" htmlFor="">Password</label>
+
+            <input class="input_add" type="password" />
+
+            <label id='confirm_label_add' class= "at_second_label" htmlFor="">Confirm Password</label>
+
+            <input class="input_add" type="password" />
+
+            <button id='button_submit_add_user' type='submit'>Ajouter l'utilisateur</button>
         </form>
     </div>
   </>
