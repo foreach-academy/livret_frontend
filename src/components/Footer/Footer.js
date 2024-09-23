@@ -11,7 +11,7 @@ function Footer() {
   return (
     <footer id="footer">
       <div className="footer-container">
-        {/* <div className="logo-icons-box">
+        <div className="logo-icons-box footer-section">
             <a href="#">
               <img
                 src={LogoImage}
@@ -37,7 +37,7 @@ function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <img src={TikTokIcon} alt="TicToc" />
+                  <img src={TikTokIcon} alt="Tiktok" />
                 </a>
               </li>
               <li>
@@ -60,7 +60,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-        </div> */}
+        </div>
         <section className="footer-section">
             <h3>Contact</h3>
             <ul>

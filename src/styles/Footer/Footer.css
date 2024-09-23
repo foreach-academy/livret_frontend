@@ -6,35 +6,43 @@ html {
   font-family: Arial, sans-serif;
 }
 
-footer {
+/* fixed footer */
+/* footer {
   position: fixed; 
   bottom: 0;
   left: 0;
   width: 100%;
   background-color: #2a2c42;
   color: white;
-}
+} */
+ footer {
+  background-color: #2a2c42;
+  color: white;
+  margin-top: auto;
+ }
 .footer-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
-  padding: 24px;
+  padding: 16px 40px;
 }
-
+.footer-section {
+  padding : 0 24px;
+  flex: 1;
+  min-width: 200px;
+}
 .footer-section h3 {
   font-size: 1em;
   text-align: center;
-}
-.footer-section {
-
 }
 .footer-section ul {
   padding: 0; /* retirer padding par défaut */
 }
 .footer-section ul li {
   text-align: center;
-  padding: 0 0 6px 0;
+  padding: 0 0 4px 0;
   list-style: none;
 }
 .footer-section a {
@@ -46,10 +54,9 @@ footer {
 }
 
 .footer-logo-image {
-  width: 10vw; 
+  width: 150px; 
   height: auto;
 }
-
 .social-media {
   display: flex;
   flex-direction: column;
@@ -59,8 +66,8 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 32px;
 }
-
 .social-icons {
   display: flex;
   gap: 5px; 
@@ -68,7 +75,6 @@ footer {
   margin: 0;
   list-style: none;
 }
-
 .social-icons img {
   max-width: 1.8rem; 
   height: auto;
@@ -77,15 +83,5 @@ footer {
 @media (max-width: 768px) {
   .footer-container {
     flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-section {
-    text-align: center;
-    margin-bottom: 20px; 
-  }
-
-  .social-icons {
-    grid-template-columns: repeat(2, 1fr); 
   }
 }
