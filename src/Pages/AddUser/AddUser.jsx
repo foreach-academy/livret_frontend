@@ -76,9 +76,9 @@ function AddUser() {
     if (!password) {
         errors.password = 'Le mot de passe est requis';
     } else {
-        const passwordRegex = /^(?=.*[A-Z]).{10,}$/;
+      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{10,}$/;
         if (!passwordRegex.test(password)) {
-            errors.password = 'Le mot de passe doit contenir au moins 10 caractères et une lettre majuscule';
+            errors.password = 'Le mot de passe doit contenir au moins 10 caractères, une lettre majuscule et 1 caratére special';
         }
     }
     

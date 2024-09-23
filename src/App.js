@@ -9,6 +9,8 @@ import DataConnexion from './pages/DataConnexion/DataConnexion';
 import Login from './pages/Login/Login';
 import UserList from './pages/ListeUtilisateurAddByAdmin/listeUtilisateurAdd';
 import AddUser from './pages/AddUser/AddUser';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 import './App.css'; 
 
@@ -33,6 +35,18 @@ function App() {
         <Footer>
           
         </Footer>
+        <ToastContainer
+        position="bottom-right"
+        autoClose={20000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       </div>
 </Router>
   );

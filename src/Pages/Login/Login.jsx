@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import '../../styles/Login/Login.css';
 import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -16,7 +17,7 @@ const Login = () => {
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{10,}$/;
     return passwordRegex.test(password);
   };
 
@@ -32,7 +33,7 @@ const Login = () => {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
     if (!validatePassword(e.target.value)) {
-      setPasswordError('Le champ mot de passe est invalide, il doit contenir au moins 8 caractères avec au moins 1 chiffre et 1 caractère spécial');
+      setPasswordError('Le champ mot de passe est invalide, il doit contenir au moins 10 caractères avec au moins 1 chiffre et 1 caractère spécial');
     } else {
       setPasswordError('');
     }
@@ -52,14 +53,17 @@ const Login = () => {
                 window.localStorage.setItem('authToken', response.data.token);
                 setIsAuthenticated(true);
                 setToken(response.data.token);
-                console.log('Connexion réussie');
+                toast.success('Connexion réussie')
             } else {
+                toast.error('Aucun token fourni')
                 console.error('Erreur : aucun token dans la réponse');
             }
         } catch (error) {
+            toast.error('Adresse email ou Mot de passe invalide');
             console.error('Erreur lors de la connexion :', error);
         }
     } else {
+        toast.error('Validation échouée');
         console.error('Validation échouée');
     }
   };

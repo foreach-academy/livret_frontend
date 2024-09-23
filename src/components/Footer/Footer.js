@@ -12,7 +12,7 @@ function Footer() {
     <footer id="footer">
       <div className="footer-container">
         <div className="logo-icons-box footer-section">
-            <a href="#">
+            <a href="/">
               <img
                 src={LogoImage}
                 alt="Logo Foreach Academy"
