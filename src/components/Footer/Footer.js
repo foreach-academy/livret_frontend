@@ -11,18 +11,16 @@ function Footer() {
   return (
     <footer id="footer">
       <div className="footer-container">
-        <div className="logo-icons-box">
-          {/* <div className="footer-section logo-section"> */}
+        {/* <div className="logo-icons-box">
             <a href="#">
               <img
                 src={LogoImage}
-                alt="MonLogo"
+                alt="Logo Foreach Academy"
                 className="footer-logo-image"
               />
             </a>
-          {/* </div> */}
-          <div className="footer-section social-media">
-            <h3 id="follow_us">Suivez-nous</h3>
+          <div className="social-media">
+            <h3>Suivez-nous</h3>
             <ul className="social-icons">
               <li>
                 <a
@@ -62,29 +60,26 @@ function Footer() {
               </li>
             </ul>
           </div>
-        </div>
-        <div className="footer-section contact-info">
-          <div id="contact-title">
+        </div> */}
+        <section className="footer-section">
             <h3>Contact</h3>
-          </div>
-          <div id="contact-details">
-            <p>03 20 74 87 30</p>
-            <p>
-              <a href="https://www.foreach-academy.fr">
-                www.foreach-academy.fr
-              </a>
-            </p>
-            <p>393 Rue du Général de Gaulle 59700 Marcq-en-Barœul</p>
-          </div>
-        </div>
-        <div className="footer-section more-info">
-          <div className="footer-section info-title">
-            <h3>En savoir plus</h3>
-          </div>
-          <div className="footer-section info-links">
             <ul>
               <li>
-              <a href="#">Conditions Générales d'Utilisation</a>
+                <span>03 20 74 87 30</span>
+              </li>
+              <li>
+                <a href="https://www.foreach-academy.fr">www.foreach-academy.fr</a>
+              </li>
+              <li>
+                <span>393 Rue du Général de Gaulle 59700 Marcq-en-Barœul</span>
+              </li>
+            </ul>
+        </section>
+        <section className="footer-section">
+            <h3>En savoir plus</h3>
+            <ul>
+              <li>
+                <a href="#">Conditions Générales d'Utilisation</a>
               </li>
               <li>
                 <a href="#">Confidentialité</a>
@@ -96,8 +91,7 @@ function Footer() {
                 <a href="#">Politique</a>
               </li>
             </ul>
-            </div>
-        </div>
+        </section>
       </div>
     </footer>
   );
