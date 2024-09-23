@@ -8,8 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [user, setUser] = useState({});
-  const {setIsAuthenticated, setToken} = useContext(AuthContext);
+  const { setIsAuthenticated, setToken } = useContext(AuthContext);
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -46,7 +45,8 @@ const Login = () => {
         try {
             const user = { email, password };
             const response = await UserServices.login(user);
-
+            console.log(user);
+            console.log(response.data.token);
             if (response.data.token) {
                 UserServices.setAxiosToken(response.data.token);
                 window.localStorage.setItem('authToken', response.data.token);
@@ -61,64 +61,63 @@ const Login = () => {
         }
     } else {
         console.error('Validation échouée');
-      }
+    }
   };
 
   return (
     <>
-    <div className="page-title">
-        <h1 >Bienvenue sur votre plateforme de suivi</h1>
-
-    </div>
-        <div className="page-container">
-            <div>
-                <ul className="plateform-list">
-                    <li>Presentation et organisme de formation</li>
-                    <li>La formation & son programme</li>
-                    <li>Vie pratique du stagiaire</li>
-                    <li>La charte de confidentialité</li>
-                    <li>Suivi du stagiare en centre de formation</li>
-                    <li>Suivi du stagiaire en entreprise</li>
-                    <li>Mode d'emploi</li>
-                </ul>
-            </div>
-
-            <div className="login-container">
-                <form onSubmit={handleSubmit} className="login-form">
-                    <h2 className='connexion-title'>Connexion</h2>
-                    <div className="form-group">
-                        <input
-                          class='input_login'
-                          type="email"
-                          id="email"
-                          value={email}
-                          onChange={handleEmailChange}
-                          required
-                          placeholder="Email" 
-                        />
-                        <br />
-                        {emailError && <span className="error">{emailError}</span>}
-                    </div>
-                    <div className="form-group">
-                        <input
-                          class='input_login'
-                          type="password"
-                          id="password"
-                          value={password}
-                          onChange={handlePasswordChange}
-                          required
-                          placeholder="Mot de passe" 
-                        />
-                        <br />
-                        {passwordError && <span className="error">{passwordError}</span>}
-                        <p className="p-forgot">Mot de passe oublié?</p>
-                    </div>
-                    <button id='button_login' type="submit" disabled={!validateEmail(email) || !validatePassword(password)}>
-                        Se connecter
-                    </button>
-                </form>
-            </div>
+      <div className="page-title">
+        <h1>Bienvenue sur votre plateforme de suivi</h1>
+      </div>
+      <div className="page-container">
+        <div>
+          <ul className="plateform-list">
+            <li>Presentation et organisme de formation</li>
+            <li>La formation & son programme</li>
+            <li>Vie pratique du stagiaire</li>
+            <li>La charte de confidentialité</li>
+            <li>Suivi du stagiaire en centre de formation</li>
+            <li>Suivi du stagiaire en entreprise</li>
+            <li>Mode d'emploi</li>
+          </ul>
         </div>
+
+        <div className="login-container">
+          <form onSubmit={handleSubmit} className="login-form">
+            <h2 className='connexion-title'>Connexion</h2>
+            <div className="form-group">
+              <input
+                className='input_login'
+                type="email"
+                id="email"
+                value={email}  
+                onChange={handleEmailChange}
+                required
+                placeholder="Email" 
+              />
+              <br />
+              {emailError && <span className="error">{emailError}</span>}
+            </div>
+            <div className="form-group">
+              <input
+                className='input_login'
+                type="password"
+                id="password"
+                value={password}  
+                onChange={handlePasswordChange}
+                required
+                placeholder="Mot de passe" 
+              />
+              <br />
+              {passwordError && <span className="error">{passwordError}</span>}
+              <p className="p-forgot">Mot de passe oublié?</p>
+            </div>
+            <button id='button_login' type="submit" disabled={!validateEmail(email) || !validatePassword(password)}>
+              Se connecter
+            </button>
+          </form>
+        </div>
+      </div>
     </>
   );
 };
