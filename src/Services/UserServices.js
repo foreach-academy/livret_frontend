@@ -26,20 +26,25 @@ class UserServices{
     }
 
     static setAxiosToken(token) {
-        axios.defaults.headers["Authorization"] = "Bearer " + token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
 
     static setup() {
         const token = window.localStorage.getItem("authToken");
         if (token) {
-          const { exp: expiration } = jwtDecode(token);
-          if (expiration * 1000 > new Date().getTime()) {
-            this.setAxiosToken(token);
-          } else {
-            this.logout();
-          }
+            try {
+                const { exp: expiration } = jwtDecode(token);
+                if (expiration * 1000 > new Date().getTime()) {
+                    this.setAxiosToken(token);
+                } else {
+                    this.logout(); // Token expiré, déconnecter l'utilisateur
+                }
+            } catch (error) {
+                console.error("Erreur lors du décodage du token JWT:", error);
+                this.logout(); // En cas d'erreur de décodage, déconnecter l'utilisateur
+            }
         } else {
-          this.logout();
+            this.logout(); // Aucun token trouvé, déconnecter l'utilisateur
         }
     }
 
