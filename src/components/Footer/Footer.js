@@ -12,7 +12,7 @@ function Footer() {
     <footer id="footer">
       <div className="footer-container">
         <div className="logo-icons-box">
-          <div className="footer-section logo-section">
+          {/* <div className="footer-section logo-section"> */}
             <a href="#">
               <img
                 src={LogoImage}
@@ -20,9 +20,9 @@ function Footer() {
                 className="footer-logo-image"
               />
             </a>
-          </div>
+          {/* </div> */}
           <div className="footer-section social-media">
-            <h3>Suivez-nous</h3>
+            <h3 id="follow_us">Suivez-nous</h3>
             <ul className="social-icons">
               <li>
                 <a

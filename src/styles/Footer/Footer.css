@@ -30,14 +30,13 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  margin: 0 70px;
+  padding: 0 10px;
+  margin: 0 30px;
 }
 
 
 .logo-icons-box {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-width: 400px;
@@ -49,15 +48,15 @@ footer {
   min-width: 150px;
 }
 
-.footer-section.logo-section {
+/* .footer-section.logo-section {
   display: flex;
   justify-content: center; 
   align-items: right;
 
-}
+} */
 
 .footer-logo-image {
-  max-width: 10vw; 
+ width: 10vw; 
   height: auto;
 }
 
@@ -89,9 +88,12 @@ footer {
 
 .footer-section h3 {
   font-size: 1em;
-  padding: 0 20px 0 20px;
+  padding: 0 10px 0 10px;
 }
 
+#follow_us {
+ margin: 0!important;
+}
 .footer-section ul {
   list-style: none;
   padding: 0;
