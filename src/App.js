@@ -38,6 +38,7 @@ function App() {
               <Route path="/login" element={<Login/>} />
               <Route path="/users/:role" element={<DataConnexion />} />
               <Route path="/*" element={<ErrorPage />} />
+              <Route path="/trainee-practical-life" element={<TraineePracticalLife/>} />
               {isAuthenticated && isAdmin && <>
                 <Route path='/users' element={<UserList/>} />
                 <Route path='/add' element={<AddUser/>} />
