@@ -8,7 +8,7 @@ html {
 
 
 header {
-  position: fixed; 
+  position: sticky; 
   top: 0;
   left: 0;
   width: 100%;
@@ -107,4 +107,52 @@ header {
   cursor: pointer;
 }
 
+.dropdown-profil-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 6px;
+}
+.dropdown-profil-button:hover {
+  cursor: pointer;
+  background-color: #32354e;
+} 
+
+.dropdown-profil {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-profil-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 200px;
+  overflow: auto;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  right: 0;
+  z-index: 1;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.dropdown-profil-content-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: black;
+  padding: 8px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+
+.dropdown-profil-content-flex:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+.show {
+  display: block;
+}
 
