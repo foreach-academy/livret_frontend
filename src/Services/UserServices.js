@@ -58,7 +58,6 @@ class UserServices{
         }
     }
 
-    // Vérifier si l'utilisateur est administrateur
     static isAdmin() {
         if (UserServices.isAuthenticated()) {
             const token = window.localStorage.getItem("authToken");

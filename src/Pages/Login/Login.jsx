@@ -4,6 +4,7 @@ import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 
 const Login = () => {
@@ -11,7 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const { setIsAuthenticated, setToken } = useContext(AuthContext);
+  const { setIsAuthenticated, setToken, setIsAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
   const navigateTo = (route) => {
       navigate(route);
@@ -59,6 +60,7 @@ const Login = () => {
                 setIsAuthenticated(true);
                 setToken(token.data.token);
                 navigateTo('/');
+                setIsAdmin(true);
                 toast.success('Connexion réussie');
             } else {
                 toast.error('Aucun token fourni')
