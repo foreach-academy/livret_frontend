@@ -3,6 +3,8 @@ import '../../styles/Login/Login.css';
 import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,6 +12,11 @@ const Login = () => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const { setIsAuthenticated, setToken } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const navigateTo = (route) => {
+      navigate(route);
+      window.scrollTo(0,0);
+  }
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,15 +52,14 @@ const Login = () => {
     if (validateEmail(email) && validatePassword(password)) {
         try {
             const user = { email, password };
-            const response = await UserServices.login(user);
-            console.log(user);
-            console.log(response.data.token);
-            if (response.data.token) {
-                UserServices.setAxiosToken(response.data.token);
-                window.localStorage.setItem('authToken', response.data.token);
+            const token = await UserServices.login(user);
+            if (token.data.token) {
+                UserServices.setAxiosToken(token.data.token);
+                window.localStorage.setItem('authToken', token.data.token);
                 setIsAuthenticated(true);
-                setToken(response.data.token);
-                toast.success('Connexion réussie')
+                setToken(token.data.token);
+                navigateTo('/');
+                toast.success('Connexion réussie');
             } else {
                 toast.error('Aucun token fourni')
                 console.error('Erreur : aucun token dans la réponse');

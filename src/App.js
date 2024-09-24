@@ -21,7 +21,6 @@ function App() {
         <Navbar />
         <main>
           <Routes>       
-             
             <Route path="/" element={<HomePage />} />
             <Route path="/foreach-academy" element={<ForEachAcademy />} />
             <Route path="/formations/:id" element={<FormationDetail />} />
