@@ -52,10 +52,6 @@
     height: 2.5rem;
     min-width: 13rem;
 }
-.info_user:hover{
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-}
 .button_ChangeRole{
     margin-left: 1rem;
 }
