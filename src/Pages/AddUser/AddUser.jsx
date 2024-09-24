@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/AddUser/AddUser.css';
 import UserServices from '../../Services/UserServices';
 import RoleServices from '../../Services/RoleServices';
+import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 function AddUser() {
   // États pour les champs du formulaire
@@ -13,6 +15,11 @@ function AddUser() {
   const [company, setCompany] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
+  const navigateTo = (route) => {
+      navigate(route);
+      window.scrollTo(0,0);
+  }
 
   // État pour les rôles
   const [roles, setRoles] = useState([]);
@@ -56,8 +63,11 @@ function AddUser() {
       };
       const response = await UserServices.addUser(user);
       console.log('Utilisateur ajouté avec succès:', response.data);
+      toast.success("Inscription Réussie");
+      navigateTo('/login');
       resetForm();
     } catch (error) {
+      toast.error('Une erreur et survenue');
       console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
     }
   };
@@ -152,9 +162,8 @@ function AddUser() {
             value={roleId}
             onChange={(e) => setRoleId(e.target.value)}
           >
-            <option value="1">Apprenant</option> {/* Option par défaut */}
             {roles.map((role) => (
-              role.id !== 1 && (
+              role.id  && (
                 <option key={role.id} value={role.id}>{role.name}</option>
               )
             ))}
