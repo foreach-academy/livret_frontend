@@ -5,7 +5,7 @@ import RoleServices from '../../Services/RoleServices';
 
 function AddUser() {
   // États pour les champs du formulaire
-  const [firstName, setFirstName] = useState('');
+  const [first_name, setFirst_name] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [promo, setPromo] = useState('');
@@ -46,7 +46,7 @@ function AddUser() {
 
     try {
       const user = { 
-        firstName, 
+        first_name, 
         surname, 
         email, 
         promo, 
@@ -65,7 +65,7 @@ function AddUser() {
   // Fonction pour valider les champs du formulaire
   const validateForm = () => {
     const errors = {};
-    if (!firstName) errors.firstName = 'Le prénom est requis';
+    if (!first_name) errors.firstName = 'Le prénom est requis';
     if (!surname) errors.surname = 'Le nom est requis';
     if (!email) errors.email = 'L\'email est requis';
     if (!promo) errors.promo = 'La promotion est requise';
@@ -89,7 +89,7 @@ function AddUser() {
 
   // Fonction pour réinitialiser les champs du formulaire
   const resetForm = () => {
-    setFirstName('');
+    setFirst_name('');
     setSurname('');
     setEmail('');
     setPromo('');
@@ -105,17 +105,17 @@ function AddUser() {
       <h1 class="title_Pages">Ajouter un utilisateur</h1>
       <div id='form_add_contener'>
         <form id='form_add' onSubmit={handleSubmit}>
-          <label class="label_add" htmlFor="firstName">First name</label>
+          <label class="label_add" htmlFor="firstName">Prénom</label>
           <input
             class="input_add"
             type="text"
             id="firstName"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
+            value={first_name}
+            onChange={(e) => setFirst_name(e.target.value)}
           />
-          {errors.firstName && <span class="error">{errors.firstName}</span>}
+          {errors.firstName && <span class="error">{errors.first_name}</span>}
 
-          <label id='surname_label_add' class="label_add at_second_label" htmlFor="surname">Surname</label>
+          <label id='surname_label_add' class="label_add at_second_label" htmlFor="surname">Nom</label>
           <input
             class="input_add"
             type="text"
@@ -161,7 +161,7 @@ function AddUser() {
           </select>
           {errors.role && <span className="error">{errors.role}</span>}
 
-          <label id='company_label_add' class="label_add at_second_label" htmlFor="company">Company</label>
+          <label id='company_label_add' class="label_add at_second_label" htmlFor="company">Entreprise</label>
           <input
             class="input_add"
             type="text"
@@ -180,7 +180,6 @@ function AddUser() {
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && <span class="error">{errors.password}</span>}
-
           <label id='confirm_label_add' class="label_add at_second_label" htmlFor="confirmPassword">Confirm Password</label>
           <input
             class="input_add"
