@@ -11,6 +11,7 @@ import UserList from './pages/ListeUtilisateurAddByAdmin/listeUtilisateurAdd';
 import AddUser from './pages/AddUser/AddUser';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import TraineePracticalLife from './pages/TraineePracticalLife/TraineePracticalLife';
 
 import './App.css'; 
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/users/:role" element={<DataConnexion />} />
             <Route path='/users' element={<UserList/>} />
             <Route path='/add' element={<AddUser/>} />
+            <Route path="/trainee-practical-life" element={<TraineePracticalLife/>} />
 
           </Routes>
         </main>
