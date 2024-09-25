@@ -6,10 +6,7 @@ import two_men_laptops from'../../assets/images/two_men_laptops.png';
 
 const TraineePracticalLife = () => {
     return <>
-<<<<<<< HEAD
     <div className='practical_life_section'>
-=======
->>>>>>> f07b03319ce73514a2f522e349b5a1598eabf09a
         <div id='practical_life_container'>
             <div id='practical_life_title'>
                 <h1>Vie pratique du stagiaire</h1>
