@@ -6,7 +6,10 @@ import two_men_laptops from'../../assets/images/two_men_laptops.png';
 
 const TraineePracticalLife = () => {
     return <>
+<<<<<<< HEAD
     <div className='practical_life_section'>
+=======
+>>>>>>> f07b03319ce73514a2f522e349b5a1598eabf09a
         <div id='practical_life_container'>
             <div id='practical_life_title'>
                 <h1>Vie pratique du stagiaire</h1>
@@ -43,16 +46,29 @@ const TraineePracticalLife = () => {
                 <li>L’organisme de formation peut, s’il l’estime nécessaire, ne pas autoriser la remise de l'attestation 
                     de formation. Cela peut être le cas si le stagiaire a été renvoyé temporairement, n'a pas été assidu 
                     ou a récidivé après des sanctions initiales (ex : absences fréquentes au cours des demi-journées, 
-                    non-respect des horaires, non participation aux exercices de groupe…).
+                    non-respect des horaires, non participation aux exercices de groupe…).
                 </li>
             </ul>   
         </div>
         <div>
-            <div>
-                <img src={two_men_laptops} alt="deux ordinateurs portables avec personnes qui travaillent" />
-            </div>
-            <div></div>
+            <ul>
+                <li>Pour toutes les formations, une évaluation des acquis est effectuée régulièrement.</li>
+                <li>Chaque formateur organise ses évaluations et en informe les stagiaires.</li>
+                <li>Il peut s’agir :</li>
+            </ul>
+            <ul>
+                <li>D’un entretien individuel mené avec chacun des stagiaires quant à leur positionnement 
+                    dans le contexte de la formation (compétences à développer, adéquation du stagiaire 
+                    en regard du métier visé via la formation,etc).</li>
+                <li>D’évaluations formelles régulières individuelles ou collectives</li>
+            </ul>
+            <ul>
+                <li>Un bilan global est établi par le formateur en fin de session de formation et permet 
+                    entre autres de vérifier si les objectifs pédagogiques ont été atteints et si la 
+                    formation est validée en termes d’acquisition de compétences.</li>
+            </ul>
         </div>
+<<<<<<< HEAD
     </div>
 </>
     }
@@ -62,4 +78,9 @@ const TraineePracticalLife = () => {
 
 export default TraineePracticalLife;
 
+=======
+>>>>>>> f07b03319ce73514a2f522e349b5a1598eabf09a
 
+</>
+}
+ export default TraineePracticalLife;
