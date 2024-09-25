@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
-
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -31,48 +30,55 @@ const Login = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    if (!validateEmail(e.target.value)) {
-      setEmailError("L'email saisi est invalide");
-    } else {
-      setEmailError('');
-    }
+    // Réinitialiser l'erreur lors de la modification de l'email
+    setEmailError('');
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    if (!validatePassword(e.target.value)) {
-      setPasswordError('Le champ mot de passe est invalide, il doit contenir au moins 10 caractères avec au moins 1 chiffre et 1 caractère spécial');
-    } else {
-      setPasswordError('');
-    }
+    // Réinitialiser l'erreur lors de la modification du mot de passe
+    setPasswordError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (validateEmail(email) && validatePassword(password)) {
-        try {
-            const user = { email, password };
-            const token = await UserServices.login(user);
-            if (token.data.token) {
-                UserServices.setAxiosToken(token.data.token);
-                window.localStorage.setItem('authToken', token.data.token);
-                setIsAuthenticated(true);
-                setToken(token.data.token);
-                navigateTo('/');
-                setIsAdmin(true);
-                toast.success('Connexion réussie');
-            } else {
-                toast.error('Aucun token fourni')
-                console.error('Erreur : aucun token dans la réponse');
-            }
-        } catch (error) {
-            toast.error('Adresse email ou Mot de passe invalide');
-            console.error('Erreur lors de la connexion :', error);
-        }
-    } else {
-        toast.error('Validation échouée');
-        console.error('Validation échouée');
+    let isValid = true;
+
+    // Validation de l'email
+    if (!validateEmail(email)) {
+      setEmailError("L'email saisi est invalide");
+      isValid = false;
+    }
+
+    // Validation du mot de passe
+    if (!validatePassword(password)) {
+      setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
+      isValid = false;
+    }
+
+    if (!isValid) {
+      return; // Si la validation échoue, ne pas soumettre le formulaire
+    }
+
+    try {
+      const user = { email, password };
+      const token = await UserServices.login(user);
+      if (token.data.token) {
+        UserServices.setAxiosToken(token.data.token);
+        window.localStorage.setItem('authToken', token.data.token);
+        setIsAuthenticated(true);
+        setToken(token.data.token);
+        navigateTo('/');
+        setIsAdmin(true);
+        toast.success('Connexion réussie');
+      } else {
+        toast.error('Aucun token fourni');
+        console.error('Erreur : aucun token dans la réponse');
+      }
+    } catch (error) {
+      toast.error('Adresse email ou Mot de passe invalide');
+      console.error('Erreur lors de la connexion :', error);
     }
   };
 
@@ -102,10 +108,10 @@ const Login = () => {
                 className='input_login'
                 type="email"
                 id="email"
-                value={email}  
+                value={email}
                 onChange={handleEmailChange}
                 required
-                placeholder="Email" 
+                placeholder="Email"
               />
               <br />
               {emailError && <span className="error">{emailError}</span>}
@@ -115,16 +121,16 @@ const Login = () => {
                 className='input_login'
                 type="password"
                 id="password"
-                value={password}  
+                value={password}
                 onChange={handlePasswordChange}
                 required
-                placeholder="Mot de passe" 
+                placeholder="Mot de passe"
               />
               <br />
               {passwordError && <span className="error">{passwordError}</span>}
               <p className="p-forgot">Mot de passe oublié?</p>
             </div>
-            <button id='button_login' type="submit" disabled={!validateEmail(email) || !validatePassword(password)}>
+            <button id='button_login' type="submit">
               Se connecter
             </button>
           </form>

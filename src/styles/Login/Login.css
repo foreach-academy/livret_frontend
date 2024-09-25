@@ -49,8 +49,8 @@ body {
   }
   
   .error {
-    color: red;
-    font-size: xx-small;
+    color: red !important;
+    font-size: 10px !important;
   }
   
   #button_login {
