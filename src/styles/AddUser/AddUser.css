@@ -5,7 +5,7 @@
 #form_add_contener{
     background-color: #108CB7;
     border-radius: 6px;
-    max-width: 25rem;
+    max-width: 500px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,6 +13,9 @@
     margin-top: 5rem;
     color: white;
     padding: 5rem 3rem;
+}
+#form_add_contener .primary-button {
+    margin-top: 24px;
 }
 #form_add{
     display: flex;
@@ -69,16 +72,12 @@
     margin-right: 11.2rem;
     font-size: 1.15rem;
 }
-#button_submit_add_user{
-    background-color: #F6941D;
-    border: none;
-    border-radius: 6px;
-    margin-top: 2rem;
-    color: white;
-    width: 13rem;
-    height: 2.2rem;
-}
-#button_submit_add_user:hover{
-    cursor: pointer;
-    background-color: #d27e17;
+
+@media screen and (max-width: 992px) {
+    #form_add_contener {
+        width: 74%;
+    }
+    .input_add {
+        width: 100%;
+    }
 }

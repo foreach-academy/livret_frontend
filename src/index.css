@@ -1,3 +1,8 @@
+:root {
+  --primary-color: #f39c12;
+  --secondary-color: #292c42;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -16,18 +21,26 @@ main {
   margin-bottom: 50px;
 }
 .primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   border: none;
   border-radius: 6px;
   padding: 10px 20px;
   color: white;
   font-size: 16px;
-  background-color : #f6941d;
+  background-color : var(--primary-color);
+  text-decoration: none;
 }
 
 .primary-button:hover{
 cursor: pointer;
 background-color: #d7831d;
 }
+.primary-button-lg {
+  width: 100%;
+} 
 
 /* The Modal (background) */
 .modal {

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css'; 
 import UserServices from '../../Services/UserServices';
 import RoleServices from '../../Services/RoleServices';
@@ -9,6 +10,12 @@ const UserList = () => {
   const [roleId, setRoleId] = useState(''); // État pour gérer le rôle sélectionné
   const [selectedUser, setSelectedUser] = useState(null); // État pour stocker l'utilisateur sélectionné
   const [roles, setRoles] = useState([]); // État pour stocker les rôles disponibles
+  const navigate = useNavigate();
+
+  const navigateTo = (route) => {
+    navigate(route);
+    window.scrollTo(0, 0);
+  };
 
   // Fonction pour récupérer tous les utilisateurs
   const fetchAllUsers = async () => {
@@ -45,7 +52,7 @@ const UserList = () => {
   // Fermer la modale en cliquant à l'extérieur
   const handleClickOutside = (event) => {
     if (event.target.id === 'myModal') {
-      setIsModalOpen(false);
+      closeModal(); // Utiliser closeModal pour éviter de dupliquer le code
     }
   };
 
@@ -54,7 +61,7 @@ const UserList = () => {
     try {
       if (selectedUser) {
         await UserServices.UpdateUser(selectedUser.id, roleId); // Assurez-vous d'avoir une méthode pour mettre à jour le rôle
-        console.log("mise a jour reussie")
+        console.log("Mise à jour réussie");
         fetchAllUsers(); // Recharger la liste des utilisateurs
         closeModal(); // Fermer la modale après mise à jour
       }
@@ -80,11 +87,12 @@ const UserList = () => {
   return (
     <>
       <div id="first_line_list">
-        <button id="button_addUser" className="button_list">
-          <a id='link_form_add' href="/add">
-            Ajouter un utilisateur
-          </a>
-        </button>
+        <div>
+          <button className="primary-button" onClick={() => { navigateTo('/add') }}>
+            <span className="material-icons-outlined">add_circle_outline</span>
+            <span>Ajouter un utilisateur</span>
+          </button>
+        </div>
         <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>
       <div id="contener_list">

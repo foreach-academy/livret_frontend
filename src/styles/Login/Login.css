@@ -8,27 +8,31 @@ body {
     padding: 30px;
   }
 
-  .page-container{
+  .page-container {
+    max-width: 70%;
+    margin: auto;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
   }
-
-  .login-container {
-    width: 40%;
-    padding: 20px;
- 
+  .page-container > * {
+    flex: 1;
   }
   
   .login-form {
     text-align: center;
-    background: #292C42;
+    background: var(--secondary-color);
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px #292C42;
-    width: 100%;
-    height: 70%;
+    box-shadow: 0 0 10px var(--secondary-color);
     max-width: 400px;
+    margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .plateform-list ul {
+    width: 70%;
+    margin: auto;
   }
   
 .connexion-title{
@@ -56,7 +60,7 @@ body {
   #button_login {
     width: 40%;
     padding: 10px;
-    background-color: #ED7F10;
+    background-color: var(--primary-color);
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -64,8 +68,9 @@ body {
   }
   
   button:disabled {
-    background-color: #ccc;
-    padding: 10px;
+    color : black;
+    opacity: 60%;
+    cursor: default !important;
   }
 
   
@@ -77,3 +82,23 @@ body {
     cursor: pointer;
   }
 
+  @media screen and (max-width: 1200px) {
+    .page-container {
+      max-width: 90%;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .page-container {
+      flex-direction: column-reverse;
+    }
+    .page-container > * {
+      width: 100%;
+    }
+    .input_login {
+      width: 100%;
+      padding: 16px;
+    }
+    #button_login {
+      width: 100%;
+    }
+  }
