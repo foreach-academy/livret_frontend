@@ -13,13 +13,13 @@
     height: auto;
     display: block;  
 }
-h2 {
+.practical_life_section h2 {
     margin-top: 50px;
     margin-left: 70px;
 }
-ul {
+.practical_life_section ul {
     padding: 0 70px;
 }
-li {
-   list-style: none; 
+.practical_life_section li {
+    list-style: none; 
 }

@@ -6,7 +6,7 @@ import two_men_laptops from'../../assets/images/two_men_laptops.png';
 
 const TraineePracticalLife = () => {
     return <>
-
+    <div className='practical_life_section'>
         <div id='practical_life_container'>
             <div id='practical_life_title'>
                 <h1>Vie pratique du stagiaire</h1>
@@ -53,6 +53,7 @@ const TraineePracticalLife = () => {
             </div>
             <div></div>
         </div>
+    </div>
 </>
     }
 
