@@ -37,10 +37,12 @@ const UserList = () => {
   return (
     <>
       <div id="first_line_list">
-        <button className="primary-button" onClick={() => {navigateTo('/add')}}>
-            <span class="material-icons-outlined">add_circle_outline</span>
-            <span>Ajouter un utilisateur</span>
-        </button>
+        <div>
+          <button className="primary-button" onClick={() => {navigateTo('/add')}}>
+              <span class="material-icons-outlined">add_circle_outline</span>
+              <span>Ajouter un utilisateur</span>
+          </button>
+        </div>
         <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>
       <div id="contener_list">

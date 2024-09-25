@@ -1,13 +1,20 @@
 
 #first_line_list{
-    margin-top: 7rem;
-    margin-bottom: 3rem;
+    margin: 4rem auto;
+    max-width: 70%;
     display: flex;
-    justify-content: center; 
+    justify-content: flex-start; 
     align-items: center;
+    gap: 24px;
+}
+#first_line_list div:first-child{
+    flex:2;
+}
+#list_userAndAdd {
+    flex:3;
 }
 .button_list{
-    background-color: #F6941D;
+    background-color: var(--primary-color);
     border: none;
     border-radius: 6px;
     color: white;
@@ -16,7 +23,7 @@
 }
 .button_list:hover{
     cursor: pointer;
-    background-color: #d7831d;
+    background-color: var(--primary-color);
 }
 #link_form_add{
     text-decoration: none;
@@ -25,6 +32,7 @@
 #contener_list{
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     gap: 1rem;
     text-align: center;
 }
@@ -61,4 +69,12 @@
 }
 .title_user_list{
     margin-bottom: 3rem;
+}
+@media screen and (max-width: 992px) {
+    #first_line_list {
+        flex-direction: column-reverse;
+    }
+    .list_userAndAdd {
+        text-align: center;
+    }
 }

@@ -199,7 +199,7 @@ function AddUser() {
           />
           {errors.confirmPassword && <span class="error">{errors.confirmPassword}</span>}
 
-          <button id='button_submit_add_user' type='submit'>Ajouter l'utilisateur</button>
+          <button className='primary-button primary-button-lg ' type='submit'>Ajouter l'utilisateur</button>
         </form>
       </div>
     </>

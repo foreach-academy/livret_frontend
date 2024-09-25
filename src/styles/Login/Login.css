@@ -27,6 +27,12 @@ body {
     box-shadow: 0 0 10px var(--secondary-color);
     max-width: 400px;
     margin-bottom: 24px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .plateform-list ul {
+    width: 70%;
+    margin: auto;
   }
   
 .connexion-title{

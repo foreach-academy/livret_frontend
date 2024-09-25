@@ -82,8 +82,8 @@ const Login = () => {
         <h1>Bienvenue sur votre plateforme de suivi</h1>
       </div>
       <div className="page-container">
-        <div>
-          <ul className="plateform-list">
+        <div className="plateform-list">
+          <ul>
             <li>Presentation et organisme de formation</li>
             <li>La formation & son programme</li>
             <li>Vie pratique du stagiaire</li>
