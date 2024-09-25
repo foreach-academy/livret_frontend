@@ -72,7 +72,7 @@ body {
   .p-forgot{
     color: whitesmoke;
     text-decoration: underline;
-    margin-top: 0px;
+    margin-top: 0.6rem;
     font-size: x-small;
     cursor: pointer;
   }
