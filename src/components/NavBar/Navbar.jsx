@@ -9,7 +9,11 @@ import { useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const {isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken} = useContext(AuthContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
+  const navigate = useNavigate();
+  const navigateTo = (route) => {
+      navigate(route);
+      window.scrollTo(0,0);
+  }
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -35,6 +39,7 @@ const Navbar = () => {
     setIsAdmin(false);
     setToken(null);
     UserServices.logout();
+    navigateTo('/')
     toast.success("Vous êtes déconnecté")
   }
 

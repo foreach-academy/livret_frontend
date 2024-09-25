@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css'; 
 import UserServices from '../../Services/UserServices';
+import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
+  const navigateTo = (route) => {
+      navigate(route);
+      window.scrollTo(0,0);
+  }
 
   // Fonction pour récupérer tous les utilisateurs
   const fetchAllUsers = async () => {
@@ -31,10 +37,9 @@ const UserList = () => {
   return (
     <>
       <div id="first_line_list">
-        <button id="button_addUser" className="button_list">
-          <a id='link_form_add' href="/add">
-            Ajouter un utilisateur
-          </a>
+        <button className="primary-button" onClick={() => {navigateTo('/add')}}>
+            <span class="material-icons-outlined">add_circle_outline</span>
+            <span>Ajouter un utilisateur</span>
         </button>
         <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>

@@ -3,12 +3,8 @@
     margin-top: 7rem;
     margin-bottom: 3rem;
     display: flex;
-    margin-right: 19rem;
     justify-content: center; 
     align-items: center;
-}
-#button_addUser{
-    margin-left: 7rem;
 }
 .button_list{
     background-color: #F6941D;
@@ -25,10 +21,6 @@
 #link_form_add{
     text-decoration: none;
     color: white;
-}
-#list_userAndAdd{
-    margin-left: 19.5rem;
-    margin-right: auto;
 }
 #contener_list{
     display: flex;

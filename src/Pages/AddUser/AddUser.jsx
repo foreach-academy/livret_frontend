@@ -63,6 +63,7 @@ function AddUser() {
       };
       const response = await UserServices.addUser(user);
       console.log('Utilisateur ajouté avec succès:', response.data);
+      navigateTo('/users')
       toast.success("Utilisateur ajouté avec succès");
       resetForm();
     } catch (error) {
