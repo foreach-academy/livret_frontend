@@ -21,8 +21,8 @@ class UserServices{
     static getUserByRole(roleName){
         return axios.get(`${URL}/users/role/${roleName}`);
     }
-    static UpdateUser(id){
-        return axios.patch(`${URL}/users/update/`+id)
+    static UpdateUser(id, roleId){
+        return axios.patch(`${URL}/users/update/${id}`, { role_id: roleId })
     }
 
     static login (user){

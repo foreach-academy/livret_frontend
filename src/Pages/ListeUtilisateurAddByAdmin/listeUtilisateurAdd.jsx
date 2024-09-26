@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import '../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css'; 
 import UserServices from '../../Services/UserServices';
 import RoleServices from '../../Services/RoleServices';
+import {toast} from 'react-toastify';
+
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false); // État pour gérer la modale
-  const [roleId, setRoleId] = useState(''); // État pour gérer le rôle sélectionné
+  const [newRoleId, setNewRoleId] = useState(''); // État pour gérer le rôle sélectionné
   const [selectedUser, setSelectedUser] = useState(null); // État pour stocker l'utilisateur sélectionné
   const [roles, setRoles] = useState([]); // État pour stocker les rôles disponibles
   const navigate = useNavigate();
@@ -39,10 +41,15 @@ const UserList = () => {
 
   // Fonction pour ouvrir la modale
   const openModal = (user) => {
-    setSelectedUser(user); // Stocke l'utilisateur dont le rôle sera modifié
-    setRoleId(user.role.id); // Prend le rôle actuel de l'utilisateur
+    setSelectedUser(Number(user.id)); // Stocke l'utilisateur dont le rôle sera modifié
     setIsModalOpen(true);
   };
+
+  const handleRoleIdChange = (event) => {
+    const selectedRoleId = Number(event.target.value);
+    setNewRoleId(selectedRoleId);
+  };
+  
 
   // Fonction pour fermer la modale
   const closeModal = () => {
@@ -59,12 +66,10 @@ const UserList = () => {
   // Fonction pour mettre à jour le rôle de l'utilisateur
   const updateUserRole = async () => {
     try {
-      if (selectedUser) {
-        await UserServices.UpdateUser(selectedUser.id, roleId); // Assurez-vous d'avoir une méthode pour mettre à jour le rôle
-        console.log("Mise à jour réussie");
-        fetchAllUsers(); // Recharger la liste des utilisateurs
-        closeModal(); // Fermer la modale après mise à jour
-      }
+      await UserServices.UpdateUser(selectedUser, newRoleId);
+      toast.success('Modifications enregistrées');
+      fetchAllUsers();
+      closeModal();
     } catch (error) {
       console.error('Erreur lors de la mise à jour du rôle:', error.response ? error.response.data : error.message);
     }
@@ -72,8 +77,6 @@ const UserList = () => {
 
   useEffect(() => {
     UserServices.checkToken();
-    const isAdmin = UserServices.isAdmin();
-    console.log("L'utilisateur est administrateur :", isAdmin); 
     fetchAllUsers();
     fetchRoles(); // Récupération des rôles disponibles
 
@@ -140,18 +143,12 @@ const UserList = () => {
               </div>
               <div className="modal-body">
                 <label id='label_changeRole' htmlFor="role">Nouveau rôle</label>
-                <select
-                  name="role"
-                  id="role_select_changeRole"
-                  value={roleId}
-                  onChange={(e) => setRoleId(e.target.value)}
-                >
+                <select name="role" id="role_select_changeRole" value={newRoleId} onChange={handleRoleIdChange}>
                   {roles.map((role) => (
-                    role.id && (
-                      <option key={role.id} value={role.id}>{role.name}</option>
-                    )
+                    <option key={role.id} value={role.id}>{role.name}</option>
                   ))}
                 </select>
+
               </div>
               <div className="modal-footer">
                 <button id='button_form_changeRole' onClick={updateUserRole} className='button_ChangeRole button_list'>Valider</button>
