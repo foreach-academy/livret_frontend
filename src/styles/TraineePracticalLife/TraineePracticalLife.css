@@ -21,4 +21,41 @@
 }
 .practical_life_section li {
     list-style: none; 
+
+}
+
+#practical_life_laptops_container{
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    background-color: #2a2c42;
+    color: white;
+    margin: 30px 70px 30px 70px;
+    border-radius: 10px;
+
+}
+
+#two_men_laptops{
+    width: auto;
+    height: 400px;
+    display: block;
+    margin: 40px;
+    border-radius: 10px;
+}
+.practical_life_evaluation {
+    margin-top: 40px;
+    justify-content: center;
+
+}
+
+.practical_life_list_style {
+    list-style: disc !important;
+    margin: 15px auto;
+    list-style-position: inside !important;
+}
+
+#practical_life_laptops_container li {
+    line-height: 1.5;
+
 }
