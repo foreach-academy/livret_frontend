@@ -68,7 +68,7 @@ const TraineePracticalLife = () => {
         </div>
         <div id="practical_life_laptops_container">
           <div>
-          <img
+            <img
               src={two_men_laptops}
               id="two_men_laptops"
               alt="Deux pc portables sur une table avec deux personnes qui travaillent"
@@ -108,26 +108,105 @@ const TraineePracticalLife = () => {
           </div>
         </div>
         <div>
-            <h2>Le stagiaire</h2>
+          <h2>Le stagiaire</h2>
         </div>
         <div>
-            <ul>
-                <li>Le stagiaire s’engage à détenir les prérequis minimaux tels que stipulés 
-                dans le descriptif détaillé de la formation suivie.</li>
-                <li>Le stagiaire doit prendre connaissance du règlement intérieur et s’y conformer.</li>
+          <ul>
+            <li>
+              Le stagiaire s’engage à détenir les prérequis minimaux tels que
+              stipulés dans le descriptif détaillé de la formation suivie.
+            </li>
+            <li>
+              Le stagiaire doit prendre connaissance du règlement intérieur et
+              s’y conformer.
+            </li>
+          </ul>
+          <ul>
+            Chaque stagiaire est tenu au respect des règles de vie en
+            collectivité, notamment sur le respect :
+            <li class="practical_life_list_style">
+              De la personne : stagiaires, enseignants, toute personne amenée à
+              intervenir dans le cadre de la formation
+            </li>
+            <li class="practical_life_list_style">
+              des règles d’hygiène et civilité
+            </li>
+            <li class="practical_life_list_style">
+              des matériels, locaux et mobiliers
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Le stagiaire est acteur de sa formation. La richesse de celle-ci
+              dépendra de son engagement propre, de son investissement et de sa
+              curiosité.
+            </li>
+            <li>
+              Chaque stagiaire doit veiller à sa sécurité personnelle et à celle
+              des autres en respectant les consignes générales et particulières
+              de sécurité et d’hygiène en vigueur sur le lieu de formation.
+            </li>
+            <li>
+              Tout accident ou incident survenu à l'occasion ou en cours de
+              formation doit être immédiatement déclaré par le stagiaire
+              accidenté ou les personnes témoins de l'accident au responsable de
+              la formation ou à son représentant.
+            </li>
+            <li>
+              Les stagiaires ne devront en aucun cas introduire des produits
+              illicites sur le lieu de formation.
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Charte de confidentialité</h2>
+        </div>
+        <div>
+          <ul>
+            <li>
+              Dans le cadre de son activité d’organisme de formation, FOREACH
+              ACADEMY est amené à traiter des informations vous concernant, dont
+              certaines sont de nature à vous identifier (« données personnelles
+              »), par le biais de formulaires de contact sur le site
+              http://www.foreach-academy.fr, documents d’ordre administratif ou
+              contractuel, et de nos échanges par courrier, courrier ou
+              téléphone.
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Vos informations personnelles nous permettent notamment de traiter
+              vos demandes, d’assurer nos prestations de formation et
+              d’améliorer la qualité de nos services. Elles servent aussi à
+              mieux vous connaitre pour vous proposer des contenus et des
+              formations personnalisées, adaptés à vos besoins. FOREACH ACADEMY
+              s’engage à ce que la collecte et le traitement de vos données
+              soient conformes au Règlement général sur la protection des
+              données (RGPD) et à la loi informatique et libertés du 6 janvier
+              1978 modifiée, en matière de protection des données.
+            </li>
             </ul>
             <ul>
-        Chaque stagiaire est tenu au respect des règles de vie en collectivité, notamment sur le respect :
-        <li class="practical_life_list_style">De la personne : stagiaires, enseignants, toute personne amenée à intervenir dans le cadre de la formation</li>
-        <li class="practical_life_list_style">des règles d’hygiène et civilité</li>
-        <li class="practical_life_list_style">des matériels, locaux et mobiliers</li>
-        </ul>
-        <ul>
-        <li>Le stagiaire est acteur de sa formation. La richesse de celle-ci dépendra de son engagement propre, de son investissement et de sa curiosité.</li>
-        <li>Chaque stagiaire doit veiller à sa sécurité personnelle et à celle des autres en respectant les consignes générales et particulières de sécurité et d’hygiène en vigueur sur le lieu de formation.</li>
-        <li>Tout accident ou incident survenu à l'occasion ou en cours de formation doit être immédiatement déclaré par le stagiaire accidenté ou les personnes témoins de l'accident au responsable de la formation ou à son représentant.</li>
-        <li>Les stagiaires ne devront en aucun cas introduire des produits illicites sur le lieu de formation.</li>
-        </ul>
+              <li>
+                Afin de garantir le meilleur niveau de protection de vos
+                informations, la présente charte de confidentialité vous informe
+                de la manière dont nous recueillons et traitons vos données
+                personnelles. Nous vous invitons à la lire
+                attentivement.Nous nous réservons le droit de modifier la
+                présente charte de confidentialité à tout moment. Vous en serez
+                alors informés.
+              </li>
+            </ul>
+            <ul>
+                <li>1 - Pour quelles finalités ulisons-nous vos données ?</li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+         
         </div>
       </div>
     );

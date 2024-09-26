@@ -1,3 +1,8 @@
+.practical_life_section {
+    font-size: 1.2em;
+    line-height: 1.6em;
+}
+
 #practical_life_container {
     display: flex;
     flex-direction: row;
@@ -31,14 +36,14 @@
     flex-direction: row;
     background-color: #2a2c42;
     color: white;
-    margin: 30px 70px 30px 70px;
+    margin: 30px;
     border-radius: 10px;
 
 }
 
 #two_men_laptops{
     width: auto;
-    height: 400px;
+    height: 500px;
     display: block;
     margin: 40px;
     border-radius: 10px;
