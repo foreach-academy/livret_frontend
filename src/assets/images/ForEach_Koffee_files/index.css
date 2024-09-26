@@ -1,0 +1,290 @@
+@font-face {
+  font-family: BabyCoffee;
+  src: url(./assets/fonts/Baby_Coffee.woff);
+}
+
+@font-face {
+  font-family: Monserrat;
+  src: url(./assets/fonts/Montserrat.ttf);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Monserrat;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* Header */
+
+h1 {
+  font-family: BabyCoffee;
+  font-size: 45px;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #7d0d23;
+  color: white;
+  padding: 10px;
+
+  border-bottom: 2px solid #500313;
+}
+
+#links_header {
+  display: flex;
+  align-items: center;
+}
+
+#links_header ul {
+  display: flex;
+  align-items: center;
+}
+
+#links_header ul li {
+  margin: 5px;
+}
+
+.anchor_link:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.icon_container:hover {
+  transform: scale(1.5);
+  cursor: pointer;
+}
+
+.divider {
+  height: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.794);
+  margin: 0px 5px;
+}
+
+.icon_container {
+  width: 25px;
+}
+
+/*  */
+
+/* Jumbotron */
+
+#jumbotron {
+  height: 500px;
+  background-image: url(./assets/images/flowered_coffee.jpg);
+  background-position: center;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  border-bottom: 2px solid #7d0d23;
+  text-shadow: 2px 0 #7d0d23, -2px 0 #7d0d23, 0 2px #7d0d23, 0 -2px #7d0d23,
+    1px 1px #7d0d23, -1px -1px #7d0d23, 1px -1px #7d0d23, -1px 1px #7d0d23;
+}
+
+#jumbotron_title {
+  font-size: 50px;
+  font-weight: bolder;
+}
+#jumbotron_subtitle {
+  font-size: 40px;
+  font-weight: bolder;
+}
+
+/*  */
+
+/* Notre histoire */
+
+#our_story {
+  max-width: 1400px;
+  margin: auto;
+  padding: 50px 0px;
+  color: #7d0d23;
+}
+
+#our_story h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#our_story p {
+  text-align: justify;
+}
+
+/* Divider après la section 'Notre Histoire' */
+
+#divider_after_section_our_story {
+  height: 200px;
+  background-image: url(./assets/images/eat_together.jpg);
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  border-top: 2px solid #500313;
+  border-bottom: #500313 2px solid;
+}
+
+/*  */
+
+/* Section Notre Carte */
+
+#our_menu {
+  padding: 50px 0px;
+  background-color: #7d0d23;
+}
+
+#our_menu h2 {
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#our_menu ul {
+  background-color: #7d0d23;
+  padding: 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  max-width: 1400px;
+  margin: auto;
+}
+
+#our_menu li {
+  margin: 10px 0px;
+  padding: 10px;
+  width: 50%;
+}
+
+.menu {
+  background-color: white;
+
+  display: flex;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.image_container {
+  width: 30%;
+}
+
+.menu_description {
+  width: 70%;
+  padding-left: 10px;
+}
+
+/*  */
+
+/* Contact */
+
+#contact {
+  padding: 50px 0px;
+}
+
+#contact h2 {
+  text-align: center;
+  color: #7d0d23;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+
+  max-width: 1400px;
+  margin: auto;
+}
+
+#id_inputs {
+  display: flex;
+}
+
+.input_container {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+
+.input_container:first-of-type {
+  margin-right: 10px;
+}
+
+#message_input {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin: 5px 0;
+  font-weight: bold;
+  color: #7d0d23;
+}
+
+input,
+textarea {
+  padding: 5px;
+}
+
+textarea {
+  height: 100px;
+}
+
+#button {
+  align-self: center;
+  background-color: #7d0d23;
+  color: white;
+
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#button:hover {
+  background-color: #500313;
+  cursor: pointer;
+}
+
+/*  */
+
+/* Footer */
+
+footer {
+  background-color: #7d0d23;
+  color: white;
+  padding: 20px 0px;
+  text-align: center;
+}
+
+footer div {
+  margin-bottom: 10px;
+}
+
+footer span {
+  margin: 0px 20px;
+}

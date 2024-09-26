@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<!-- saved from url=(0032)http://127.0.0.1:5500/index.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" href="./ForEach_Koffee_files/index.css">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction Exercice Annexe</title>
+  </head>
+  <body cz-shortcut-listen="true">
+    <header>
+      <h1>ForEach Coffee</h1>
+      <div id="links_header">
+        <ul>
+          <li class="anchor_link"><a href="http://127.0.0.1:5500/index.html#our_story">Notre histoire</a></li>
+          <li class="anchor_link"><a href="http://127.0.0.1:5500/index.html#our_menu">Notre carte</a></li>
+          <li class="anchor_link"><a href="http://127.0.0.1:5500/index.html#contact">Contact</a></li>
+        </ul>
+        <div class="divider"></div>
+        <ul>
+          <li>
+            <div class="icon_container">
+              <img src="./ForEach_Koffee_files/facebook_icon.png" alt="Icone de Facebook">
+            </div>
+          </li>
+          <li>
+            <div class="icon_container">
+              <img src="./ForEach_Koffee_files/x_icon.png" alt="Icone de X">
+            </div>
+          </li>
+          <li>
+            <div class="icon_container">
+              <img src="./ForEach_Koffee_files/instagram_icon.png" alt="Icone d&#39;Instagram">
+            </div>
+          </li>
+          <li>
+            <div class="icon_container">
+              <img src="./ForEach_Koffee_files/tiktok_icon.png" alt="Icone de Tiktok">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </header>
+    <main>
+      <div id="jumbotron">
+        <p id="jumbotron_title">Bienvenue à ForEach Coffee</p>
+        <p id="jumbotron_subtitle">Le café le plus chill de Lille</p>
+      </div>
+      <section id="our_story">
+        <h2>Notre histoire</h2>
+        <p>
+          <span class="bold">Lorem, ipsum dolor sit</span> amet consectetur
+          adipisicing elit. Velit delectus saepe deserunt officia odio magni
+          animi ea neque! Aliquid odio suscipit ipsam?
+          <span class="bold">Quaerat modi reiciendis</span> dicta sequi nulla
+          laboriosam nihil architecto fuga, quasi nam quos mollitia ipsam,
+          veritatis accusamus maiores facilis repudiandae ipsa officiis dolore
+          inventore cupiditate repellendus quod illum? Vero nostrum vitae rerum,
+          totam sunt <span class="bold">est officiis excepturi eaque</span>,
+          corporis quibusdam aliquid nihil molestias similique unde labore
+          aperiam. Veniam itaque ipsam libero veritatis iste assumenda culpa
+          minima voluptas, atque eveniet in nulla inventore nam pariatur
+          possimus dolor, eius vitae alias, odit deserunt aliquid repellendus?
+          Dolorem dolorum recusandae ipsam et!
+        </p>
+      </section>
+      <div id="divider_after_section_our_story"></div>
+      <section id="our_menu">
+        <h2>Notre carte</h2>
+        <ul>
+          <li>
+            <div class="menu">
+              <div class="image_container">
+                <img src="./ForEach_Koffee_files/kakao_milk.jpg" alt="Image d&#39;une boisson chocolaté">
+              </div>
+              <div class="menu_description">
+                <h3>Kakao Milk</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+                  quasi neque at atque obcaecati ipsa ullam aut harum rem.
+                  Repudiandae, omnis non eius voluptatum consequuntur fuga vel.
+                  Alias, voluptatum dicta?
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="menu">
+              <div class="image_container">
+                <img src="./ForEach_Koffee_files/chai_tea.jpg" alt="Image d&#39;un chai tea latte">
+              </div>
+              <div class="menu_description">
+                <h3>Chai Tea</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+                  quasi neque at atque obcaecati ipsa ullam aut harum rem.
+                  Repudiandae, omnis non eius voluptatum consequuntur fuga vel.
+                  Alias, voluptatum dicta?
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="menu">
+              <div class="image_container">
+                <img src="./ForEach_Koffee_files/black_tea.jpg" alt="Image d&#39;un thé noir">
+              </div>
+              <div class="menu_description">
+                <h3>Soolong</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+                  quasi neque at atque obcaecati ipsa ullam aut harum rem.
+                  Repudiandae, omnis non eius voluptatum consequuntur fuga vel.
+                  Alias, voluptatum dicta?
+                </p>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="menu">
+              <div class="image_container">
+                <img src="./ForEach_Koffee_files/kafe_latte.jpg" alt="Image d&#39;un café latte">
+              </div>
+              <div class="menu_description">
+                <h3>Kafé Latte</h3>
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit
+                  quasi neque at atque obcaecati ipsa ullam aut harum rem.
+                  Repudiandae, omnis non eius voluptatum consequuntur fuga vel.
+                  Alias, voluptatum dicta?
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </section>
+      <div id="divider_after_section_our_story"></div>
+      <section id="contact">
+        <h2>Contact</h2>
+        <form action="http://127.0.0.1:5500/index.html">
+          <div id="id_inputs">
+            <div class="input_container">
+              <label for="firstname">Prenom:</label>
+              <input id="firstname" name="firstname" type="text" placeholder="Jerôme">
+            </div>
+            <div class="input_container">
+              <label for="email">Email:</label>
+              <input id="email" name="email" type="email" placeholder="jerome@gmail.com">
+            </div>
+          </div>
+          <div id="message_input">
+            <label for="message">Message:</label>
+            <textarea name="message" id="message" placeholder="Votre message ici.."></textarea>
+          </div>
+          <span id="button">Envoyer</span>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <div>
+        <span>Politique de confidentialité</span>
+        <span>Condition d'utilisation et Mentions Légales</span>
+      </div>
+      <p>© 2024 - ForEach Koffee. Tous droits reservés</p>
+    </footer>
+  <!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+</body></html>
