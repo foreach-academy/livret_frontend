@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import EquipeMember from '../EquipeMember/EquipeMember';
 import '../../styles/EquipeForEach/EquipeForEach.css'; 
 
@@ -27,9 +27,10 @@ const members = [
   }
 ];
 
-const EquipeForEach = () => {
+// Utiliser forwardRef pour accepter une ref
+const EquipeForEach = forwardRef((props, ref) => {
   return (
-    <div className="equipe-for-each">
+    <div className="equipe-for-each" ref={ref}>
       <h2>Equipe ForEach Academy</h2>
       <div className="equipe-member-list">
         {members.map((member, index) => (
@@ -44,6 +45,6 @@ const EquipeForEach = () => {
       </div>
     </div>
   );
-};
+});
 
 export default EquipeForEach;

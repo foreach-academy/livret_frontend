@@ -92,3 +92,9 @@
   .formation-cards-animation {
     animation: slideIn 6s forwards;
   }  
+  .equipe-for-each-animation {
+    animation: slideIn 10s forwards;
+  }
+  .equipe-member-list-animation {
+    animation: slideIn 12s forwards;
+  }

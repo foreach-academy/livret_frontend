@@ -65,6 +65,7 @@ nav li {
 .dropdown-toggle {
   display: flex !important;
   align-items: center;
+  cursor: pointer;
 }
 
 .dropdown:hover .dropdown-menu {

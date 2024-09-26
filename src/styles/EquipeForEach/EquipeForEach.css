@@ -9,10 +9,3 @@
     gap: 20px;
     flex-wrap: wrap;
   }
-    /* Javascript animations */
-    .equipe-for-each-animation {
-      animation: slideIn 10s forwards;
-    }
-    .equipe-member-list-animation {
-      animation: slideIn 12s forwards;
-    }
