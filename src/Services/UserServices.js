@@ -3,11 +3,13 @@ import {URL} from './config';
 import {jwtDecode} from "jwt-decode";
 
 class UserServices{
-    static fetchAllUser() {
-        return axios.get(URL + '/users').catch(error => {
+    static async fetchAllUser() {
+        try {
+            return await axios.get(URL + '/users');
+        } catch (error) {
             console.error("Erreur lors de la récupération des utilisateurs:", error);
             throw error;
-        });
+        }
     }
     
     static fetchUserById(id){
@@ -18,6 +20,9 @@ class UserServices{
     }
     static getUserByRole(roleName){
         return axios.get(`${URL}/users/role/${roleName}`);
+    }
+    static UpdateUser(id, roleId){
+        return axios.patch(`${URL}/users/update/${id}`, { role_id: roleId })
     }
 
     static login (user){

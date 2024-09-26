@@ -1,17 +1,20 @@
 
 #first_line_list{
-    margin-top: 7rem;
-    margin-bottom: 3rem;
+    margin: 4rem auto;
+    max-width: 70%;
     display: flex;
-    margin-right: 19rem;
-    justify-content: center; 
+    justify-content: flex-start; 
     align-items: center;
+    gap: 24px;
 }
-#button_addUser{
-    margin-left: 7rem;
+#first_line_list div:first-child{
+    flex:2;
+}
+#list_userAndAdd {
+    flex:3;
 }
 .button_list{
-    background-color: #F6941D;
+    background-color: var(--primary-color);
     border: none;
     border-radius: 6px;
     color: white;
@@ -20,19 +23,16 @@
 }
 .button_list:hover{
     cursor: pointer;
-    background-color: #d7831d;
+    background-color: var(--primary-color);
 }
 #link_form_add{
     text-decoration: none;
     color: white;
 }
-#list_userAndAdd{
-    margin-left: 19.5rem;
-    margin-right: auto;
-}
 #contener_list{
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     gap: 1rem;
     text-align: center;
 }
@@ -69,4 +69,107 @@
 }
 .title_user_list{
     margin-bottom: 3rem;
+}
+/* Arrière-plan grisé (overlay) */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed; /* Fixe à l'écran */
+    z-index: 1; /* Assure que la modale est au-dessus des autres éléments */
+    left: 0;
+    top: 0;
+    width: 100%; /* Pleine largeur */
+    height: 100%; /* Pleine hauteur */
+    background-color: rgba(0, 0, 0, 0.4); /* Arrière-plan gris semi-transparent */
+    display: flex;
+    justify-content: center; /* Centrer horizontalement */
+    align-items: center; /* Centrer verticalement */
+  }
+  
+  /* Contenu de la modale */
+  .modal-content {
+    position: relative;
+    background-color: #108CB7;
+    padding: 0 0 4rem 0;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px; /* Limite de taille pour la modale */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+  }
+  
+  /* Animation d'apparition */
+  @keyframes animatetop {
+    from { opacity: 0; transform: translateY(-300px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  /* En-tête de la modale */
+  .modal-header {
+    font-size: 1.5rem;
+    padding: 2px 16px;
+    background-color: #108CB7;
+    color: white;
+  }
+  
+  .modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    color: white;
+  }
+  
+  /* Style de l'input pour ajuster la largeur */
+  .modal-body #role_select_changeRole {
+    margin-top: 10px;
+    height: 1.5rem;
+    width: 40%; /* Ajuste la largeur selon vos besoins */
+    max-width: 300px; /* Largeur maximale */
+    border: 1px solid #ccc;
+  }
+  #select_changeRole{
+    width: 40%;
+    margin-top: 10px;
+  }
+  
+  /* Pied de la modale */
+  .modal-footer {
+    padding: 2px 16px;
+    background-color: #108CB7;
+    color: white;
+  }
+  
+  /* Bouton de fermeture */
+  .close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  #label_changeRole{
+    font-size: 1.4rem;
+  }
+
+  #button_form_changeRole{
+    height: 2rem;
+    margin-right: 1.5rem;
+    margin-top: 1rem;
+  }
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+@media screen and (max-width: 992px) {
+    #first_line_list {
+        flex-direction: column-reverse;
+    }
+    .list_userAndAdd {
+        text-align: center;
+    }
 }
