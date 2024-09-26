@@ -36,8 +36,8 @@
     margin-bottom: 10px;
     text-align: center;
     opacity: 0; /* Initialement invisible */
-    animation: fadeIn 2s ease-in forwards; /* Animation pendant 3 secondes */
   }
+
   .presentation #link_PresentationP{
     color: #F6941D !important;
   }
@@ -52,15 +52,14 @@
     line-height: 1.6em;
     color: #333;
     opacity: 0; /* Initialement invisible */
-    animation: fadeIn 5s ease-in forwards; /* Animation pendant 3 secondes */
+    
   }
   
   .formations {
     padding: 20px;
     text-align: center;
-    animation: slideIn 6s forwards;
   }
-  
+
   .formations h2 {
     font-size: 2em;
     margin-bottom: 20px;
@@ -70,8 +69,8 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    animation: slideIn 8s forwards;
   }
+
   #dernier_text_homepage{
     text-align: center;
     color: #333;
@@ -83,4 +82,13 @@
     opacity: 0; /* Initialement invisible */
     animation: fadeIn 7s ease-in forwards; /* Animation pendant 3 secondes */
   }
-  
+  /* Javascript animations */
+  .presentation-h1-animation {
+    animation: fadeIn 2s ease-in forwards;
+  }
+  .presentation-p {
+    animation: fadeIn 5s ease-in forwards; 
+  }
+  .formation-cards-animation {
+    animation: slideIn 6s forwards;
+  }  

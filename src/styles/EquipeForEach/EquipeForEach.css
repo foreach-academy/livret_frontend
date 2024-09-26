@@ -1,7 +1,6 @@
 .equipe-for-each {
     padding: 20px;
     text-align: center;
-    animation: slideIn 10s forwards;
   }
   
   .equipe-member-list {
@@ -9,6 +8,11 @@
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
-    animation: slideIn 12s forwards;
   }
-  
+    /* Javascript animations */
+    .equipe-for-each-animation {
+      animation: slideIn 10s forwards;
+    }
+    .equipe-member-list-animation {
+      animation: slideIn 12s forwards;
+    }
