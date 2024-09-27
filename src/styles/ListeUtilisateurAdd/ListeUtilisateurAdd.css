@@ -55,12 +55,14 @@
 .button_ChangeRole{
     margin-left: 1rem;
 }
-#title_user_list_contener{
-    display: flex;
+.title_user_list_contener{
+    display: none;
     justify-content: space-between;
     margin: 0 30px;
     align-items: center;
+    min-height: 40vh;
 }
+
 .display_column_block_users{
     display: flex;
     flex-direction: column;
@@ -165,11 +167,68 @@
     cursor: pointer;
   }
   
+ /* Onglets  */
+  .tabs {
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 50px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tabs button {
+    font-size: 16px;
+    color: rgb(86, 86, 86);
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    min-width: 200px;
+  }
+  .tabs button:hover {
+    background-color: #f1f1f1;
+  }
+  .tabs button.active {
+    color: black;
+    font-weight: 700;
+  }
+  .tab-line {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--tertiary-color);
+    width: 33.33%;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0);
+} 
+.tabs button:nth-child(1).active ~ .tab-line {
+  transform: translateX(0);
+}
+
+.tabs button:nth-child(2).active ~ .tab-line {
+  transform: translateX(100%);
+}
+
+.tabs button:nth-child(3).active ~ .tab-line {
+  transform: translateX(200%);
+}
 @media screen and (max-width: 992px) {
     #first_line_list {
         flex-direction: column-reverse;
     }
     .list_userAndAdd {
         text-align: center;
+    }
+    .tabs {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+    .tabs button {
+      min-width: 33.3%;
     }
 }
