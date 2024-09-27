@@ -17,6 +17,6 @@
     font-size: 1rem; 
     color: #333; 
     opacity: 0; /* Initialement invisible */
-    animation: fadeIn 5s ease-in forwards; /* Animation pendant 3 secondes */
+    animation: fadeIn 4s ease-in forwards; /* Animation pendant 4 secondes */
   }
   
