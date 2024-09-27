@@ -43,6 +43,7 @@ const UserList = () => {
   const openModal = (user) => {
     setSelectedUser(Number(user.id)); // Stocke l'utilisateur dont le rôle sera modifié
     setIsModalOpen(true);
+    setNewRoleId('');
   };
 
   const handleRoleIdChange = (event) => {
@@ -141,9 +142,10 @@ const UserList = () => {
                 <span className="close" onClick={closeModal}>&times;</span>
                 <h2>Modifier le Rôle</h2>
               </div>
-              <div className="modal-body">
+              <div className="modal-body"> 
                 <label id='label_changeRole' htmlFor="role">Nouveau rôle</label>
                 <select name="role" id="role_select_changeRole" value={newRoleId} onChange={handleRoleIdChange}>
+                    <option value="" selected disabled hidden>Nouveau rôle</option>
                   {roles.map((role) => (
                     <option key={role.id} value={role.id}>{role.name}</option>
                   ))}

@@ -62,6 +62,12 @@ nav li {
   padding: 10px 15px;
   display: block;
 }
+.dropdown {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+}
 .dropdown-toggle {
   display: flex !important;
   align-items: center;
@@ -178,7 +184,7 @@ nav li {
   .nav-menu.active{
       left: 0;
   }
-  .nav-menu a, .dropdown-profil {
+  .nav-menu a, .dropdown-profil, .dropdown {
     color: var(--secondary-color);
     padding: 24px;
     font-size: 18px;

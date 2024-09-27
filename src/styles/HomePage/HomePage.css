@@ -71,30 +71,22 @@
     flex-wrap: wrap;
   }
 
-  #dernier_text_homepage{
-    text-align: center;
-    color: #333;
-    opacity: 0; /* Initialement invisible */
-    animation: fadeIn 4s ease-in forwards; /* Animation pendant 3 secondes */
-  }
-  #dernier_text_homepage p{
-    margin-top: 2rem;
-    opacity: 0; /* Initialement invisible */
-    animation: fadeIn 7s ease-in forwards; /* Animation pendant 3 secondes */
+  .strategic-info {
+    opacity: 0; 
   }
   /* Javascript animations */
   .presentation-h1-animation {
     animation: fadeIn 2s ease-in forwards;
   }
-  .presentation-p {
+  .presentation-p-animation {
     animation: fadeIn 5s ease-in forwards; 
   }
   .formation-cards-animation {
-    animation: slideIn 6s forwards;
+    animation: slideIn 4s forwards;
   }  
-  .equipe-for-each-animation {
-    animation: slideIn 10s forwards;
-  }
   .equipe-member-list-animation {
-    animation: slideIn 12s forwards;
+    animation: slideIn 6s forwards;
+  }
+  .strategic-info-animation {
+    animation: fadeIn 2s ease-in forwards; 
   }

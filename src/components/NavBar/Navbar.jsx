@@ -79,11 +79,11 @@ const Navbar = () => {
             </a>
           </div>
           <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-            <li className="dropdown dropdown-toggle" onClick={toggleDropdown}>
-              {/* <a href="#" className="dropdown-toggle" onClick={toggleDropdown}> */}
+            <li className="dropdown" onClick={toggleDropdown}>
+              <div className="dropdown-toggle" onClick={toggleDropdown}>
                 <span>Livrets de suivi </span>
                 <span className="material-icons-outlined">expand_more</span>
-              {/* </a> */}
+              </div>
               {dropdownOpen && (
                 <ul className="dropdown-menu">
                   <li className='nav-link'><a href="#">Mastère Architecte Web</a></li>
