@@ -76,6 +76,21 @@ const UserList = () => {
     }
   };
 
+  const showUsersList = (event, userList) => {
+    const title_user_list_contener = document.getElementsByClassName("title_user_list_contener");
+    for(let i = 0; i < title_user_list_contener.length; i++){
+      title_user_list_contener[i].style.display = 'none';
+    }
+    document.getElementById(userList).style.display = "block";
+
+    // gérer l'état actif / inactif des boutons
+    const tabButton = document.getElementsByClassName('tab-button');
+    for(let i = 0; i < tabButton.length; i++) {
+      tabButton[i].className = tabButton[i].className.replace(" active", "");
+    }
+    event.currentTarget.className += " active";
+  }
+
   useEffect(() => {
     UserServices.checkToken();
     fetchAllUsers();
@@ -99,9 +114,32 @@ const UserList = () => {
         </div>
         <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>
+      <div className='tabs'>
+          <button className='tab-button active' onClick={(event) => {showUsersList(event, 'apprenants')}}>Apprenants</button>
+          <button className='tab-button' onClick={(event) => {showUsersList(event, 'formateurs')}}>Formateurs</button>
+          <button className='tab-button' onClick={(event) => {showUsersList(event, 'administrateurs')}}>Administrateurs</button>
+          <div className="tab-line"></div>
+      </div>
       <div id="contener_list">
-        <div className="title_user_list_contener">
-          <h2 className="title_user_list">Liste des Formateurs</h2>
+
+        <div className="title_user_list_contener" id='apprenants' style={{display: "block"}}>
+          {/* <h2 className="title_user_list">Liste des Apprenants</h2> */}
+          <div className="display_column_block_users">
+            {users.filter(user => user.role && user.role.name === 'Apprenant').map(user => (
+              <div className="block_user" key={user.id}>
+                <div className="info_user">
+                  <p>{user.first_name}</p>
+                  <p>{user.surname}</p>
+                </div>
+                <button className="button_ChangeRole button_list" onClick={() => openModal(user)}>
+                  Changer le rôle
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="title_user_list_contener" id='formateurs'>
+          {/* <h2 className="title_user_list">Liste des Formateurs</h2> */}
           <div className="display_column_block_users">
             {users.filter(user => user.role && user.role.name === 'Formateur').map(user => (
               <div className="block_user" key={user.id}>
@@ -117,10 +155,10 @@ const UserList = () => {
           </div>
         </div>
 
-        <div className="title_user_list_contener">
-          <h2 className="title_user_list">Liste des Apprenants</h2>
+        <div className="title_user_list_contener" id='administrateurs'>
+          {/* <h2 className="title_user_list">Liste des Administrateurs</h2> */}
           <div className="display_column_block_users">
-            {users.filter(user => user.role && user.role.name === 'Apprenant').map(user => (
+            {users.filter(user => user.role && user.role.name === 'Admin').map(user => (
               <div className="block_user" key={user.id}>
                 <div className="info_user">
                   <p>{user.first_name}</p>
