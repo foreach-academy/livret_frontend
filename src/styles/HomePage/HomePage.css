@@ -70,31 +70,45 @@
     justify-content: center;
     flex-wrap: wrap;
   }
+  .strategic-info {
+    text-align: center; 
+    padding: 20px;
+    max-width: 800px; 
+    margin: 0 auto; 
+  }
+  
+  .strategic-info h1 {
+    font-size: 2rem; 
+    margin-bottom: 3rem; 
+    color: #333; 
+    opacity: 0; /* Initialement invisible */
+  }
+  
+  .strategic-info p {
+    font-size: 1rem; 
+    color: #333; 
+    opacity: 0; /* Initialement invisible */
+  }
 
-  #dernier_text_homepage{
-    text-align: center;
-    color: #333;
-    opacity: 0; /* Initialement invisible */
-    animation: fadeIn 4s ease-in forwards; /* Animation pendant 3 secondes */
-  }
-  #dernier_text_homepage p{
-    margin-top: 2rem;
-    opacity: 0; /* Initialement invisible */
-    animation: fadeIn 7s ease-in forwards; /* Animation pendant 3 secondes */
-  }
   /* Javascript animations */
   .presentation-h1-animation {
-    animation: fadeIn 2s ease-in forwards;
+    animation: fadeIn 3s ease-in forwards;
   }
   .presentation-p {
-    animation: fadeIn 5s ease-in forwards; 
+    animation: fadeIn 4s ease-in forwards; 
   }
   .formation-cards-animation {
-    animation: slideIn 6s forwards;
+    animation: slideIn 3s forwards;
   }  
   .equipe-for-each-animation {
-    animation: slideIn 10s forwards;
+    animation: slideIn 4s forwards;
   }
   .equipe-member-list-animation {
-    animation: slideIn 12s forwards;
+    animation: slideIn 5s forwards;
+  }
+  .strategic-info-h1-animation{
+    animation: fadeIn 3s ease-in forwards; /* Animation pendant 3 secondes */
+  }
+  .strategic-info-p-animation{
+    animation: fadeIn 5s ease-in forwards; /* Animation pendant 3 secondes */
   }
