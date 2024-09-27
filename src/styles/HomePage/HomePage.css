@@ -51,8 +51,10 @@
     font-size: 1.2em;
     line-height: 1.6em;
     color: #333;
-    opacity: 0; /* Initialement invisible */
     
+  }
+  .presentation-section {
+    opacity: 0; 
   }
   
   .formations {
@@ -78,15 +80,15 @@
   .presentation-h1-animation {
     animation: fadeIn 2s ease-in forwards;
   }
-  .presentation-p-animation {
-    animation: fadeIn 5s ease-in forwards; 
-  }
   .formation-cards-animation {
     animation: slideIn 4s forwards;
   }  
   .equipe-member-list-animation {
     animation: slideIn 6s forwards;
   }
-  .strategic-info-animation {
+  .presentation-section-animation {
     animation: fadeIn 2s ease-in forwards; 
+  }
+  .strategic-info-animation {
+    animation: fadeIn 5s ease-in forwards; 
   }

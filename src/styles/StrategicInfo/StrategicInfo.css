@@ -1,0 +1,22 @@
+.strategic-info {
+    text-align: center; 
+    padding: 20px;
+    max-width: 800px; 
+    margin: 0 auto; 
+  }
+  
+  .strategic-info h1 {
+    font-size: 2rem; 
+    margin-bottom: 3rem; 
+    color: #333; 
+    opacity: 0; /* Initialement invisible */
+    animation: fadeIn 3s ease-in forwards; /* Animation pendant 3 secondes */
+  }
+  
+  .strategic-info p {
+    font-size: 1rem; 
+    color: #333; 
+    opacity: 0; /* Initialement invisible */
+    animation: fadeIn 5s ease-in forwards; /* Animation pendant 3 secondes */
+  }
+  
