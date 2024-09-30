@@ -64,3 +64,46 @@
     line-height: 1.5;
 
 }
+.bold_policy_chapter{
+    font-weight: bold;
+}
+
+#rights_obligations {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.rights_obligations_list {
+    list-style: none;
+}
+
+#rights_obligations_container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.practical_life_links{
+    margin-left: 3px;
+}
+
+.rights_obligations_list_dot {
+    list-style: disc !important;
+    list-style-position: inside !important;
+    margin-top: 20px;
+}
+#rights, #obligations{
+    margin-inline: 25px;
+    flex: 40%;
+    border-radius: 10px;
+}
+
+#rights {
+    background-color: #2ab7a3;
+}
+
+#obligations {
+    background-color: #f6941d;
+}
+
