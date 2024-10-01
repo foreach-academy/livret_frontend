@@ -105,14 +105,12 @@
 }
 
 /* Responsive layout - makes a one column layout instead of a two-column layout */
-@media (max-width: 800px) {
+@media (max-width: 968px) {
     #rights, #obligations {
       flex: 100%;
       margin-top: 15px;
     }
     #practical_life_laptops_container {
-        flex: 100%;
-        display: flex;
         flex-direction: column;
     }
     
