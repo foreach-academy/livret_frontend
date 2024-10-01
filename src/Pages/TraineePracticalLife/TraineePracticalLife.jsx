@@ -67,14 +67,14 @@ const TraineePracticalLife = () => {
         </ul>
       </div>
       <div id="practical_life_laptops_container">
-        <div>
+        <div id="two_men_laptops_container">
           <img
             src={two_men_laptops}
             id="two_men_laptops"
             alt="Deux pc portables sur une table avec deux personnes qui travaillent"
           />
         </div>
-        <div>
+        <div id="practical_life_evalutation_container">
           <ul class="practical_life_evaluation">
             <li>
               Pour toutes les formations, une évaluation des acquis est

@@ -34,6 +34,7 @@
     height: auto;
     display: flex;
     flex-direction: row;
+
     background-color: #2a2c42;
     color: white;
     margin: 30px;
@@ -107,3 +108,15 @@
     background-color: #f6941d;
 }
 
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+    #rights, #obligations {
+      flex: 100%;
+      margin-top: 15px;
+    }
+    #two_men_laptops_container, #practical_life_evalutation_container {
+        flex: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+  }
