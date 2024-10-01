@@ -30,11 +30,8 @@
 }
 
 #practical_life_laptops_container{
-    width: auto;
-    height: auto;
     display: flex;
     flex-direction: row;
-
     background-color: #2a2c42;
     color: white;
     margin: 30px;
@@ -43,11 +40,10 @@
 }
 
 #two_men_laptops{
-    width: auto;
-    height: 500px;
     display: block;
     margin: 40px;
     border-radius: 10px;
+    object-fit: cover;
 }
 .practical_life_evaluation {
     margin-top: 40px;
@@ -114,9 +110,11 @@
       flex: 100%;
       margin-top: 15px;
     }
-    #two_men_laptops_container, #practical_life_evalutation_container {
+    #practical_life_laptops_container {
         flex: 100%;
         display: flex;
         flex-direction: column;
     }
+    
+ 
   }
