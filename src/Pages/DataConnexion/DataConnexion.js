@@ -35,7 +35,7 @@ useEffect(() => {
 return (
     <>  
         <h1>Liste des utilisateurs</h1>
-        <div className='list'>
+        <div className='list user-list'>
             <br />
             {loading ? ( // Affiche un message de chargement pendant que les données sont récupérées
                 <p>Chargement en cours...</p>

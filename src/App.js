@@ -16,7 +16,7 @@ import UserList from './pages/ListeUtilisateurAddByAdmin/listeUtilisateurAdd';
 import AddUser from './pages/AddUser/AddUser';
 import ErrorPage from './pages/ErrorPage/ErrorPage'
 import TraineePracticalLife from './pages/TraineePracticalLife/TraineePracticalLife';
-import LivretPageCDA from './pages/LivretPage/LivretPageCDA';
+import LivretPage from './pages/LivretPage/LivretPage';
 
 // Contexte
 import AuthContext from './Context/AuthContext';
@@ -40,7 +40,9 @@ function App() {
               <Route path="/users/:role" element={<DataConnexion />} />
               <Route path="/*" element={<ErrorPage />} />
               <Route path="/trainee-practical-life" element={<TraineePracticalLife/>} />
-              <Route path="/concepteur-developpeur-application" element={<LivretPageCDA/>} />
+              <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
+              <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />
+              <Route path="/:formationId/mastere-architecte-web" element={<LivretPage />} />
               {isAuthenticated && isAdmin && <>
                 <Route path='/users' element={<UserList/>} />
                 <Route path='/add' element={<AddUser/>} />
