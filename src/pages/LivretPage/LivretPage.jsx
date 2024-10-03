@@ -9,7 +9,7 @@ function LivretPage () {
   const { formationId }= useParams();
   const [formationName, setFormationName] = useState([]);
   const [students, setStudents] = useState([]);
-  const [ search, setSeach ] = useState('');
+  const [ search, setSearch ] = useState('');
 
   const fetchModule = async () => {
     const response = await FormationServices.getModulesByFormationId(formationId);
@@ -28,9 +28,8 @@ function LivretPage () {
   }
 
   const handleSearch = (event) => {
-    setSeach(event.target.value.toLowerCase());
+    setSearch(event.target.value.toLowerCase());
   }
-  console.log("recherche : " + search)
 
   const searchedStudents = students.filter((student) => {
     return (
@@ -38,7 +37,6 @@ function LivretPage () {
       student.surname.toLowerCase().includes(search)
     );
   });
-  console.log("étudiants recherchés : " + searchedStudents)
 
   useEffect(() => {
     fetchModule();
