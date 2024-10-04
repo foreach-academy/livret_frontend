@@ -188,7 +188,6 @@ const UserList = () => {
                     <option key={role.id} value={role.id}>{role.name}</option>
                   ))}
                 </select>
-
               </div>
               <div className="modal-footer">
                 <button id='button_form_changeRole' onClick={updateUserRole} className='button_ChangeRole button_list'>Valider</button>

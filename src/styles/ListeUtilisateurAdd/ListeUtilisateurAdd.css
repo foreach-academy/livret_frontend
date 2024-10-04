@@ -108,6 +108,7 @@
   
   /* En-tête de la modale */
   .modal-header {
+    text-align: center;
     font-size: 1.5rem;
     padding: 2px 16px;
     background-color: #108CB7;

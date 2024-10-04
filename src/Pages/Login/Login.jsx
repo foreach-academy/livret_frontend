@@ -4,19 +4,17 @@ import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import EmailServices from "../../Services/EmailServices";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);  // New state for disabling button
   const { setIsAuthenticated, setToken, setIsAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
-  const navigateTo = (route) => {
-      navigate(route);
-      window.scrollTo(0,0);
-  }
 
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -30,36 +28,29 @@ const Login = () => {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
-    // Réinitialiser l'erreur lors de la modification de l'email
     setEmailError('');
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    // Réinitialiser l'erreur lors de la modification du mot de passe
     setPasswordError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     let isValid = true;
 
-    // Validation de l'email
     if (!validateEmail(email)) {
       setEmailError("L'email saisi est invalide");
       isValid = false;
     }
 
-    // Validation du mot de passe
     if (!validatePassword(password)) {
       setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
       isValid = false;
     }
 
-    if (!isValid) {
-      return; // Si la validation échoue, ne pas soumettre le formulaire
-    }
+    if (!isValid) return;
 
     try {
       const user = { email, password };
@@ -69,18 +60,36 @@ const Login = () => {
         window.localStorage.setItem('authToken', token.data.token);
         setIsAuthenticated(true);
         setToken(token.data.token);
-        navigateTo('/');
+        navigate('/');
         setIsAdmin(true);
         toast.success('Connexion réussie');
       } else {
         toast.error('Aucun token fourni');
-        console.error('Erreur : aucun token dans la réponse');
       }
     } catch (error) {
       toast.error('Adresse email ou Mot de passe invalide');
-      console.error('Erreur lors de la connexion :', error);
     }
   };
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleClickOutside = (event) => {
+    if (event.target.id === 'myModal') closeModal();
+  };
+
+  const HandleModalSubmit = async () => {
+    setIsSubmitting(true);  // Disable the button on submit
+    try {
+      await EmailServices.resetPasswordEmail(email);
+      toast.success('Email de réinitialisation envoyé');
+      closeModal();
+    } catch (error) {
+      toast.error('Erreur lors de l\'envoi de l\'email');
+    } finally {
+      setIsSubmitting(false);  // Re-enable the button after sending
+    }
+  }
 
   return (
     <>
@@ -128,12 +137,31 @@ const Login = () => {
               />
               <br />
               {passwordError && <span className="error">{passwordError}</span>}
-              <p className="p-forgot">Mot de passe oublié?</p>
+              <p className="p-forgot" onClick={openModal}>Mot de passe oublié?</p>
             </div>
             <button id='button_login' type="submit">
               Se connecter
             </button>
           </form>
+          {isModalOpen && (
+            <div id="myModal" className="modal" onClick={handleClickOutside}>
+              <div className="modal-content">
+                <div className="modal-header">
+                  <span className="close" onClick={closeModal}>&times;</span>
+                  <h2>Réinitialiser le mot de passe</h2>
+                </div>
+                <div className="modal-body"> 
+                  <label id='label_email_send' htmlFor="email">Email</label>
+                  <input type="email" id='input_modal_emailSend' value={email} readOnly/>
+                </div>
+                <div className="modal-footer">
+                  <button id='button_form_sendMail' onClick={HandleModalSubmit} disabled={isSubmitting} className='button_sendMail button_list'>
+                    {isSubmitting ? 'Envoi en cours...' : 'Valider'}
+                  </button>
+                </div>
+              </div> 
+            </div>
+          )}
         </div>
       </div>
     </>
