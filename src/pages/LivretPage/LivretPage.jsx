@@ -45,6 +45,8 @@ function LivretPage () {
     );
   });
 
+  const studentsNotEvaluated = students.filter (student => !student.evaluation || student.evaluation.length ===0).length;
+
   useEffect(() => {
     fetchModule();
     fetchStudents();
@@ -70,9 +72,12 @@ function LivretPage () {
           <label htmlFor="search">Étudiant :</label>
           <div className="search-container">
             <input type="search" name="search" id="search" placeholder="Nom de l'étudiant" onChange={handleSearch} />
-            <span class="material-icons-outlined">search</span>
+            <span className="material-icons-outlined">search</span>
           </div>
         </div>
+      </div>
+      <div>
+        <h2><span className='badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
       </div>
       <div>
         <table>
