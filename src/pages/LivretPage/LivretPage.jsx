@@ -28,13 +28,20 @@ function LivretPage () {
   }
 
   const handleSearch = (event) => {
-    setSearch(event.target.value.toLowerCase());
+    setSearch(event.target.value);
+  }
+
+  const removeAccent = (string) => {
+    return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   }
 
   const searchedStudents = students.filter((student) => {
+      const firstName = removeAccent(student.first_name).toLowerCase();
+      const lastName = removeAccent(student.surname).toLowerCase();
+      const searchText = removeAccent(search).toLowerCase();
     return (
-      student.first_name.toLowerCase().includes(search) ||
-      student.surname.toLowerCase().includes(search)
+      firstName.includes(searchText) ||
+      lastName.includes(searchText)
     );
   });
 
