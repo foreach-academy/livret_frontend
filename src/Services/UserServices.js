@@ -71,5 +71,11 @@ class UserServices{
         }
         return false;
     }
+
+    static getUserId(){
+        const token = window.localStorage.getItem("authToken");
+        const tokenData = jwtDecode(token);
+        return tokenData.id;
+    }
 }
 export default UserServices;

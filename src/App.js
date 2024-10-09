@@ -40,12 +40,14 @@ function App() {
               <Route path="/users/:role" element={<DataConnexion />} />
               <Route path="/*" element={<ErrorPage />} />
               <Route path="/trainee-practical-life" element={<TraineePracticalLife/>} />
-              <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
-              <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />
-              <Route path="/:formationId/mastere-architecte-web" element={<LivretPage />} />
-              {isAuthenticated && isAdmin && <>
-                <Route path='/users' element={<UserList/>} />
-                <Route path='/add' element={<AddUser/>} />
+              {isAuthenticated && <>
+                <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
+                <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />
+                <Route path="/:formationId/mastere-architecte-web" element={<LivretPage />} />
+                {isAdmin && <>
+                  <Route path='/users' element={<UserList/>} />
+                  <Route path='/add' element={<AddUser/>} />
+                </>}
               </>}
             </Routes>
           </main>

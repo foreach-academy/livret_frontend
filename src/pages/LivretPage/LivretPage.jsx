@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import FormationServices from '../../Services/FormationServices';
 import { useParams } from 'react-router-dom';
 import "../../styles/LivretPage/LivretPage.css"
+import UserServices from '../../Services/UserServices';
 
 function LivretPage () {
   const [modules, setModules] = useState([]);
@@ -10,17 +11,20 @@ function LivretPage () {
   const [formationName, setFormationName] = useState([]);
   const [students, setStudents] = useState([]);
   const [ search, setSearch ] = useState('');
+  const formateurId = UserServices.getUserId();
 
   const fetchModule = async () => {
     const response = await FormationServices.getModulesByFormationId(formationId);
     setModules(response.data.modules);
   }
 
+
   const fetchStudents = async () => {
     const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(formationId, moduleId);
     setFormationName(response.data.title);
     setStudents(response.data.apprenants);
   } 
+
 
   const handleChange =  (event) => {
     const selectedModuleId = Number(event.target.value)
@@ -46,6 +50,7 @@ function LivretPage () {
   });
 
   const studentsNotEvaluated = students.filter (student => !student.evaluation || student.evaluation.length ===0).length;
+  const selectedModule = modules.find(module => module.id === moduleId);
 
   useEffect(() => {
     fetchModule();
@@ -55,6 +60,7 @@ function LivretPage () {
   useEffect(() => {
     fetchStudents();
   }, [formationId]);
+
 
   return (
     <div className='formation-container'>
@@ -93,10 +99,17 @@ function LivretPage () {
               <tr key={student.id}>
                 <td>{student.first_name} {student.surname}</td>
                 <td>{student.company}</td>
-                <td>{student.evaluation && student.evaluation.length > 0 ? 
-                  <a href="/livret">Voir le livret</a> 
-                    : <button className='primary-button'>Ajouter une évaluation</button>
-                  }</td>
+                <td>
+                  {selectedModule && selectedModule.formateur_id === formateurId ? (
+                    student.evaluation && student.evaluation.length > 0 ?
+                      <a href="/livret">Voir le livret</a>
+                      : <button className='primary-button'>Ajouter une évaluation</button>
+                  ) : (
+                    student.evaluation && student.evaluation.length > 0 ?
+                      <a href="/livret">Voir le livret</a>
+                      : <span>Pas de livret disponible</span>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
