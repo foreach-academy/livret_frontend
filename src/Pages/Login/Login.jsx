@@ -69,8 +69,9 @@ const Login = () => {
         window.localStorage.setItem('authToken', token.data.token);
         setIsAuthenticated(true);
         setToken(token.data.token);
+        const decodedToken = jwtDecode(token.data.token);
+        setIsAdmin(decodedToken.role === "Admin");     
         navigateTo('/');
-        setIsAdmin(true);
         toast.success('Connexion réussie');
       } else {
         toast.error('Aucun token fourni');
