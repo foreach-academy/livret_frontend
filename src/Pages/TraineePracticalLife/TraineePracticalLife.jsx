@@ -32,8 +32,11 @@ const TraineePracticalLife = () => {
           <li>
             La Responsable Campus est Laury BOSSAERT. Vous pouvez la joindre
             pour toute question relative à votre formation, par téléphone au 06
-            07 69 23 21 ou par mail, à l’adresse <a href="mailto:laury.bossaert@foreach-academy.fr">
-            laury.bossaert@foreach-academy.fr</a>.
+            07 69 23 21 ou par mail, à l’adresse{" "}
+            <a href="mailto:laury.bossaert@foreach-academy.fr">
+              laury.bossaert@foreach-academy.fr
+            </a>
+            .
           </li>
         </ul>
         <ul>
@@ -67,14 +70,12 @@ const TraineePracticalLife = () => {
         </ul>
       </div>
       <div id="practical_life_laptops_container">
-        <div>
-          <img
-            src={two_men_laptops}
-            id="two_men_laptops"
-            alt="Deux pc portables sur une table avec deux personnes qui travaillent"
-          />
-        </div>
-        <div>
+        <img
+          src={two_men_laptops}
+          id="two_men_laptops"
+          alt="Deux pc portables sur une table avec deux personnes qui travaillent"
+        />
+        <div id="practical_life_evalutation_container">
           <ul class="practical_life_evaluation">
             <li>
               Pour toutes les formations, une évaluation des acquis est
@@ -167,9 +168,12 @@ const TraineePracticalLife = () => {
             Dans le cadre de son activité d’organisme de formation, FOREACH
             ACADEMY est amené à traiter des informations vous concernant, dont
             certaines sont de nature à vous identifier (« données personnelles
-            »), par le biais de formulaires de contact sur le site <a href="http://www.foreach-academy.fr">
-            http://www.foreach-academy.fr </a>, documents d’ordre administratif ou
-            contractuel, et de nos échanges par courrier, courrier ou téléphone.
+            »), par le biais de formulaires de contact sur le site{" "}
+            <a href="http://www.foreach-academy.fr">
+              http://www.foreach-academy.fr{" "}
+            </a>
+            , documents d’ordre administratif ou contractuel, et de nos échanges
+            par courrier, courrier ou téléphone.
           </li>
         </ul>
         <ul>
@@ -323,8 +327,11 @@ const TraineePracticalLife = () => {
             Les droits mentionnés ci-dessus peuvent être exercés, en justifiant
             de votre identité, sur simple demande écrite adressée par courrier à
             : FOREACH ACADEMY – 393 rue du Général de Gaulle, 59700 MARCQ EN
-            BAROEUL ou par courriel : 
-            <a href="mailto:campus-lille@foreach-academy.fr" className="practical_life_links">
+            BAROEUL ou par courriel :
+            <a
+              href="mailto:campus-lille@foreach-academy.fr"
+              className="practical_life_links"
+            >
               campus-lille@foreach-academy.fr
             </a>
           </li>
@@ -346,7 +353,9 @@ const TraineePracticalLife = () => {
             <li className="rights_obligations_list">
               1 - Tes droits d'alternant
             </li>
-            <li className="rights_obligations_list_dot">Le contrat de travail</li>
+            <li className="rights_obligations_list_dot">
+              Le contrat de travail
+            </li>
             <li>
               Avec ce contrat qui engage 3 parties prenantes (toi, l’entreprise
               et l’école), l’entreprise s’engage à te désigner un tuteur qui va
@@ -355,7 +364,9 @@ const TraineePracticalLife = () => {
               conditions : date de début, durée, mission, horaires, salaire,
               etc.
             </li>
-            <li className="rights_obligations_list_dot">Le statut de salarié</li>
+            <li className="rights_obligations_list_dot">
+              Le statut de salarié
+            </li>
             <li>
               En tant qu’alternant, tu accèdes aux mêmes droits que les autres
               salariés de ton entreprise : congés, RTT, CSE, ticket ou carte de
@@ -366,8 +377,11 @@ const TraineePracticalLife = () => {
             <li className="rights_obligations_list">Bon à savoir</li>
             <li>
               Tu es en désaccord avec ton employeur ? Si la situation ou le
-              dialogue est compliqué, tu peux faire appel au <a href="https://www.service-public.fr/particuliers/vosdroits/F31633">
-                médiateur de l’apprentissage </a> afin de trouver des solutions qui conviennent à chacune des deux
+              dialogue est compliqué, tu peux faire appel au{" "}
+              <a href="https://www.service-public.fr/particuliers/vosdroits/F31633">
+                médiateur de l’apprentissage{" "}
+              </a>{" "}
+              afin de trouver des solutions qui conviennent à chacune des deux
               parties.
             </li>
           </ul>
@@ -377,24 +391,29 @@ const TraineePracticalLife = () => {
             <li className="rights_obligations_list">
               2 - Tes obligations d'alternant
             </li>
-            <li className="rights_obligations_list_dot">La présence en cours</li>
+            <li className="rights_obligations_list_dot">
+              La présence en cours
+            </li>
             <li>
-              Pour toute absence, tu dois en avertir ton tuteur, le centre de formation et 
-              transmettre un justificatif (sous 48h) comme pour un arrêt de travail. 
-              Et oui, ta formation étant payée par ton entreprise, tu es dans l’obligation 
-              de l’en informer !
-              Les absences qui peuvent être justifiées en formation : maladie 
-              (avec arrêt de travail), convocation (examen, jury, permis…sur présentation 
-              de celle-ci), mariage, naissance, décès d’un proche, journée d’appel. Pour un autre 
-              motif, l’absence pourra être considérée comme injustifiée et entrainer une perte de 
-              salaire.
-              </li>
-            <li className="rights_obligations_list_dot">L'implication dans l'entreprise</li>
+              Pour toute absence, tu dois en avertir ton tuteur, le centre de
+              formation et transmettre un justificatif (sous 48h) comme pour un
+              arrêt de travail. Et oui, ta formation étant payée par ton
+              entreprise, tu es dans l’obligation de l’en informer ! Les
+              absences qui peuvent être justifiées en formation : maladie (avec
+              arrêt de travail), convocation (examen, jury, permis…sur
+              présentation de celle-ci), mariage, naissance, décès d’un proche,
+              journée d’appel. Pour un autre motif, l’absence pourra être
+              considérée comme injustifiée et entrainer une perte de salaire.
+            </li>
+            <li className="rights_obligations_list_dot">
+              L'implication dans l'entreprise
+            </li>
             <li>
-            Le rythme école/entreprise n’est pas forcément facile à suivre au début mais 
-            cela fait partie du jeu. Comme à l’école, l’entreprise attend de toi de la 
-            ponctualité, de l’assiduité mais aussi de la motivation dans tes missions. 
-            Donne le meilleur de toi-même, c’est ton avenir qui est en jeu !
+              Le rythme école/entreprise n’est pas forcément facile à suivre au
+              début mais cela fait partie du jeu. Comme à l’école, l’entreprise
+              attend de toi de la ponctualité, de l’assiduité mais aussi de la
+              motivation dans tes missions. Donne le meilleur de toi-même, c’est
+              ton avenir qui est en jeu !
             </li>
           </ul>
         </div>
