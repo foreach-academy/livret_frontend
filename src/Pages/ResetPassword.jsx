@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // useLocation pour récupérer le token dans l'URL
 import UserServices from '../Services/UserServices';
 import { toast } from 'react-toastify';
+import "../styles/ResetPassword/ResetPassword.css";
 
 function ResetPassword() {
     const [newPassword, setNewPassword] = useState('');
@@ -17,6 +18,7 @@ function ResetPassword() {
         const tokenFromUrl = params.get('token'); // On récupère le token de l'URL
         if (tokenFromUrl) {
             setToken(tokenFromUrl);
+            console.log("Token récupéré :", tokenFromUrl);
         } else {
             toast.error("Le token est manquant.");
             navigate("/login"); // Rediriger si aucun token n'est trouvé
@@ -48,7 +50,7 @@ function ResetPassword() {
             setPasswordError('');
             
             // Appel du service pour mettre à jour le mot de passe avec le token
-            await UserServices.updatePassword(newPassword, token); // Passer le mot de passe et le token
+            await UserServices.UpdateUserByToken(newPassword, token); // Utilisation de la bonne méthode
             toast.success("Mot de passe mis à jour avec succès !");
             navigate("/login");
         } catch (error) {
@@ -56,13 +58,13 @@ function ResetPassword() {
             toast.error("Une erreur est survenue lors de la mise à jour du mot de passe.");
         }
     };
-
-    return (
-        <>
-            <h1>Réinitialisation du mot de passe</h1>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="input_password">Nouveau mot de passe</label>
+    return  <>
+        <h1 class="title_Pages">Réinitialisation du mot de passe</h1>
+        <div class='form_blue_contener'>
+            <form class='form_blue' onSubmit={handleSubmit}>
+                <label class="label_form_blue label_form_blue_resetP" id='target_labelNewPassword_resetP' htmlFor="input_password">Nouveau mot de passe</label>
                 <input 
+                    class="input_form_blue"
                     value={newPassword} 
                     onChange={(e) => setNewPassword(e.target.value)} 
                     id='input_password' 
@@ -70,20 +72,21 @@ function ResetPassword() {
                     required 
                 />
 
-                <label htmlFor="confirm_password">Confirmation du mot de passe</label>
+                <label id="target_labelConfirm_resetP" class="label_form_blue label_form_blue_resetP" htmlFor="confirm_password">Confirmation du mot de passe</label>
                 <input 
+                    class="input_form_blue"
                     value={confirmPassword} 
                     onChange={(e) => setConfirmPassword(e.target.value)} 
                     id='confirm_password' 
                     type="password" 
                     required 
                 />
-
                 {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
 
-                <button type="submit">Confirmer</button>
-            </form>
-        </>
-    );
+                <button className='primary-button' id='target_buttonConfirmNewPassword' type="submit">Confirmer</button>
+            </form>    
+        </div>  
+    </>    
+    
 }
 export default ResetPassword;

@@ -113,11 +113,11 @@ function AddUser() {
   return (
     <>
       <h1 class="title_Pages">Ajouter un utilisateur</h1>
-      <div id='form_add_contener'>
-        <form id='form_add' onSubmit={handleSubmit}>
-          <label class="label_add" htmlFor="firstName">Prénom</label>
+      <div class='form_blue_contener'>
+        <form class='form_blue' onSubmit={handleSubmit}>
+          <label class="label_form_blue" htmlFor="firstName">Prénom</label>
           <input
-            class="input_add"
+            class="input_form_blue"
             type="text"
             id="firstName"
             value={first_name}
@@ -125,9 +125,9 @@ function AddUser() {
           />
           {errors.firstName && <span class="error">{errors.first_name}</span>}
 
-          <label id='surname_label_add' class="label_add at_second_label" htmlFor="surname">Nom</label>
+          <label id='surname_label_add' class="label_form_blue at_second_label" htmlFor="surname">Nom</label>
           <input
-            class="input_add"
+            class="input_form_blue"
             type="text"
             id="surname"
             value={surname}
@@ -135,9 +135,9 @@ function AddUser() {
           />
           {errors.surname && <span class="error">{errors.surname}</span>}
 
-          <label id='email_label_add' class="label_add at_second_label" htmlFor="email">Email</label>
+          <label id='email_label_add' class="label_form_blue at_second_label" htmlFor="email">Email</label>
           <input
-            class="input_add"
+            class="input_form_blue"
             type="email"
             id="email"
             value={email}
@@ -145,17 +145,17 @@ function AddUser() {
           />
           {errors.email && <span class="error">{errors.email}</span>}
 
-          <label htmlFor="promo" id='promo_label_add' class="label_add at_second_label">Promo</label>
+          <label htmlFor="promo" id='promo_label_add' class="label_form_blue at_second_label">Promo</label>
           <input
             type="text"
-            class="input_add"
+            class="input_form_blue"
             id="promo"
             value={promo}
             onChange={(e) => setPromo(e.target.value)}
           />
           {errors.promo && <span class="error">{errors.promo}</span>}
 
-          <label htmlFor="role" id='role_label_add' class="label_add at_second_label">Role</label>
+          <label htmlFor="role" id='role_label_add' class="label_form_blue at_second_label">Role</label>
           <select
             name="role"
             id="role_select_add"
@@ -170,9 +170,9 @@ function AddUser() {
           </select>
           {errors.role && <span className="error">{errors.role}</span>}
 
-          <label id='company_label_add' class="label_add at_second_label" htmlFor="company">Entreprise</label>
+          <label id='company_label_add' class="label_form_blue at_second_label" htmlFor="company">Entreprise</label>
           <input
-            class="input_add"
+            class="input_form_blue"
             type="text"
             id="company"
             value={company}
@@ -180,18 +180,18 @@ function AddUser() {
           />
           {errors.company && <span class="error">{errors.company}</span>}
 
-          <label id='password_label_add' class="label_add at_second_label" htmlFor="password">Password</label>
+          <label id='password_label_add' class="label_form_blue at_second_label" htmlFor="password">Password</label>
           <input
-            class="input_add"
+            class="input_form_blue"
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && <span class="error">{errors.password}</span>}
-          <label id='confirm_label_add' class="label_add at_second_label" htmlFor="confirmPassword">Confirm Password</label>
+          <label id='confirm_label_add' class="label_form_blue at_second_label" htmlFor="confirmPassword">Confirm Password</label>
           <input
-            class="input_add"
+            class="input_form_blue"
             type="password"
             id="confirmPassword"
             value={confirmPassword}
