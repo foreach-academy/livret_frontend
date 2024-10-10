@@ -15,11 +15,12 @@ function AddUser() {
   const [company, setCompany] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // État pour empêcher la soumission multiple
   const navigate = useNavigate();
   const navigateTo = (route) => {
-      navigate(route);
-      window.scrollTo(0,0);
-  }
+    navigate(route);
+    window.scrollTo(0, 0);
+  };
 
   // État pour les rôles
   const [roles, setRoles] = useState([]);
@@ -44,55 +45,67 @@ function AddUser() {
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true); // Empêche de soumettre plusieurs fois le formulaire
 
-    const validationErrors = validateForm();
+    // Vérification immédiate des mots de passe avant validation
+    if (password !== confirmPassword) {
+      setErrors({ confirmPassword: 'Les mots de passe ne correspondent pas' });
+      setIsSubmitting(false);
+      return;
+    }
+
+    const validationErrors = validateForm({
+      first_name, 
+      surname, 
+      email, 
+      promo, 
+      role_id: roleId, 
+      company, 
+      password 
+    });
+
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setIsSubmitting(false);
       return;
     }
 
     try {
-      const user = { 
-        first_name, 
-        surname, 
-        email, 
-        promo, 
-        role_id: roleId, 
-        company, 
-        password 
-      };
+      const user = { first_name, surname, email, promo, role_id: roleId, company, password };
       const response = await UserServices.addUser(user);
       console.log('Utilisateur ajouté avec succès:', response.data);
-      navigateTo('/users')
+      navigateTo('/users');
       toast.success("Utilisateur ajouté avec succès");
       resetForm();
     } catch (error) {
-      toast.error('Une erreur et survenue');
+      toast.error('Une erreur est survenue');
       console.error('Erreur lors de l\'ajout de l\'utilisateur:', error);
+    } finally {
+      setIsSubmitting(false); // Réactiver le bouton après soumission
     }
   };
 
   // Fonction pour valider les champs du formulaire
-  const validateForm = () => {
+  const validateForm = (user) => {
     const errors = {};
-    if (!first_name) errors.firstName = 'Le prénom est requis';
-    if (!surname) errors.surname = 'Le nom est requis';
-    if (!email) errors.email = 'L\'email est requis';
-    if (!promo) errors.promo = 'La promotion est requise';
-    if (!company) errors.company = 'L\'entreprise est requise';
-    if (!roleId) errors.role = 'Le rôle est requis';
-    
+    if (!user.first_name) errors.firstName = 'Le prénom est requis';
+    if (!user.surname) errors.surname = 'Le nom est requis';
+    if (!user.email) errors.email = 'L\'email est requis';
+    if (!user.promo) errors.promo = 'La promotion est requise';
+    if (!user.company) errors.company = 'L\'entreprise est requise';
+    if (!user.role_id) errors.role = 'Le rôle est requis';
+
     // Validation du mot de passe
-    if (!password) {
-        errors.password = 'Le mot de passe est requis';
+    if (!user.password) {
+      errors.password = 'Le mot de passe est requis';
     } else {
-      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{10,}$/;
-        if (!passwordRegex.test(password)) {
-            errors.password = 'Le mot de passe doit contenir au moins 10 caractères, une lettre majuscule et 1 caratére special';
-        }
+      // Vérifiez que le mot de passe a bien les critères requis
+      // Mise à jour de la regex pour permettre plus de caractères spéciaux
+      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~`\\|-])[A-Za-z0-9!@#$%^&*()_+={}\[\]:;"'<>,.?/~`\\|-]{10,}$/;
+      if (!passwordRegex.test(user.password)) {
+        errors.password = 'Le mot de passe doit contenir au moins 10 caractères, un chiffre et un caractère spécial';
+      }
     }
-    
-    if (password !== confirmPassword) errors.confirmPassword = 'Les mots de passe ne correspondent pas';
 
     return errors;
   };
@@ -123,7 +136,7 @@ function AddUser() {
             value={first_name}
             onChange={(e) => setFirst_name(e.target.value)}
           />
-          {errors.firstName && <span class="error">{errors.first_name}</span>}
+          {errors.firstName && <span class="error">{errors.firstName}</span>}
 
           <label id='surname_label_add' class="label_form_blue at_second_label" htmlFor="surname">Nom</label>
           <input
@@ -162,6 +175,7 @@ function AddUser() {
             value={roleId}
             onChange={(e) => setRoleId(e.target.value)}
           >
+            <option value="" disabled>Choisissez un rôle</option>
             {roles.map((role) => (
               role.id  && (
                 <option key={role.id} value={role.id}>{role.name}</option>
@@ -189,6 +203,7 @@ function AddUser() {
             onChange={(e) => setPassword(e.target.value)}
           />
           {errors.password && <span class="error">{errors.password}</span>}
+
           <label id='confirm_label_add' class="label_form_blue at_second_label" htmlFor="confirmPassword">Confirm Password</label>
           <input
             class="input_form_blue"
@@ -199,10 +214,17 @@ function AddUser() {
           />
           {errors.confirmPassword && <span class="error">{errors.confirmPassword}</span>}
 
-          <button className='primary-button primary-button-lg ' type='submit'>Ajouter l'utilisateur</button>
+          <button 
+            className='primary-button primary-button-lg' 
+            type='submit' 
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? 'Ajout en cours...' : 'Ajouter l\'utilisateur'}
+          </button>
         </form>
       </div>
     </>
   );
 }
+
 export default AddUser;
