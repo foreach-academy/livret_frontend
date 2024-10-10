@@ -115,7 +115,7 @@ const UserList = () => {
         <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>
       <div className='tabs'>
-          <button className='tab-button active' onClick={(event) => {showUsersList(event, 'apprenants')}}>Apprenants</button>
+          <button className='tab-button active' onClick={(event) => {showUsersList(event, 'apprenants')}}>Apprenantt·e·s</button>
           <button className='tab-button' onClick={(event) => {showUsersList(event, 'formateurs')}}>Formateurs</button>
           <button className='tab-button' onClick={(event) => {showUsersList(event, 'administrateurs')}}>Administrateurs</button>
           <div className="tab-line"></div>

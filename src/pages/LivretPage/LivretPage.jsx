@@ -76,14 +76,6 @@ function LivretPage() {
     <div className='formation-container'>
       <h1>{formationName}</h1>
       <div className='formation-filter-container'>
-        <div className='formation-filter'>
-          <label htmlFor="module">Module :</label>
-          <select name="module" id="module" onChange={handleChange}>
-            {modules.map((module) => (
-              <option key={module.id} value={module.id}>{module.title}</option>
-            ))}
-          </select>
-        </div>
         {showYearDropdown && (
           <div className='formation-filter'>
             <label htmlFor="year">Année :</label>
@@ -94,9 +86,17 @@ function LivretPage() {
           </div>
         )}
         <div className='formation-filter'>
-          <label htmlFor="search">Étudiant :</label>
+          <label htmlFor="module">Module :</label>
+          <select name="module" id="module" onChange={handleChange}>
+            {modules.map((module) => (
+              <option key={module.id} value={module.id}>{module.title}</option>
+            ))}
+          </select>
+        </div>
+        <div className='formation-filter'>
+          <label htmlFor="search">Apprenant·e :</label>
           <div className="search-container">
-            <input type="search" name="search" id="search" placeholder="Nom de l'étudiant" onChange={handleSearch} />
+            <input type="search" name="search" id="search" placeholder="Nom de l'apprenant·e" onChange={handleSearch} />
             <span className="material-icons-outlined">search</span>
           </div>
         </div>
@@ -110,9 +110,9 @@ function LivretPage() {
         <table>
           <thead>
             <tr>
-              <th>Étudiant</th>
+              <th>Apprenant·e·s</th>
               <th>Entreprise</th>
-              <th>Livrets de suivi</th>
+              <th>Évaluations</th>
             </tr>
           </thead>
           <tbody>
@@ -123,12 +123,12 @@ function LivretPage() {
                 <td>
                   {selectedModule && selectedModule.formateur_id === formateurId ? (
                     student.evaluation && student.evaluation.length > 0 ?
-                      <a href="/livret">Voir le livret</a>
+                      <a href="/livret">Voir l'évaluation</a>
                       : <button className='primary-button'>Ajouter une évaluation</button>
                   ) : (
                     student.evaluation && student.evaluation.length > 0 ?
-                      <a href="/livret">Voir le livret</a>
-                      : <span>Pas de livret disponible</span>
+                      <a href="/livret">Voir l'évaluation</a>
+                      : <span>Aucune évaluation</span>
                   )}
                 </td>
               </tr>
