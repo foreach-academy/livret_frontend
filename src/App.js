@@ -17,6 +17,7 @@ import AddUser from './pages/AddUser/AddUser';
 import ErrorPage from './pages/ErrorPage/ErrorPage'
 import TraineePracticalLife from './pages/TraineePracticalLife/TraineePracticalLife';
 import LivretPage from './pages/LivretPage/LivretPage';
+import ResetPassword from './pages/ResetPassword';
 
 // Contexte
 import AuthContext from './Context/AuthContext';
@@ -40,6 +41,7 @@ function App() {
               <Route path="/users/:role" element={<DataConnexion />} />
               <Route path="/*" element={<ErrorPage />} />
               <Route path="/trainee-practical-life" element={<TraineePracticalLife/>} />
+              <Route path="/reset/password" element={<ResetPassword/>} />
               {isAuthenticated && <>
                 <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
                 <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />

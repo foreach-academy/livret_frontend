@@ -25,6 +25,19 @@ class UserServices{
         return axios.patch(`${URL}/users/update/${id}`, { role_id: roleId })
     }
 
+    static async UpdateUserByToken(newPassword, token) {
+        try {
+            const response = await axios.post(`${URL}/users/reset-password`, {
+                password: newPassword,
+                token: token
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Erreur lors de la mise à jour du mot de passe avec le token:', error);
+            throw error;
+        }
+    }
+
     static login (user){
         return axios.post(URL+"/authenticate/login", user)
     }

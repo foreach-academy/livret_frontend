@@ -81,7 +81,27 @@ body {
     font-size: x-small;
     cursor: pointer;
   }
-
+  #label_email_send{
+    font-size: 1.5rem;
+  }
+  #input_modal_emailSend{
+    margin-top: 5px;
+    height: 1.5rem;
+    width: 40%; /* Ajuste la largeur selon vos besoins */
+    max-width: 300px; /* Largeur maximale */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  #button_form_sendMail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2rem;
+    margin-top: 3px;
+  }
+  .button_sendMail{
+    margin-left: 12.5rem;
+  }
   @media screen and (max-width: 1200px) {
     .page-container {
       max-width: 90%;

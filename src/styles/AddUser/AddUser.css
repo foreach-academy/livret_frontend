@@ -1,8 +1,7 @@
 .title_Pages{
-    margin-top: 8rem;
     text-align: center;
 }
-#form_add_contener{
+.form_blue_contener{
     background-color: #108CB7;
     border-radius: 6px;
     max-width: 500px;
@@ -14,16 +13,16 @@
     color: white;
     padding: 5rem 3rem;
 }
-#form_add_contener .primary-button {
+.form_blue_contener .primary-button {
     margin-top: 24px;
 }
-#form_add{
+.form_blue{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.input_add{
+.input_form_blue{
     width: 20rem;
     height: 1.8rem;
     border: none;
@@ -31,7 +30,7 @@
     margin-top: 4px;
     font-size: 1.05rem;
 }
-.label_add{
+.label_form_blue{
     margin-right: 16.2rem;
     font-size: 1.15rem;
 }
