@@ -144,7 +144,7 @@ function LivretPage() {
             </table>
           </div>
         </>
-        : <span>Vous n'avez pas de modules pour cette formation</span>
+        : <span>Vous n'avez pas de modules dans cette formation</span>
       }
     </div>
   );
