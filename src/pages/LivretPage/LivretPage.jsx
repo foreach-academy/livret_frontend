@@ -18,10 +18,14 @@ function LivretPage() {
   const formateurId = UserServices.getUserId();
 
   const fetchModule = async () => {
-    const response = await FormationServices.getModulesByFormationId(dynamicFormationId);
-    setModules(response.data.modules);
-  };
-
+    try {
+        const response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
+        setModules(response.data.modules || []);
+    } catch (error) {
+        console.error('Error fetching modules:', error);
+        setModules([]); 
+    }
+};
   const fetchStudents = async () => {
     const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(dynamicFormationId, moduleId);
     setFormationName(response.data.title);
@@ -62,7 +66,7 @@ function LivretPage() {
   useEffect(() => {
     fetchModule();
     fetchStudents();
-  }, [dynamicFormationId, moduleId]);
+  }, [dynamicFormationId, moduleId, selectedYear]);
 
   useEffect(() => {
     if (formationId === '2' || formationId === '4') {
@@ -88,6 +92,9 @@ function LivretPage() {
         <div className='formation-filter'>
           <label htmlFor="module">Module :</label>
           <select name="module" id="module" onChange={handleChange}>
+            {modules.length <= 0 && 
+              <option selected disabled>Aucun module</option>
+            }
             {modules.map((module) => (
               <option key={module.id} value={module.id}>{module.title}</option>
             ))}
@@ -101,41 +108,44 @@ function LivretPage() {
           </div>
         </div>
       </div>
-
-      <div>
-        <h2><span className='badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
-      </div>
-
-      <div>
-        <table>
-          <thead>
-            <tr>
-              <th>Apprenant·e·s</th>
-              <th>Entreprise</th>
-              <th>Évaluations</th>
-            </tr>
-          </thead>
-          <tbody>
-            {searchedStudents.map((student) => (
-              <tr key={student.id}>
-                <td>{student.first_name} {student.surname}</td>
-                <td>{student.company}</td>
-                <td>
-                  {selectedModule && selectedModule.formateur_id === formateurId ? (
-                    student.evaluation && student.evaluation.length > 0 ?
-                      <a href="/livret">Voir l'évaluation</a>
-                      : <button className='primary-button'>Ajouter une évaluation</button>
-                  ) : (
-                    student.evaluation && student.evaluation.length > 0 ?
-                      <a href="/livret">Voir l'évaluation</a>
-                      : <span>Aucune évaluation</span>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      {modules.length > 0 ?
+        <>
+          <div>
+            <h2><span className='badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
+          </div> 
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Apprenant·e·s</th>
+                  <th>Entreprise</th>
+                  <th>Évaluations</th>
+                </tr>
+              </thead>
+              <tbody>
+                {searchedStudents.map((student) => (
+                  <tr key={student.id}>
+                    <td>{student.first_name} {student.surname}</td>
+                    <td>{student.company}</td>
+                    <td>
+                      {selectedModule && selectedModule.formateur_id === formateurId ? (
+                        student.evaluation && student.evaluation.length > 0 ?
+                          <a href="/livret">Voir l'évaluation</a>
+                          : <button className='primary-button'>Ajouter une évaluation</button>
+                      ) : (
+                        student.evaluation && student.evaluation.length > 0 ?
+                          <a href="/livret">Voir l'évaluation</a>
+                          : <span>Aucune évaluation</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+        : <span>Vous n'avez pas de modules pour cette formation</span>
+      }
     </div>
   );
 }
