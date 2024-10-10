@@ -1,0 +1,109 @@
+.formation-container {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 50px 0;
+    color: #374151;
+    max-width: 96%; /* responsive */
+}
+.formation-container h1 {
+    text-align: center;
+}
+.formation-filter-container {
+    display: flex;
+    gap: 24px;
+    flex-direction: column; /* responsive */
+    padding:  32px 0 40px 0;
+}
+.formation-filter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.formation-filter label {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+}
+.formation-filter select, .formation-filter input {
+    padding: 8px;
+    font-size: 16px;
+    min-height: 38px;
+    min-width: 300px;
+    border-radius: 6px;
+    outline: 1px solid #D1D5DB;
+    color: #374151;
+    border: none;
+    border-right: 14px solid transparent;
+} 
+.formation-filter select {
+    cursor: pointer;
+}
+.search-container {
+    position: relative;
+}
+.search-container input {
+    padding-left: 40px; 
+}
+.search-container span {
+    position: absolute;
+    left: 10px; 
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280; 
+}
+
+
+.formation-container table {
+    overflow: hidden;
+    border-radius: 6px;
+    border: 1px solid #D1D5DB;
+    margin: 0;
+    border-collapse: collapse;
+    outline: 1px solid #D1D5DB;
+}
+.formation-container table td, .formation-container table th {
+    text-align: left;
+    border: 1px solid #ddd;
+}
+.formation-container table td {
+    height: 45px;
+}
+.formation-container h2 {
+    margin-top: 0;
+}
+.badge-primary {
+    background-color: var(--tertiary-color);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 22px;
+}
+/* Desktop */
+@media screen and (min-width: 992px) {
+    .formation-container td:first-child {
+        min-width: 200px;
+        font-weight: 500;
+        font-weight: 600;
+    }
+    .formation-container td:nth-child(2){
+        min-width: 150px;
+    }
+    .formation-container {
+        max-width: 80%;
+    }
+    .formation-container table td, .formation-container table th {
+        padding-left: 42px;
+    }
+    .formation-filter-container {
+        flex-direction: row;
+    }
+}
+
+/* Responsive */
+@media screen and (max-width: 992px) {
+    .formation-filter select, .search-container, .formation-filter input {
+        width: 100%;
+    }
+}
