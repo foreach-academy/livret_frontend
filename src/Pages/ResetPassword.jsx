@@ -27,7 +27,7 @@ function ResetPassword() {
 
     // Fonction de validation du mot de passe (10 caractères, 1 majuscule, 1 caractère spécial)
     const validatePassword = (password) => {
-        const passwordRegex = /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{10,}$/;
+        const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~`\\|-])[A-Za-z0-9!@#$%^&*()_+={}\[\]:;"'<>,.?/~`\\|-]{10,}$/;
         return passwordRegex.test(password);
     };
 
