@@ -53,6 +53,11 @@ function LivretPage() {
     return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
 
+  const formatDate = (date) => {
+    const options = { day: 'numeric', month: 'long', year: 'numeric' };
+    return new Date(date).toLocaleDateString('fr-FR', options);
+  };
+
   const searchedStudents = students.filter((student) => {
     const firstName = removeAccent(student.first_name).toLowerCase();
     const lastName = removeAccent(student.surname).toLowerCase();
@@ -118,6 +123,7 @@ function LivretPage() {
               <thead>
                 <tr>
                   <th>Apprenant·e·s</th>
+                  <th>Date de naissance</th>
                   <th>Entreprise</th>
                   <th>Évaluations</th>
                 </tr>
@@ -126,6 +132,7 @@ function LivretPage() {
                 {searchedStudents.map((student) => (
                   <tr key={student.id}>
                     <td>{student.first_name} {student.surname}</td>
+                    <td>{formatDate(student.birthdate)}</td>
                     <td>{student.company}</td>
                     <td>
                       {selectedModule && selectedModule.formateur_id === formateurId ? (
