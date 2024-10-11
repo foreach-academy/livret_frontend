@@ -5,6 +5,7 @@ import UserServices from '../../Services/UserServices';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import EmailServices from "../../Services/EmailServices";
+import { jwtDecode } from 'jwt-decode';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ const Login = () => {
   };
 
   const validatePassword = (password) => {
-    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~`\\|-])[A-Za-z0-9!@#$%^&*()_+={}\[\]:;"'<>,.?/~`\\|-]{10,}$/;
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{10,}$/;
     return passwordRegex.test(password);
   };
 
@@ -60,10 +61,10 @@ const Login = () => {
         window.localStorage.setItem('authToken', token.data.token);
         setIsAuthenticated(true);
         setToken(token.data.token);
+        navigate('/');
         const decodedToken = jwtDecode(token.data.token);
-        setIsAdmin(decodedToken.role === "Admin");     
-        navigateTo('/');
-        toast.success('Connexion réussie');
+        setIsAdmin(decodedToken.role === "Admin");
+        toast.success('Connexion réussie');     
       } else {
         toast.error('Aucun token fourni');
       }
