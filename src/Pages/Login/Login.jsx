@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import '../../styles/Login/Login.css';
 import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
@@ -12,6 +12,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [retryTimeLeft, setRetryTimeLeft] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);  // New state for disabling button
   const { setIsAuthenticated, setToken, setIsAdmin } = useContext(AuthContext);
@@ -36,6 +37,26 @@ const Login = () => {
     setPassword(e.target.value);
     setPasswordError('');
   };
+
+  // function pour le timer contre le brute force email
+
+  useEffect(() => {
+    let countdown;
+    if (retryTimeLeft) {
+      countdown = setInterval(() => {
+        setRetryTimeLeft((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(countdown);
+            return null;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(countdown);
+  }, [retryTimeLeft]);
+
+  // submit du formulaire de connexion
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -80,18 +101,31 @@ const Login = () => {
     if (event.target.id === 'myModal') closeModal();
   };
 
+  // submit du formulaire de la modal "mot de passe oublié"
+
   const HandleModalSubmit = async () => {
-    setIsSubmitting(true);  // Disable the button on submit
-    try {
-      await EmailServices.resetPasswordEmail(email);
-      toast.success('Email de réinitialisation envoyé');
-      closeModal();
-    } catch (error) {
-      toast.error('Erreur lors de l\'envoi de l\'email');
-    } finally {
-      setIsSubmitting(false);  // Re-enable the button after sending
+    if (retryTimeLeft) {
+        toast.error(`Veuillez attendre ${retryTimeLeft} secondes avant de réessayer.`);
+        return;
     }
-  }
+
+    setIsSubmitting(true);
+
+    try {
+        await EmailServices.resetPasswordEmail(email);
+        toast.success('Email de réinitialisation envoyé');
+        closeModal();
+    } catch (error) {
+        if (error.message.includes('Veuillez attendre')) {
+            const retryAfter = parseInt(error.message.match(/\d+/)[0], 10); // Parse et utilise le temps
+            setRetryTimeLeft(retryAfter); // Active le compte à rebours
+        } else {
+            toast.error('Erreur lors de l\'envoi de l\'email');
+        }
+    } finally {
+        setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -155,9 +189,10 @@ const Login = () => {
                 <div className="modal-body"> 
                   <label id='label_email_send' htmlFor="email">Email</label>
                   <input type="email" id='input_modal_emailSend' value={email} readOnly/>
+                  {retryTimeLeft && <p className='errorSécurité'>Veuillez attendre {retryTimeLeft} secondes avant de réessayer.</p>}
                 </div>
                 <div className="modal-footer">
-                  <button id='button_form_sendMail' onClick={HandleModalSubmit} disabled={isSubmitting} className='button_sendMail button_list'>
+                  <button id='button_form_sendMail' onClick={HandleModalSubmit} disabled={isSubmitting || retryTimeLeft} className='button_sendMail button_list'>
                     {isSubmitting ? 'Envoi en cours...' : 'Valider'}
                   </button>
                 </div>
