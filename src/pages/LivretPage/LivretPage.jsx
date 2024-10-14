@@ -8,8 +8,6 @@ import AuthContext from '../../Context/AuthContext';
 function LivretPage() {
   // modules : pour afficher les modules aux admins
   const [modules, setModules] = useState([]);
-  // modulesByFormateur : pour afficher les modules aux formateurs
-  const [modulesByFormateur, setModulesByFormateur] = useState([]);
   const [moduleId, setModuleId] = useState(25);
   const { formationId } = useParams(); 
   const [students, setStudents] = useState([]);
@@ -22,25 +20,41 @@ function LivretPage() {
   const formateurId = UserServices.getUserId();
   const { isAdmin } = useContext(AuthContext);
 
-  const fetchModuleByFormateur = async () => {
+  const fetchModules = async () => {
     try {
-        const response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
-        setModulesByFormateur(response.data.modules || []);
+      let response;
+      if(isAdmin){
+        response = await FormationServices.getModulesByFormationId(dynamicFormationId);
+      } else {
+        response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
+      }
+      setModules(response.data.modules || []);
     } catch (error) {
-        console.error('Error fetching modules by formateur:', error);
-        setModulesByFormateur([]); 
+      console.error('Error fetching modules:', error);
+      setModules([]); 
     }
-};
-
-const getModulesByFormationId = async () => {
-  try {
-    const response = await FormationServices.getModulesByFormationId(dynamicFormationId);
-    setModules(response.data.modules || [])
-  } catch (error) {
-    console.error('Error fetching modules by formation ID:', error);
-    setModules([]); 
   }
-}
+
+//   const fetchModuleByFormateur = async () => {
+//     try {
+//         const response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
+      
+//         setmodules(response.data.modules || []);
+//     } catch (error) {
+//         console.error('Error fetching modules by formateur:', error);
+//         setmodules([]); 
+//     }
+// };
+
+// const getModulesByFormationId = async () => {
+//   try {
+//     const response = await FormationServices.getModulesByFormationId(dynamicFormationId);
+//     setModules(response.data.modules || [])
+//   } catch (error) {
+//     console.error('Error fetching modules by formation ID:', error);
+//     setModules([]); 
+//   }
+// }
 
   const fetchStudents = async () => {
     const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(dynamicFormationId, moduleId);
@@ -82,12 +96,11 @@ const getModulesByFormationId = async () => {
   });
 
   const studentsNotEvaluated = students.filter((student) => !student.evaluation || student.evaluation.length === 0).length;
-  const selectedModule = modulesByFormateur.find((module) => module.id === moduleId);
+  const selectedModule = modules.find((module) => module.id === moduleId);
 
   useEffect(() => {
-    fetchModuleByFormateur();
+    fetchModules();
     fetchStudents();
-    getModulesByFormationId();
   }, [dynamicFormationId, moduleId, selectedYear]);
 
   useEffect(() => {
@@ -114,10 +127,10 @@ const getModulesByFormationId = async () => {
         <div className='formation-filter'>
           <label htmlFor="module">Module :</label>
           <select name="module" id="module" onChange={handleChange}>
-            {(modulesByFormateur.length <= 0 || modules.length <=0) && 
-              <option defaultValue disabled>Aucun module</option>
+            {(modules.length <= 0 || modules.length <=0) && 
+              <option selected disabled>Aucun module</option>
             }
-            {modulesByFormateur.map((module) => (
+            {modules.map((module) => (
               <option key={module.id} value={module.id}>{module.title}</option>
             ))}
           </select>
@@ -130,7 +143,7 @@ const getModulesByFormationId = async () => {
           </div>
         </div>
       </div>
-      {modulesByFormateur.length > 0 ?
+      {modules.length > 0 ?
         <>
           <div>
             <h2><span className='badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
