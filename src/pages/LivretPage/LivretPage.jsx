@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import FormationServices from '../../Services/FormationServices';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import "../../styles/LivretPage/LivretPage.css";
 import UserServices from '../../Services/UserServices';
+import AuthContext from '../../Context/AuthContext';
 
 function LivretPage() {
+  // modules : pour afficher les modules aux admins
   const [modules, setModules] = useState([]);
+  // modulesByFormateur : pour afficher les modules aux formateurs
+  const [modulesByFormateur, setModulesByFormateur] = useState([]);
   const [moduleId, setModuleId] = useState(25);
   const { formationId } = useParams(); 
   const [students, setStudents] = useState([]);
@@ -16,16 +20,28 @@ function LivretPage() {
   const [search, setSearch] = useState('');
   const navigate = useNavigate(); 
   const formateurId = UserServices.getUserId();
+  const { isAdmin } = useContext(AuthContext);
 
-  const fetchModule = async () => {
+  const fetchModuleByFormateur = async () => {
     try {
         const response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
-        setModules(response.data.modules || []);
+        setModulesByFormateur(response.data.modules || []);
     } catch (error) {
-        console.error('Error fetching modules:', error);
-        setModules([]); 
+        console.error('Error fetching modules by formateur:', error);
+        setModulesByFormateur([]); 
     }
 };
+
+const getModulesByFormationId = async () => {
+  try {
+    const response = await FormationServices.getModulesByFormationId(dynamicFormationId);
+    setModules(response.data.modules || [])
+  } catch (error) {
+    console.error('Error fetching modules by formation ID:', error);
+    setModules([]); 
+  }
+}
+
   const fetchStudents = async () => {
     const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(dynamicFormationId, moduleId);
     setFormationName(response.data.title);
@@ -66,11 +82,12 @@ function LivretPage() {
   });
 
   const studentsNotEvaluated = students.filter((student) => !student.evaluation || student.evaluation.length === 0).length;
-  const selectedModule = modules.find((module) => module.id === moduleId);
+  const selectedModule = modulesByFormateur.find((module) => module.id === moduleId);
 
   useEffect(() => {
-    fetchModule();
+    fetchModuleByFormateur();
     fetchStudents();
+    getModulesByFormationId();
   }, [dynamicFormationId, moduleId, selectedYear]);
 
   useEffect(() => {
@@ -97,10 +114,10 @@ function LivretPage() {
         <div className='formation-filter'>
           <label htmlFor="module">Module :</label>
           <select name="module" id="module" onChange={handleChange}>
-            {modules.length <= 0 && 
-              <option selected disabled>Aucun module</option>
+            {(modulesByFormateur.length <= 0 || modules.length <=0) && 
+              <option defaultValue disabled>Aucun module</option>
             }
-            {modules.map((module) => (
+            {modulesByFormateur.map((module) => (
               <option key={module.id} value={module.id}>{module.title}</option>
             ))}
           </select>
@@ -113,7 +130,7 @@ function LivretPage() {
           </div>
         </div>
       </div>
-      {modules.length > 0 ?
+      {modulesByFormateur.length > 0 ?
         <>
           <div>
             <h2><span className='badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
