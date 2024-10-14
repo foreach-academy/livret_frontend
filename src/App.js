@@ -22,6 +22,7 @@ import ResetPassword from './pages/ResetPassword';
 // Contexte
 import AuthContext from './Context/AuthContext';
 import UserServices from './Services/UserServices';
+import EvaluationForm from './pages/LivretPage/EvaluationForm';
 
 function App() {
   UserServices.checkToken();
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
                 <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />
                 <Route path="/:formationId/mastere-architecte-web" element={<LivretPage />} />
+                <Route path="/evaluation" element={<EvaluationForm />} />
                 {isAdmin && <>
                   <Route path='/users' element={<UserList/>} />
                   <Route path='/add' element={<AddUser/>} />

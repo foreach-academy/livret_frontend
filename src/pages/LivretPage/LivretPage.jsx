@@ -35,27 +35,6 @@ function LivretPage() {
     }
   }
 
-//   const fetchModuleByFormateur = async () => {
-//     try {
-//         const response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
-      
-//         setmodules(response.data.modules || []);
-//     } catch (error) {
-//         console.error('Error fetching modules by formateur:', error);
-//         setmodules([]); 
-//     }
-// };
-
-// const getModulesByFormationId = async () => {
-//   try {
-//     const response = await FormationServices.getModulesByFormationId(dynamicFormationId);
-//     setModules(response.data.modules || [])
-//   } catch (error) {
-//     console.error('Error fetching modules by formation ID:', error);
-//     setModules([]); 
-//   }
-// }
-
   const fetchStudents = async () => {
     const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(dynamicFormationId, moduleId);
     setFormationName(response.data.title);
