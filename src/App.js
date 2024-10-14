@@ -33,16 +33,20 @@ function App() {
       <BrowserRouter>
           <Navbar />
           <main>
-            <Routes>       
-              <Route path="/" element={<HomePage />} />
-              <Route path="/foreach-academy" element={<ForEachAcademy />} />
-              <Route path="/formations/:id" element={<FormationDetail />} />
-              <Route path="/login" element={<Login/>} />
-              <Route path="/users/:role" element={<DataConnexion />} />
-              <Route path="/*" element={<ErrorPage />} />
-              <Route path="/trainee-practical-life" element={<TraineePracticalLife/>} />
-              <Route path="/reset/password" element={<ResetPassword/>} />
+            <Routes>  
+              {!isAuthenticated && <> 
+                  <Route path="/" element={<Login />} />
+                </>
+              }
               {isAuthenticated && <>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/foreach-academy" element={<ForEachAcademy />} />
+                <Route path="/formations/:id" element={<FormationDetail />} />
+                <Route path="/login" element={<Login/>} />
+                <Route path="/users/:role" element={<DataConnexion />} />
+                <Route path="/*" element={<ErrorPage />} />
+                <Route path="/trainer-practical-life" element={<TraineePracticalLife/>} />
+                <Route path="/reset/password" element={<ResetPassword/>} />
                 <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
                 <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />
                 <Route path="/:formationId/mastere-architecte-web" element={<LivretPage />} />

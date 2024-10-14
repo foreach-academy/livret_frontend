@@ -93,17 +93,16 @@ const Navbar = () => {
                   </ul>
                 )}
               </li>
+              <li><a href="/trainer-practical-life" className='nav-link'>Vie pratique du stagiaire</a></li>
             </>}
-            <li><a href="/organisme" className='nav-link'>Organisme de formation</a></li>
-            <li><a href="/trainee-practical-life" className='nav-link'>Vie pratique du stagiaire</a></li>
             {isAuthenticated && isAdmin && <>
               <li><a href="/users" className='nav-link'>Utilisateurs</a></li>
             </>}
-            <li><a href="/contact" className='nav-link'>Contact</a></li>
-            {!isAuthenticated && <>
+            {/* {!isAuthenticated && <>
               <li className='nav-link'><button className="primary-button" onClick={() => { navigateTo('/login') }}>Se connecter</button></li>
-            </>}
+              </>} */}
             {isAuthenticated && <>
+              <li><a href="/contact" className='nav-link'>Contact</a></li>
               <li>
                 <div className="dropdown-profil">
                   <div onClick={toggleProfilDropdown} className="dropdown-profil-button">

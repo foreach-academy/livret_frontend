@@ -336,11 +336,6 @@ const TraineePracticalLife = () => {
             </a>
           </li>
         </ul>
-        <ul>
-          <li>
-            Pour ForEach Academy : Nom, prénom de l’apprenant.e et signature :
-          </li>
-        </ul>
       </div>
       <div>
         <h2 id="rights_obligations">
