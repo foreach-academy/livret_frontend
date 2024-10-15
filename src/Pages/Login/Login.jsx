@@ -129,7 +129,9 @@ const Login = () => {
       toast.success('Email de réinitialisation envoyé');
       closeModal();
     } catch (error) {
-      if (error.response && error.response.status === 429) {
+      console.log(error);
+      console.log(error.response);
+      if (error.response && error.response.status == 429) {
         console.log("bonjour");
         const retryAfter = parseInt(error.message.match(/\d+/)[0]);
         setRetryTimeLeft(retryAfter);
