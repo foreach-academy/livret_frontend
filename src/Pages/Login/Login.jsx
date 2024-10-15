@@ -64,51 +64,56 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (retryTimeLeft) {
-      toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeft)} avant de réessayer.`);
-      return;
+        toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeft)} avant de réessayer.`);
+        return;
     }
 
     let isValid = true;
     if (!validateEmail(email)) {
-      setEmailError("L'email saisi est invalide");
-      isValid = false;
+        setEmailError("L'email saisi est invalide");
+        isValid = false;
     }
 
     if (!validatePassword(password)) {
-      setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
-      isValid = false;
+        setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
+        isValid = false;
     }
 
     if (!isValid) return;
 
     try {
-      const user = { email, password };
-      const token = await UserServices.login(user);
-      if (token.data.token) {
-        UserServices.setAxiosToken(token.data.token);
-        window.localStorage.setItem('authToken', token.data.token);
-        setIsAuthenticated(true);
-        setToken(token.data.token);
-        navigate('/');
-        const decodedToken = jwtDecode(token.data.token);
-        setIsAdmin(decodedToken.role === "Admin");
-        toast.success('Connexion réussie');     
-      } else {
-        toast.error('Aucun token fourni');
-      }
+        const user = { email, password };
+        const token = await UserServices.login(user);
+        if (token.data.token) {
+            UserServices.setAxiosToken(token.data.token);
+            window.localStorage.setItem('authToken', token.data.token);
+            setIsAuthenticated(true);
+            setToken(token.data.token);
+            navigate('/');
+            const decodedToken = jwtDecode(token.data.token);
+            setIsAdmin(decodedToken.role === "Admin");
+            toast.success('Connexion réussie');     
+        } else {
+            toast.error('Aucun token fourni');
+        }
     } catch (error) {
-      console.log("Erreur lors de la connexion:", error);
-      toast.error("Adresse Mail ou Mot de passe Incorrect");
-      if (error.response && error.response.status === 429) {
-        // Assurez-vous de vérifier si l'en-tête 'Retry-After' existe
-        const retryAfter = parseInt(error.response.headers['retry-after']) || 60; // Default to 60 seconds if not present
-        setRetryTimeLeft(retryAfter);
-        toast.error(`Veuillez attendre ${formatRetryTime(retryAfter)} avant de réessayer.`);
-      } else {
-        toast.error(error.message || 'Erreur lors de la connexion.');
-      }
+        console.log("Erreur lors de la connexion:", error);
+        toast.error("Adresse Mail ou Mot de passe Incorrect");
+        if (error.response && error.response.status === 429) {
+            // Assurez-vous de vérifier si l'en-tête 'Retry-After' existe
+            const retryAfter = parseInt(error.response.headers['retry-after'], 10);
+            if (!isNaN(retryAfter)) {
+                setRetryTimeLeft(retryAfter); // Met à jour retryTimeLeft avec la bonne valeur
+                toast.error(`Veuillez attendre ${formatRetryTime(retryAfter)} avant de réessayer.`);
+            } else {
+                toast.error('Erreur lors de la connexion.');
+            }
+        } else {
+            toast.error(error.message || 'Erreur lors de la connexion.');
+        }
     }
   };
+
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -119,28 +124,33 @@ const Login = () => {
 
   const HandleModalSubmit = async () => {
     if (retryTimeLeft) {
-      toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeft)} avant de réessayer.`);
-      return;
+        toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeft)} avant de réessayer.`);
+        return;
     }
 
     setIsSubmitting(true);
     try {
-      await EmailServices.resetPasswordEmail(email);
-      toast.success('Email de réinitialisation envoyé');
-      closeModal();
+        await EmailServices.resetPasswordEmail(email);
+        toast.success('Email de réinitialisation envoyé');
+        closeModal();
     } catch (error) {
-      if (error.response && error.response.status === 429) {
-        console.log("bonjour");
-        const retryAfter = parseInt(error.message.match(/\d+/)[0]);
-        setRetryTimeLeft(retryAfter);
-        toast.error(`Veuillez attendre ${formatRetryTime(retryAfter)} avant de réessayer.`);
-      } else {
-        toast.error("Erreur lors de l'envoi de l'email.");
-      }
+        console.log("erreur response : ", error.response);
+        if (error.response && error.response.status === 429) {
+            const retryAfter = parseInt(error.response.headers['retry-after'], 10); // Assure-toi que tu prends la bonne valeur
+            if (!isNaN(retryAfter)) {
+                setRetryTimeLeft(retryAfter); // Met à jour retryTimeLeft
+                toast.error(`Veuillez attendre ${formatRetryTime(retryAfter)} avant de réessayer.`);
+            } else {
+                toast.error("Erreur lors de l'envoi de l'email.");
+            }
+        } else {
+            toast.error("Erreur lors de l'envoi de l'email.");
+        }
     } finally {
-      setIsSubmitting(false);
+        setIsSubmitting(false);
     }
   };
+
 
   return (
     <>
