@@ -3,7 +3,7 @@ import { URL } from "./config";
 
 class EvaluationServices {
     static addEvaluation(evaluation) {
-        return axios.get(`${URL}/evaluation`, evaluation);
+        return axios.post(`${URL}/evaluation`, evaluation);
     }
 
     static getAllEvaluationTypes(){
