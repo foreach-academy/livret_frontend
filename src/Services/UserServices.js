@@ -69,7 +69,7 @@ class UserServices{
         if (UserServices.isAuthenticated()) {
             const token = window.localStorage.getItem("authToken");
             const decoded = jwtDecode(token);
-            console.log("Contenu du token décodé :", decoded); 
+            // console.log("Contenu du token décodé :", decoded); 
             UserServices.setAxiosToken(token);
         } else {
             UserServices.logout();

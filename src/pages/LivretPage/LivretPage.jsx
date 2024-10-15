@@ -147,7 +147,7 @@ function LivretPage() {
                       {selectedModule && selectedModule.formateur_id === formateurId ? (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href="/livret">Voir l'évaluation</a>
-                          : <button className='primary-button'>Ajouter une évaluation</button>
+                          : <button className='primary-button' onClick={() => {navigate(`/evaluation-form/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
                       ) : (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href="/livret">Voir l'évaluation</a>

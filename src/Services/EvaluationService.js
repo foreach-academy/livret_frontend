@@ -7,7 +7,27 @@ class EvaluationServices {
     }
 
     static getAllEvaluationTypes(){
-        return axios.get(`${URL}/evaluation_type`);
+        return axios.get(`${URL}/evaluation-type`);
+    }
+
+    static addEvaluationTypeToModule(evaluationType) {
+        return axios.post(`${URL}/evaluation-type`, evaluationType);
+    }
+
+    static getAllEvaluationResultats() {
+        return axios.get(`${URL}/evaluation-resultat`);
+    }
+
+    static getEvaluationTypeByModuleId(moduleId) {
+        return axios.get(`${URL}/evaluation-type/${moduleId}`);
+    }
+
+    static getModuleById(moduleId) {
+        return axios.get(`${URL}/module/${moduleId}`);
+    }
+
+    static removeEvaluationTypeFromModule({ module_id, evaluation_type_id }) {
+        return axios.delete(`${URL}/evaluation-type`, { data: { module_id, evaluation_type_id } });
     }
 
 }
