@@ -107,16 +107,18 @@ const Login = () => {
             toast.error('Aucun token fourni');
         }
     } catch (error) {
-        // Affichage de l'erreur en fonction de l'objet d'erreur
-        if (error.retryAfter) {
-            const retryTime = parseInt(error.retryAfter, 10);
-            if (!isNaN(retryTime)) {
-                setRetryTimeLeftLogin(retryTime); // Met à jour retryTimeLeftLogin
-                toast.error(`Veuillez attendre ${formatRetryTime(retryTime)} avant de réessayer.`);
-            } else {
-                toast.error("Erreur lors de la connexion.");
-            }
+      setEmail(''); // Ajouté
+      setPassword(''); // Ajouté
+      // Affichage de l'erreur en fonction de l'objet d'erreur
+      if (error.retryAfter) {
+        const retryTime = parseInt(error.retryAfter, 10);
+        if (!isNaN(retryTime)) {
+          setRetryTimeLeftLogin(retryTime); // Met à jour retryTimeLeftLogin
+          toast.error(`Veuillez attendre ${formatRetryTime(retryTime)} avant de réessayer.`);
         } else {
+            toast.error("Erreur lors de la connexion.");
+          }
+      } else {
             toast.error(error.message);
         }
     }

@@ -49,7 +49,7 @@ class UserServices{
                     const retryAfter = error.response.headers['retry-after']; // Récupère le temps d'attente en secondes
                     const minutes = Math.floor(retryAfter / 60); // Convertit en minutes
                     const seconds = retryAfter % 60; // Récupère les secondes restantes
-
+                    console.log(`login : il reste ${minutes} minutes et ${seconds} seconde`)
                     // Retourner le temps d'attente en plus de l'erreur
                     throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter };
                 }
