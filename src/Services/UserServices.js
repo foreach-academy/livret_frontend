@@ -40,7 +40,6 @@ class UserServices{
 
     static async login(user) {
         try {
-            // Effectuer une requête POST à l'URL d'authentification avec les données de l'utilisateur
             const response = await axios.post(`${URL}/authenticate/login`, user);
             return response; // Renvoie la réponse si elle est réussie
         } catch (error) {
@@ -51,19 +50,20 @@ class UserServices{
                     const minutes = Math.floor(retryAfter / 60); // Convertit en minutes
                     const seconds = retryAfter % 60; // Récupère les secondes restantes
 
-                    throw new Error(`Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`);
+                    // Retourner le temps d'attente en plus de l'erreur
+                    throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter };
                 }
                 // Autres erreurs provenant de la réponse du serveur
                 console.error('Erreur de réponse du serveur:', error.response.data);
-                throw new Error(error.response.data.message || 'Erreur lors de la connexion.');
+                throw { message: error.response.data.message || 'Erreur lors de la connexion.' };
             } else if (error.request) {
                 // La requête a été envoyée mais aucune réponse n'a été reçue
                 console.error('Aucune réponse du serveur:', error.request);
-                throw new Error('Aucune réponse du serveur. Veuillez réessayer plus tard.');
+                throw { message: 'Aucune réponse du serveur. Veuillez réessayer plus tard.' };
             } else {
                 // Autre erreur lors de la configuration de la requête
                 console.error('Erreur lors de la configuration de la requête:', error.message);
-                throw new Error('Erreur lors de la tentative de connexion.');
+                throw { message: 'Erreur lors de la tentative de connexion.' };
             }
         }
     }
