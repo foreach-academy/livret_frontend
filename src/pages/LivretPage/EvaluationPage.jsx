@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import EvaluationServices from '../../Services/EvaluationService'
 import { toast } from 'react-toastify'
 import { useParams } from 'react-router-dom'
-import UserServices from '../../Services/UserServices';
 import EvaluationTypeForm from '../../components/Evaluation/EvaluationTypeForm';
 import EvaluationStudentForm from '../../components/Evaluation/EvaluationStudentForm';
 
@@ -131,7 +130,9 @@ function EvaluationPage() {
 
     return (
     <div>
-        <h1>{module.title}</h1>
+        <section>
+            <h1>{module.title}</h1>
+        </section>
         {/* <form onSubmit={addEvaluationTypeToModule}>
             <label htmlFor="evaluation-type">Évaluations réalisées pour ce module * :</label>
             {evaluationTypes.map(evaluationType => 
@@ -150,7 +151,7 @@ function EvaluationPage() {
             <button type="submit">Enregistrer les réalisations réalisées</button>
         </form> */}
         <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
-        <EvaluationStudentForm onSubmit={addEvaluation} studentId={studentId} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+        <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
     </div>
     )
 }

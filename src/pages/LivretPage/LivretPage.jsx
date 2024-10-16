@@ -51,7 +51,7 @@ function LivretPage() {
     setSelectedYear(selectedYear);
     const newFormationId = selectedYear === "Première année" ? 2 : 4;
     setDynamicFormationId(newFormationId);
-    navigate(`/${newFormationId}/concepteur-developpeur-application`);
+    navigate(`/formation/${newFormationId}/students`);
   };
 
   const handleSearch = (event) => {
@@ -147,7 +147,7 @@ function LivretPage() {
                       {selectedModule && selectedModule.formateur_id === formateurId ? (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href="/livret">Voir l'évaluation</a>
-                          : <button className='primary-button' onClick={() => {navigate(`/evaluation-form/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
+                          : <button className='primary-button' onClick={() => {navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
                       ) : (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href="/livret">Voir l'évaluation</a>

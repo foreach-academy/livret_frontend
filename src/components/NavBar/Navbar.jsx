@@ -87,9 +87,9 @@ const Navbar = () => {
                 </div>
                 {dropdownOpen && (
                   <ul className="dropdown-menu">
-                    <li className='nav-link'><a href="/1/assistant-ressources-humaines">Assistant Ressources Humaines (ARH)</a></li>
-                    <li className='nav-link'><a href="/2/concepteur-developpeur-application">Concepteur Développeur d'Application (CDA)</a></li>
-                    <li className='nav-link'><a href="/3/mastere-architecte-web">Mastère Architecte Web</a></li>
+                    <li className='nav-link'><a href="/formation/1/students">Assistant Ressources Humaines (ARH)</a></li>
+                    <li className='nav-link'><a href="/formation/2/students">Concepteur Développeur d'Application (CDA)</a></li>
+                    <li className='nav-link'><a href="/formation/3/students">Mastère Architecte Web</a></li>
                   </ul>
                 )}
               </li>

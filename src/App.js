@@ -48,10 +48,10 @@ function App() {
                 <Route path="/*" element={<ErrorPage />} />
                 <Route path="/trainer-practical-life" element={<TraineePracticalLife/>} />
                 <Route path="/reset/password" element={<ResetPassword/>} />
-                <Route path="/:formationId/assistant-ressources-humaines" element={<LivretPage />} />
-                <Route path="/:formationId/concepteur-developpeur-application" element={<LivretPage />} />
-                <Route path="/:formationId/mastere-architecte-web" element={<LivretPage />} />
-                <Route path="/evaluation-form/:moduleId/:studentId" element={<EvaluationPage />} />
+                <Route path="/formation/:formationId/students" element={<LivretPage />} />
+                <Route path="/formation/:formationId/students" element={<LivretPage />} />
+                <Route path="/formation/:formationId/students" element={<LivretPage />} />
+                <Route path="/evaluation-form/:formationId/:moduleId/:studentId" element={<EvaluationPage />} />
                 {isAdmin && <>
                   <Route path='/users' element={<UserList/>} />
                   <Route path='/add' element={<AddUser/>} />

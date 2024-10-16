@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import UserServices from '../../Services/UserServices';
 
-function EvaluationStudentForm({onSubmit, studentId, handleChange, evaluation, evaluationResultats}) {
+function EvaluationStudentForm({onSubmit, handleChange, evaluation, evaluationResultats}) {
+    const {formationId, moduleId, studentId} = useParams();
     const navigate = useNavigate();
     const navigateTo = (route) => {
         navigate(route);
@@ -38,7 +39,7 @@ return <>
             <label htmlFor="evaluation-comment"></label>
             <textarea name="comment" id="evaluation-comment" placeholder='Vos propositions' value={evaluation.comment} onChange={handleChange}></textarea>
         </div>
-        <button onClick={() => {navigateTo('../')}}>Annuler</button>
+        <button onClick={() => {navigateTo(`/formation/${formationId}/students`)}}>Annuler</button>
         <button type='submit'>Enregistrer l’évaluation</button>
     </form>
     </>
