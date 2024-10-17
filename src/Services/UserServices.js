@@ -38,8 +38,34 @@ class UserServices{
         }
     }
 
-    static login (user){
-        return axios.post(URL+"/authenticate/login", user)
+    static async login(user) {
+        try {
+            const response = await axios.post(`${URL}/authenticate/login`, user);
+            return response; // Renvoie la réponse si elle est réussie
+        } catch (error) {
+            if (error.response) {
+                // Si le serveur renvoie un code 429, nous récupérons le temps d'attente
+                if (error.response.status === 429) {
+                    const retryAfter = error.response.headers['retry-after']; // Récupère le temps d'attente en secondes
+                    const minutes = Math.floor(retryAfter / 60); // Convertit en minutes
+                    const seconds = retryAfter % 60; // Récupère les secondes restantes
+                    console.log(`login : il reste ${minutes} minutes et ${seconds} seconde`)
+                    // Retourner le temps d'attente en plus de l'erreur
+                    throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter };
+                }
+                // Autres erreurs provenant de la réponse du serveur
+                console.error('Erreur de réponse du serveur:', error.response.data);
+                throw { message: error.response.data.message || 'Erreur lors de la connexion.' };
+            } else if (error.request) {
+                // La requête a été envoyée mais aucune réponse n'a été reçue
+                console.error('Aucune réponse du serveur:', error.request);
+                throw { message: 'Aucune réponse du serveur. Veuillez réessayer plus tard.' };
+            } else {
+                // Autre erreur lors de la configuration de la requête
+                console.error('Erreur lors de la configuration de la requête:', error.message);
+                throw { message: 'Erreur lors de la tentative de connexion.' };
+            }
+        }
     }
 
     static logout() {

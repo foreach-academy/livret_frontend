@@ -1,6 +1,7 @@
 import React, { forwardRef } from 'react';
 import EquipeMember from '../EquipeMember/EquipeMember';
 import '../../styles/EquipeForEach/EquipeForEach.css'; 
+import DOMPurify from 'dompurify';
 
 import lauryPhoto from '../../assets/images/IMG_2147.jpg';
 import florePhoto from '../../assets/images/Flore-1024x1018.png';
@@ -39,7 +40,7 @@ const EquipeForEach = forwardRef((props, ref) => {
             photo={member.photo}
             name={member.name}
             position={member.position}
-            email={member.email}
+            email={DOMPurify.sanitize(member.email)} 
           />
         ))}
       </div>

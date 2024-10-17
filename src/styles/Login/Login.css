@@ -56,6 +56,10 @@ body {
     color: red !important;
     font-size: 10px !important;
   }
+  .errorSécurité{
+    color: red !important;
+    font-size: 1.02rem;
+  }
   
   #button_login {
     width: 40%;

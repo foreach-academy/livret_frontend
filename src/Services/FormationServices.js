@@ -18,4 +18,3 @@ class FormationServices {
 }
 
 export default FormationServices;
-

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import '../../styles/Login/Login.css';
 import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
@@ -12,8 +12,10 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [retryTimeLeftLogin, setRetryTimeLeftLogin] = useState(null);
+  const [retryTimeLeftEmail, setRetryTimeLeftEmail] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);  // New state for disabling button
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { setIsAuthenticated, setToken, setIsAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -37,10 +39,44 @@ const Login = () => {
     setPasswordError('');
   };
 
+  useEffect(() => {
+    let countdown;
+    if (retryTimeLeftLogin || retryTimeLeftEmail) {
+      countdown = setInterval(() => {
+        setRetryTimeLeftLogin((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(countdown);
+            return null;
+          }
+          return prevTime - 1;
+        });
+        setRetryTimeLeftEmail((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(countdown);
+            return null;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(countdown);
+  }, [retryTimeLeftLogin, retryTimeLeftEmail]);
+
+  const formatRetryTime = (retryAfter) => {
+    const minutes = Math.floor(retryAfter / 60);
+    const seconds = retryAfter % 60;
+    return `${minutes} minute(s) et ${seconds} seconde(s)`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let isValid = true;
 
+    if (retryTimeLeftLogin) {
+      toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeftLogin)} avant de réessayer.`);
+      return;
+    }
+
+    let isValid = true;
     if (!validateEmail(email)) {
       setEmailError("L'email saisi est invalide");
       isValid = false;
@@ -54,22 +90,37 @@ const Login = () => {
     if (!isValid) return;
 
     try {
-      const user = { email, password };
-      const token = await UserServices.login(user);
-      if (token.data.token) {
-        UserServices.setAxiosToken(token.data.token);
-        window.localStorage.setItem('authToken', token.data.token);
+      const user = { email, password }; // Envoi sécurisé des données
+      const response = await UserServices.login(user); // Appel à la méthode login
+      // Processus de succès
+      if (response.data.token) {
+        UserServices.setAxiosToken(response.data.token);
+        window.localStorage.setItem('authToken', response.data.token);
         setIsAuthenticated(true);
-        setToken(token.data.token);
+        setToken(response.data.token);
         navigate('/');
-        const decodedToken = jwtDecode(token.data.token);
+        const decodedToken = jwtDecode(response.data.token);
         setIsAdmin(decodedToken.role === "Admin");
-        toast.success('Connexion réussie');     
+        toast.success('Connexion réussie');
+        setRetryTimeLeftLogin(null); // Réinitialiser après succès
       } else {
         toast.error('Aucun token fourni');
       }
     } catch (error) {
-      toast.error('Adresse email ou Mot de passe invalide');
+      setEmail(''); // Réinitialiser les champs
+      setPassword(''); // Réinitialiser les champs
+      // Affichage de l'erreur en fonction de l'objet d'erreur
+      if (error.retryAfter) {
+        const retryTime = parseInt(error.retryAfter, 10);
+        if (!isNaN(retryTime)) {
+          setRetryTimeLeftLogin(retryTime); // Met à jour retryTimeLeftLogin
+          toast.error(`Veuillez attendre ${formatRetryTime(retryTime)} avant de réessayer.`);
+        } else {
+          toast.error("Erreur lors de la connexion.");
+        }
+      } else {
+        toast.error("Erreur lors de la connexion."); // Message d'erreur générique
+      }
     }
   };
 
@@ -81,17 +132,34 @@ const Login = () => {
   };
 
   const HandleModalSubmit = async () => {
-    setIsSubmitting(true);  // Disable the button on submit
+    if (retryTimeLeftEmail) {
+      toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeftEmail)} avant de réessayer.`);
+      return;
+    }
+
+    setIsSubmitting(true);
     try {
-      await EmailServices.resetPasswordEmail(email);
+      await EmailServices.resetPasswordEmail(email); // Envoi sécurisé de l'email
       toast.success('Email de réinitialisation envoyé');
       closeModal();
+      setRetryTimeLeftEmail(null); // Réinitialiser après succès
     } catch (error) {
-      toast.error('Erreur lors de l\'envoi de l\'email');
+      console.log("Erreur de réponse : ", error.response); // Évitez de loguer des données sensibles
+      if (error.response && error.response.status === 429) {
+        const retryAfter = parseInt(error.response.headers['retry-after'], 10);
+        if (!isNaN(retryAfter)) {
+          setRetryTimeLeftEmail(retryAfter); // Met à jour retryTimeLeftEmail
+          toast.error(`Veuillez attendre ${formatRetryTime(retryAfter)} avant de réessayer.`);
+        } else {
+          toast.error("Erreur lors de l'envoi de l'email.");
+        }
+      } else {
+        toast.error("Erreur lors de l'envoi de l'email."); // Message d'erreur générique
+      }
     } finally {
-      setIsSubmitting(false);  // Re-enable the button after sending
+      setIsSubmitting(false);
     }
-  }
+  };
 
   return (
     <>
@@ -139,10 +207,14 @@ const Login = () => {
               />
               <br />
               {passwordError && <span className="error">{passwordError}</span>}
+              {/* Affichage conditionnel du message de temps d'attente */}
+              {retryTimeLeftLogin !== null && (
+                <p className='errorSécurité'>Veuillez attendre {formatRetryTime(retryTimeLeftLogin)} avant de réessayer.</p>
+              )}
               <p className="p-forgot" onClick={openModal}>Mot de passe oublié?</p>
             </div>
-            <button id='button_login' type="submit">
-              Se connecter
+            <button id='button_login' type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
             </button>
           </form>
           {isModalOpen && (
@@ -154,10 +226,14 @@ const Login = () => {
                 </div>
                 <div className="modal-body"> 
                   <label id='label_email_send' htmlFor="email">Email</label>
-                  <input type="email" id='input_modal_emailSend' value={email} readOnly/>
+                  <input type="email" id='input_modal_emailSend' value={email} readOnly />
+                  {/* Affichage conditionnel du message de temps d'attente dans la modal */}
+                  {retryTimeLeftEmail !== null && (
+                    <p className='errorSécurité'>Veuillez attendre {formatRetryTime(retryTimeLeftEmail)} avant de réessayer.</p>
+                  )}
                 </div>
                 <div className="modal-footer">
-                  <button id='button_form_sendMail' onClick={HandleModalSubmit} disabled={isSubmitting} className='button_sendMail button_list'>
+                  <button id='button_form_sendMail' onClick={HandleModalSubmit} disabled={isSubmitting || retryTimeLeftEmail} className='button_sendMail button_list'>
                     {isSubmitting ? 'Envoi en cours...' : 'Valider'}
                   </button>
                 </div>

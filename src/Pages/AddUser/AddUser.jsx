@@ -4,6 +4,7 @@ import UserServices from '../../Services/UserServices';
 import RoleServices from '../../Services/RoleServices';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import DOMPurify from 'dompurify'; // Importer DOMPurify pour nettoyer les entrées
 
 function AddUser() {
   // États pour les champs du formulaire
@@ -42,6 +43,11 @@ function AddUser() {
     fetchRoles();
   }, []);
 
+  // Nettoyer les entrées utilisateur
+  const sanitizeInput = (input) => {
+    return DOMPurify.sanitize(input);
+  };
+
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -54,15 +60,17 @@ function AddUser() {
       return;
     }
 
-    const validationErrors = validateForm({
-      first_name, 
-      surname, 
-      email, 
-      promo, 
-      role_id: roleId, 
-      company, 
-      password 
-    });
+    const sanitizedUser = {
+      first_name: sanitizeInput(first_name),
+      surname: sanitizeInput(surname),
+      email: sanitizeInput(email),
+      promo: sanitizeInput(promo),
+      role_id: roleId, // Id du rôle est un entier donc pas nécessaire de nettoyer ici
+      company: sanitizeInput(company),
+      password: sanitizeInput(password),
+    };
+
+    const validationErrors = validateForm(sanitizedUser);
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
@@ -71,8 +79,7 @@ function AddUser() {
     }
 
     try {
-      const user = { first_name, surname, email, promo, role_id: roleId, company, password };
-      const response = await UserServices.addUser(user);
+      const response = await UserServices.addUser(sanitizedUser);
       console.log('Utilisateur ajouté avec succès:', response.data);
       navigateTo('/users');
       toast.success("Utilisateur ajouté avec succès");
@@ -134,7 +141,7 @@ function AddUser() {
             type="text"
             id="firstName"
             value={first_name}
-            onChange={(e) => setFirst_name(e.target.value)}
+            onChange={(e) => setFirst_name(sanitizeInput(e.target.value))} // Nettoyer à la saisie
           />
           {errors.firstName && <span class="error">{errors.firstName}</span>}
 
@@ -144,7 +151,7 @@ function AddUser() {
             type="text"
             id="surname"
             value={surname}
-            onChange={(e) => setSurname(e.target.value)}
+            onChange={(e) => setSurname(sanitizeInput(e.target.value))} // Nettoyer à la saisie
           />
           {errors.surname && <span class="error">{errors.surname}</span>}
 
@@ -154,7 +161,7 @@ function AddUser() {
             type="email"
             id="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(sanitizeInput(e.target.value))} // Nettoyer à la saisie
           />
           {errors.email && <span class="error">{errors.email}</span>}
 
@@ -164,7 +171,7 @@ function AddUser() {
             class="input_form_blue"
             id="promo"
             value={promo}
-            onChange={(e) => setPromo(e.target.value)}
+            onChange={(e) => setPromo(sanitizeInput(e.target.value))} // Nettoyer à la saisie
           />
           {errors.promo && <span class="error">{errors.promo}</span>}
 
@@ -190,7 +197,7 @@ function AddUser() {
             type="text"
             id="company"
             value={company}
-            onChange={(e) => setCompany(e.target.value)}
+            onChange={(e) => setCompany(sanitizeInput(e.target.value))} // Nettoyer à la saisie
           />
           {errors.company && <span class="error">{errors.company}</span>}
 
