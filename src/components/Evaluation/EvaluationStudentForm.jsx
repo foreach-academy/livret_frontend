@@ -32,7 +32,7 @@ function EvaluationStudentForm({onSubmit, handleChange, evaluation, evaluationRe
 
 return <>
     <form onSubmit={onSubmit} className='evaluation-student-form'>
-        <h2>Apprenant·e à évaluer : {student.first_name} {student.surname}</h2>
+        <h2>Apprenant·e : {student.first_name} {student.surname}</h2>
         <div className='evaluation-student-form-results' >
             <p htmlFor="evaluation-resultat">Résultat de l’évaluation* :</p>
             <div className='evaluation-student-form-results-choices' >

@@ -15,6 +15,10 @@ class FormationServices {
         return axios.get(`${URL}/formation/${formationId}/${moduleId}`);
     }
 
+    static getStudentEvaluationsByModule(studentId, moduleId) {
+        return axios.get(`${URL}/formation/${studentId}/module/${moduleId}`);
+    }
+
 }
 
 export default FormationServices;

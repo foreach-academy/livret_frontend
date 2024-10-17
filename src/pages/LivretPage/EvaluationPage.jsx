@@ -6,6 +6,8 @@ import EvaluationTypeForm from '../../components/Evaluation/EvaluationTypeForm';
 import EvaluationStudentForm from '../../components/Evaluation/EvaluationStudentForm';
 import "../../styles/LivretPage/EvaluationPage.css"
 import FormationServices from '../../Services/FormationServices';
+import EvaluationStudentOverview from '../../components/Evaluation/EvaluationStudentOverview';
+import { formatDate } from '../../utils/formatters';
 
 function EvaluationPage() {
     const {formationId, moduleId, studentId} = useParams();
@@ -17,18 +19,33 @@ function EvaluationPage() {
         evaluation_resultat_id: null,
         comment: ""
     })
+    const [existingEvaluation, setExistingEvaluation] = useState([]);
     const [evaluationTypes, setEvaluationTypes] = useState([]);
     const [existingEvaluationTypes, setExistingEvaluationTypes] = useState([]);
     const [evaluationResultats, setEvaluationResultats] = useState([]);
     const [selectedEvaluationTypes, setSelectedEvaluationTypes] = useState([]);
     const [students, setStudents] = useState([]);
+    const [formateurName, setFormateurName] = useState("");
+    const [evaluationDate, setEvaluationDate] = useState("");
 
     const getModuleById = async () => {
         try {
             const response = await EvaluationServices.getModuleById(moduleId);
             setModule(response.data);
+            setFormateurName(response.data.formateur.first_name + " " + response.data.formateur.surname);
         } catch (error) {
             console.error('Error while fetching this module', error)
+        }
+    }
+
+    const getStudentEvaluationsByModule = async () => {
+        try {
+            const response = await FormationServices.getStudentEvaluationsByModule(studentId, moduleId);
+            const evaluationData = response.data.evaluation && response.data.evaluation.length > 0 ? response.data.evaluation[0] : null;
+            setExistingEvaluation(evaluationData);
+            setEvaluationDate(formatDate(evaluationData.created_at))
+        } catch (error) {
+            console.error('Error while fetching this evaluation', error)
         }
     }
 
@@ -84,6 +101,7 @@ function EvaluationPage() {
         try {
             await EvaluationServices.addEvaluation(evaluation);
             toast.success("Évaluation ajoutée avec succès");
+            getStudentEvaluationsByModule();
             await fetchStudents();
         } catch (error) {
             console.error('Error while creating evaluation', error)
@@ -96,11 +114,9 @@ function EvaluationPage() {
             const selectedEvaluationTypes = Array.from(
                 document.querySelectorAll('input[name="evaluation_type_id"]:checked')
             ).map(input => parseInt(input.value));
-    
             const existingEvaluationTypeIds = existingEvaluationTypes.map(type => type.evaluation_type_id);
             const evaluationTypesToAdd = selectedEvaluationTypes.filter(id => !existingEvaluationTypeIds.includes(id));
             const evaluationTypesToRemove = existingEvaluationTypeIds.filter(id => !selectedEvaluationTypes.includes(id));
-    
             // Ajouter les nouveaux types d'évaluation
             for (const typeId of evaluationTypesToAdd) {
                 await EvaluationServices.addEvaluationTypeToModule({
@@ -108,7 +124,6 @@ function EvaluationPage() {
                     evaluation_type_id: typeId
                 });
             }
-    
             // Supprimer les types d'évaluation non sélectionnés
             for (const typeId of evaluationTypesToRemove) {
                 await EvaluationServices.removeEvaluationTypeFromModule({
@@ -116,8 +131,8 @@ function EvaluationPage() {
                     evaluation_type_id: typeId  // Assurez-vous d'envoyer ces paramètres
                 });
             }
-    
             toast.success("Mise à jour effectuée");
+            
         } catch (error) {
             console.error("Erreur lors de l'ajout du type d'évaluation", error);
             toast.error("Erreur lors de l'ajout du type d'évaluation'");
@@ -144,6 +159,7 @@ function EvaluationPage() {
             evaluation_resultat_id: null, 
             comment: ""
         }));
+        getStudentEvaluationsByModule();
     }, [studentId]);
 
     useEffect (() => {
@@ -157,6 +173,8 @@ function EvaluationPage() {
             document.body.classList.remove('grey-background');
         }
     }, [])
+
+
     return (
     <div className='evaluation-form'>
         <section>
@@ -180,7 +198,7 @@ function EvaluationPage() {
                 </div>
                 <hr className='evaluation-form-divider' />
                 <div className='evaluation-form-evaluated-students'>
-                    <p>Apprenant·e·s évalués : </p>
+                    <p>Apprenant·e·s évalué·e·s : </p>
                     <ul>
                         {evaluatedStudents.map((student)=>(
                             <li style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
@@ -190,7 +208,10 @@ function EvaluationPage() {
             </aside>
             <div className='form'>
                 <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
-                <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                {!existingEvaluation ? 
+                    <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                    : <EvaluationStudentOverview existingEvaluation={existingEvaluation} formateurName={formateurName} evaluationDate={evaluationDate} /> 
+                }
             </div>
         </section>
     </div>

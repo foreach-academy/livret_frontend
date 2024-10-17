@@ -55,6 +55,26 @@ input, label {
 .cursor-pointer {
   cursor: pointer;
 }
+.bold {
+  font-weight: 700;
+}
+
+/* badge */
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+.badge-primary {
+  background-color: var(--tertiary-color);
+  color: white;
+  font-size: 22px;
+}
+.badge-grey {
+  background-color: #EFEFEF;
+  color: black;
+  font-size: 14px;
+  padding: 6px 12px;
+}
 
 /* The Modal (background) */
 .modal {

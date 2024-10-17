@@ -27,7 +27,6 @@
     font-weight: 700;
 }
 .evaluation-type-form {
-    align-items: flex-start;
     max-width: 64%;
     margin: auto;
     padding: 32px;
@@ -43,6 +42,7 @@
 .evaluation-type-form-checkbox {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     padding: 16px 0;
 }
 .evaluation-type-form-title {
@@ -54,7 +54,7 @@
     border: 1px solid #E8E8E8;
     padding: 24px;
     color: #2C2C2C;
-    min-height: 60vh;
+    min-height: 66vh;
 }
 
 .evaluation-form-students-to-evaluate p, .evaluation-form-evaluated-students p {
@@ -105,3 +105,44 @@
     display: flex;
     justify-content: space-between;
 }
+.evaluation-resultat-overview {
+    font-weight: 700;
+}
+.evaluation-comment-title-overview {
+    margin-bottom: 6px;
+}
+.evaluation-comment-overview-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.evaluation-comment-overview {
+    width: 100%;
+    border-radius: 4px;
+    font-size: 16px;
+    padding: 16px;
+    background-color: #EFF2F5;
+    box-sizing: border-box;
+}
+.badge-overview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-bottom: 16px;
+}
+@media screen and (max-width: 768px) {
+    .evaluation-form-nav-container {
+        display: none;
+    }
+    .evaluation-student-form {
+        max-width: 80%;
+    }
+    .evaluation-type-form {
+        max-width: 100%;
+        padding: 24px;
+    }
+    .evaluation-type-form-checkbox div {
+        padding: 8px;
+    }
+}
+
