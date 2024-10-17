@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import "../../styles/LivretPage/LivretPage.css";
 import UserServices from '../../Services/UserServices';
 import AuthContext from '../../Context/AuthContext';
+import { formatDate } from '../../utils/formatters';
 
 function LivretPage() {
   // modules : pour afficher les modules aux admins
@@ -66,11 +67,6 @@ function LivretPage() {
     return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   };
 
-  const formatDate = (date) => {
-    const options = { day: 'numeric', month: 'long', year: 'numeric' };
-    return new Date(date).toLocaleDateString('fr-FR', options);
-  };
-
   const searchedStudents = students.filter((student) => {
     const firstName = removeAccent(student.first_name).toLowerCase();
     const lastName = removeAccent(student.surname).toLowerCase();
@@ -129,7 +125,7 @@ function LivretPage() {
       {modules.length > 0 ?
         <>
           <div>
-            <h2><span className='badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
+            <h2><span className='badge badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
           </div> 
           <div>
             <table>
@@ -150,7 +146,7 @@ function LivretPage() {
                     <td>
                       {selectedModule && selectedModule.formateur_id === formateurId ? (
                         student.evaluation && student.evaluation.length > 0 ?
-                          <a href="/livret">Voir l'évaluation</a>
+                          <a href={`/evaluation-form/${formationId}/${moduleId}/${student.id}`}>Voir l'évaluation</a>
                           : <button className='primary-button' onClick={() => {navigateTo(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
                       ) : (
                         student.evaluation && student.evaluation.length > 0 ?

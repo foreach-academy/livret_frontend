@@ -4,7 +4,9 @@ import logo from '../../assets/images/ForEach_hor_white.png';
 import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
+
 
 const Navbar = () => {
   const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken } = useContext(AuthContext);
@@ -69,14 +71,20 @@ const Navbar = () => {
     }
   }, [isMenuOpen]); // Dépendance à isMenuOpen
 
+  // Fonction pour sanitiser les URLs
+  const sanitizeUrl = (url) => {
+    const allowedUriRegexp = new RegExp('^(https?://[^\s]+)$');
+    return DOMPurify.sanitize(url, { ALLOWED_URI_REGEXP: allowedUriRegexp });
+  };
+
   return (
     <header>
       <div className="container">
         <nav>
           <div className="logo">
-            <a href="/">
+            <Link to="/">
               <img src={logo} alt="Logo Foreach Academy" className="logo-image" />
-            </a>
+            </Link>
           </div>
           <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
             {isAuthenticated && <>
@@ -93,16 +101,16 @@ const Navbar = () => {
                   </ul>
                 )}
               </li>
-              <li><a href="/trainer-practical-life" className='nav-link'>Vie pratique du stagiaire</a></li>
+              <li><Link to="/trainer-practical-life" className='nav-link'>Vie pratique du stagiaire</Link></li>
             </>}
             {isAuthenticated && isAdmin && <>
-              <li><a href="/users" className='nav-link'>Utilisateurs</a></li>
+              <li><Link to="/users" className='nav-link'>Utilisateurs</Link></li>
             </>}
             {/* {!isAuthenticated && <>
               <li className='nav-link'><button className="primary-button" onClick={() => { navigateTo('/login') }}>Se connecter</button></li>
               </>} */}
             {isAuthenticated && <>
-              <li><a href="/contact" className='nav-link'>Contact</a></li>
+              <li><Link to="/contact" className='nav-link'>Contact</Link></li>
               <li>
                 <div className="dropdown-profil">
                   <div onClick={toggleProfilDropdown} className="dropdown-profil-button">
