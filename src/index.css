@@ -2,6 +2,7 @@
   --primary-color: #f39c12;
   --secondary-color: #292c42;
   --tertiary-color: #108cb7;
+  --background-color: #EFF2F5;
 }
 
 body {
@@ -42,6 +43,18 @@ background-color: #d7831d;
 .primary-button-lg {
   width: 100%;
 } 
+.grey-background {
+  background-color: var(--background-color);
+}
+.cancel-button {
+  text-decoration: underline;
+}
+input, label {
+  cursor: pointer;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
 
 /* The Modal (background) */
 .modal {

@@ -17,6 +17,10 @@ function LivretPage() {
   const [showYearDropdown, setShowYearDropdown] = useState(false); 
   const [search, setSearch] = useState('');
   const navigate = useNavigate(); 
+  const navigateTo = (route) => {
+    navigate(route);
+    window.scrollTo(0,0)
+  }
   const formateurId = UserServices.getUserId();
   const { isAdmin } = useContext(AuthContext);
 
@@ -147,7 +151,7 @@ function LivretPage() {
                       {selectedModule && selectedModule.formateur_id === formateurId ? (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href="/livret">Voir l'évaluation</a>
-                          : <button className='primary-button' onClick={() => {navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
+                          : <button className='primary-button' onClick={() => {navigateTo(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
                       ) : (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href="/livret">Voir l'évaluation</a>

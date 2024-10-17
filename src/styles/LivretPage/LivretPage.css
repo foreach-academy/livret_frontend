@@ -73,6 +73,7 @@
 .formation-container h2 {
     margin-top: 0;
 }
+
 .badge-primary {
     background-color: var(--tertiary-color);
     color: white;

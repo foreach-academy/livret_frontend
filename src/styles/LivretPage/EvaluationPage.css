@@ -1,0 +1,107 @@
+
+.evaluation-form {
+    margin-bottom: -50px;
+}
+.evaluation-form-header-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+    padding: 0 24px;
+}
+.evaluation-form-header-container .back-button  {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.evaluation-form-header-container .back-button .material-icons-outlined {
+    transform: rotate(90deg);
+    color: var(--tertiary-color);
+    font-size: 32px;
+}
+.evaluation-form-header-container h1 {
+    flex: 1;
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+}
+.evaluation-type-form {
+    align-items: flex-start;
+    max-width: 64%;
+    margin: auto;
+    padding: 32px;
+}
+.evaluation-student-form {
+    background-color: white;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px 0px;
+    max-width: 60%;
+    margin: auto;
+}
+.evaluation-type-form-checkbox {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+.evaluation-type-form-title {
+    font-weight: 700;
+}
+
+.evaluation-form-nav-container {
+    background-color: white;
+    border: 1px solid #E8E8E8;
+    padding: 24px;
+    color: #2C2C2C;
+    min-height: 60vh;
+}
+
+.evaluation-form-students-to-evaluate p, .evaluation-form-evaluated-students p {
+    font-weight: 700;
+}
+.evaluation-form-students-to-evaluate li, .evaluation-form-evaluated-students li {
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: 6px;
+}
+.evaluation-form-students-to-evaluate ul, .evaluation-form-evaluated-students ul {
+    padding-left: 24px;
+}
+.evaluation-form-evaluated-students {
+    color: #6B7280;
+}
+.evaluation-form-main-container {
+    display: flex;
+    justify-content: space-between;
+}
+.evaluation-form-main-container .form {
+    flex: 1;
+    margin: 28px auto 100px auto;
+}
+.evaluation-form-divider {
+    border: 0.5px solid #D1D5DB;
+    margin: 32px 0;
+}
+.evaluation-student-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 32px;
+}
+.evaluation-student-form-comment textarea {
+    width: 100%;
+    border: 1px solid #D1D5DB;
+    border-radius: 6px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+.evaluation-student-form-results {
+    margin-bottom: 24px;
+}
+.evaluation-student-form-results-choices {
+    display: flex;
+    justify-content: space-between;
+}

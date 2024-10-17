@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import EvaluationServices from '../../Services/EvaluationService'
 import { toast } from 'react-toastify'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import EvaluationTypeForm from '../../components/Evaluation/EvaluationTypeForm';
 import EvaluationStudentForm from '../../components/Evaluation/EvaluationStudentForm';
+import "../../styles/LivretPage/EvaluationPage.css"
+import FormationServices from '../../Services/FormationServices';
 
 function EvaluationPage() {
-    const {moduleId, studentId} = useParams();
+    const {formationId, moduleId, studentId} = useParams();
+    const navigate = useNavigate();
     const [module, setModule] = useState({});
     const [evaluation, setEvaluation] = useState({
         module_id: moduleId,
@@ -18,6 +21,7 @@ function EvaluationPage() {
     const [existingEvaluationTypes, setExistingEvaluationTypes] = useState([]);
     const [evaluationResultats, setEvaluationResultats] = useState([]);
     const [selectedEvaluationTypes, setSelectedEvaluationTypes] = useState([]);
+    const [students, setStudents] = useState([]);
 
     const getModuleById = async () => {
         try {
@@ -79,7 +83,8 @@ function EvaluationPage() {
         }
         try {
             await EvaluationServices.addEvaluation(evaluation);
-            toast.success("Évaluation ajoutée avec succès")
+            toast.success("Évaluation ajoutée avec succès");
+            await fetchStudents();
         } catch (error) {
             console.error('Error while creating evaluation', error)
         }
@@ -118,40 +123,76 @@ function EvaluationPage() {
             toast.error("Erreur lors de l'ajout du type d'évaluation'");
         }
     }
+
+    const fetchStudents = async () => {
+        const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(formationId, moduleId);
+        setStudents(response.data.apprenants);
+    };
+
+    const studentsToEvaluate = students.filter((student) => {
+        return student.evaluation && student.evaluation.length <= 0;
+    })    
+
+    const evaluatedStudents = students.filter((student) => {
+        return student.evaluation && student.evaluation.length > 0;
+    })    
     
+    useEffect(() => {
+        setEvaluation((prevEvaluation) => ({
+            ...prevEvaluation,
+            apprenant_id: studentId, 
+            evaluation_resultat_id: null, 
+            comment: ""
+        }));
+    }, [studentId]);
 
     useEffect (() => {
         getAllEvaluationTypes();
         getAllEvaluationResultats();
         getModuleById();
-        // fetchUserById();
+        fetchStudents();
         getEvaluationTypeByModuleId();
+        document.body.classList.add('grey-background');
+        return () => {
+            document.body.classList.remove('grey-background');
+        }
     }, [])
-
     return (
-    <div>
+    <div className='evaluation-form'>
         <section>
-            <h1>{module.title}</h1>
-        </section>
-        {/* <form onSubmit={addEvaluationTypeToModule}>
-            <label htmlFor="evaluation-type">Évaluations réalisées pour ce module * :</label>
-            {evaluationTypes.map(evaluationType => 
-                <div key={evaluationType.id}>
-                    <input 
-                        type="checkbox" 
-                        checked={selectedEvaluationTypes.includes(evaluationType.id)}  // Utiliser selectedEvaluationTypes pour gérer l'état coché
-                        name="evaluation_type_id" 
-                        id={`evaluation-type-${evaluationType.id}`} 
-                        value={evaluationType.id} 
-                        onChange={handleCheckboxChange}
-                    />
-                    <label htmlFor={`evaluation-type-${evaluationType.id}`}>{evaluationType.name}</label>
+            <div className='evaluation-form-header-container'>
+                <div className='back-button' onClick={()=>{navigate(`/formation/${formationId}/students`)}}>
+                    <span className="material-icons-outlined">expand_circle_down</span>
+                    <span>Retour</span>
                 </div>
-            )}
-            <button type="submit">Enregistrer les réalisations réalisées</button>
-        </form> */}
-        <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
-        <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                <h1>{module.title}</h1>
+            </div>
+        </section>
+        <section className='evaluation-form-main-container'>
+            <aside className='evaluation-form-nav-container'>
+                <div className='evaluation-form-students-to-evaluate'>
+                    <p>Apprenant·e·s à évaluer : </p>
+                    <ul>
+                        {studentsToEvaluate.map((student)=>(
+                            <li style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
+                        ))}
+                    </ul>
+                </div>
+                <hr className='evaluation-form-divider' />
+                <div className='evaluation-form-evaluated-students'>
+                    <p>Apprenant·e·s évalués : </p>
+                    <ul>
+                        {evaluatedStudents.map((student)=>(
+                            <li style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
+                        ))}
+                    </ul>
+                </div>
+            </aside>
+            <div className='form'>
+                <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
+                <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+            </div>
+        </section>
     </div>
     )
 }
