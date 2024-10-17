@@ -72,43 +72,43 @@ const Login = () => {
     e.preventDefault();
 
     if (retryTimeLeftLogin) {
-        toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeftLogin)} avant de réessayer.`);
-        return;
+      toast.error(`Veuillez attendre ${formatRetryTime(retryTimeLeftLogin)} avant de réessayer.`);
+      return;
     }
 
     let isValid = true;
     if (!validateEmail(email)) {
-        setEmailError("L'email saisi est invalide");
-        isValid = false;
+      setEmailError("L'email saisi est invalide");
+      isValid = false;
     }
 
     if (!validatePassword(password)) {
-        setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
-        isValid = false;
+      setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
+      isValid = false;
     }
 
     if (!isValid) return;
 
     try {
-        const user = { email, password };
-        const response = await UserServices.login(user); // Appel à la méthode login
-        // Processus de succès
-        if (response.data.token) {
-            UserServices.setAxiosToken(response.data.token);
-            window.localStorage.setItem('authToken', response.data.token);
-            setIsAuthenticated(true);
-            setToken(response.data.token);
-            navigate('/');
-            const decodedToken = jwtDecode(response.data.token);
-            setIsAdmin(decodedToken.role === "Admin");
-            toast.success('Connexion réussie');
-            setRetryTimeLeftLogin(null); // Réinitialiser après succès
-        } else {
-            toast.error('Aucun token fourni');
-        }
+      const user = { email, password }; // Envoi sécurisé des données
+      const response = await UserServices.login(user); // Appel à la méthode login
+      // Processus de succès
+      if (response.data.token) {
+        UserServices.setAxiosToken(response.data.token);
+        window.localStorage.setItem('authToken', response.data.token);
+        setIsAuthenticated(true);
+        setToken(response.data.token);
+        navigate('/');
+        const decodedToken = jwtDecode(response.data.token);
+        setIsAdmin(decodedToken.role === "Admin");
+        toast.success('Connexion réussie');
+        setRetryTimeLeftLogin(null); // Réinitialiser après succès
+      } else {
+        toast.error('Aucun token fourni');
+      }
     } catch (error) {
-      setEmail(''); // Ajouté
-      setPassword(''); // Ajouté
+      setEmail(''); // Réinitialiser les champs
+      setPassword(''); // Réinitialiser les champs
       // Affichage de l'erreur en fonction de l'objet d'erreur
       if (error.retryAfter) {
         const retryTime = parseInt(error.retryAfter, 10);
@@ -116,14 +116,13 @@ const Login = () => {
           setRetryTimeLeftLogin(retryTime); // Met à jour retryTimeLeftLogin
           toast.error(`Veuillez attendre ${formatRetryTime(retryTime)} avant de réessayer.`);
         } else {
-            toast.error("Erreur lors de la connexion.");
-          }
-      } else {
-            toast.error(error.message);
+          toast.error("Erreur lors de la connexion.");
         }
+      } else {
+        toast.error("Erreur lors de la connexion."); // Message d'erreur générique
+      }
     }
-};
-
+  };
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
@@ -140,12 +139,12 @@ const Login = () => {
 
     setIsSubmitting(true);
     try {
-      await EmailServices.resetPasswordEmail(email);
+      await EmailServices.resetPasswordEmail(email); // Envoi sécurisé de l'email
       toast.success('Email de réinitialisation envoyé');
       closeModal();
       setRetryTimeLeftEmail(null); // Réinitialiser après succès
     } catch (error) {
-      console.log("erreur response : ", error.response);
+      console.log("Erreur de réponse : ", error.response); // Évitez de loguer des données sensibles
       if (error.response && error.response.status === 429) {
         const retryAfter = parseInt(error.response.headers['retry-after'], 10);
         if (!isNaN(retryAfter)) {
@@ -155,7 +154,7 @@ const Login = () => {
           toast.error("Erreur lors de l'envoi de l'email.");
         }
       } else {
-        toast.error("Erreur lors de l'envoi de l'email.");
+        toast.error("Erreur lors de l'envoi de l'email."); // Message d'erreur générique
       }
     } finally {
       setIsSubmitting(false);

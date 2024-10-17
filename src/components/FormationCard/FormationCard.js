@@ -6,7 +6,7 @@ const FormationCard = ({ title, description, moreInfoLink }) => {
     <div className="formation-card">
       <div className="card-inner">
         <div className="card-front">
-          <h2>{title}</h2>
+          <h3 id='card-front-font'>{title}</h3>
           <p>{description}</p>
         </div>
         <div className="card-back">

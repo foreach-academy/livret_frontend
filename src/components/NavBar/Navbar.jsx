@@ -4,7 +4,8 @@ import logo from '../../assets/images/ForEach_hor_white.png';
 import AuthContext from '../../Context/AuthContext';
 import UserServices from '../../Services/UserServices';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 const Navbar = () => {
   const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken } = useContext(AuthContext);
@@ -39,23 +40,18 @@ const Navbar = () => {
   // Hamburger menu mobile
   useEffect(() => {
     const hamburger = document.querySelector(".hamburger");
-    // const navMenu = document.querySelector(".nav-menu");
     const navLink = document.querySelectorAll(".nav-link");
     const hamburgerIcon = document.querySelector(".hamburger .material-icons-outlined");
 
     const mobileMenu = () => {
-      setIsMenuOpen(prevState => !prevState); // Met à jour l'état local du menu
-      if (!isMenuOpen) {
-        hamburgerIcon.innerText = "close";
-      } else {
-        hamburgerIcon.innerText = "menu";
-      }
+      setIsMenuOpen(prevState => !prevState); 
+      hamburgerIcon.innerText = isMenuOpen ? "menu" : "close"; // Toggle icon text
     };
 
     // Fermeture du menu au clic sur un lien
     const closeMenu = () => {
-      setIsMenuOpen(false); // Réinitialise l'état du menu
-      hamburgerIcon.innerText = "menu"; // Réinitialise l'icône
+      setIsMenuOpen(false); 
+      hamburgerIcon.innerText = "menu"; 
     };
 
     hamburger.addEventListener("click", mobileMenu);
@@ -67,19 +63,24 @@ const Navbar = () => {
         link.removeEventListener("click", closeMenu);
       });
     }
-  }, [isMenuOpen]); // Dépendance à isMenuOpen
+  }, [isMenuOpen]);
+
+  // Fonction pour sanitiser les URLs
+  const sanitizeUrl = (url) => {
+    return DOMPurify.sanitize(url, { ALLOWED_URI_REGEXP: /^(https?:\/\/[^\s]+)$/ });
+  };
 
   return (
     <header>
       <div className="container">
         <nav>
           <div className="logo">
-            <a href="/">
+            <Link to="/">
               <img src={logo} alt="Logo Foreach Academy" className="logo-image" />
-            </a>
+            </Link>
           </div>
           <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-            {isAuthenticated && <>
+            {isAuthenticated && (
               <li className="dropdown" onClick={toggleDropdown}>
                 <div className="dropdown-toggle" onClick={toggleDropdown}>
                   <span>Livrets de suivi </span>
@@ -87,23 +88,31 @@ const Navbar = () => {
                 </div>
                 {dropdownOpen && (
                   <ul className="dropdown-menu">
-                    <li className='nav-link'><a href="/1/assistant-ressources-humaines">Assistant Ressources Humaines (ARH)</a></li>
-                    <li className='nav-link'><a href="/2/concepteur-developpeur-application">Concepteur Développeur d'Application (CDA)</a></li>
-                    <li className='nav-link'><a href="/3/mastere-architecte-web">Mastère Architecte Web</a></li>
+                    <li className='nav-link'>
+                      <Link to="/1/assistant-ressources-humaines">Assistant Ressources Humaines (ARH)</Link>
+                    </li>
+                    <li className='nav-link'>
+                      <Link to="/2/concepteur-developpeur-application">Concepteur Développeur d'Application (CDA)</Link>
+                    </li>
+                    <li className='nav-link'>
+                      <Link to="/3/mastere-architecte-web">Mastère Architecte Web</Link>
+                    </li>
                   </ul>
                 )}
               </li>
-            </>}
-            <li><a href="/organisme" className='nav-link'>Organisme de formation</a></li>
-            <li><a href="/trainee-practical-life" className='nav-link'>Vie pratique du stagiaire</a></li>
-            {isAuthenticated && isAdmin && <>
-              <li><a href="/users" className='nav-link'>Utilisateurs</a></li>
-            </>}
-            <li><a href="/contact" className='nav-link'>Contact</a></li>
-            {!isAuthenticated && <>
-              <li className='nav-link'><button className="primary-button" onClick={() => { navigateTo('/login') }}>Se connecter</button></li>
-            </>}
-            {isAuthenticated && <>
+            )}
+            <li><Link to="/organisme" className='nav-link'>Organisme de formation</Link></li>
+            <li><Link to="/trainee-practical-life" className='nav-link'>Vie pratique du stagiaire</Link></li>
+            {isAuthenticated && isAdmin && (
+              <li><Link to="/users" className='nav-link'>Utilisateurs</Link></li>
+            )}
+            <li><Link to="/contact" className='nav-link'>Contact</Link></li>
+            {!isAuthenticated && (
+              <li className='nav-link'>
+                <button className="primary-button" onClick={() => navigateTo('/login')}>Se connecter</button>
+              </li>
+            )}
+            {isAuthenticated && (
               <li>
                 <div className="dropdown-profil">
                   <div onClick={toggleProfilDropdown} className="dropdown-profil-button">
@@ -117,7 +126,7 @@ const Navbar = () => {
                   </ul>
                 </div>
               </li>
-            </>}
+            )}
           </ul>
           <div className='hamburger'>
             <span className="material-icons-outlined">{isMenuOpen ? 'close' : 'menu'}</span>

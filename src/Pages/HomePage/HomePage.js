@@ -4,6 +4,8 @@ import FormationCard from '../../components/FormationCard/FormationCard';
 import EquipeForEach from '../../components/EquipeForEach/EquipeForEach';
 import StrategicInfo from '../../components/StrategicInfo/StrategicInfo'; 
 import headerImage from '../../assets/images/slider-developpeur-web.jpeg'; 
+import DOMPurify from 'dompurify'; // Importation de DOMPurify
+import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
 
 const HomePage = () => {
 
@@ -14,28 +16,45 @@ const HomePage = () => {
         // Quand l'élément est visible
         if (entry.isIntersecting) {
           // Ajouter la classe d'animation correspondante
-          if (entry.target.classList.contains('presentation-h1')) {
-            entry.target.classList.add('presentation-h1-animation');
-          } else if (entry.target.classList.contains('presentation-section')) {
-            entry.target.classList.add('presentation-section-animation');
-          } else if (entry.target.classList.contains('formation-cards')) {
-            entry.target.classList.add('formation-cards-animation');
-          } else if (entry.target.classList.contains('equipe-member-list')) {
-            entry.target.classList.add('equipe-member-list-animation');
-          } else if (entry.target.classList.contains('strategic-info')) {
-            entry.target.classList.add('strategic-info-animation');
+          const classes = entry.target.classList;
+          if (classes.contains('presentation-h1')) {
+            classes.add('presentation-h1-animation');
+          } else if (classes.contains('presentation-section')) {
+            classes.add('presentation-section-animation');
+          } else if (classes.contains('formation-cards')) {
+            classes.add('formation-cards-animation');
+          } else if (classes.contains('equipe-member-list')) {
+            classes.add('equipe-member-list-animation');
+          } else if (classes.contains('strategic-info')) {
+            classes.add('strategic-info-animation');
           }
         }
       });
     });
-    
-    observer.observe(document.querySelector('.presentation-h1'));
-    observer.observe(document.querySelector('.presentation-section'));
-    observer.observe(document.querySelector('.formation-cards'));
-    observer.observe(document.querySelector('.equipe-member-list'));
-    observer.observe(document.querySelector('.strategic-info'));
 
+    // Éléments à observer
+    const elementsToObserve = [
+      '.presentation-h1',
+      '.presentation-section',
+      '.formation-cards',
+      '.equipe-member-list',
+      '.strategic-info'
+    ];
+
+    elementsToObserve.forEach(selector => {
+      const element = document.querySelector(selector);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => observer.disconnect(); // Déconnexion de l'observateur lors du démontage
   }, []);
+
+  // Fonction pour sanitiser les liens
+  const sanitizeUrl = (url) => {
+    return DOMPurify.sanitize(url, { ALLOWED_URI_REGEXP: /^(https?:\/\/[^\s]+)$/ });
+  };
 
   return (
     <div className="homepage">
@@ -51,7 +70,9 @@ const HomePage = () => {
             d’évènements professionnels. Ils échangent régulièrement sur leurs envies de prendre une part active à la formation initiale et
             permanente dans l’IT, de partager leurs expériences.
           </p>
-          <p className='presentation-p' id='link_PresentationP'>Ainsi est née <a id="link_presentationA" href="https://www.foreach-academy.fr" target="_blank" rel="noopener noreferrer">ForEach Academy...</a></p>
+          <p className='presentation-p' id='link_PresentationP'>
+            Ainsi est née <Link id="link_presentationA" to={sanitizeUrl("https://www.foreach-academy.fr")} target="_blank" rel="noopener noreferrer">ForEach Academy...</Link>
+          </p>
           <p className='presentation-p'>
             Nous formons et accompagnons de nombreux stagiaires dans leurs projets professionnels.
             Notre rattachement au groupe BAO, dans lequel est également présente l’ESN Symbol IT, nous permet d’intégrer nos offres de 
@@ -64,18 +85,18 @@ const HomePage = () => {
         <h2>Nos formations</h2>
         <div className="formation-cards">
           <FormationCard
-            title=""
+            title="Assistant Ressources Humaines"
             description="Titre Assistant Ressources Humaines option IT, 1 an en alternance, Bac+2"
             moreInfoLink="/formations/1"
           />
           <FormationCard
-            title=""
-            description="Bachelor Concepteur développeur d’applications. En 2 ans, à destination des étudiants post-baccalauréat en formation initiale Bac+4"
+            title="Bachelor Concepteur Développeur d’Applications"
+            description="En 2 ans, à destination des étudiants post-baccalauréat en formation initiale Bac+4"
             moreInfoLink="/formations/2"
           />
           <FormationCard
-            title=""
-            description="Mastère Architecte Web, 15 mois en alternance, Bac+5"
+            title="Mastère Architecte Web"
+            description="15 mois en alternance, Bac+5"
             moreInfoLink="/formations/3"
           />
         </div>
