@@ -46,7 +46,7 @@ function ResetPassword() {
             // Appel du service pour mettre à jour le mot de passe
             await UserServices.UpdateUserByToken(newPassword, token);
             toast.success("Mot de passe mis à jour avec succès !");
-            navigate("/login"); // Redirection après succès
+            navigate("/"); // Redirection après succès
         } catch (error) {
             console.error("Erreur lors de la mise à jour du mot de passe :", error);
             toast.error("Une erreur est survenue lors de la mise à jour du mot de passe.");
