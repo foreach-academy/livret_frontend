@@ -66,6 +66,7 @@ function MainContent({ isAuthenticated, isAdmin }) {
         <Routes>
           {!isAuthenticated && <> 
             <Route path="/" element={<Login />} />
+            <Route path="/reset/password" element={<ResetPassword />} />
           </>}
           {isAuthenticated && <>
             <Route path="/" element={<HomePage />} />
@@ -75,7 +76,6 @@ function MainContent({ isAuthenticated, isAdmin }) {
             <Route path="/users/:role" element={<DataConnexion />} />
             <Route path="/*" element={<ErrorPage />} />
             <Route path="/trainer-practical-life" element={<TraineePracticalLife />} />
-            <Route path="/reset/password" element={<ResetPassword />} />
             <Route path="/formation/:formationId/students" element={<LivretPage />} />
             <Route path="/evaluation-form/:formationId/:moduleId/:studentId" element={<EvaluationPage />} />
             {isAdmin && <>
