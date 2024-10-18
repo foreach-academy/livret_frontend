@@ -56,9 +56,9 @@ function ResetPassword() {
     return (
         <>
             <h1 className="title_Pages">Réinitialisation du mot de passe</h1>
-            <div className='form_blue_container'>
+            <div className='form_blue_contener'>
                 <form className='form_blue' onSubmit={handleSubmit}>
-                    <label className="label_form_blue label_form_blue_resetP" htmlFor="input_password">
+                    <label id='target_labelNewPassword_resetP' className="label_form_blue label_form_blue_resetP" htmlFor="input_password">
                         Nouveau mot de passe
                     </label>
                     <input 
@@ -70,7 +70,7 @@ function ResetPassword() {
                         required 
                     />
 
-                    <label className="label_form_blue label_form_blue_resetP" htmlFor="confirm_password">
+                    <label id='target_labelConfirm_resetP' className="label_form_blue label_form_blue_resetP" htmlFor="confirm_password">
                         Confirmation du mot de passe
                     </label>
                     <input 
@@ -83,7 +83,7 @@ function ResetPassword() {
                     />
                     {passwordError && <p style={{ color: 'red' }}>{passwordError}</p>}
 
-                    <button className='primary-button' type="submit">Confirmer</button>
+                    <button id='target_buttonConfirmNewPassword' className='primary-button' type="submit">Confirmer</button>
                 </form>    
             </div>  
         </>
