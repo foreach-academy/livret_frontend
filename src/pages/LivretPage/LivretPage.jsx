@@ -150,7 +150,7 @@ function LivretPage() {
                           : <button className='primary-button' onClick={() => {navigateTo(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
                       ) : (
                         student.evaluation && student.evaluation.length > 0 ?
-                          <a href="/livret">Voir l'évaluation</a>
+                          <a href={`/evaluation-form/${formationId}/${moduleId}/${student.id}`}>Voir l'évaluation</a>
                           : <span>Aucune évaluation</span>
                       )}
                     </td>

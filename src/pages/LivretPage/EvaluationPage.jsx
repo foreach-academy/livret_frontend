@@ -8,9 +8,11 @@ import "../../styles/LivretPage/EvaluationPage.css"
 import FormationServices from '../../Services/FormationServices';
 import EvaluationStudentOverview from '../../components/Evaluation/EvaluationStudentOverview';
 import { formatDate } from '../../utils/formatters';
+import UserServices from '../../Services/UserServices';
 
 function EvaluationPage() {
     const {formationId, moduleId, studentId} = useParams();
+    const formateurId = UserServices.getUserId();
     const navigate = useNavigate();
     const [module, setModule] = useState({});
     const [evaluation, setEvaluation] = useState({
@@ -209,7 +211,9 @@ function EvaluationPage() {
             <div className='form'>
                 <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
                 {!existingEvaluation ? 
-                    <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                    (module.formateur.id === formateurId && 
+                        <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                    )
                     : <EvaluationStudentOverview existingEvaluation={existingEvaluation} formateurName={formateurName} evaluationDate={evaluationDate} /> 
                 }
             </div>
