@@ -1,9 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { useParams } from 'react-router-dom';
 import UserServices from '../../Services/UserServices';
+import AuthContext from '../../Context/AuthContext';
 
 function EvaluationStudentOverview({ existingEvaluation, formateurName, evaluationDate}) {
     const {moduleId, formationId, studentId} = useParams();
+    const isAdmin = useContext(AuthContext);
     const [student, setStudent] = useState([]);
     const fetchUserById = async () => {
         try {
@@ -26,7 +28,15 @@ function EvaluationStudentOverview({ existingEvaluation, formateurName, evaluati
 
 return <>
     <form className='evaluation-student-form'>
-        <h2>Apprenant·e : {student.first_name} {student.surname}</h2>
+        <div className='evaluation-student-form-header'>
+            <h2>Apprenant·e : {student.first_name} {student.surname}</h2>
+            {isAdmin && 
+                <div className='edit-button'>
+                    <span className="material-icons">edit</span>
+                    <p>Modifier</p>
+                </div>
+            }
+        </div>
         <div className='badge-overview'>
             <span className='badge badge-grey'>Date : <span className='bold'>{evaluationDate}</span></span>
             <span className='badge badge-grey'>Formateur : <span className='bold'>{formateurName}</span></span>

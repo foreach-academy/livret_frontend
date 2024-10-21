@@ -39,6 +39,10 @@
     max-width: 60%;
     margin: auto;
 }
+.evaluation-student-form-header {
+    display: flex;
+    justify-content: space-between;
+}
 .evaluation-type-form-checkbox {
     display: flex;
     justify-content: space-between;
@@ -129,6 +133,19 @@
     flex-wrap: wrap;
     gap: 8px;
     padding-bottom: 16px;
+}
+.edit-button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    color: #F39C12; 
+    cursor: pointer;
+}
+.edit-button:hover {
+    color: #d1860f;
+}
+.edit-button p {
+    text-decoration: underline;
 }
 @media screen and (max-width: 768px) {
     .evaluation-form-nav-container {

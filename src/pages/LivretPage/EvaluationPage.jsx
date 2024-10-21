@@ -44,12 +44,20 @@ function EvaluationPage() {
         try {
             const response = await FormationServices.getStudentEvaluationsByModule(studentId, moduleId);
             const evaluationData = response.data.evaluation && response.data.evaluation.length > 0 ? response.data.evaluation[0] : null;
+            
             setExistingEvaluation(evaluationData);
-            setEvaluationDate(formatDate(evaluationData.created_at))
+    
+            if (evaluationData) {
+                setEvaluationDate(formatDate(evaluationData.created_at));
+            } else {
+                setEvaluationDate(null); 
+            }
+            
         } catch (error) {
-            console.error('Error while fetching this evaluation', error)
+            console.error('Error while fetching this evaluation', error);
         }
     }
+    
 
     const getAllEvaluationTypes = async () => {
         try {
@@ -194,7 +202,7 @@ function EvaluationPage() {
                     <p>Apprenant·e·s à évaluer : </p>
                     <ul>
                         {studentsToEvaluate.map((student)=>(
-                            <li style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
+                            <li key={student.id}  style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
                         ))}
                     </ul>
                 </div>
@@ -203,7 +211,7 @@ function EvaluationPage() {
                     <p>Apprenant·e·s évalué·e·s : </p>
                     <ul>
                         {evaluatedStudents.map((student)=>(
-                            <li style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
+                            <li key={student.id} style={{fontWeight: student.id == studentId ? "bold" : "normal"}} onClick={()=>{navigate(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>{student.first_name} {student.surname}</li>
                         ))}
                     </ul>
                 </div>
@@ -211,7 +219,7 @@ function EvaluationPage() {
             <div className='form'>
                 <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
                 {!existingEvaluation ? 
-                    (module.formateur.id === formateurId && 
+                    (module.formateur && module.formateur.id === formateurId && 
                         <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
                     )
                     : <EvaluationStudentOverview existingEvaluation={existingEvaluation} formateurName={formateurName} evaluationDate={evaluationDate} /> 

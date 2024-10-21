@@ -107,7 +107,7 @@ function LivretPage() {
           <label htmlFor="module">Module :</label>
           <select name="module" id="module" onChange={handleChange}>
             {(modules.length <= 0 || modules.length <=0) && 
-              <option selected disabled>Aucun module</option>
+              <option defaultValue  disabled>Aucun module</option>
             }
             {modules.map((module) => (
               <option key={module.id} value={module.id}>{module.title}</option>

@@ -6,6 +6,10 @@ class EvaluationServices {
         return axios.post(`${URL}/evaluation`, evaluation);
     }
 
+    static editEvaluation(evaluationId, evaluation) {
+        return axios.patch(`${URL}/evaluation/${evaluationId}`, evaluation)
+    }
+
     static getAllEvaluationTypes(){
         return axios.get(`${URL}/evaluation-type`);
     }
