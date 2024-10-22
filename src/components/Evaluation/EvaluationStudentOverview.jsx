@@ -5,7 +5,7 @@ import AuthContext from '../../Context/AuthContext';
 
 function EvaluationStudentOverview({ existingEvaluation, formateurName, evaluationDate}) {
     const {moduleId, formationId, studentId} = useParams();
-    const isAdmin = useContext(AuthContext);
+    const {isAdmin, setIsAdmin} = useContext(AuthContext);
     const [student, setStudent] = useState([]);
     const fetchUserById = async () => {
         try {
@@ -15,7 +15,7 @@ function EvaluationStudentOverview({ existingEvaluation, formateurName, evaluati
             console.error('Error while getting this user', error)
         }
     }
-
+    console.log(isAdmin)
     const colorResultats = {
         "Acquis" : "#059669",
         "En cours d’acquisition" : "#B45309",
