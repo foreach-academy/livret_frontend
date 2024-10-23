@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import UserServices from '../../Services/UserServices';
 
-function EvaluationStudentForm({onSubmit, handleChange, evaluation, evaluationResultats}) {
+function EvaluationStudentForm({isEditMode, closeIsEditMode, onSubmit, handleChange, evaluation, evaluationResultats, existingEvaluation}) {
     const {formationId, studentId} = useParams();
     const navigate = useNavigate();
     const navigateTo = (route) => {
@@ -32,13 +32,13 @@ function EvaluationStudentForm({onSubmit, handleChange, evaluation, evaluationRe
 
 return <>
     <form onSubmit={onSubmit} className='evaluation-student-form'>
-        <h2>Apprenant·e : {student.first_name} {student.surname}</h2>
+        <h2>{isEditMode ? `Modifer l'évaluation : ${student.first_name} ${student.surname}` : `Apprenant·e : ${student.first_name} ${student.surname}`}</h2>
         <div className='evaluation-student-form-results' >
             <p htmlFor="evaluation-resultat">Résultat de l’évaluation* :</p>
             <div className='evaluation-student-form-results-choices' >
                 {evaluationResultats.map(evaluationResultat => 
                     <div key={evaluationResultat.id}>
-                        <input type="radio" name="evaluation_resultat_id" id={`evaluation-resultat-${evaluationResultat.id}`} value={evaluationResultat.id} onChange={handleChange} required/>
+                        <input type="radio" name="evaluation_resultat_id" id={`evaluation-resultat-${evaluationResultat.id}`} value={evaluationResultat.id} onChange={handleChange} required defaultChecked={existingEvaluation ? existingEvaluation.evaluation_resultat_id == evaluationResultat.id : false} />
                         <label htmlFor={`evaluation-resultat-${evaluationResultat.id}`} style={{ color : colorResultats[evaluationResultat.name]}}>{evaluationResultat.name}</label>
                     </div>
                 )}
@@ -49,8 +49,8 @@ return <>
             <textarea rows="5" name="comment" id="evaluation-comment" placeholder='Vos propositions' value={evaluation.comment} onChange={handleChange}></textarea>
         </div>
         <div className='evaluation-student-actions'>
-            <span onClick={() => {navigateTo(`/formation/${formationId}/students`)}} className='cancel-button cursor-pointer'>Annuler</span>
-            <button type='submit'className='primary-button'>Enregistrer l’évaluation</button>
+            <span onClick={ isEditMode ? closeIsEditMode : () => {navigateTo(`/formation/${formationId}/students`)}} className='cancel-button cursor-pointer'>Annuler</span>
+            <button type='submit'className='primary-button'>{isEditMode ? "Mettre à jour l'évaluation" : "Enregistrer l’évaluation"}</button>
         </div>
     </form>
     </>

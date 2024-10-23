@@ -7,21 +7,21 @@ import EvaluationStudentForm from '../../components/Evaluation/EvaluationStudent
 import "../../styles/LivretPage/EvaluationPage.css"
 import FormationServices from '../../Services/FormationServices';
 import EvaluationStudentOverview from '../../components/Evaluation/EvaluationStudentOverview';
-import { formatDate } from '../../utils/formatters';
+import { formatDate, formatDateWhithHours } from '../../utils/formatters';
 import UserServices from '../../Services/UserServices';
 
 function EvaluationPage() {
     const {formationId, moduleId, studentId} = useParams();
+    const [existingEvaluation, setExistingEvaluation] = useState();
     const formateurId = UserServices.getUserId();
     const navigate = useNavigate();
     const [module, setModule] = useState({});
     const [evaluation, setEvaluation] = useState({
         module_id: moduleId,
         apprenant_id: studentId,
-        evaluation_resultat_id: null,
-        comment: ""
+        evaluation_resultat_id: existingEvaluation?.evaluation_resultat_id || null,
+        comment: existingEvaluation?.comment || ""
     })
-    const [existingEvaluation, setExistingEvaluation] = useState([]);
     const [evaluationTypes, setEvaluationTypes] = useState([]);
     const [existingEvaluationTypes, setExistingEvaluationTypes] = useState([]);
     const [evaluationResultats, setEvaluationResultats] = useState([]);
@@ -29,6 +29,8 @@ function EvaluationPage() {
     const [students, setStudents] = useState([]);
     const [formateurName, setFormateurName] = useState("");
     const [evaluationDate, setEvaluationDate] = useState("");
+    const [modifiedEvaluationDate, setModifiedEvaluationDate] = useState("");
+    const [isEditMode, setIsEditMode] = useState(false);
 
     const getModuleById = async () => {
         try {
@@ -44,15 +46,14 @@ function EvaluationPage() {
         try {
             const response = await FormationServices.getStudentEvaluationsByModule(studentId, moduleId);
             const evaluationData = response.data.evaluation && response.data.evaluation.length > 0 ? response.data.evaluation[0] : null;
-            
             setExistingEvaluation(evaluationData);
-    
             if (evaluationData) {
-                setEvaluationDate(formatDate(evaluationData.created_at));
+                setEvaluationDate(formatDateWhithHours(evaluationData.created_at));
+                setModifiedEvaluationDate(formatDateWhithHours(evaluationData.updated_at));
             } else {
                 setEvaluationDate(null); 
+                setModifiedEvaluationDate(null);
             }
-            
         } catch (error) {
             console.error('Error while fetching this evaluation', error);
         }
@@ -90,7 +91,7 @@ function EvaluationPage() {
 
     const handleChange = (event) => {
         const {name, value} = event.currentTarget;
-        setEvaluation({...evaluation, [name]:value})
+        setEvaluation(evaluation => ({...evaluation, [name]:value}))
     }
 
     const handleCheckboxChange = (event) => {
@@ -101,6 +102,10 @@ function EvaluationPage() {
                 : [...prevSelected, value] // Check
         );
     };
+
+    const handleEdit = () => {
+        setIsEditMode(true);
+    }
 
     const addEvaluation = async (event) => {
         event.preventDefault();
@@ -115,6 +120,25 @@ function EvaluationPage() {
             await fetchStudents();
         } catch (error) {
             console.error('Error while creating evaluation', error)
+        }
+    }
+    const editEvaluation = async (event) => {
+        event.preventDefault();
+        const evaluationId = existingEvaluation.id;
+        try {
+            await EvaluationServices.editEvaluation(evaluationId, evaluation);
+            toast.success("Évaluation modifiée avec succès");
+            getStudentEvaluationsByModule();
+            setIsEditMode(false);
+            await fetchStudents();
+            setEvaluation({
+                module_id: moduleId,
+                apprenant_id: studentId,
+                evaluation_resultat_id: null,  // Remettre à null ou à une valeur par défaut
+                comment: "" // Vider le champ commentaire
+            });
+        } catch (error) {
+            console.error('Error while editing evaluation', error)
         }
     }
 
@@ -163,14 +187,19 @@ function EvaluationPage() {
     })    
     
     useEffect(() => {
-        setEvaluation((prevEvaluation) => ({
-            ...prevEvaluation,
-            apprenant_id: studentId, 
-            evaluation_resultat_id: null, 
-            comment: ""
-        }));
         getStudentEvaluationsByModule();
     }, [studentId]);
+
+    useEffect(() => {
+        if (existingEvaluation) {
+            setEvaluation({
+                module_id: moduleId,
+                apprenant_id: studentId,
+                evaluation_resultat_id: existingEvaluation.evaluation_resultat_id || null,
+                comment: existingEvaluation.comment || ""
+            });
+        }
+    }, [existingEvaluation]);
 
     useEffect (() => {
         getAllEvaluationTypes();
@@ -183,7 +212,6 @@ function EvaluationPage() {
             document.body.classList.remove('grey-background');
         }
     }, [])
-
 
     return (
     <div className='evaluation-form'>
@@ -218,12 +246,19 @@ function EvaluationPage() {
             </aside>
             <div className='form'>
                 <EvaluationTypeForm onSubmit={addEvaluationTypeToModule} handleCheckboxChange={handleCheckboxChange} evaluationTypes={evaluationTypes} selectedEvaluationTypes={selectedEvaluationTypes} />
-                {!existingEvaluation ? 
-                    (module.formateur && module.formateur.id === formateurId && 
-                        <EvaluationStudentForm onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                {!existingEvaluation && !isEditMode ? (
+                    module.formateur && module.formateur.id === formateurId ? (
+                        <EvaluationStudentForm isEditMode={isEditMode} onSubmit={addEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} />
+                    ) : (
+                        <div className='evaluation-empty-state'>Le formateur n'a pas encore ajouté d'évaluation</div>
                     )
-                    : <EvaluationStudentOverview existingEvaluation={existingEvaluation} formateurName={formateurName} evaluationDate={evaluationDate} /> 
-                }
+                ) : (
+                    isEditMode ? (
+                        <EvaluationStudentForm isEditMode={isEditMode} closeIsEditMode={() => setIsEditMode(false)} onSubmit={editEvaluation} handleChange={handleChange} evaluation={evaluation} evaluationResultats={evaluationResultats} existingEvaluation={existingEvaluation} />
+                    ) : (
+                        <EvaluationStudentOverview handleEdit={handleEdit} existingEvaluation={existingEvaluation} formateurName={formateurName} evaluationDate={evaluationDate} modifiedEvaluationDate={modifiedEvaluationDate} />
+                    )
+                )}
             </div>
         </section>
     </div>

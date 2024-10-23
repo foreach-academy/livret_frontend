@@ -147,6 +147,11 @@
 .edit-button p {
     text-decoration: underline;
 }
+.evaluation-empty-state {
+    max-width: 64%;
+    margin: auto;
+    padding: 32px;
+}
 @media screen and (max-width: 768px) {
     .evaluation-form-nav-container {
         display: none;
