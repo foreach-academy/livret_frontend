@@ -21,6 +21,9 @@
     flex-direction: column;
     align-items: flex-start;
 }
+.formation-filter-table {
+    width: 100%;
+}
 .formation-filter label {
     font-weight: 600;
     font-size: 16px;

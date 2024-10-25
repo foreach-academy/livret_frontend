@@ -128,7 +128,7 @@ function LivretPage() {
             <h2><span className='badge badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
           </div> 
           <div>
-            <table>
+            <table className='formation-filter-table'>
               <thead>
                 <tr>
                   <th>Apprenant·e·s</th>
