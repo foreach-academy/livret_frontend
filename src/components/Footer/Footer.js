@@ -33,7 +33,7 @@ function Footer() {
     },
   ];
 
-  // Fonction pour sanitiser les URLs
+  // Fonction pour sanitiser les URLs pour éviter les attaque XSS
   const sanitizeUrl = (url) => {
     const cleanUrl = DOMPurify.sanitize(url, { ALLOWED_URI_REGEXP: /^(https?:\/\/[^\s]+)$/ });
     return cleanUrl;

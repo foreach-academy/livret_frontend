@@ -65,13 +65,15 @@
     margin-right: 15.1rem;
 }
 #password_label_add{
-    margin-right: 15.3rem;
+    margin-right: 13.6rem;
 }
 #confirm_label_add{
-    margin-right: 11.2rem;
+    margin-right: 7.1rem;
     font-size: 1.15rem;
 }
-
+#password{
+    margin-top: 4px !important;
+}
 @media screen and (max-width: 992px) {
     #form_add_contener {
         width: 74%;

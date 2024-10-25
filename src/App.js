@@ -10,7 +10,6 @@ import HomePage from './pages/HomePage/HomePage';
 import ForEachAcademy from './pages/ForEachAcademy/ForEachAcademy';
 import FormationDetail from './pages/FormationDetail/FormationDetail';
 import Footer from './components/Footer/Footer';
-import DataConnexion from './pages/DataConnexion/DataConnexion';
 import Login from './pages/Login/Login';
 import UserList from './pages/ListeUtilisateurAddByAdmin/listeUtilisateurAdd';
 import AddUser from './pages/AddUser/AddUser';
@@ -73,7 +72,6 @@ function MainContent({ isAuthenticated, isAdmin }) {
             <Route path="/foreach-academy" element={<ForEachAcademy />} />
             <Route path="/formations/:id" element={<FormationDetail />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/users/:role" element={<DataConnexion />} />
             <Route path="/*" element={<ErrorPage />} />
             <Route path="/trainer-practical-life" element={<TraineePracticalLife />} />
             <Route path="/formation/:formationId/students" element={<LivretPage />} />

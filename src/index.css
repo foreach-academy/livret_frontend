@@ -49,7 +49,7 @@ background-color: #d7831d;
 .cancel-button {
   text-decoration: underline;
 }
-input, label {
+input {
   cursor: pointer;
 }
 .cursor-pointer {
