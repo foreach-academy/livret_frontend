@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import FormationServices from '../../Services/FormationServices';
+import FormationServices from '../../services/FormationServices';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import "../../styles/LivretPage/LivretPage.css";
-import UserServices from '../../Services/UserServices';
-import AuthContext from '../../Context/AuthContext';
+import UserServices from '../../services/UserServices';
+import AuthContext from '../../context/AuthContext';
 import { formatDate } from '../../utils/formatters';
 
 function LivretPage() {

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'; // Importe React et les hooks useState, useEffect
 import { useNavigate, useParams } from 'react-router-dom'; // Importe les hooks de navigation et de gestion des paramètres d'URL
-import UserServices from '../../Services/UserServices'; // Importe les services pour la gestion des utilisateurs
+import UserServices from '../../services/UserServices'; // Importe les services pour la gestion des utilisateurs
 
 // Composant EvaluationStudentForm qui reçoit les props suivantes : mode d'édition, fonctions de fermeture et soumission, gestion du changement, évaluation actuelle et résultats d'évaluation
 function EvaluationStudentForm({isEditMode, closeIsEditMode, onSubmit, handleChange, evaluation, evaluationResultats, existingEvaluation}) {

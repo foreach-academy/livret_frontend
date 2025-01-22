@@ -1,34 +1,29 @@
 import React from "react";
 import "../../styles/Footer/Footer.css";
 import DOMPurify from 'dompurify';
-
-import LogoImage from "../../assets/images/ForEach_hor_white.png";
-import FacebookIcon from "../../assets/images/icons8-facebook-nouveau-100.png";
-import TikTokIcon from "../../assets/images/icons8-tic-tac-100.png";
-import InstagramIcon from "../../assets/images/icons8-instagram-100.png";
-import LinkedInIcon from "../../assets/images/icons8-linkedin-100-2.png";
+import { FRONT_HOME_PAGE } from "../../utils/frontUrl";
 
 function Footer() {
   // URLs des réseaux sociaux
   const socialMediaLinks = [
     {
       href: "https://www.facebook.com/forEachAcademy",
-      icon: FacebookIcon,
+      icon: process.env.PUBLIC_URL + "/images/icons/fb_icon.png",
       alt: "Facebook"
     },
     {
       href: "https://www.tiktok.com/@foreach_academy?_t=8oHqzvp6l9M&_r=1",
-      icon: TikTokIcon,
+      icon: process.env.PUBLIC_URL + "/images/icons/tiktok_icon.png",
       alt: "Tiktok"
     },
     {
       href: "https://www.instagram.com/foreach_academy?igsh=MW1ieGNmdmdmaWRnNg==",
-      icon: InstagramIcon,
+      icon: process.env.PUBLIC_URL + "/images/icons/insta_icon.png",
       alt: "Instagram"
     },
     {
       href: "https://www.linkedin.com/school/foreach-academy/posts/?feedView=all",
-      icon: LinkedInIcon,
+      icon: process.env.PUBLIC_URL + "/images/icons/linkedin_icon.png",
       alt: "LinkedIn"
     },
   ];
@@ -43,9 +38,9 @@ function Footer() {
     <footer id="footer">
       <div className="footer-container">
         <div className="logo-icons-box footer-section">
-          <a href="/">
+          <a href={FRONT_HOME_PAGE}>
             <img
-              src={LogoImage}
+              src={process.env.PUBLIC_URL + "/images/fe_logo.png"}
               alt="Logo Foreach Academy"
               className="footer-logo-image"
             />

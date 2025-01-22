@@ -202,7 +202,7 @@
     bottom: 0;
     height: 2px;
     background-color: var(--tertiary-color);
-    width: 33.33%;
+    width: 50%;
     transition: transform 0.3s ease-in-out;
     transform: translateX(0);
 } 
@@ -214,9 +214,9 @@
   transform: translateX(100%);
 }
 
-.tabs button:nth-child(3).active ~ .tab-line {
+/* .tabs button:nth-child(3).active ~ .tab-line {
   transform: translateX(200%);
-}
+} */
 @media screen and (max-width: 992px) {
     #first_line_list {
         flex-direction: column-reverse;

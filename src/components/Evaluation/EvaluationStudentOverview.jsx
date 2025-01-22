@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'; // Importe React et les hooks useState, useEffect et useContext
 import { useParams } from 'react-router-dom'; // Importe le hook pour obtenir les paramètres de l'URL
-import UserServices from '../../Services/UserServices'; // Importe le service pour interagir avec l'API utilisateur
-import AuthContext from '../../Context/AuthContext'; // Importe le contexte d'authentification
+import UserServices from '../../services/UserServices'; // Importe le service pour interagir avec l'API utilisateur
+import AuthContext from '../../context/AuthContext'; // Importe le contexte d'authentification
 
 // Composant EvaluationStudentOverview qui reçoit en props : handleEdit, existingEvaluation, formateurName, evaluationDate et modifiedEvaluationDate
 function EvaluationStudentOverview({ handleEdit, existingEvaluation, formateurName, evaluationDate, modifiedEvaluationDate }) {
