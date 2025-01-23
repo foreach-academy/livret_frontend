@@ -3,11 +3,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../styles/ResetPassword/ResetPassword.css";
 import { validatePassword } from "../utils/validators";
-import { FRONT_LOGIN_PAGE } from "../utils/frontUrl";
+import { FRONT_LOGIN } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
-import UnauthentifiedNavbar from "../components/NavBar/UnauthentifiedNavbar";
+import UnauthentifiedNavbar from "../components/shared/navbar/UnauthentifiedNavbar";
 
-function ResetPassword() {
+function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -33,7 +33,7 @@ function ResetPassword() {
     try {
       await AuthenticateService.resetPassword(newPassword, tokenFromUrl);
       toast.success("Mot de passe mis à jour avec succès !");
-      navigate(FRONT_LOGIN_PAGE, navigate);
+      navigate(FRONT_LOGIN, navigate);
     } catch (error) {
       console.error("Erreur lors de la mise à jour du mot de passe :", error);
     }
@@ -94,4 +94,4 @@ function ResetPassword() {
   );
 }
 
-export default ResetPassword;
+export default ResetPasswordPage;

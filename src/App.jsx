@@ -5,17 +5,16 @@ import { ToastContainer } from "react-toastify";
 import "./App.css";
 
 // Composants et pages
+import Footer from "./components/shared/footer/Footer";
 import HomePage from "./pages/authentified_user/HomePage";
-import ForEachAcademy from "./pages/authentified_user/ForEachAcademy";
-import FormationDetail from "./pages/authentified_user/FormationDetail";
-import Footer from "./components/Footer/Footer";
-import Login from "./pages/Login";
-import UsersList from "./pages/admin/UsersList";
-import AddUser from "./pages/admin/AddUser";
+import FormationDetailPage from "./pages/authentified_user/FormationDetailPage";
+import LoginPage from "./pages/LoginPage";
+import UsersListPage from "./pages/admin/UsersListPage";
+import AddUserPage from "./pages/admin/AddUserPage";
 import ErrorPage from "./pages/ErrorPage";
-import TraineePracticalLife from "./pages/authentified_user/TraineePracticalLife";
+import TraineePracticalLifePage from "./pages/authentified_user/TraineePracticalLifePage";
 import LivretPage from "./pages/authentified_user/LivretPage";
-import ResetPassword from "./pages/ResetPassword";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 import EvaluationPage from "./pages/authentified_user/EvaluationPage";
 import AuthContext from "./context/AuthContext";
 import UserServices from "./services/UserServices";
@@ -23,7 +22,11 @@ import {
   FRONT_ADMIN_ADD_USERS,
   FRONT_ADMIN_USERS,
   FRONT_ERROR,
-  FRONT_HOME_PAGE,
+  FRONT_FORMATION_DETAIL,
+  FRONT_FORMATION_DETAIL_PROMOTION_DETAIL,
+  FRONT_HOME,
+  FRONT_LOGIN,
+  FRONT_RESET_PASSWORD,
   FRONT_TRAINER_PRATICAL_LIFE,
 } from "./utils/frontUrl";
 
@@ -76,30 +79,25 @@ function MainContent({ isAuthenticated, isAdmin }) {
       <main>
         <Routes>
           <Route path={FRONT_ERROR} element={<ErrorPage />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/reset/password" element={<ResetPassword />} />
+          <Route path={FRONT_LOGIN} element={<LoginPage />} />
+          <Route path={FRONT_RESET_PASSWORD} element={<ResetPasswordPage />} />
           {/* </>} */}
           {/* {isAuthenticated && <> */}
-          <Route path={FRONT_HOME_PAGE} element={<HomePage />} />
-          <Route path="/foreach-academy" element={<ForEachAcademy />} />
-          <Route path="/formations/:id" element={<FormationDetail />} />
-          <Route path="/login" element={<Login />} />
+          <Route path={FRONT_HOME} element={<HomePage />} />
           <Route
             path={FRONT_TRAINER_PRATICAL_LIFE}
-            element={<TraineePracticalLife />}
+            element={<TraineePracticalLifePage />}
           />
-          <Route
-            path="/formation/:formationId/students"
-            element={<LivretPage />}
-          />
+          <Route path={FRONT_FORMATION_DETAIL} element={<FormationDetailPage />} />
+          <Route path={FRONT_FORMATION_DETAIL_PROMOTION_DETAIL} element={<LivretPage />} />
           <Route
             path="/evaluation-form/:formationId/:moduleId/:studentId"
             element={<EvaluationPage />}
           />
           {isAdmin && (
             <>
-              <Route path={FRONT_ADMIN_USERS} element={<UsersList />} />
-              <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUser />} />
+              <Route path={FRONT_ADMIN_USERS} element={<UsersListPage />} />
+              <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />
             </>
           )}
           {/* </>} */}

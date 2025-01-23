@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react';
-import EquipeMember from '../EquipeMember/EquipeMember';
-import '../../styles/EquipeForEach/EquipeForEach.css'; 
+import EquipeMember from './EquipeMember';
+import '../../../styles/EquipeForEach/EquipeForEach.css'; 
 import DOMPurify from 'dompurify';
 
 const members = [

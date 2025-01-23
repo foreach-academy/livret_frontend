@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/StrategicInfo/StrategicInfo.css'; 
+import '../../../styles/StrategicInfo/StrategicInfo.css'; 
 
 const StrategicInfo = () => {
   return (

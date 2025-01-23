@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../../styles/NavBar/Navbar.css";
-import AuthContext from "../../context/AuthContext";
+import "../../../styles/NavBar/Navbar.css";
+import AuthContext from "../../../context/AuthContext";
 import { toast } from "react-toastify";
 import { useNavigate, Link } from "react-router-dom";
-import AuthenticateService from "../../services/AuthenticateServices";
+import AuthenticateService from "../../../services/AuthenticateServices";
 import {
   FRONT_ADMIN_USERS,
-  FRONT_HOME_PAGE,
-  FRONT_LOGIN_PAGE,
+  FRONT_HOME,
+  FRONT_LOGIN,
   FRONT_TRAINER_PRATICAL_LIFE,
-} from "../../utils/frontUrl";
-import { navigateTo } from "../../utils/navigate";
+} from "../../../utils/frontUrl";
+import { navigateTo } from "../../../utils/navigate";
 
 const Navbar = () => {
   const { isAdmin, setIsAuthenticated, setIsAdmin, setToken } =
@@ -33,7 +33,7 @@ const Navbar = () => {
     setIsAdmin(false);
     setToken(null);
     AuthenticateService.logout();
-    navigateTo(FRONT_LOGIN_PAGE, navigate);
+    navigateTo(FRONT_LOGIN, navigate);
     toast.success("Vous êtes déconnecté");
   };
 
@@ -74,7 +74,7 @@ const Navbar = () => {
       <div className="container">
         <nav>
           <div className="logo">
-            <Link to={FRONT_HOME_PAGE}>
+            <Link to={FRONT_HOME}>
               <img
                 src={process.env.PUBLIC_URL + "/images/fe_logo.png"}
                 alt="Logo Foreach Academy"
@@ -103,20 +103,20 @@ const Navbar = () => {
                   </span>{" "}
                   {/* Icône d'extension pour le dropdown */}
                 </div>
-                {dropdownOpen && ( // Affiche le dropdown si dropdownOpen est true
+                {dropdownOpen && (
                   <ul className="dropdown-menu">
                     <li className="nav-link">
-                      <a href="/formation/1/students">
+                      <a href="/formations/1">
                         Assistant Ressources Humaines (ARH)
                       </a>
                     </li>
                     <li className="nav-link">
-                      <a href="/formation/2/students">
+                      <a href="/formations/2">
                         Concepteur Développeur d'Application (CDA)
                       </a>
                     </li>
                     <li className="nav-link">
-                      <a href="/formation/3/students">Mastère Architecte Web</a>
+                      <a href="/formations/3">Mastère Architecte Web</a>
                     </li>
                   </ul>
                 )}

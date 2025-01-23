@@ -8,7 +8,7 @@ import DOMPurify from "dompurify";
 import { FRONT_ADMIN_USERS } from "../../utils/frontUrl";
 import { navigateTo } from "../../utils/navigate";
 
-function AddUser() {
+function AddUserPage() {
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -254,4 +254,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default AddUserPage;

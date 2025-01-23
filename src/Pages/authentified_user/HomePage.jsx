@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import '../../styles/HomePage/HomePage.css';
-import FormationCard from '../../components/FormationCard/FormationCard';
-import EquipeForEach from '../../components/EquipeForEach/EquipeForEach';
-import StrategicInfo from '../../components/StrategicInfo/StrategicInfo';
+import FormationCard from '../../components/pages/FormationCard';
+import EquipeForEach from '../../components/pages/homePage/EquipeForEach';
+import StrategicInfo from '../../components/pages/homePage/StrategicInfo';
 import DOMPurify from 'dompurify'; // Importation de DOMPurify
 import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
-import Navbar from '../../components/NavBar/Navbar';
+import Navbar from '../../components/shared/navbar/Navbar';
 
 const HomePage = () => {
 

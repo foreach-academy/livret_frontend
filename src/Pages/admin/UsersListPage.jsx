@@ -6,9 +6,9 @@ import RoleServices from "../../services/RoleServices";
 import { toast } from "react-toastify";
 import { FRONT_ADMIN_ADD_USERS } from "../../utils/frontUrl";
 import { navigateTo } from "../../utils/navigate";
-import Navbar from "../../components/NavBar/Navbar";
+import Navbar from "../../components/shared/navbar/Navbar";
 
-const UsersList = () => {
+const UsersListPage = () => {
   const [users, setUsers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [newRoleId, setNewRoleId] = useState("");
@@ -174,4 +174,4 @@ const UsersList = () => {
   );
 };
 
-export default UsersList;
+export default UsersListPage;

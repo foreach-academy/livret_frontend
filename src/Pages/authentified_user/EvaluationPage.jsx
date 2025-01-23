@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react'
 import EvaluationServices from '../../services/EvaluationService'
 import { toast } from 'react-toastify'
 import { useParams, useNavigate } from 'react-router-dom'
-import EvaluationTypeForm from '../../components/Evaluation/EvaluationTypeForm';
-import EvaluationStudentForm from '../../components/Evaluation/EvaluationStudentForm';
+import EvaluationTypeForm from '../../components/pages/EvaluationTypeForm';
+import EvaluationStudentForm from '../../components/pages/EvaluationStudentForm';
 import "../../styles/LivretPage/EvaluationPage.css"
 import FormationServices from '../../services/FormationServices';
-import EvaluationStudentOverview from '../../components/Evaluation/EvaluationStudentOverview';
-import { formatDate, formatDateWhithHours } from '../../utils/formatters';
+import EvaluationStudentOverview from '../../components/pages/EvaluationStudentOverview';
+import { formatDate, formatDateWhithHours } from '../../utils/timeFormat';
 import UserServices from '../../services/UserServices';
 
 function EvaluationPage() {

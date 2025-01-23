@@ -1,13 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import FormationServices from '../../services/FormationServices';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; 
 import "../../styles/LivretPage/LivretPage.css";
-import UserServices from '../../services/UserServices';
-import AuthContext from '../../context/AuthContext';
-import { formatDate } from '../../utils/formatters';
 
 function LivretPage() {
-  // modules : pour afficher les modules aux admins
+
   const [modules, setModules] = useState([]);
   const [moduleId, setModuleId] = useState(25);
   const { formationId } = useParams(); 
@@ -18,77 +14,11 @@ function LivretPage() {
   const [showYearDropdown, setShowYearDropdown] = useState(false); 
   const [search, setSearch] = useState('');
   const navigate = useNavigate(); 
-  const navigateTo = (route) => {
-    navigate(route);
-    window.scrollTo(0,0)
-  }
-  const formateurId = UserServices.getUserId();
-  const { isAdmin } = useContext(AuthContext);
-
-  const fetchModules = async () => {
-    try {
-      let response;
-      if(isAdmin){
-        response = await FormationServices.getModulesByFormationId(dynamicFormationId);
-      } else {
-        response = await FormationServices.getModulesByFormationIdAndFormateurId(dynamicFormationId, formateurId);
-      }
-      setModules(response.data.modules || []);
-    } catch (error) {
-      console.error('Error fetching modules:', error);
-      setModules([]); 
-    }
-  }
-
-  const fetchStudents = async () => {
-    const response = await FormationServices.getStudentsEvaluationsByFormationAndModule(dynamicFormationId, moduleId);
-    setFormationName(response.data.title);
-    setStudents(response.data.apprenants);
-  };
-
-  const handleChange = (event) => {
-    const selectedModuleId = Number(event.target.value);
-    setModuleId(selectedModuleId);
-  };
-
-  const handleYearChange = (event) => {
-    const selectedYear = event.target.value;
-    setSelectedYear(selectedYear);
-    const newFormationId = selectedYear === "Première année" ? 2 : 4;
-    setDynamicFormationId(newFormationId);
-    navigate(`/formation/${newFormationId}/students`);
-  };
-
-  const handleSearch = (event) => {
-    setSearch(event.target.value);
-  };
-
-  const removeAccent = (string) => {
-    return string.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-  };
-
-  const searchedStudents = students.filter((student) => {
-    const firstName = removeAccent(student.first_name).toLowerCase();
-    const lastName = removeAccent(student.surname).toLowerCase();
-    const searchText = removeAccent(search).toLowerCase();
-    return firstName.includes(searchText) || lastName.includes(searchText);
-  });
-
-  const studentsNotEvaluated = students.filter((student) => !student.evaluation || student.evaluation.length === 0).length;
-  const selectedModule = modules.find((module) => module.id === moduleId);
 
   useEffect(() => {
-    fetchModules();
-    fetchStudents();
-  }, [dynamicFormationId, moduleId, selectedYear]);
 
-  useEffect(() => {
-    if (formationId === '2' || formationId === '4') {
-      setShowYearDropdown(true);
-    } else {
-      setShowYearDropdown(false); 
-    }
-  }, [formationId]);
+  }, [])
+  
 
   return (
     <div className='formation-container'>
@@ -97,7 +27,7 @@ function LivretPage() {
         {showYearDropdown && (
           <div className='formation-filter'>
             <label htmlFor="year">Année :</label>
-            <select name="year" id="year" onChange={handleYearChange} value={selectedYear}>
+            <select name="year" id="year" value={selectedYear}>
               <option value="Première année">Première année</option>
               <option value="Deuxième année">Deuxième année</option>
             </select>
@@ -105,7 +35,7 @@ function LivretPage() {
         )}
         <div className='formation-filter'>
           <label htmlFor="module">Module :</label>
-          <select name="module" id="module" onChange={handleChange}>
+          <select name="module" id="module">
             {(modules.length <= 0 || modules.length <=0) && 
               <option defaultValue  disabled>Aucun module</option>
             }
@@ -117,15 +47,15 @@ function LivretPage() {
         <div className='formation-filter'>
           <label htmlFor="search">Apprenant·e :</label>
           <div className="search-container">
-            <input type="search" name="search" id="search" placeholder="Nom de l'apprenant·e" onChange={handleSearch} />
+            <input type="search" name="search" id="search" placeholder="Nom de l'apprenant·e"  />
             <span className="material-icons-outlined">search</span>
           </div>
         </div>
       </div>
-      {modules.length > 0 ?
+      {/* {modules.length > 0 ? */}
         <>
           <div>
-            <h2><span className='badge badge-primary'>{studentsNotEvaluated}</span> évaluations à compléter</h2>
+            <h2><span className='badge badge-primary'></span>Evaluations à compléter</h2>
           </div> 
           <div>
             <table className='formation-filter-table'>
@@ -138,30 +68,27 @@ function LivretPage() {
                 </tr>
               </thead>
               <tbody>
-                {searchedStudents.map((student) => (
-                  <tr key={student.id}>
-                    <td>{student.first_name} {student.surname}</td>
-                    <td>{formatDate(student.birthdate)}</td>
-                    <td>{student.company}</td>
+                  <tr key="">
+                    <td>Timothe</td>
+                    <td>05051994</td>
                     <td>
-                      {selectedModule && selectedModule.formateur_id === formateurId ? (
+                      {/* {selectedModule && selectedModule.formateur_id === formateurId ? (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href={`/evaluation-form/${formationId}/${moduleId}/${student.id}`}>Voir l'évaluation</a>
-                          : <button className='primary-button' onClick={() => {navigateTo(`/evaluation-form/${formationId}/${moduleId}/${student.id}`)}}>Ajouter une évaluation</button>
+                          : <button className='primary-button' onClick={() => {navigateTo(`/evaluation-form/${formationId}/${moduleId}/${student.id}`,navigate)}}>Ajouter une évaluation</button>
                       ) : (
                         student.evaluation && student.evaluation.length > 0 ?
                           <a href={`/evaluation-form/${formationId}/${moduleId}/${student.id}`}>Voir l'évaluation</a>
                           : <span>Aucune évaluation</span>
-                      )}
+                      )} */}
                     </td>
                   </tr>
-                ))}
               </tbody>
             </table>
           </div>
         </>
-        : <span>Vous n'avez pas de modules dans cette formation</span>
-      }
+        {/* : <span>Vous n'avez pas de modules dans cette formation</span> */}
+      {/* } */}
     </div>
   );
 }

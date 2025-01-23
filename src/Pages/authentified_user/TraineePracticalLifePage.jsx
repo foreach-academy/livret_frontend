@@ -1,8 +1,8 @@
 import React from "react";
 import "../../styles/TraineePracticalLife/TraineePracticalLife.css";
-import Navbar from "../../components/NavBar/Navbar";
+import Navbar from "../../components/shared/navbar/Navbar";
 
-const TraineePracticalLife = () => {
+const TraineePracticalLifePage = () => {
   return (
     <>
       <Navbar />
@@ -425,4 +425,4 @@ const TraineePracticalLife = () => {
   );
 };
 
-export default TraineePracticalLife;
+export default TraineePracticalLifePage;

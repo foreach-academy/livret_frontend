@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/EquipeMember/EquipeMember.css';
+import '../../../styles/EquipeMember/EquipeMember.css';
 import DOMPurify from 'dompurify';
 
 const EquipeMember = ({ photo, name, position, email }) => {

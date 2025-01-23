@@ -6,11 +6,17 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import EmailServices from "../services/EmailServices";
 import { jwtDecode } from "jwt-decode";
-import { FRONT_HOME_PAGE } from "../utils/frontUrl";
+import { FRONT_HOME } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
-import UnauthentifiedNavbar from "../components/NavBar/UnauthentifiedNavbar";
+import UnauthentifiedNavbar from "../components/shared/navbar/UnauthentifiedNavbar";
+import Modal from "../components/shared/modal/Modal";
+import ModalFooter from "../components/shared/modal/ModalFooter";
+import ModalHeader from "../components/shared/modal/ModalHeader";
+import ModalBody from "../components/shared/modal/ModalBody";
+import EmailInput from "../components/shared/form/EmailInput";
+import { formatRetryTime } from "../utils/timeFormat";
 
-const Login = () => {
+const LoginPage = () => {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -20,20 +26,12 @@ const Login = () => {
     password: "",
   });
   const [emailForPasswordReset, setEmailForPasswordReset] = useState("");
-
   const [retryTimeLeftLogin, setRetryTimeLeftLogin] = useState(null);
   const [retryTimeLeftEmail, setRetryTimeLeftEmail] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setIsAuthenticated, setToken, setIsAdmin } = useContext(AuthContext);
   const navigate = useNavigate();
-
-  // Fonction pour formater le délai de réessai en minutes et secondes
-  const formatRetryTime = (retryAfter) => {
-    const minutes = Math.floor(retryAfter / 60);
-    const seconds = retryAfter % 60;
-    return `${minutes} minute(s) et ${seconds} seconde(s)`;
-  };
 
   // Fonction de gestion du formulaire de connexion
   const login = async (e) => {
@@ -64,7 +62,7 @@ const Login = () => {
         window.localStorage.setItem("authToken", response.data.token);
         setIsAuthenticated(true);
         setToken(response.data.token);
-        navigate(FRONT_HOME_PAGE);
+        navigate(FRONT_HOME);
         const decodedToken = jwtDecode(response.data.token);
         setIsAdmin(decodedToken.role === "Admin");
         toast.success("Connexion réussie");
@@ -91,13 +89,6 @@ const Login = () => {
     }
   };
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
-
-  const handleClickOutside = (event) => {
-    if (event.target.id === "myModal") closeModal();
-  };
-
   const resetPassword = async () => {
     if (retryTimeLeftEmail) {
       toast.error(
@@ -112,7 +103,7 @@ const Login = () => {
     try {
       await EmailServices.resetPasswordEmail(emailForPasswordReset);
       toast.success("Email de réinitialisation envoyé");
-      closeModal();
+      setIsModalOpen(false)
       setRetryTimeLeftEmail(null);
     } catch (error) {
       if (error.response && error.response.status === 429) {
@@ -156,7 +147,7 @@ const Login = () => {
         });
       }, 1000);
     }
-    // Nettoyage du compte à rebours
+    
     return () => clearInterval(countdown);
   }, [retryTimeLeftLogin, retryTimeLeftEmail]);
 
@@ -236,7 +227,7 @@ const Login = () => {
                   de réessayer.
                 </p>
               )}
-              <p className="p-forgot" onClick={openModal}>
+              <p className="p-forgot" onClick={() => {setIsModalOpen(true)}}>
                 Mot de passe oublié?
               </p>
             </div>
@@ -251,48 +242,29 @@ const Login = () => {
             </button>
           </div>
           {isModalOpen && (
-            <div id="myModal" className="modal" onClick={handleClickOutside}>
-              <div className="modal-content">
-                <div className="modal-header">
-                  <span className="close" onClick={closeModal}>
-                    &times;
-                  </span>
-                  <h2>Réinitialiser le mot de passe</h2>
-                </div>
-                <div className="modal-body">
-                  <label id="label_email_send" htmlFor="email">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="input_modal_emailSend"
-                    value={emailForPasswordReset}
-                    onChange={(e) => {
-                      setEmailForPasswordReset(e.target.value);
-                    }}
-                  />
-                  {/* Affichage conditionnel du message de temps d'attente dans la modal */}
-                  {retryTimeLeftEmail !== null && (
-                    <p className="errorSécurité">
-                      Veuillez attendre {formatRetryTime(retryTimeLeftEmail)}{" "}
-                      avant de réessayer.
-                    </p>
-                  )}
-                </div>
-                <div className="modal-footer">
-                  <button
-                    id="button_form_sendMail"
-                    onClick={() => {
-                      resetPassword();
-                    }}
-                    disabled={isSubmitting || retryTimeLeftEmail}
-                    className="button_sendMail button_list"
-                  >
-                    {isSubmitting ? "Envoi en cours..." : "Valider"}
-                  </button>
-                </div>
-              </div>
-            </div>
+            <Modal
+              isModalOpen={isModalOpen}
+              setIsModalOpen={setIsModalOpen}
+            >
+              <ModalHeader
+                modalHeaderTitle="Reinitialiser le Mot de Passe"
+                modalHeaderAction={setIsModalOpen}
+              />
+              <ModalBody>
+                <EmailInput
+                  label="Email"
+                  inputValue={emailForPasswordReset}
+                  inputAction={setEmailForPasswordReset}
+                  retryTime={retryTimeLeftEmail}
+                />
+              </ModalBody>
+              <ModalFooter
+                button
+                buttonAction={resetPassword}
+                isSubmitting={isSubmitting}
+                retryTimeLeftEmail={retryTimeLeftEmail}
+              />
+            </Modal>
           )}
         </div>
       </div>
@@ -300,4 +272,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;

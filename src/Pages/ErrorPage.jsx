@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import "../styles/ErrorPage/error-page.css"
 import { useNavigate } from "react-router-dom"
 import { navigateTo } from '../utils/navigate';
-import { FRONT_HOME_PAGE } from '../utils/frontUrl';
+import { FRONT_HOME } from '../utils/frontUrl';
 
 function ErrorPage() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ErrorPage() {
       </div>
       <div className='error-page-content'>
         <p className='error-page-title'>Cette page n'existe pas</p>
-        <button className='primary-button' onClick={() => navigateTo(FRONT_HOME_PAGE, navigate)}>Retour à la page d'accueil</button>
+        <button className='primary-button' onClick={() => navigateTo(FRONT_HOME, navigate)}>Retour à la page d'accueil</button>
       </div>
     </section>
   );

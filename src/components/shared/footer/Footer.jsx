@@ -1,7 +1,7 @@
 import React from "react";
-import "../../styles/Footer/Footer.css";
+import "../../../styles/Footer/Footer.css";
 import DOMPurify from 'dompurify';
-import { FRONT_HOME_PAGE } from "../../utils/frontUrl";
+import { FRONT_HOME } from "../../../utils/frontUrl";
 
 function Footer() {
   // URLs des réseaux sociaux
@@ -38,7 +38,7 @@ function Footer() {
     <footer id="footer">
       <div className="footer-container">
         <div className="logo-icons-box footer-section">
-          <a href={FRONT_HOME_PAGE}>
+          <a href={FRONT_HOME}>
             <img
               src={process.env.PUBLIC_URL + "/images/fe_logo.png"}
               alt="Logo Foreach Academy"
