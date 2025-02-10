@@ -114,6 +114,12 @@ class UserServices {
         const tokenData = jwtDecode(token);
         return tokenData.id;
     }
+    /**
+     * Récupère les utilisateurs à partir du rôle
+       */ 
+      static getUserByRole(role) {
+        return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
+      }
 }
 
 export default UserServices;
