@@ -50,8 +50,8 @@ class UserServices {
      * @param {number} roleId - ID du nouveau rôle.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static UpdateUser(id, roleId) {
-        return axios.patch(`${process.env.REACT_APP_API_URL}/users/update/${id}`, { role_id: roleId });
+    static UpdateUser(id, user) {
+        return axios.patch(`${process.env.REACT_APP_API_URL}/users/${id}`, user);
     }
 
     /**

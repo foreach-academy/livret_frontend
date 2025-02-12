@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import EmailServices from "../services/EmailServices";
 import { jwtDecode } from "jwt-decode";
-import { FRONT_HOME } from "../utils/frontUrl";
+import { FRONT_ADMIN_DASHBOARD, FRONT_HOME } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
 import UnauthentifiedNavbar from "../components/shared/navbar/UnauthentifiedNavbar";
 import Modal from "../components/shared/modal/Modal";
@@ -37,35 +37,34 @@ const LoginPage = () => {
   const login = async (e) => {
     if (retryTimeLeftLogin) {
       toast.error(
-        `Veuillez attendre ${formatRetryTime(
-          retryTimeLeftLogin
-        )} avant de réessayer.`
+        `Veuillez attendre ${formatRetryTime(retryTimeLeftLogin)} avant de réessayer.`
       );
       return;
     }
-
-    // let isValid = true;
-    // if (!validateEmail(email)) {
-    //   setEmailError("L'email saisi est invalide");
-    //   isValid = false;
-    // }
-    // if (!validatePassword(password)) {
-    //   setPasswordError('Mot de passe invalide, au moins 10 caractères, 1 chiffre et 1 caractère spécial');
-    //   isValid = false;
-    // }
-    // if (!isValid) return;
-
+  
     try {
       const response = await AuthenticateService.login(user);
+      
       if (response.data.token) {
-        UserServices.setAxiosToken(response.data.token);
-        window.localStorage.setItem("authToken", response.data.token);
+        // Stocker le token et le décoder immédiatement
+        const token = response.data.token;
+        UserServices.setAxiosToken(token);
+        window.localStorage.setItem("authToken", token);
         setIsAuthenticated(true);
-        setToken(response.data.token);
-        navigate(FRONT_HOME);
-        const decodedToken = jwtDecode(response.data.token);
+        setToken(token);
+        
+        // Décoder le token pour vérifier le rôle de l'utilisateur
+        const decodedToken = jwtDecode(token);
         setIsAdmin(decodedToken.role === "Admin");
-        toast.success("Connexion réussie");
+  
+        // Redirection en fonction du rôle
+        if (decodedToken.role === "Admin") {
+          navigate(FRONT_ADMIN_DASHBOARD);
+        } else {
+          navigate(FRONT_HOME);
+        }
+  
+        toast.success(`${response.data.message}`);
         setRetryTimeLeftLogin(null);
       } else {
         toast.error("Aucun token fourni");
@@ -76,9 +75,7 @@ const LoginPage = () => {
         if (!isNaN(retryTime)) {
           setRetryTimeLeftLogin(retryTime); // Met à jour le délai de réessai
           toast.error(
-            `Veuillez attendre ${formatRetryTime(
-              retryTime
-            )} avant de réessayer.`
+            `Veuillez attendre ${formatRetryTime(retryTime)} avant de réessayer.`
           );
         } else {
           toast.error("Erreur lors de la connexion.");
@@ -88,6 +85,7 @@ const LoginPage = () => {
       }
     }
   };
+  
 
   const resetPassword = async () => {
     if (retryTimeLeftEmail) {
