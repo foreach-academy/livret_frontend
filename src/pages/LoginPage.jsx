@@ -188,7 +188,7 @@ const LoginPage = () => {
                   }));
                   setErrors((prevState) => ({
                     ...prevState,
-                    email: e.target.value,
+              
                   }));
                 }}
                 required
@@ -210,7 +210,6 @@ const LoginPage = () => {
                   }));
                   setErrors((prevState) => ({
                     ...prevState,
-                    password: e.target.value,
                   }));
                 }}
                 required

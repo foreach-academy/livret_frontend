@@ -49,7 +49,7 @@ fetchMembersByRole()
           <EquipeMember
             key={index}
             photo={member.photo}
-            name={member.firstname}
+            name={`${member.firstname} ${member.lastname}`}
             position={member.position}
             email={DOMPurify.sanitize(member.email)} 
           />

@@ -29,6 +29,7 @@ import {
   FRONT_RESET_PASSWORD,
   FRONT_TRAINER_PRATICAL_LIFE,
 } from "./utils/frontUrl";
+import NavbarAdmin from "./components/shared/navbar/AdminNavbar";
 
 function App() {
   UserServices.checkToken();
@@ -76,13 +77,13 @@ function App() {
 function MainContent({ isAuthenticated, isAdmin }) {
   return (
     <>
+      {isAdmin && <NavbarAdmin />}
       <main>
         <Routes>
           <Route path={FRONT_ERROR} element={<ErrorPage />} />
           <Route path={FRONT_LOGIN} element={<LoginPage />} />
           <Route path={FRONT_RESET_PASSWORD} element={<ResetPasswordPage />} />
-          {/* </>} */}
-          {/* {isAuthenticated && <> */}
+          {/* Routes accessibles aux utilisateurs authentifiés */}
           <Route path={FRONT_HOME} element={<HomePage />} />
           <Route
             path={FRONT_TRAINER_PRATICAL_LIFE}
@@ -94,17 +95,18 @@ function MainContent({ isAuthenticated, isAdmin }) {
             path="/evaluation-form/:formationId/:moduleId/:studentId"
             element={<EvaluationPage />}
           />
+          {/* Routes accessibles uniquement aux administrateurs */}
           {isAdmin && (
             <>
               <Route path={FRONT_ADMIN_USERS} element={<UsersListPage />} />
               <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />
             </>
           )}
-          {/* </>} */}
         </Routes>
       </main>
     </>
   );
 }
+
 
 export default App;
