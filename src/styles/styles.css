@@ -4,3 +4,32 @@
     display: flex;
     flex-direction: column;
 }
+html, body {
+    height: 100%;
+    overflow: auto; /* Active le scroll */
+}
+
+.container-admin{
+width: 80vw;
+position: fixed; /* ou absolute si c'est dans un parent en position relative */
+  right: 0;
+  top: 10;
+}
+
+.bg-purple {
+    background-color: #BC92D9 !important; /* Violet */
+    color: white;
+  }
+  
+  .bg-success {
+    background-color: #48D18C !important; /* Vert */
+    color: white;
+  }
+  
+  .bg-primary {
+    background-color: #4A80FD !important; /* Bleu */
+    color: white;
+  }
+  
+
+  

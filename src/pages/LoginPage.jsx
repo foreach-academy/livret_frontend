@@ -153,7 +153,7 @@ const LoginPage = () => {
 
   return (
     <>
-      <UnauthentifiedNavbar />
+
       <div className="page-title">
         <h1>Bienvenue sur votre plateforme de suivi</h1>
       </div>

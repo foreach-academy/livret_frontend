@@ -6,7 +6,8 @@ import RoleServices from "../../services/RoleServices";
 import { toast } from "react-toastify";
 import { FRONT_ADMIN_ADD_USERS } from "../../utils/frontUrl";
 import { navigateTo } from "../../utils/navigate";
-import Navbar from "../../components/shared/navbar/Navbar";
+import { Table, Button, Modal } from "react-bootstrap"
+
 
 const UsersListPage = () => {
   const [users, setUsers] = useState([]);
@@ -83,9 +84,10 @@ const UsersListPage = () => {
 
   return (
     <>
-      <Navbar />
+     <div className="container-admin">
       {/* En-tête de la liste d'utilisateurs */}
       <div id="first_line_list">
+      <h1 id="list_userAndAdd">Utilisateurs</h1>
         <div>
           <button
             className="primary-button"
@@ -95,81 +97,54 @@ const UsersListPage = () => {
             <span>Ajouter un utilisateur</span>
           </button>
         </div>
-        <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
       </div>
 
-      {/* Onglets pour filtrer les utilisateurs par rôle */}
-      <div className="tabs">
-        {roles.map((role, index) => {
-          return (
-            <button key={index} className="tab-button">
-              {role.name}
-            </button>
-          );
-        })}
-        <div className="tab-line"></div>
-      </div>
+      {/* Liste des utilisateurs */}
+      <Table striped bordered hover responsive className="mt-4">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Email</th>
+      <th>Rôle</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {users.map((user) => (
+      <tr key={user.id}>
+        <td>{user.lastname}</td>
+        <td>{user.firstname}</td>
+        <td>{user.email}</td>
+        <td>
+  <span
+    className={`badge ${
+      user.role?.name === "Admin"
+        ? "bg-purple"
+        : user.role?.name === "Formateur"
+        ? "bg-success"
+        : user.role?.name === "Etudiant"
+        ? "bg-primary"
+        : "bg-danger"
+    }`}
+  >
+    {user.role?.name || "Aucun rôle"}
+  </span>
+</td>
 
-      {/* Conteneur pour afficher les utilisateurs */}
-      <div id="contener_list">
-        <table>
-          <tbody>
-            {users.map((user, index) => {
-              return (
-                <tr>
-                  <td>
-                    {user.firstname}
-                    {user.lastname}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <td>
+          <Button variant="warning" size="sm" onClick={() => navigate(`/admin/users/${user.id}`)}>
+            Modifier
+          </Button>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</Table>
 
-        {/* Modale pour changer le rôle de l'utilisateur */}
-        {isModalOpen && (
-          <div id="myModal" className="modal" onClick={handleClickOutside}>
-            <div className="modal-content">
-              <div className="modal-header">
-                <span className="close" onClick={closeModal}>
-                  &times;
-                </span>
-                <h2>Modifier le Rôle</h2>
-              </div>
-              <div className="modal-body">
-                <label id="label_changeRole" htmlFor="role">
-                  Nouveau rôle
-                </label>
-                <select
-                  name="role"
-                  id="role_select_changeRole"
-                  value={newRoleId}
-                  onChange={handleRoleIdChange}
-                >
-                  <option value="" disabled hidden>
-                    Nouveau rôle
-                  </option>
-                  {roles.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="modal-footer">
-                <button
-                  id="button_form_changeRole"
-                  onClick={updateUserRole}
-                  className="button_ChangeRole button_list"
-                >
-                  Valider
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+
+</div>
+
     </>
   );
 };
