@@ -104,6 +104,18 @@ class UserServices {
         }
         return false;
     }
+    /**
+     * Vérifie si l'utilisateur authentifié est un formateur.
+     * @returns {boolean} - Vrai si l'utilisateur a un rôle "Formateur", faux sinon.
+     */
+    static isTrainer() {
+        if (UserServices.isAuthenticated()) {
+            const token = window.localStorage.getItem("authToken");
+            const { role } = jwtDecode(token); // Décodage pour extraire le rôle
+            return role === "Formateur"; // Vérifie si le rôle est "Formateur"
+        }
+        return false;
+    }
 
     /**
      * Récupère l'ID de l'utilisateur à partir du token JWT.

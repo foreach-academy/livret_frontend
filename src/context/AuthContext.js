@@ -6,7 +6,9 @@ const AuthContext = createContext({
     token : null,
     setToken : () => {}, 
     isAdmin : false,
-    setIsAdmin : () => {}
+    setIsAdmin : () => {},
+    isTrainer : false,
+    setIsTrainer : () => {}
 })
 
 export default AuthContext;

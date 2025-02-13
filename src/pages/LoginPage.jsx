@@ -8,7 +8,6 @@ import EmailServices from "../services/EmailServices";
 import { jwtDecode } from "jwt-decode";
 import { FRONT_ADMIN_DASHBOARD, FRONT_HOME } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
-import UnauthentifiedNavbar from "../components/shared/navbar/UnauthentifiedNavbar";
 import Modal from "../components/shared/modal/Modal";
 import ModalFooter from "../components/shared/modal/ModalFooter";
 import ModalHeader from "../components/shared/modal/ModalHeader";
@@ -30,7 +29,7 @@ const LoginPage = () => {
   const [retryTimeLeftEmail, setRetryTimeLeftEmail] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { setIsAuthenticated, setToken, setIsAdmin } = useContext(AuthContext);
+  const { setIsAuthenticated, setToken, setIsAdmin, setIsTrainer } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // Fonction de gestion du formulaire de connexion
@@ -56,9 +55,10 @@ const LoginPage = () => {
         // Décoder le token pour vérifier le rôle de l'utilisateur
         const decodedToken = jwtDecode(token);
         setIsAdmin(decodedToken.role === "Admin");
+        setIsTrainer(decodedToken.role === "Formateur");
   
         // Redirection en fonction du rôle
-        if (decodedToken.role === "Admin") {
+        if (decodedToken.role === "Admin" || decodedToken.role === "Formateur") {
           navigate(FRONT_ADMIN_DASHBOARD);
         } else {
           navigate(FRONT_HOME);

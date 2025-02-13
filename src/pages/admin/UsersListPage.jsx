@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
 import UserServices from "../../services/UserServices";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { FRONT_ADMIN_ADD_USERS } from "../../utils/frontUrl";
 import { navigateTo } from "../../utils/navigate";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
+import AuthContext from "../../context/AuthContext";
 
 const UsersListPage = () => {
   const [users, setUsers] = useState([]);
@@ -14,11 +15,13 @@ const UsersListPage = () => {
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState("Tous");
   const navigate = useNavigate();
+  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, isTrainer ,setToken } = useContext(AuthContext);
 
   const fetchAllUsers = async () => {
     try {
       const response = await UserServices.fetchAllUsers();
       setUsers(response.data);
+     
     } catch (error) {
       console.error(
         "Erreur lors de la récupération des utilisateurs:",
@@ -67,17 +70,17 @@ const UsersListPage = () => {
     <>
       <div className="container-admin">
         {/* En-tête de la liste d'utilisateurs */}
-        <div id="first_line_list">
+        <div className="d-flex justify-content-between">
           <h1 id="list_userAndAdd">Utilisateurs</h1>
-          <div>
-            <button
+       
+          {isAdmin && (<button
               className="primary-button"
               onClick={() => navigateTo(FRONT_ADMIN_ADD_USERS, navigate)}
             >
               <span className="material-icons-outlined">add_circle_outline</span>
               <span>Ajouter un utilisateur</span>
-            </button>
-          </div>
+            </button>)}  
+  
         </div>
 
         {/* Zone de filtres */}
@@ -110,7 +113,7 @@ const UsersListPage = () => {
               <th>Prénom</th>
               <th>Email</th>
               <th>Rôle</th>
-              <th>Actions</th>
+             {isAdmin && (<th>Actions</th>)} 
             </tr>
           </thead>
           <tbody>
@@ -134,15 +137,15 @@ const UsersListPage = () => {
                     {user.role?.name || "Aucun rôle"}
                   </span>
                 </td>
-                <td>
-                  <Button
+                {isAdmin && (<td>
+                 <Button
                     variant="warning"
                     size="sm"
                     onClick={() => navigate(`/admin/users/${user.id}`)}
                   >
                     Modifier
                   </Button>
-                </td>
+                </td>)} 
               </tr>
             ))}
           </tbody>

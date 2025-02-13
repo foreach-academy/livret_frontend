@@ -50,6 +50,8 @@ function App() {
     UserServices.isAuthenticated
   );
   const [isAdmin, setIsAdmin] = useState(UserServices.isAdmin);
+  const [isTrainer, setIsTrainer] = useState(UserServices.isTrainer);
+
   const [token, setToken] = useState(
     window.localStorage.getItem("authToken")
       ? window.localStorage.getItem("authToken")
@@ -65,11 +67,14 @@ function App() {
         setToken,
         isAdmin,
         setIsAdmin,
+        isTrainer,
+        setIsTrainer,
+
       }}
     >
       <BrowserRouter>
-        <MainContent isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
-       {isAdmin ? null : (<Footer />)} 
+        <MainContent isAuthenticated={isAuthenticated} isAdmin={isAdmin} isTrainer={isTrainer} />
+       {isAdmin || isTrainer ? null : (<Footer />)} 
         <ToastContainer
           position="bottom-right"
           autoClose={5000}
@@ -87,10 +92,10 @@ function App() {
   );
 }
 
-function MainContent({ isAuthenticated, isAdmin }) {
+function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
   return (
     <div className="app-layout">
-      {isAdmin && <NavbarAdmin />} {/* Sidebar */}
+      {(isAdmin || isTrainer) && <NavbarAdmin />} {/* Sidebar */}
       <div className="main-content">
         <Navbar /> {/* Topbar */}
         <div className="page-content">
@@ -110,8 +115,8 @@ function MainContent({ isAuthenticated, isAdmin }) {
               path="/evaluation-form/:formationId/:moduleId/:studentId"
               element={<EvaluationPage />}
             />
-            {/* Routes accessibles uniquement aux administrateurs */}
-            {isAdmin && (
+            {/* Routes accessibles uniquement aux administrateurs et formateurs */}
+            {(isAdmin || isTrainer) && (
               <>
                 <Route path={FRONT_ADMIN_USERS} element={<UsersListPage />} />
                 <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />

@@ -14,6 +14,7 @@ width: 80vw;
 position: fixed; /* ou absolute si c'est dans un parent en position relative */
   right: 0;
   top: 10;
+  padding-right: 3%;
 }
 
 .bg-purple {
