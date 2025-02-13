@@ -10,11 +10,11 @@ html, body {
 }
 
 .container-admin{
-width: 80vw;
-position: fixed; /* ou absolute si c'est dans un parent en position relative */
+  position: absolute;
+  width: 80vw;
   right: 0;
   top: 10;
-  padding-right: 3%;
+  padding-right: 3%;  
 }
 
 .bg-purple {

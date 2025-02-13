@@ -21,11 +21,13 @@ import EvaluationPage from "./pages/authentified_user/EvaluationPage";
 import AuthContext from "./context/AuthContext";
 import UserServices from "./services/UserServices";
 import {
+  FRONT_ADMIN_ADD_TRAINING,
   FRONT_ADMIN_ADD_USERS,
   FRONT_ADMIN_DASHBOARD,
   FRONT_ADMIN_EVALUATION,
   FRONT_ADMIN_PROMOTION,
   FRONT_ADMIN_TRAINING,
+  FRONT_ADMIN_TRAININGDETAILS,
   FRONT_ADMIN_USERDETAILS,
   FRONT_ADMIN_USERS,
   FRONT_ERROR,
@@ -43,6 +45,8 @@ import AdminTrainingPage from "./pages/admin/AdminTrainingPage";
 import AdminEvaluationPage from "./pages/admin/AdminEvaluationPage";
 import Navbar from "./components/shared/navbar/Navbar";
 import UserDetailsPage from "./pages/admin/UserDetailsPage";
+import AddTraining from "./pages/admin/AddTraining";
+import TrainingDetailPage from "./pages/admin/AdminTrainingDetailPage";
 
 function App() {
   UserServices.checkToken();
@@ -122,9 +126,11 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
                 <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />
                 <Route path={FRONT_ADMIN_DASHBOARD} element={<AdminDashboardPage />} />
                 <Route path={FRONT_ADMIN_TRAINING}  element={<AdminTrainingPage />} />
+                <Route path={FRONT_ADMIN_ADD_TRAINING} element={<AddTraining />} />
                 <Route path={FRONT_ADMIN_EVALUATION} element={<AdminEvaluationPage />} />
                 <Route path={FRONT_ADMIN_PROMOTION} element={<AdminPromotionPage />} />
                 <Route path={FRONT_ADMIN_USERDETAILS} element={<UserDetailsPage />} />
+                <Route path={FRONT_ADMIN_TRAININGDETAILS} element={<TrainingDetailPage />} />
               </>
             )}
           </Routes>

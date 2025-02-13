@@ -68,8 +68,8 @@ const Navbar = () => {
   }, [isMenuOpen]); // Exécuter l'effet uniquement si `isMenuOpen` change
 
   return (
-    <header>
-      <div className="container">
+    <header >
+      <div className="container ">
         <nav>
           <div className="logo">
             <Link to={FRONT_HOME}>
