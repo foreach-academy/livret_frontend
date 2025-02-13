@@ -1,11 +1,11 @@
 import React from "react";
 import "../../styles/TraineePracticalLife/TraineePracticalLife.css";
-import Navbar from "../../components/shared/navbar/Navbar";
+
 
 const TraineePracticalLifePage = () => {
   return (
     <>
-      <Navbar />
+
       <div className="practical_life_section">
         <div id="practical_life_container">
           <div id="practical_life_title">

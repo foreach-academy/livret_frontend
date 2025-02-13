@@ -50,8 +50,8 @@ class UserServices {
      * @param {number} roleId - ID du nouveau rôle.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static UpdateUser(id, roleId) {
-        return axios.patch(`${process.env.REACT_APP_API_URL}/users/update/${id}`, { role_id: roleId });
+    static UpdateUser(id, user) {
+        return axios.patch(`${process.env.REACT_APP_API_URL}/users/${id}`, user);
     }
 
     /**
@@ -104,6 +104,18 @@ class UserServices {
         }
         return false;
     }
+    /**
+     * Vérifie si l'utilisateur authentifié est un formateur.
+     * @returns {boolean} - Vrai si l'utilisateur a un rôle "Formateur", faux sinon.
+     */
+    static isTrainer() {
+        if (UserServices.isAuthenticated()) {
+            const token = window.localStorage.getItem("authToken");
+            const { role } = jwtDecode(token); // Décodage pour extraire le rôle
+            return role === "Formateur"; // Vérifie si le rôle est "Formateur"
+        }
+        return false;
+    }
 
     /**
      * Récupère l'ID de l'utilisateur à partir du token JWT.
@@ -114,6 +126,12 @@ class UserServices {
         const tokenData = jwtDecode(token);
         return tokenData.id;
     }
+    /**
+     * Récupère les utilisateurs à partir du rôle
+       */ 
+      static getUserByRole(role) {
+        return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
+      }
 }
 
 export default UserServices;

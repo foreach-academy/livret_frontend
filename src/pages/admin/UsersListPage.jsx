@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
 import UserServices from "../../services/UserServices";
@@ -6,25 +6,26 @@ import RoleServices from "../../services/RoleServices";
 import { toast } from "react-toastify";
 import { FRONT_ADMIN_ADD_USERS } from "../../utils/frontUrl";
 import { navigateTo } from "../../utils/navigate";
-import Navbar from "../../components/shared/navbar/Navbar";
+import { Table, Button, Form, Row, Col } from "react-bootstrap";
+import AuthContext from "../../context/AuthContext";
 
 const UsersListPage = () => {
   const [users, setUsers] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newRoleId, setNewRoleId] = useState("");
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
   const [roles, setRoles] = useState([]);
+  const [selectedRole, setSelectedRole] = useState("Tous");
   const navigate = useNavigate();
+  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, isTrainer ,setToken } = useContext(AuthContext);
 
   const fetchAllUsers = async () => {
     try {
       const response = await UserServices.fetchAllUsers();
       setUsers(response.data);
+     
     } catch (error) {
-      const errorMessage = error.response ? error.response.data : error.message;
       console.error(
         "Erreur lors de la récupération des utilisateurs:",
-        errorMessage
+        error.response ? error.response.data : error.message
       );
     }
   };
@@ -34,141 +35,121 @@ const UsersListPage = () => {
       const response = await RoleServices.fetchAllRoles();
       setRoles(response.data);
     } catch (error) {
-      const errorMessage = error.response ? error.response.data : error.message;
-      console.error("Erreur lors de la récupération des rôles:", errorMessage);
-    }
-  };
-
-  const openModal = (user) => {
-    setSelectedUser(Number(user.id));
-    setIsModalOpen(true);
-    setNewRoleId("");
-  };
-
-  const handleRoleIdChange = (event) => {
-    const selectedRoleId = Number(event.target.value);
-    setNewRoleId(selectedRoleId);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleClickOutside = (event) => {
-    if (event.target.id === "myModal") {
-      closeModal();
-    }
-  };
-
-  const updateUserRole = async () => {
-    try {
-      await UserServices.UpdateUser(selectedUser, newRoleId);
-      toast.success("Modifications enregistrées");
-      fetchAllUsers();
-      closeModal();
-    } catch (error) {
-      const errorMessage = error.response ? error.response.data : error.message;
-      console.error("Erreur lors de la mise à jour du rôle:", errorMessage);
+      console.error(
+        "Erreur lors de la récupération des rôles:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
   useEffect(() => {
-    // UserServices.checkToken();
     fetchAllUsers();
     fetchRoles();
-
-    // const intervalId = setInterval(fetchAllUsers, 50000);
-    // return () => clearInterval(intervalId);
   }, []);
+
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value.toLowerCase());
+  };
+
+  const handleRoleChange = (event) => {
+    setSelectedRole(event.target.value);
+  };
+
+  const filteredUsers = users.filter((user) => {
+    const matchesSearch =
+      user.lastname.toLowerCase().includes(searchTerm) ||
+      user.firstname.toLowerCase().includes(searchTerm);
+
+    const matchesRole =
+      selectedRole === "Tous" || user.role?.name === selectedRole;
+
+    return matchesSearch && matchesRole;
+  });
 
   return (
     <>
-      <Navbar />
-      {/* En-tête de la liste d'utilisateurs */}
-      <div id="first_line_list">
-        <div>
-          <button
-            className="primary-button"
-            onClick={() => navigateTo(FRONT_ADMIN_ADD_USERS, navigate)}
-          >
-            <span className="material-icons-outlined">add_circle_outline</span>
-            <span>Ajouter un utilisateur</span>
-          </button>
+      <div className="container-admin">
+        {/* En-tête de la liste d'utilisateurs */}
+        <div className="d-flex justify-content-between">
+          <h1 id="list_userAndAdd">Utilisateurs</h1>
+       
+          {isAdmin && (<button
+              className="primary-button"
+              onClick={() => navigateTo(FRONT_ADMIN_ADD_USERS, navigate)}
+            >
+              <span className="material-icons-outlined">add_circle_outline</span>
+              <span>Ajouter un utilisateur</span>
+            </button>)}  
+  
         </div>
-        <h1 id="list_userAndAdd">Liste des utilisateurs</h1>
-      </div>
 
-      {/* Onglets pour filtrer les utilisateurs par rôle */}
-      <div className="tabs">
-        {roles.map((role, index) => {
-          return (
-            <button key={index} className="tab-button">
-              {role.name}
-            </button>
-          );
-        })}
-        <div className="tab-line"></div>
-      </div>
+        {/* Zone de filtres */}
+        <Row className="mt-3">
+          <Col md={6}>
+            <Form.Control
+              type="text"
+              placeholder="Rechercher par nom ou prénom..."
+              value={searchTerm}
+              onChange={handleSearchChange}
+            />
+          </Col>
+          <Col md={6}>
+            <Form.Select value={selectedRole} onChange={handleRoleChange}>
+              <option value="Tous">Tous les rôles</option>
+              {roles.map((role) => (
+                <option key={role.id} value={role.name}>
+                  {role.name}
+                </option>
+              ))}
+            </Form.Select>
+          </Col>
+        </Row>
 
-      {/* Conteneur pour afficher les utilisateurs */}
-      <div id="contener_list">
-        <table>
+        {/* Liste des utilisateurs */}
+        <Table striped bordered hover responsive className="mt-4">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Prénom</th>
+              <th>Email</th>
+              <th>Rôle</th>
+             {isAdmin && (<th>Actions</th>)} 
+            </tr>
+          </thead>
           <tbody>
-            {users.map((user, index) => {
-              return (
-                <tr>
-                  <td>
-                    {user.firstname}
-                    {user.lastname}
-                  </td>
-                </tr>
-              );
-            })}
+            {filteredUsers.map((user) => (
+              <tr key={user.id}>
+                <td>{user.lastname}</td>
+                <td>{user.firstname}</td>
+                <td>{user.email}</td>
+                <td>
+                  <span
+                    className={`badge ${
+                      user.role?.name === "Admin"
+                        ? "bg-purple"
+                        : user.role?.name === "Formateur"
+                        ? "bg-success"
+                        : user.role?.name === "Etudiant"
+                        ? "bg-primary"
+                        : "bg-danger"
+                    }`}
+                  >
+                    {user.role?.name || "Aucun rôle"}
+                  </span>
+                </td>
+                {isAdmin && (<td>
+                 <Button
+                    variant="warning"
+                    size="sm"
+                    onClick={() => navigate(`/admin/users/${user.id}`)}
+                  >
+                    Modifier
+                  </Button>
+                </td>)} 
+              </tr>
+            ))}
           </tbody>
-        </table>
-
-        {/* Modale pour changer le rôle de l'utilisateur */}
-        {isModalOpen && (
-          <div id="myModal" className="modal" onClick={handleClickOutside}>
-            <div className="modal-content">
-              <div className="modal-header">
-                <span className="close" onClick={closeModal}>
-                  &times;
-                </span>
-                <h2>Modifier le Rôle</h2>
-              </div>
-              <div className="modal-body">
-                <label id="label_changeRole" htmlFor="role">
-                  Nouveau rôle
-                </label>
-                <select
-                  name="role"
-                  id="role_select_changeRole"
-                  value={newRoleId}
-                  onChange={handleRoleIdChange}
-                >
-                  <option value="" disabled hidden>
-                    Nouveau rôle
-                  </option>
-                  {roles.map((role) => (
-                    <option key={role.id} value={role.id}>
-                      {role.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="modal-footer">
-                <button
-                  id="button_form_changeRole"
-                  onClick={updateUserRole}
-                  className="button_ChangeRole button_list"
-                >
-                  Valider
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+        </Table>
       </div>
     </>
   );

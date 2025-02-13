@@ -5,7 +5,7 @@ import EquipeForEach from '../../components/pages/homePage/EquipeForEach';
 import StrategicInfo from '../../components/pages/homePage/StrategicInfo';
 import DOMPurify from 'dompurify'; // Importation de DOMPurify
 import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
-import Navbar from '../../components/shared/navbar/Navbar';
+
 
 const HomePage = () => {
 
@@ -58,7 +58,6 @@ const HomePage = () => {
 
   return (
     <>
-      <Navbar />
 
       <div className="homepage">
         <div className="header-image">
