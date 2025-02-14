@@ -114,7 +114,7 @@ function UserDetailsPage() {
                 </Form.Select>
               </td>
             </tr>
-            {user.role_id === "1" && (
+            {user.role_id === 1 && (
               <tr>
                 <th>Emploi (Position)</th>
                 <td>
@@ -128,7 +128,7 @@ function UserDetailsPage() {
                 </td>
               </tr>
             )}
-            {user.role_id === "3" && (
+            {user.role_id === 3 && (
               <>
                 <tr>
                   <th>Formation en cours</th>
@@ -158,7 +158,7 @@ function UserDetailsPage() {
             )}
 
 
-            {user.role_id === "1" && (
+            {user.role_id === 1 && (
               <tr>
                 <th>Photo</th>
                 <td>

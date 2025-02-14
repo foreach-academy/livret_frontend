@@ -88,7 +88,7 @@ const UsersListPage = () => {
           <Col md={6}>
             <Form.Control
               type="text"
-              placeholder="Rechercher par nom ou prénom..."
+              placeholder="🔍 Rechercher par nom ou prénom..."
               value={searchTerm}
               onChange={handleSearchChange}
             />
