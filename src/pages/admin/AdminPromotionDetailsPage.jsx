@@ -19,6 +19,7 @@ function PromotionDetailsPage() {
     const getPromotionDetails = async (id) => {
         try {
             const response = await PromotionsService.fetchPromotionById(id);
+            console.log(response.data);
             setPromoDetail(response.data);
         } catch (error) {
             console.error("Erreur lors de la récupération de la promotion:", error.response?.data || error.message);
@@ -29,6 +30,7 @@ function PromotionDetailsPage() {
         try {
             const response = await UserServices.fetchAllUsers();
             setUsers(response.data);
+           
         } catch (error) {
             console.error("Erreur lors de la récupération des utilisateurs:", error.response?.data || error.message);
         }
@@ -112,9 +114,9 @@ function PromotionDetailsPage() {
 
     if (!promoDetail) return <p>Chargement...</p>;
 
-    const supervisors = users.filter(user => user.role_id === 1);
-    const trainers = users.filter(user => user.role_id === 2);
-    const students = users.filter(user => user.role_id === 3);
+    const supervisors = users.filter(user => user.userRole.id === 1);
+    const trainers = users.filter(user => user.userRole.id === 2);
+    const students = users.filter(user => user.userRole.id === 3);
 
     return (
         <div className="container-admin">
@@ -203,9 +205,9 @@ function PromotionDetailsPage() {
                     <div id="collapseStudents" className="accordion-collapse collapse" aria-labelledby="headingStudents">
                         <div className="accordion-body">
                             <ul>
-                                {promoDetail?.promotionStudents?.map(user => (
-                                    <li key={user.id} className="d-flex justify-content-between align-items-center">
-                                        {user.studentUser.firstname} {user.studentUser.lastname}
+                                {promoDetail?.promotionStudients?.map(user => (
+                                    <li key={user.studient_id} className="d-flex justify-content-between align-items-center">
+                                        {user.studientUser.firstname} {user.studientUser.lastname}
                                         {isAdmin && (
                                             <button className="btn btn-danger btn-sm ms-2" onClick={() => removeStudient(user.studentUser.id)}>
                                                 Retirer

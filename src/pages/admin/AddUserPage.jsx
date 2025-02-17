@@ -114,6 +114,7 @@ function AddUserPage() {
     } catch (error) {
       console.log(sanitizedUser)
       console.error("Erreur lors de l'ajout de l'utilisateur:", error);
+      toast.error("Erreur lors de l'ajout de l'utilisateur");
     } finally {
       setIsSubmitting(false);
     }

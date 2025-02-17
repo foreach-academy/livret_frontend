@@ -1,6 +1,5 @@
 import { useState } from "react";
 import TrainingServices from "../../services/TrainingServices";
-import ModulesService from "../../services/ModulesService";
 
 function AddTraining() {
     const [title, setTitle] = useState("");
@@ -12,10 +11,16 @@ function AddTraining() {
         setModules([...modules, { title: "", commentary: "" }]);
     };
 
+    const removeModule = (index) => {
+        setModules((prevModules) => prevModules.filter((_, i) => i !== index));
+    };
+
     const handleModuleChange = (index, field, value) => {
-        const updatedModules = [...modules];
-        updatedModules[index][field] = value;
-        setModules(updatedModules);
+        setModules((prevModules) =>
+            prevModules.map((module, i) =>
+                i === index ? { ...module, [field]: value } : module
+            )
+        );
     };
 
     const handleSubmit = async (e) => {
@@ -24,11 +29,11 @@ function AddTraining() {
         const trainingData = {
             title,
             description,
-            modules, // On envoie les modules directement avec la formation
+            modules: modules.filter(module => module.title.trim() !== ""), // Ne pas envoyer les modules vides
         };
     
         try {
-            const response = await TrainingServices.addTraining(trainingData);
+            await TrainingServices.addTraining(trainingData);
             setMessage("Formation et modules ajoutés avec succès !");
             setTitle("");
             setDescription("");
@@ -39,14 +44,9 @@ function AddTraining() {
         }
     };
     
-
     return (
-        <>
-            <div className="container-admin">
-                <h1>Ajouter une formation</h1>
-       
-         
-
+        <div className="container-admin">
+            <h1>Ajouter une formation</h1>
             <div className="grey-background">
                 <form onSubmit={handleSubmit} className="form-container">
                     <fieldset>
@@ -72,10 +72,10 @@ function AddTraining() {
                         </div>
                     </fieldset>
 
-                    <fieldset className="light-grey-background ">
+                    <fieldset className="light-grey-background">
                         <legend>Module(s) :</legend>
                         {modules.map((module, index) => (
-                            <div key={index} className="module-container ">
+                            <div key={index} className="module-container">
                                 <h3>Module #{index + 1} :</h3>
                                 <div className="form-group">
                                     <label>Nom du module : </label>
@@ -93,6 +93,7 @@ function AddTraining() {
                                         onChange={(e) => handleModuleChange(index, "commentary", e.target.value)}
                                     ></textarea>
                                 </div>
+                                <button type="button" onClick={() => removeModule(index)}>Supprimer ce module</button>
                             </div>
                         ))}
                         <button type="button" onClick={addModule} className="add-module-btn">
@@ -105,8 +106,7 @@ function AddTraining() {
 
                 {message && <p className="message">{message}</p>}
             </div>
-            </div>
-        </>
+        </div>
     );
 }
 

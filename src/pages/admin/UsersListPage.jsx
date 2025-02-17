@@ -21,6 +21,7 @@ const UsersListPage = () => {
     try {
       const response = await UserServices.fetchAllUsers();
       setUsers(response.data);
+      console.log(response.data);
      
     } catch (error) {
       console.error(
@@ -61,7 +62,7 @@ const UsersListPage = () => {
       user.firstname.toLowerCase().includes(searchTerm);
 
     const matchesRole =
-      selectedRole === "Tous" || user.role?.name === selectedRole;
+      selectedRole === "Tous" || user.userRole?.name === selectedRole;
 
     return matchesSearch && matchesRole;
   });
@@ -125,16 +126,16 @@ const UsersListPage = () => {
                 <td>
                   <span
                     className={`badge ${
-                      user.role?.name === "Admin"
+                      user.userRole?.name === "Admin"
                         ? "bg-purple"
-                        : user.role?.name === "Formateur"
+                        : user.userRole?.name === "Formateur"
                         ? "bg-success"
-                        : user.role?.name === "Etudiant"
+                        : user.userRole?.name === "Etudiant"
                         ? "bg-primary"
                         : "bg-danger"
                     }`}
                   >
-                    {user.role?.name || "Aucun rôle"}
+                    {user.userRole?.name || "Aucun rôle"}
                   </span>
                 </td>
                 {isAdmin && (<td>
