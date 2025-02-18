@@ -128,17 +128,17 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
                 <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />
                 <Route path={FRONT_ADMIN_USERDETAILS} element={<UserDetailsPage />} />
               
-              
-       
-                <Route path={FRONT_ADMIN_EVALUATION} element={<AdminEvaluationPage />} />
+                <Route path={FRONT_ADMIN_TRAINING}  element={<AdminTrainingPage />} />
+                <Route path={FRONT_ADMIN_TRAININGDETAILS} element={<TrainingDetailPage />} />
+                <Route path={FRONT_ADMIN_ADD_TRAINING} element={<AddTraining />} />
 
                 <Route path={FRONT_ADMIN_PROMOTION} element={<AdminPromotionPage />} />
                 <Route path={FRONT_ADMIN_ADD_PROMOTION} element={<AdminAddPromotionPage />} />  
                 <Route path={FRONT_ADMIN_PROMOTIONDETAILS} element={<PromotionDetailsPage />} />
+
+                <Route path={FRONT_ADMIN_EVALUATION} element={<AdminEvaluationPage />} />
                
-                <Route path={FRONT_ADMIN_TRAINING}  element={<AdminTrainingPage />} />
-                <Route path={FRONT_ADMIN_TRAININGDETAILS} element={<TrainingDetailPage />} />
-                <Route path={FRONT_ADMIN_ADD_TRAINING} element={<AddTraining />} />
+
               </>
             )}
           </Routes>

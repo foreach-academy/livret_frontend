@@ -37,17 +37,18 @@ function TrainingDetailPage() {
     <thead>
         <tr>
             <th>Nom du module</th>
-            <th  className="d-flex justify-content-end">Action</th>
+            <th>Description</th>
+            {isAdmin && (<th>Action</th>)}
         </tr>
     </thead>
     <tbody>
         {training.modules && training.modules.map((module)=>(
             <tr key={module.id}>
                 <td>{module.title}</td>
-                <td className="d-flex justify-content-end">
-                    <button className="tertiary-button" >Voir plus</button>
+                <td>{module.commentary}</td>
+               {isAdmin&&(<td className="d-flex justify-content-center">
                     <button className="primary-button" >Modifier</button>
-                </td>
+                </td>)} 
             </tr>
         ))}
     </tbody>

@@ -63,14 +63,14 @@ function AdminTrainingPage () {
                 <thead>
                     <tr>
                         <th>Nom de la formation</th>
-                        <th className="d-flex justify-content-end">Action</th>
+                        <th className="d-flex justify-content-center">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredTrainings.map((training) => (
                         <tr key={training.id}>
                             <td>{training.title}</td>
-                            <td className="d-flex justify-content-end">
+                            <td className="d-flex justify-content-center">
                                 <button 
                                     className="tertiary-button" 
                                     onClick={() => navigate(`${FRONT_ADMIN_TRAINING}/${training.id}`)}
