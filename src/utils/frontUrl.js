@@ -1,6 +1,6 @@
 const FRONT_LOGIN = "/"
 const FRONT_ERROR = "/*"
-const FRONT_RESET_PASSWORD = "/reset-password"
+const FRONT_RESET_PASSWORD = "/reset/password/token/:token"
 
 // LOGGED USER
 

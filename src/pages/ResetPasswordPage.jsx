@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../styles/ResetPassword/ResetPassword.css";
 import { validatePassword } from "../utils/validators";
@@ -15,7 +15,8 @@ function ResetPasswordPage() {
   const location = useLocation();
 
   const params = new URLSearchParams(location.search);
-  const tokenFromUrl = params.get("token");
+  const tokenFromUrl = useParams()
+
 
   const resetPassword = async (e) => {
     if (!validatePassword(newPassword)) {
@@ -31,7 +32,7 @@ function ResetPasswordPage() {
     }
 
     try {
-      await AuthenticateService.resetPassword(newPassword, tokenFromUrl);
+      await AuthenticateService.resetPassword(newPassword, tokenFromUrl.token);
       toast.success("Mot de passe mis à jour avec succès !");
       navigate(FRONT_LOGIN, navigate);
     } catch (error) {
