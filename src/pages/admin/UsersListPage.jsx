@@ -15,7 +15,7 @@ const UsersListPage = () => {
   const [roles, setRoles] = useState([]);
   const [selectedRole, setSelectedRole] = useState("Tous");
   const navigate = useNavigate();
-  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, isTrainer ,setToken } = useContext(AuthContext);
+  const { isAdmin} = useContext(AuthContext);
 
   const fetchAllUsers = async () => {
     try {
