@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import PromotionsService from "../../../services/PromotionsService";
 import UserServices from "../../../services/UserServices";
@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import { FRONT_ADMIN_DASHBOARD } from "../../../utils/frontUrl";
 
 function PromotionDetailsPage() {
     const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, isTrainer, setToken } = useContext(AuthContext);
@@ -15,6 +16,7 @@ function PromotionDetailsPage() {
     const [selectedSupervisor, setSelectedSupervisor] = useState("");
     const [selectedTrainer, setSelectedTrainer] = useState("");
     const [selectedStudent, setSelectedStudent] = useState("");
+    const navigate = useNavigate();
 
 
     const getPromotionDetails = async (id) => {
@@ -106,6 +108,15 @@ function PromotionDetailsPage() {
             console.error("Erreur lors de la suppression de l'étudiant:", error.response?.data || error.message);
         }
     };
+    const deletePromotion = async () => {
+        if (!window.confirm("Etes-vous sur de vouloir supprimer cette promotion?")) return;
+        try {
+            await PromotionsService.deletePromotion(id);
+            navigate(FRONT_ADMIN_DASHBOARD)
+        } catch (error) {
+            console.error("Erreur lors de la suppression de la promotion:", error.response?.data || error.message);
+        }
+    };
 
 
     useEffect(() => {
@@ -122,8 +133,10 @@ function PromotionDetailsPage() {
     return (
         <AdminLayout>
         <div className="container-admin">
+            <div className="d-flex justify-content-between">
             <h2>Promotion : {promoDetail?.title}</h2>
-    
+            <button className="btn btn-danger" onClick={deletePromotion}> Supprimer la promotion</button>
+            </div>
             <div className="accordion" id="promotionAccordion">
                 {/* Supervisors */}
                 <div className="accordion-item">
