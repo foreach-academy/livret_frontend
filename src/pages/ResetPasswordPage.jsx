@@ -5,7 +5,6 @@ import "../styles/ResetPassword/ResetPassword.css";
 import { validatePassword } from "../utils/validators";
 import { FRONT_LOGIN } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
-import UnauthentifiedNavbar from "../components/shared/navbar/UnauthentifiedNavbar";
 
 function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
@@ -42,7 +41,6 @@ function ResetPasswordPage() {
 
   return (
     <>
-      <UnauthentifiedNavbar />
       <h1 className="title_Pages">Réinitialisation du mot de passe</h1>
       <div className="form_blue_contener">
         <div className="form_blue">

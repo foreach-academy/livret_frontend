@@ -1,5 +1,4 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
 import {
   FRONT_ADMIN_DASHBOARD,
   FRONT_ADMIN_EVALUATION,
@@ -10,7 +9,7 @@ import {
 import ListNavbar from "./ComposantNavbar";
 
 const NavbarAdmin = () => {
-  const location = useLocation(); 
+
 
   return (
     <div className="navbar_admin-container">

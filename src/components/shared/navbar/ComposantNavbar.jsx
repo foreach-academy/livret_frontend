@@ -5,9 +5,9 @@ function ListNavbar({url, logo, lien}) {
 
     return (
         <>
-        <li className={`navbar_admin-item ${location.pathname === url ? "active" : ""}`}>
-            <Link to={url}> <img src={`/images/icons/${logo}`} alt={logo} /> {lien} </Link>
-          </li>
+  
+            <Link className={`navbar_admin-item ${location.pathname === url ? "active" : ""}`} to={url}> <img src={`/images/icons/${logo}`} alt={logo} /> {lien} </Link>
+        
         </>
     )
 
