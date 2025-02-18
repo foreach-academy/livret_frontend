@@ -17,7 +17,6 @@ import ErrorPage from "./pages/ErrorPage";
 import TraineePracticalLifePage from "./pages/authentified_user/TraineePracticalLifePage";
 import LivretPage from "./pages/authentified_user/LivretPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import EvaluationPage from "./pages/authentified_user/EvaluationPage";
 import AuthContext from "./context/AuthContext";
 import UserServices from "./services/UserServices";
 import {
@@ -116,10 +115,7 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
             />
             <Route path={FRONT_FORMATION_DETAIL} element={<FormationDetailPage />} />
             <Route path={FRONT_FORMATION_DETAIL_PROMOTION_DETAIL} element={<LivretPage />} />
-            <Route
-              path="/evaluation-form/:formationId/:moduleId/:studentId"
-              element={<EvaluationPage />}
-            />
+
             {/* Routes accessibles uniquement aux administrateurs et formateurs */}
             {(isAdmin || isTrainer) && (
               <>
