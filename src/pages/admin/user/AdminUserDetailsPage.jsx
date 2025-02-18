@@ -81,6 +81,18 @@ function UserDetailsPage() {
       toast.error("Erreur lors de la mise à jour.");
     }
   };
+  const handleDelete = async () => {
+    try {
+      const confirmation = window.confirm("Voulez-vous vraiment supprimer cet utilisateur?");
+      if (!confirmation) return;
+      await UserServices.deleteUser(userId);
+      toast.success("Utilisateur supprimé avec succès!");
+      navigate(-1);
+    } catch (error) {
+      console.error("Erreur lors de la suppression:", error);
+      toast.error("Erreur lors de la suppression.");
+    }
+  };
 
   return (
     <AdminLayout>
@@ -192,9 +204,12 @@ function UserDetailsPage() {
           </tbody>
         </Table>
 
-        <Button variant="success" onClick={handleUpdate} className="mt-3">
+        <button onClick={handleUpdate} className="primary-button mt-3">
           Enregistrer les modifications
-        </Button>
+        </button>
+        <button onClick={handleDelete} className="btn btn-danger mt-3">
+          Supprimer l'utilisateur
+        </button>
       </div>
     </AdminLayout>
   );
