@@ -10,6 +10,7 @@ import { navigateTo } from "../../../utils/navigate";
 import TrainingServices from "../../../services/TrainingServices";
 import PromotionsService from "../../../services/PromotionsService";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import Input from "../../../components/shared/form/Input";
 
 function AddUserPage() {
   const [user, setUser] = useState({
@@ -139,44 +140,23 @@ function AddUserPage() {
               <>
                 <div className="d-flex flex-wrap w-100">
                   <div className="d-flex justify-content-between gap-5 w-100">
-                    <div className="input-group d-flex flex-column ">
-                      <label>Prénom</label>
-                      <input type="text" value={user.firstname} onChange={(e) => setUser({ ...user, firstname: e.target.value })} />
-                    </div>
-                    <div className="input-group d-flex flex-column ">
-                      <label>Nom</label>
-                      <input type="text" value={user.lastname} onChange={(e) => setUser({ ...user, lastname: e.target.value })} />
-                    </div>
+                    <Input changeFunction={(e) => setUser({ ...user, firstname: e.target.value })} labelName={"Prénom"} type={"text"} value={user.firstname} />
+                    <Input changeFunction={(e) => setUser({ ...user, lastname: e.target.value })} labelName={"Nom"} type={"text"} value={user.lastname} />
                   </div>
 
                   <div className="d-flex justify-content-between gap-5  w-100">
-                    <div className="input-group d-flex flex-column">
-                      <label>Email</label>
-                      <input type="email" value={user.email} onChange={(e) => setUser({ ...user, email: e.target.value })} />
-                    </div>
-                    <div className="input-group d-flex flex-column">
-                      <label>Date de naissance</label>
-                      <input type="date" value={user.birthdate} onChange={(e) => setUser({ ...user, birthdate: e.target.value })} />
-                    </div>
+                  <Input changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName={"E-mail"} type={"email"} value={user.email} />
+                  <Input changeFunction={(e) => setUser({ ...user, birthdate: e.target.value })} labelName={"Date de naissance"} type={"date"} value={user.birthdate} />
                   </div>
 
                   <div className="d-flex justify-content-between  gap-5 w-100">
-                    <div className="input-group d-flex flex-column">
-                      <label>Mot de passe</label>
-                      <input type="password" value={user.password} onChange={(e) => setUser({ ...user, password: e.target.value })} />
-                    </div>
-                    <div className="input-group d-flex flex-column">
-                      <label>Confirmer le mot de passe</label>
-                      <input type="password" value={user.confirmPassword} onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} />
-                    </div>
+                  <Input changeFunction={(e) => setUser({ ...user, password: e.target.value })} labelName={"Mot de passe"} type={"text"} value={user.password} />
+                  <Input changeFunction={(e) => setUser({ ...user, confirmPassword: e.target.value })} labelName={"Confirmer le mot de passe"} type={"text"} value={user.confirmPassword} />
                   </div>
 
                   {selectedRole === "1" && (
                     <>
-                      <div className="input-group d-flex flex-column">
-                        <label>Emploi</label>
-                        <input type="text" value={user.position} onChange={(e) => setUser({ ...user, position: e.target.value })} />
-                      </div>
+                   <Input changeFunction={(e) => setUser({ ...user, position: e.target.value })} labelName={"Emploi"} type={"text"} value={user.position} />
                       <div className="input-group d-flex flex-column">
                         <label>Photo</label>
                         <input type="file" accept="image/*" onChange={handleFileChange} />

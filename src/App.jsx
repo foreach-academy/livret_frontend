@@ -20,6 +20,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 import AuthContext from "./context/AuthContext";
 import UserServices from "./services/UserServices";
 import {
+  FRONT_ADMIN_ADD_PROMOTION,
   FRONT_ADMIN_ADD_TRAINING,
   FRONT_ADMIN_ADD_USERS,
   FRONT_ADMIN_DASHBOARD,
@@ -48,6 +49,7 @@ import UserDetailsPage from "./pages/admin/user/AdminUserDetailsPage";
 import AddTraining from "./pages/admin/training/AdminAddTraining";
 import TrainingDetailPage from "./pages/admin/training/AdminTrainingDetailPage";
 import PromotionDetailsPage from "./pages/admin/promotion/AdminPromotionDetailsPage";
+import AdminAddPromotionPage from "./pages/admin/promotion/AdminAddPromotionPage";
 
 function App() {
   UserServices.checkToken();
@@ -131,6 +133,7 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
                 <Route path={FRONT_ADMIN_EVALUATION} element={<AdminEvaluationPage />} />
 
                 <Route path={FRONT_ADMIN_PROMOTION} element={<AdminPromotionPage />} />
+                <Route path={FRONT_ADMIN_ADD_PROMOTION} element={<AdminAddPromotionPage />} />  
                 <Route path={FRONT_ADMIN_PROMOTIONDETAILS} element={<PromotionDetailsPage />} />
                
                 <Route path={FRONT_ADMIN_TRAINING}  element={<AdminTrainingPage />} />

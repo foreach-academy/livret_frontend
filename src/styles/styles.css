@@ -17,7 +17,9 @@ html, body {
   padding-right: 3%;  
   padding-top: 3%;
 }
-
+.color-black-text{
+  color: black;
+}
 /* accordeon */
 
 .background-purple{
