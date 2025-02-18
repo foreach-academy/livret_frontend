@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
-import TrainingServices from "../../services/TrainingServices";
+import TrainingServices from "../../../services/TrainingServices";
 import { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../../context/AuthContext";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 function TrainingDetailPage() {
     const { id } = useParams();
@@ -26,7 +27,7 @@ function TrainingDetailPage() {
     }, [])
 
     return(
-        <>
+        <AdminLayout>
         <div className="container-admin">
 <h1> {training.title}</h1>
 <h3>Description :</h3>
@@ -52,7 +53,8 @@ function TrainingDetailPage() {
     </tbody>
     </Table>
         </div>
-        </>
+     
+        </AdminLayout>
     )
 }
 

@@ -11,8 +11,8 @@ import Footer from "./components/shared/footer/Footer";
 import HomePage from "./pages/authentified_user/HomePage";
 import FormationDetailPage from "./pages/authentified_user/FormationDetailPage";
 import LoginPage from "./pages/LoginPage";
-import UsersListPage from "./pages/admin/UsersListPage";
-import AddUserPage from "./pages/admin/AddUserPage";
+import UsersListPage from "./pages/admin/user/AdminUsersListPage";
+import AddUserPage from "./pages/admin/user/AdminAddUserPage";
 import ErrorPage from "./pages/ErrorPage";
 import TraineePracticalLifePage from "./pages/authentified_user/TraineePracticalLifePage";
 import LivretPage from "./pages/authentified_user/LivretPage";
@@ -40,15 +40,15 @@ import {
   FRONT_TRAINER_PRATICAL_LIFE,
 } from "./utils/frontUrl";
 import NavbarAdmin from "./components/shared/navbar/AdminNavbar";
-import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
-import AdminPromotionPage from "./pages/admin/AdminPromotionPage";
-import AdminTrainingPage from "./pages/admin/AdminTrainingPage";
-import AdminEvaluationPage from "./pages/admin/AdminEvaluationPage";
+import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
+import AdminPromotionPage from "./pages/admin/promotion/AdminPromotionPage";
+import AdminTrainingPage from "./pages/admin/training/AdminTrainingPage";
+import AdminEvaluationPage from "./pages/admin/evaluation/AdminEvaluationPage";
 import Navbar from "./components/shared/navbar/Navbar";
-import UserDetailsPage from "./pages/admin/UserDetailsPage";
-import AddTraining from "./pages/admin/AddTraining";
-import TrainingDetailPage from "./pages/admin/AdminTrainingDetailPage";
-import PromotionDetailsPage from "./pages/admin/AdminPromotionDetailsPage";
+import UserDetailsPage from "./pages/admin/user/AdminUserDetailsPage";
+import AddTraining from "./pages/admin/training/AdminAddTraining";
+import TrainingDetailPage from "./pages/admin/training/AdminTrainingDetailPage";
+import PromotionDetailsPage from "./pages/admin/promotion/AdminPromotionDetailsPage";
 
 function App() {
   UserServices.checkToken();
@@ -101,9 +101,8 @@ function App() {
 function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
   return (
     <div className="app-layout">
-      {(isAdmin || isTrainer) && <NavbarAdmin />} {/* Sidebar */}
+
       <div className="main-content">
-        <Navbar /> {/* Topbar */}
         <div className="page-content">
           <Routes>
             <Route path={FRONT_ERROR} element={<ErrorPage />} />

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
-import UserServices from "../../services/UserServices";
-import RoleServices from "../../services/RoleServices";
+import UserServices from "../../../services/UserServices";
+import RoleServices from "../../../services/RoleServices";
 import { toast } from "react-toastify";
-import { FRONT_ADMIN_ADD_USERS } from "../../utils/frontUrl";
-import { navigateTo } from "../../utils/navigate";
+import { FRONT_ADMIN_ADD_USERS } from "../../../utils/frontUrl";
+import { navigateTo } from "../../../utils/navigate";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../../context/AuthContext";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 const UsersListPage = () => {
   const [users, setUsers] = useState([]);
@@ -68,7 +69,8 @@ const UsersListPage = () => {
   });
 
   return (
-    <>
+
+    <AdminLayout>
       <div className="container-admin">
         {/* En-tête de la liste d'utilisateurs */}
         <div className="d-flex justify-content-between">
@@ -152,7 +154,8 @@ const UsersListPage = () => {
           </tbody>
         </Table>
       </div>
-    </>
+      </AdminLayout>
+    
   );
 };
 

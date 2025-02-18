@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import TrainingServices from "../../services/TrainingServices";
+import TrainingServices from "../../../services/TrainingServices";
 import { Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { navigateTo } from "../../utils/navigate";
-import { FRONT_ADMIN_ADD_TRAINING, FRONT_ADMIN_TRAINING } from "../../utils/frontUrl";
-import AuthContext from "../../context/AuthContext";
+import { navigateTo } from "../../../utils/navigate";
+import { FRONT_ADMIN_ADD_TRAINING, FRONT_ADMIN_TRAINING } from "../../../utils/frontUrl";
+import AuthContext from "../../../context/AuthContext";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 function AdminTrainingPage () {
     const [trainings, setTrainings] = useState([]);
@@ -30,6 +31,7 @@ function AdminTrainingPage () {
     );
 
     return (
+        <AdminLayout>
         <div className="container-admin">
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <h1>Formations</h1>
@@ -84,6 +86,7 @@ function AdminTrainingPage () {
                 </tbody>
             </Table>
         </div>
+        </AdminLayout>
     );
 }
 

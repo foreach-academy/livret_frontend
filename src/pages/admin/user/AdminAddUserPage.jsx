@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/AddUser/AddUser.css";
-import UserServices from "../../services/UserServices";
-import RoleServices from "../../services/RoleServices";
+import UserServices from "../../../services/UserServices";
+import RoleServices from "../../../services/RoleServices";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
-import { FRONT_ADMIN_USERS } from "../../utils/frontUrl";
-import { navigateTo } from "../../utils/navigate";
-import TrainingServices from "../../services/TrainingServices";
-import PromotionsService from "../../services/PromotionsService";
+import { FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
+import { navigateTo } from "../../../utils/navigate";
+import TrainingServices from "../../../services/TrainingServices";
+import PromotionsService from "../../../services/PromotionsService";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 function AddUserPage() {
   const [user, setUser] = useState({
@@ -121,7 +122,7 @@ function AddUserPage() {
   };
 
   return (
-    <>
+<AdminLayout>
       <div className="container-admin">
         <h1 className="title_Pages">Ajouter un utilisateur</h1>
         <div className="form_blue_contener wider">
@@ -225,7 +226,7 @@ function AddUserPage() {
           </div>
         </div>
       </div>
-    </>
+      </AdminLayout>
   );
 }
 

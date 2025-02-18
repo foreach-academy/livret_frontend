@@ -1,5 +1,6 @@
 import { useState } from "react";
-import TrainingServices from "../../services/TrainingServices";
+import TrainingServices from "../../../services/TrainingServices";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 function AddTraining() {
     const [title, setTitle] = useState("");
@@ -45,6 +46,7 @@ function AddTraining() {
     };
     
     return (
+        <AdminLayout>
         <div className="container-admin">
             <h1>Ajouter une formation</h1>
             <div className="grey-background">
@@ -107,6 +109,7 @@ function AddTraining() {
                 {message && <p className="message">{message}</p>}
             </div>
         </div>
+        </AdminLayout>
     );
 }
 

@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import PromotionsService from "../../services/PromotionsService";
-import UserServices from "../../services/UserServices";
+import PromotionsService from "../../../services/PromotionsService";
+import UserServices from "../../../services/UserServices";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../../context/AuthContext";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 function PromotionDetailsPage() {
     const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, isTrainer, setToken } = useContext(AuthContext);
@@ -119,6 +120,7 @@ function PromotionDetailsPage() {
     const students = users.filter(user => user.userRole.id === 3);
 
     return (
+        <AdminLayout>
         <div className="container-admin">
             <h2>Promotion : {promoDetail?.title}</h2>
     
@@ -233,6 +235,7 @@ function PromotionDetailsPage() {
     
             </div>
         </div>
+        </AdminLayout>
     );
     
 }

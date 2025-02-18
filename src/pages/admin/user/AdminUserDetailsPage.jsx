@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import UserServices from "../../services/UserServices";
+import UserServices from "../../../services/UserServices";
 import { toast } from "react-toastify";
 import { Table, Button, Form } from "react-bootstrap";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 function UserDetailsPage() {
   const { id: userId } = useParams(); // Récupération correcte de l'ID
@@ -65,6 +66,7 @@ function UserDetailsPage() {
 
   return (
     <>
+     <AdminLayout>
       <div className="container-admin">
         <h1>Modifier {user.firstname} {user.lastname}</h1>
 
@@ -177,6 +179,7 @@ function UserDetailsPage() {
           Enregistrer les modifications
         </Button>
       </div>
+      </AdminLayout>
     </>
   );
 }

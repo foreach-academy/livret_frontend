@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import PromotionsService from "../../services/PromotionsService";
+import PromotionsService from "../../../services/PromotionsService";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
-import AuthContext from "../../context/AuthContext";
+import AuthContext from "../../../context/AuthContext";
+import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 const AdminPromotionPage = () => {
   const [promotions, setPromotions] = useState([]);
@@ -35,6 +36,7 @@ const AdminPromotionPage = () => {
   );
 
   return (
+    <AdminLayout>
     <div className="container-admin">
       {/* En-tête de la liste des promotions */}
       <div className="d-flex justify-content-between">
@@ -90,6 +92,7 @@ const AdminPromotionPage = () => {
         </tbody>
       </Table>
     </div>
+    </AdminLayout>
   );
 };
 
