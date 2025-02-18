@@ -13,7 +13,7 @@ import {
 import { navigateTo } from "../../../utils/navigate";
 
 const Navbar = () => {
-  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken } =
+  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken, isTrainer } =
     useContext(AuthContext);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -123,7 +123,7 @@ const Navbar = () => {
                       Profil
                     </div>
                     <ul id="myDropdown" className="dropdown-profil-content">
-                      {isAdmin && (
+                      {(isAdmin || isTrainer) && (
                         <li
                           className="dropdown-profil-content-flex nav-link"
                           onClick={() => navigate(FRONT_ADMIN_USERS)}

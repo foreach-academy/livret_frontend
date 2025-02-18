@@ -54,6 +54,7 @@ const LoginPage = () => {
         
         // Décoder le token pour vérifier le rôle de l'utilisateur
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
         setIsAdmin(decodedToken.role === "Admin");
         setIsTrainer(decodedToken.role === "Formateur");
   
