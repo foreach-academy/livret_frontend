@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import "../styles/ResetPassword/ResetPassword.css";
 import { validatePassword } from "../utils/validators";
 import { FRONT_LOGIN } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
-import UnauthentifiedNavbar from "../components/shared/navbar/UnauthentifiedNavbar";
 
 function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
@@ -15,7 +14,8 @@ function ResetPasswordPage() {
   const location = useLocation();
 
   const params = new URLSearchParams(location.search);
-  const tokenFromUrl = params.get("token");
+  const tokenFromUrl = useParams()
+
 
   const resetPassword = async (e) => {
     if (!validatePassword(newPassword)) {
@@ -31,7 +31,7 @@ function ResetPasswordPage() {
     }
 
     try {
-      await AuthenticateService.resetPassword(newPassword, tokenFromUrl);
+      await AuthenticateService.resetPassword(newPassword, tokenFromUrl.token);
       toast.success("Mot de passe mis à jour avec succès !");
       navigate(FRONT_LOGIN, navigate);
     } catch (error) {
@@ -41,7 +41,6 @@ function ResetPasswordPage() {
 
   return (
     <>
-      <UnauthentifiedNavbar />
       <h1 className="title_Pages">Réinitialisation du mot de passe</h1>
       <div className="form_blue_contener">
         <div className="form_blue">

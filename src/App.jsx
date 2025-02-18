@@ -3,23 +3,33 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 
 // Composants et pages
 import Footer from "./components/shared/footer/Footer";
 import HomePage from "./pages/authentified_user/HomePage";
 import FormationDetailPage from "./pages/authentified_user/FormationDetailPage";
 import LoginPage from "./pages/LoginPage";
-import UsersListPage from "./pages/admin/UsersListPage";
-import AddUserPage from "./pages/admin/AddUserPage";
+import UsersListPage from "./pages/admin/user/AdminUsersListPage";
+import AddUserPage from "./pages/admin/user/AdminAddUserPage";
 import ErrorPage from "./pages/ErrorPage";
 import TraineePracticalLifePage from "./pages/authentified_user/TraineePracticalLifePage";
 import LivretPage from "./pages/authentified_user/LivretPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
-import EvaluationPage from "./pages/authentified_user/EvaluationPage";
 import AuthContext from "./context/AuthContext";
 import UserServices from "./services/UserServices";
 import {
+  FRONT_ADMIN_ADD_PROMOTION,
+  FRONT_ADMIN_ADD_TRAINING,
   FRONT_ADMIN_ADD_USERS,
+  FRONT_ADMIN_DASHBOARD,
+  FRONT_ADMIN_EVALUATION,
+  FRONT_ADMIN_PROMOTION,
+  FRONT_ADMIN_PROMOTIONDETAILS,
+  FRONT_ADMIN_TRAINING,
+  FRONT_ADMIN_TRAININGDETAILS,
+  FRONT_ADMIN_USERDETAILS,
   FRONT_ADMIN_USERS,
   FRONT_ERROR,
   FRONT_FORMATION_DETAIL,
@@ -29,6 +39,17 @@ import {
   FRONT_RESET_PASSWORD,
   FRONT_TRAINER_PRATICAL_LIFE,
 } from "./utils/frontUrl";
+import NavbarAdmin from "./components/shared/navbar/AdminNavbar";
+import AdminDashboardPage from "./pages/admin/dashboard/AdminDashboardPage";
+import AdminPromotionPage from "./pages/admin/promotion/AdminPromotionPage";
+import AdminTrainingPage from "./pages/admin/training/AdminTrainingPage";
+import AdminEvaluationPage from "./pages/admin/evaluation/AdminEvaluationPage";
+import Navbar from "./components/shared/navbar/Navbar";
+import UserDetailsPage from "./pages/admin/user/AdminUserDetailsPage";
+import AddTraining from "./pages/admin/training/AdminAddTraining";
+import TrainingDetailPage from "./pages/admin/training/AdminTrainingDetailPage";
+import PromotionDetailsPage from "./pages/admin/promotion/AdminPromotionDetailsPage";
+import AdminAddPromotionPage from "./pages/admin/promotion/AdminAddPromotionPage";
 
 function App() {
   UserServices.checkToken();
@@ -36,6 +57,8 @@ function App() {
     UserServices.isAuthenticated
   );
   const [isAdmin, setIsAdmin] = useState(UserServices.isAdmin);
+  const [isTrainer, setIsTrainer] = useState(UserServices.isTrainer);
+
   const [token, setToken] = useState(
     window.localStorage.getItem("authToken")
       ? window.localStorage.getItem("authToken")
@@ -51,11 +74,14 @@ function App() {
         setToken,
         isAdmin,
         setIsAdmin,
+        isTrainer,
+        setIsTrainer,
+
       }}
     >
       <BrowserRouter>
-        <MainContent isAuthenticated={isAuthenticated} isAdmin={isAdmin} />
-        <Footer />
+        <MainContent isAuthenticated={isAuthenticated} isAdmin={isAdmin} isTrainer={isTrainer} />
+       {isAdmin || isTrainer ? null : (<Footer />)} 
         <ToastContainer
           position="bottom-right"
           autoClose={5000}
@@ -73,38 +99,55 @@ function App() {
   );
 }
 
-function MainContent({ isAuthenticated, isAdmin }) {
+function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
   return (
-    <>
-      <main>
-        <Routes>
-          <Route path={FRONT_ERROR} element={<ErrorPage />} />
-          <Route path={FRONT_LOGIN} element={<LoginPage />} />
-          <Route path={FRONT_RESET_PASSWORD} element={<ResetPasswordPage />} />
-          {/* </>} */}
-          {/* {isAuthenticated && <> */}
-          <Route path={FRONT_HOME} element={<HomePage />} />
-          <Route
-            path={FRONT_TRAINER_PRATICAL_LIFE}
-            element={<TraineePracticalLifePage />}
-          />
-          <Route path={FRONT_FORMATION_DETAIL} element={<FormationDetailPage />} />
-          <Route path={FRONT_FORMATION_DETAIL_PROMOTION_DETAIL} element={<LivretPage />} />
-          <Route
-            path="/evaluation-form/:formationId/:moduleId/:studentId"
-            element={<EvaluationPage />}
-          />
-          {isAdmin && (
-            <>
-              <Route path={FRONT_ADMIN_USERS} element={<UsersListPage />} />
-              <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />
-            </>
-          )}
-          {/* </>} */}
-        </Routes>
-      </main>
-    </>
+    <div className="app-layout">
+
+      <div className="main-content">
+        <div className="page-content">
+        <Navbar />
+          <Routes>
+            <Route path={FRONT_ERROR} element={<ErrorPage />} />
+            <Route path={FRONT_LOGIN} element={<LoginPage />} />
+            <Route path={FRONT_RESET_PASSWORD} element={<ResetPasswordPage />} />
+            {/* Routes accessibles aux utilisateurs authentifiés */}
+            <Route path={FRONT_HOME} element={<HomePage />} />
+            <Route
+              path={FRONT_TRAINER_PRATICAL_LIFE}
+              element={<TraineePracticalLifePage />}
+            />
+            <Route path={FRONT_FORMATION_DETAIL} element={<FormationDetailPage />} />
+            <Route path={FRONT_FORMATION_DETAIL_PROMOTION_DETAIL} element={<LivretPage />} />
+
+            {/* Routes accessibles uniquement aux administrateurs et formateurs */}
+            {(isAdmin || isTrainer) && (
+              <>
+                <Route path={FRONT_ADMIN_DASHBOARD} element={<AdminDashboardPage />} />
+              
+                <Route path={FRONT_ADMIN_USERS} element={<UsersListPage />} />
+                <Route path={FRONT_ADMIN_ADD_USERS} element={<AddUserPage />} />
+                <Route path={FRONT_ADMIN_USERDETAILS} element={<UserDetailsPage />} />
+              
+                <Route path={FRONT_ADMIN_TRAINING}  element={<AdminTrainingPage />} />
+                <Route path={FRONT_ADMIN_TRAININGDETAILS} element={<TrainingDetailPage />} />
+                <Route path={FRONT_ADMIN_ADD_TRAINING} element={<AddTraining />} />
+
+                <Route path={FRONT_ADMIN_PROMOTION} element={<AdminPromotionPage />} />
+                <Route path={FRONT_ADMIN_ADD_PROMOTION} element={<AdminAddPromotionPage />} />  
+                <Route path={FRONT_ADMIN_PROMOTIONDETAILS} element={<PromotionDetailsPage />} />
+
+                <Route path={FRONT_ADMIN_EVALUATION} element={<AdminEvaluationPage />} />
+               
+
+              </>
+            )}
+          </Routes>
+        </div>
+      </div>
+    </div>
   );
 }
+
+
 
 export default App;

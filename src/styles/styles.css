@@ -4,3 +4,89 @@
     display: flex;
     flex-direction: column;
 }
+html, body {
+    height: 100%;
+    overflow: auto; /* Active le scroll */
+}
+
+.container-admin{
+  position: absolute;
+  width: 80vw;
+  right: 0;
+  top: 10;
+  padding-right: 3%;  
+  padding-top: 3%;
+}
+.color-black-text{
+  color: black;
+}
+/* accordeon */
+
+.background-purple{
+  background-color: #BC92D9;
+}
+
+.background-green{
+  background-color: #48D18C;
+}
+
+.background-blue{
+  background-color: #5D9CEC;
+}
+
+/* Supervisors */
+.supervisor-header {
+  color: white;
+  background-color: #BC92D9;
+}
+
+.supervisor-header:not(.collapsed),
+.supervisor-header:hover {
+  background-color: #BC92D9 !important; /* Force la couleur même au survol */
+  color: white;
+}
+
+/* Trainers */
+.trainer-header {
+  color: white;
+  background-color: #48D18C;
+}
+
+.trainer-header:not(.collapsed),
+.trainer-header:hover {
+  background-color: #48D18C !important;
+  color: white;
+}
+
+/* Students */
+.student-header {
+  color: white;
+  background-color: #5D9CEC;
+}
+
+.student-header:not(.collapsed),
+.student-header:hover {
+  background-color: #5D9CEC !important;
+  color: white;
+}
+
+
+
+
+.bg-purple {
+    background-color: #BC92D9 !important; /* Violet */
+    color: white;
+  }
+  
+  .bg-success {
+    background-color: #48D18C !important; /* Vert */
+    color: white;
+  }
+  
+  .bg-primary {
+    background-color: #4A80FD !important; /* Bleu */
+    color: white;
+  }
+  
+
+  

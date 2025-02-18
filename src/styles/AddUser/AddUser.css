@@ -2,9 +2,9 @@
     text-align: center;
 }
 .form_blue_contener{
-    background-color: #108CB7;
+    background-color: #D9D9D9;
     border-radius: 6px;
-    max-width: 500px;
+    max-width: 70vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,6 +73,10 @@
 }
 #password{
     margin-top: 4px !important;
+}
+.input-radius{
+    border-radius: 4px;
+    
 }
 @media screen and (max-width: 992px) {
     #form_add_contener {
