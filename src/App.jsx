@@ -103,6 +103,7 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
 
       <div className="main-content">
         <div className="page-content">
+        <Navbar />
           <Routes>
             <Route path={FRONT_ERROR} element={<ErrorPage />} />
             <Route path={FRONT_LOGIN} element={<LoginPage />} />

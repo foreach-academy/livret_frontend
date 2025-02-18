@@ -5,7 +5,6 @@ import NavbarAdmin from '../../shared/navbar/AdminNavbar'
 const AdminLayout = ({children}) => {
     return (
         <>
-            <Navbar />
             <NavbarAdmin />
             {children}
         </>
