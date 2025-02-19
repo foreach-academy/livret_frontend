@@ -38,7 +38,6 @@ const LoginPage = () => {
         toast.error("Aucun token fourni");
       }
     } catch (error) {
-      console.log("Full error object:", error);
     
       if (error.retryAfter) {
         const retryAfterSeconds = parseInt(error.retryAfter, 10); 
