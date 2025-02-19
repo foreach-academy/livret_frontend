@@ -13,7 +13,7 @@ import Input from "../components/shared/form/Input";
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const [timeLeft, setTimeLeft] = useState(null);
-  const { setIsAuthenticated, setToken, setIsAdmin, setIsTrainer } = useContext(AuthContext);
+  const { setIsAuthenticated, setToken, setIsAdmin, setIsTrainer, setUserName } = useContext(AuthContext);
   const navigate = useNavigate();
   const countdownInterval = useRef(null);
 
@@ -24,12 +24,15 @@ const LoginPage = () => {
       const response = await AuthenticateService.login(user);
       
       if (response.data.token) {
+        
         const token = response.data.token;
         UserServices.setAxiosToken(token);
         window.localStorage.setItem("authToken", token);
         setIsAuthenticated(true);
         setToken(token);
         const decodedToken = jwtDecode(token);
+        console.log(decodedToken.user);
+        setUserName(decodedToken.user);
         setIsAdmin(decodedToken.role === "Admin");
         setIsTrainer(decodedToken.role === "Formateur");
         navigate(decodedToken.role === "Admin" || decodedToken.role === "Formateur" ? FRONT_ADMIN_DASHBOARD : FRONT_HOME);

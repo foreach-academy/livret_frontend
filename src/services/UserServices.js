@@ -125,6 +125,15 @@ class UserServices {
         }
         return false;
     }
+    /**
+     * Récupère le nom de l'utilisateur à partir du token JWT.
+     * @returns {string} - Le nom de l'utilisateur.
+     */
+    static userName() {
+        const token = window.localStorage.getItem("authToken");
+        const tokenData = jwtDecode(token);
+        return tokenData.username;
+    }
 
     /**
      * Récupère l'ID de l'utilisateur à partir du token JWT.

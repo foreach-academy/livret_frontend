@@ -51,7 +51,7 @@ import AddTraining from "./pages/admin/training/AdminAddTraining";
 import TrainingDetailPage from "./pages/admin/training/AdminTrainingDetailPage";
 import PromotionDetailsPage from "./pages/admin/promotion/AdminPromotionDetailsPage";
 import AdminAddPromotionPage from "./pages/admin/promotion/AdminAddPromotionPage";
-import ForgetPassword from "./pages/authentified_user/ForgetPassword";
+import ForgetPassword from "./pages/ForgetPassword";
 
 function App() {
   UserServices.checkToken();
@@ -60,6 +60,7 @@ function App() {
   );
   const [isAdmin, setIsAdmin] = useState(UserServices.isAdmin);
   const [isTrainer, setIsTrainer] = useState(UserServices.isTrainer);
+  const [userName, setUserName] = useState(UserServices.userName);
 
   const [token, setToken] = useState(
     window.localStorage.getItem("authToken")
@@ -78,6 +79,8 @@ function App() {
         setIsAdmin,
         isTrainer,
         setIsTrainer,
+        userName,
+        setUserName
 
       }}
     >
