@@ -13,7 +13,6 @@ import Input from "../components/shared/form/Input";
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
   const [timeLeft, setTimeLeft] = useState(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { setIsAuthenticated, setToken, setIsAdmin, setIsTrainer } = useContext(AuthContext);
   const navigate = useNavigate();
   const countdownInterval = useRef(null);
@@ -112,7 +111,7 @@ const LoginPage = () => {
               )}
               <Link to={FRONT_FORGOT_PASSWORD} className="p-forgot">Mot de passe oublié / Première Connexion</Link>
             </div>
-            <button id="button_login" disabled={isSubmitting}   type="form" onClick={login}>Connexion</button>
+            <button id="button_login"   type="form" onClick={login}>Connexion</button>
             </form>
           </div>
         </div>
