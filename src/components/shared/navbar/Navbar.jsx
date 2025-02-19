@@ -80,15 +80,18 @@ const Navbar = () => {
                 className="logo-image"
               />
             </Link>
-    
-          {isAuthenticated && (
-            <>
-              <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
+            <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
                 <li>
                   <Link to={FRONT_TRAINER_PRATICAL_LIFE} className="nav-link">
                     Vie pratique du stagiaire
                   </Link>
                 </li>
+                </ul>
+    
+          {isAuthenticated && (
+            <>
+              <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
+               
                 <li>
                   <div className="dropdown-profil">
                     <div
@@ -130,7 +133,7 @@ const Navbar = () => {
               </div>
             </>
           )}
-          {!isAuthenticated && location.pathname !== FRONT_LOGIN &&  (
+          {!isAuthenticated && (
             <div>
               <Link to={FRONT_LOGIN} className="primary-button">
                 <span className="material-icons-outlined">home</span>

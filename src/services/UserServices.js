@@ -130,9 +130,12 @@ class UserServices {
      * @returns {string} - Le nom de l'utilisateur.
      */
     static userName() {
+        if (UserServices.isAuthenticated()){
         const token = window.localStorage.getItem("authToken");
         const tokenData = jwtDecode(token);
         return tokenData.username;
+        }
+        return false;
     }
 
     /**
