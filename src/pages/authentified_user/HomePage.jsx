@@ -1,13 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/HomePage/HomePage.css';
 import FormationCard from '../../components/pages/FormationCard';
 import EquipeForEach from '../../components/pages/homePage/EquipeForEach';
 import StrategicInfo from '../../components/pages/homePage/StrategicInfo';
 import DOMPurify from 'dompurify'; // Importation de DOMPurify
 import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
+import TrainingServices from '../../services/TrainingServices';
 
 
 const HomePage = () => {
+  const [trainings, setTrainings] = useState([]);
+
+  const fetchAllTrainings = async () => {
+ try {
+   const response = await TrainingServices.fetchAllTraining();
+   setTrainings(response.data);
+ } catch (error) {
+   console.error("Erreur lors de la récupération des formations:", error);
+  }}
+
+  useEffect(() => {
+    fetchAllTrainings();
+  }, []);
 
   useEffect(() => {
     // Déclencher animation au scroll
@@ -86,21 +100,14 @@ const HomePage = () => {
         <div className="formations">
           <h2>Nos formations</h2>
           <div className="formation-cards">
-            <FormationCard
-              title="Assistant Ressources Humaines"
-              description="Titre Assistant Ressources Humaines option IT, 1 an en alternance, Bac+2"
-              moreInfoLink="/formations/1"
-            />
-            <FormationCard
-              title="Bachelor Concepteur Développeur d’Applications"
-              description="En 2 ans, à destination des étudiants post-baccalauréat en formation initiale Bac+4"
-              moreInfoLink="/formations/2"
-            />
-            <FormationCard
-              title="Mastère Architecte Web"
-              description="15 mois en alternance, Bac+5"
-              moreInfoLink="/formations/3"
-            />
+            {trainings && trainings.map((training)=>(
+              <FormationCard
+                key={training.id}
+                title={training.title}
+                description={training.description}
+                moreInfoLink={`/formations/${training.id}`}
+              />
+            ))}
           </div>
         </div>
         <EquipeForEach />
