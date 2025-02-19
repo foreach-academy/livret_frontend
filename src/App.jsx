@@ -31,13 +31,17 @@ import {
   FRONT_ADMIN_TRAININGDETAILS,
   FRONT_ADMIN_USERDETAILS,
   FRONT_ADMIN_USERS,
+  FRONT_CGU,
+  FRONT_CONFIDENTIAL,
   FRONT_ERROR,
   FRONT_FORGOT_PASSWORD,
   FRONT_FORMATION_DETAIL,
   FRONT_FORMATION_DETAIL_PROMOTION_DETAIL,
   FRONT_HOME,
   FRONT_LOGIN,
+  FRONT_POLICY,
   FRONT_RESET_PASSWORD,
+  FRONT_RULES,
   FRONT_TRAINER_PRATICAL_LIFE,
 } from "./utils/frontUrl";
 import NavbarAdmin from "./components/shared/navbar/AdminNavbar";
@@ -52,6 +56,10 @@ import TrainingDetailPage from "./pages/admin/training/AdminTrainingDetailPage";
 import PromotionDetailsPage from "./pages/admin/promotion/AdminPromotionDetailsPage";
 import AdminAddPromotionPage from "./pages/admin/promotion/AdminAddPromotionPage";
 import ForgetPassword from "./pages/ForgetPassword";
+import CGU from "./components/shared/footer/CGU";
+import Policy from "./components/shared/footer/Policy";
+import Rules from "./components/shared/footer/Rules";
+import Confidential from "./components/shared/footer/Confidential";
 
 function App() {
   UserServices.checkToken();
@@ -116,6 +124,11 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
             <Route path={FRONT_LOGIN} element={<LoginPage />} />
             <Route path={FRONT_RESET_PASSWORD} element={<ResetPasswordPage />} />
             <Route path={FRONT_FORGOT_PASSWORD} element={<ForgetPassword/>} />
+            <Route path={FRONT_CGU} element={<CGU/>} />
+            <Route path={FRONT_POLICY} element={<Policy/> } />
+            <Route path={FRONT_RULES} element={<Rules/>} />
+            <Route path={FRONT_CONFIDENTIAL} element={<Confidential/>} />
+            
             {/* Routes accessibles aux utilisateurs authentifiés */}
             <Route path={FRONT_HOME} element={<HomePage />} />
             <Route
