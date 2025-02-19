@@ -38,7 +38,8 @@ class AuthenticateService {
                     const minutes = Math.floor(retryAfter / 60);// Convertit en minutes
                     const seconds = retryAfter % 60; // Récupère les secondes restantes
                     console.log(`login : il reste ${minutes} minutes et ${seconds} seconde(s)`);
-                    throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter };
+        
+                    throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter};
                 }
                 // Autre erreur serveur avec réponse
                 console.error('Erreur de réponse du serveur:', error.response.data);
