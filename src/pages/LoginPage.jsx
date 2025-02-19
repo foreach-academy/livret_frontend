@@ -104,7 +104,7 @@ const LoginPage = () => {
                 className={"color-white-text"}
               />
               {timeLeft !== null && timeLeft > 0 && (
-                <p className="errorSécurité">
+                <p className="security_error">
                   Veuillez patienter encore {formatRetryTime(timeLeft)} avant de réessayer.
                 </p>
               )}
