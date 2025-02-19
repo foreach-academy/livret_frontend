@@ -143,6 +143,7 @@ function AdminAddPromotionPage() {
                                 labelName="Nom de la promotion :" 
                                 type="text" 
                                 value={promotion.title} 
+                                className={"color-black-text"}
                             />
                         </div>
 

@@ -92,6 +92,7 @@ const LoginPage = () => {
                 type="email"
                 value={user.email}
                 changeFunction={(e) => setUser((prevState) => ({ ...prevState, email: e.target.value }))}
+                className={"color-white-text"}
               />
             </div>
             <div className="form-group">
@@ -100,6 +101,7 @@ const LoginPage = () => {
                 type="password"
                 value={user.password}
                 changeFunction={(e) => setUser((prevState) => ({ ...prevState, password: e.target.value }))}
+                className={"color-white-text"}
               />
               {timeLeft !== null && timeLeft > 0 && (
                 <p className="errorSécurité">
