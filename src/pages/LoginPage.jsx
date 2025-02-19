@@ -18,7 +18,8 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const countdownInterval = useRef(null);
 
-  const login = async () => {
+  const login = async (e) => {
+    e.preventDefault();
 
     try {
       const response = await AuthenticateService.login(user);
@@ -86,7 +87,8 @@ const LoginPage = () => {
         <div className="login-container">
           <div className="login-form">
             <h2 className="connexion-title">Connexion</h2>
-            <div className="form-group">
+              <form><div className="form-group">
+            
               <Input
                 labelName="Email"
                 type="email"
@@ -108,9 +110,10 @@ const LoginPage = () => {
                   Veuillez patienter encore {formatRetryTime(timeLeft)} avant de réessayer.
                 </p>
               )}
-              <Link to={FRONT_FORGOT_PASSWORD} className="p-forgot">Mot de passe oublié?</Link>
+              <Link to={FRONT_FORGOT_PASSWORD} className="p-forgot">Mot de passe oublié / Première Connexion</Link>
             </div>
-            <button id="button_login" disabled={isSubmitting} onClick={login}>Connexion</button>
+            <button id="button_login" disabled={isSubmitting}   type="form" onClick={login}>Connexion</button>
+            </form>
           </div>
         </div>
       </div>
