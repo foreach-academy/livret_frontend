@@ -32,6 +32,7 @@ import {
   FRONT_ADMIN_USERDETAILS,
   FRONT_ADMIN_USERS,
   FRONT_ERROR,
+  FRONT_FORGOT_PASSWORD,
   FRONT_FORMATION_DETAIL,
   FRONT_FORMATION_DETAIL_PROMOTION_DETAIL,
   FRONT_HOME,
@@ -50,6 +51,7 @@ import AddTraining from "./pages/admin/training/AdminAddTraining";
 import TrainingDetailPage from "./pages/admin/training/AdminTrainingDetailPage";
 import PromotionDetailsPage from "./pages/admin/promotion/AdminPromotionDetailsPage";
 import AdminAddPromotionPage from "./pages/admin/promotion/AdminAddPromotionPage";
+import ForgetPassword from "./pages/authentified_user/ForgetPassword";
 
 function App() {
   UserServices.checkToken();
@@ -110,6 +112,7 @@ function MainContent({ isAuthenticated, isAdmin , isTrainer}) {
             <Route path={FRONT_ERROR} element={<ErrorPage />} />
             <Route path={FRONT_LOGIN} element={<LoginPage />} />
             <Route path={FRONT_RESET_PASSWORD} element={<ResetPasswordPage />} />
+            <Route path={FRONT_FORGOT_PASSWORD} element={<ForgetPassword/>} />
             {/* Routes accessibles aux utilisateurs authentifiés */}
             <Route path={FRONT_HOME} element={<HomePage />} />
             <Route

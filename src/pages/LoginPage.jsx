@@ -3,16 +3,15 @@ import "../styles/Login/Login.css";
 import AuthContext from "../context/AuthContext";
 import UserServices from "../services/UserServices";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { FRONT_ADMIN_DASHBOARD, FRONT_HOME } from "../utils/frontUrl";
+import { FRONT_ADMIN_DASHBOARD, FRONT_FORGOT_PASSWORD, FRONT_HOME } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
 import { formatRetryTime } from "../utils/timeFormat";
 import Input from "../components/shared/form/Input";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
-  const [errors, setErrors] = useState({ email: "", password: "" });
   const [timeLeft, setTimeLeft] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { setIsAuthenticated, setToken, setIsAdmin, setIsTrainer } = useContext(AuthContext);
@@ -46,7 +45,7 @@ const LoginPage = () => {
         startCountdown(retryAfterSeconds);
       } 
     
-      toast.error(error.message || "Erreur lors de la connexion.");
+      toast.error(error.message);
     }
     
   };
@@ -94,7 +93,6 @@ const LoginPage = () => {
                 value={user.email}
                 changeFunction={(e) => setUser((prevState) => ({ ...prevState, email: e.target.value }))}
               />
-              {errors.email && <span className="error">{errors.email}</span>}
             </div>
             <div className="form-group">
               <Input
@@ -103,15 +101,12 @@ const LoginPage = () => {
                 value={user.password}
                 changeFunction={(e) => setUser((prevState) => ({ ...prevState, password: e.target.value }))}
               />
-              {errors.password && <span className="error">{errors.password}</span>}
-
               {timeLeft !== null && timeLeft > 0 && (
                 <p className="errorSécurité">
                   Veuillez patienter encore {formatRetryTime(timeLeft)} avant de réessayer.
                 </p>
               )}
-
-              <p className="p-forgot">Mot de passe oublié?</p>
+              <Link to={FRONT_FORGOT_PASSWORD} className="p-forgot">Mot de passe oublié?</Link>
             </div>
             <button id="button_login" disabled={isSubmitting} onClick={login}>Connexion</button>
           </div>
