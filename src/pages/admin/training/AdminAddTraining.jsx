@@ -42,6 +42,7 @@ function AddTraining() {
         } catch (error) {
             console.error("Erreur:", error);
             setMessage("Erreur lors de la connexion au serveur.");
+            
         }
     };
     

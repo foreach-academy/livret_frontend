@@ -175,20 +175,20 @@ function TrainingDetailPage() {
                                                 <tr key={module.id}>
                                                     <td>
                                                         {moduleModification?.id === module.id ? (
-                                                            <input type="text" value={moduleModification.title} onChange={(e) => setModuleModification({ ...moduleModification, title: e.target.value })} />
+                                                            <textarea value={moduleModification.title} onChange={(e) => setModuleModification({ ...moduleModification, title: e.target.value })} />
                                                         ) : (
                                                             module.title
                                                         )}
                                                     </td>
                                                     <td>
                                                         {moduleModification?.id === module.id ? (
-                                                            <input type="text" value={moduleModification.commentary} onChange={(e) => setModuleModification({ ...moduleModification, commentary: e.target.value })} />
+                                                            <textarea value={moduleModification.commentary} onChange={(e) => setModuleModification({ ...moduleModification, commentary: e.target.value })} />
                                                         ) : (
                                                             module.commentary
                                                         )}
                                                     </td>
                                                     {isAdmin && (
-                                                        <td className="d-flex justify-content-center gap-2">
+                                                        <td className="d-flex justify-content-center gap-2 flex-column">
                                                             {moduleModification?.id === module.id ? (
                                                                 <>
                                                                     <button className="primary-button" onClick={submitModification}>Enregistrer</button>
