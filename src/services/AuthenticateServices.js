@@ -38,11 +38,12 @@ class AuthenticateService {
                     const minutes = Math.floor(retryAfter / 60);// Convertit en minutes
                     const seconds = retryAfter % 60; // Récupère les secondes restantes
                     console.log(`login : il reste ${minutes} minutes et ${seconds} seconde(s)`);
-                    throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter };
+        
+                    throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter};
                 }
                 // Autre erreur serveur avec réponse
                 console.error('Erreur de réponse du serveur:', error.response.data);
-                throw { message: error.response.data.message || 'Erreur lors de la connexion.' };
+                throw { message: error.response.data.message || 'Erreur lors de la connexion.', error};
             } else if (error.request) {
                 // Aucune réponse du serveur
                 console.error('Aucune réponse du serveur:', error.request);
@@ -50,7 +51,7 @@ class AuthenticateService {
             } else {
                 // Erreur pendant la configuration de la requête
                 console.error('Erreur lors de la configuration de la requête:', error.message);
-                throw { message: 'Erreur lors de la tentative de connexion.' };
+                throw { message: 'Erreur lors de la tentative de connexion.' , error };
             }
         }
     }

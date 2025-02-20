@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import "../../../styles/NavBar/Navbar.css";
 import AuthContext from "../../../context/AuthContext";
 import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import AuthenticateService from "../../../services/AuthenticateServices";
 import {
   FRONT_ADMIN_USERS,
@@ -13,8 +13,10 @@ import {
 import { navigateTo } from "../../../utils/navigate";
 
 const Navbar = () => {
-  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken, isTrainer } =
+  const { isAuthenticated, isAdmin, setIsAuthenticated, setIsAdmin, setToken, isTrainer, userName } =
     useContext(AuthContext);
+
+    const location = useLocation();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,9 +71,8 @@ const Navbar = () => {
 
   return (
     <header >
-      <div className="container ">
         <nav>
-          <div className="logo">
+         
             <Link to={FRONT_HOME}>
               <img
                 src={process.env.PUBLIC_URL + "/images/fe_logo.png"}
@@ -79,38 +80,18 @@ const Navbar = () => {
                 className="logo-image"
               />
             </Link>
-          </div>
-          {isAuthenticated && (
-            <>
-              <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
+            <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
                 <li>
                   <Link to={FRONT_TRAINER_PRATICAL_LIFE} className="nav-link">
                     Vie pratique du stagiaire
                   </Link>
                 </li>
-                <li className="dropdown" onClick={toggleDropdown}>
-                  <div className="dropdown-toggle">
-                    <span>Livrets de suivi </span>
-                    <span className="material-icons-outlined">expand_more</span>
-                  </div>
-                  {dropdownOpen && (
-                    <ul className="dropdown-menu">
-                      <li className="nav-link">
-                        <a href="/formations/1">
-                          Assistant Ressources Humaines (ARH)
-                        </a>
-                      </li>
-                      <li className="nav-link">
-                        <a href="/formations/2">
-                          Concepteur Développeur d'Application (CDA)
-                        </a>
-                      </li>
-                      <li className="nav-link">
-                        <a href="/formations/3">Mastère Architecte Web</a>
-                      </li>
-                    </ul>
-                  )}
-                </li>
+                </ul>
+    
+          {isAuthenticated && (
+            <>
+              <ul className={`nav-menu ${isMenuOpen ? "active" : ""}`}>
+               
                 <li>
                   <div className="dropdown-profil">
                     <div
@@ -120,7 +101,7 @@ const Navbar = () => {
                       <span className="material-icons-outlined">
                         account_circle
                       </span>
-                      Profil
+                      {userName}
                     </div>
                     <ul id="myDropdown" className="dropdown-profil-content">
                       {(isAdmin || isTrainer) && (
@@ -152,8 +133,16 @@ const Navbar = () => {
               </div>
             </>
           )}
+          {!isAuthenticated && (
+            <div>
+              <Link to={FRONT_LOGIN} className="primary-button">
+                <span className="material-icons-outlined">home</span>
+                <span>Se connecter</span>
+              </Link>
+            </div>
+          )}
         </nav>
-      </div>
+   
     </header>
   );
 };

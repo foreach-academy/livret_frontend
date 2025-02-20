@@ -5,7 +5,7 @@ const RetryTimer = ({ retryTime }) => {
   return (
     <>
       {retryTime !== null && (
-        <p className="errorSécurité">
+        <p className="security_error">
           Veuillez attendre {formatRetryTime(retryTime)} avant de réessayer.
         </p>
       )}

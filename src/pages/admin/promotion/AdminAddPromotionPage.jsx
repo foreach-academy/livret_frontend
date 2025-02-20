@@ -6,6 +6,7 @@ import PromotionsService from '../../../services/PromotionsService';
 import { useNavigate } from 'react-router-dom';
 import { FRONT_ADMIN_PROMOTION } from '../../../utils/frontUrl';
 import UserServices from '../../../services/UserServices';
+import SelectInputGeneric from '../../../components/shared/form/SelectInputGeneric';
 
 function AdminAddPromotionPage() {
     const [selectedTraining, setSelectedTraining] = useState("");
@@ -20,11 +21,8 @@ function AdminAddPromotionPage() {
     const [trainings, setTrainings] = useState([]);
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
-    
-    const [selectedSupervisor, setSelectedSupervisor] = useState("");
-    const [selectedTrainer, setSelectedTrainer] = useState("");
-    const [selectedStudent, setSelectedStudent] = useState("");
 
+    const [selectedUser, setSelectedUser] = useState("");
     const [selectedSupervisors, setSelectedSupervisors] = useState([]);
     const [selectedTrainers, setSelectedTrainers] = useState([]);
     const [selectedStudents, setSelectedStudents] = useState([]);
@@ -56,7 +54,6 @@ function AdminAddPromotionPage() {
         getAllUsers();
     }, []);
 
-
     useEffect(() => {
         setPromotion(prevPromotion => ({
             ...prevPromotion,
@@ -66,34 +63,46 @@ function AdminAddPromotionPage() {
         }));
     }, [selectedSupervisors, selectedTrainers, selectedStudents]);
 
-    const addSupervisor = () => {
-        if (selectedSupervisor && !selectedSupervisors.includes(Number(selectedSupervisor))) {
-            setSelectedSupervisors([...selectedSupervisors, Number(selectedSupervisor)]);
+    const handleAddUser = (role) => {
+        if (!selectedUser) return;
+        const userId = Number(selectedUser);
+
+        switch (role) {
+            case "supervisor":
+                if (!selectedSupervisors.includes(userId)) {
+                    setSelectedSupervisors([...selectedSupervisors, userId]);
+                }
+                break;
+            case "trainer":
+                if (!selectedTrainers.includes(userId)) {
+                    setSelectedTrainers([...selectedTrainers, userId]);
+                }
+                break;
+            case "student":
+                if (!selectedStudents.includes(userId)) {
+                    setSelectedStudents([...selectedStudents, userId]);
+                }
+                break;
+            default:
+                break;
         }
+        setSelectedUser(""); // Reset après ajout
     };
 
-    const addTrainer = () => {
-        if (selectedTrainer && !selectedTrainers.includes(Number(selectedTrainer))) {
-            setSelectedTrainers([...selectedTrainers, Number(selectedTrainer)]);
+    const handleRemoveUser = (role, userId) => {
+        switch (role) {
+            case "supervisor":
+                setSelectedSupervisors(selectedSupervisors.filter(id => id !== userId));
+                break;
+            case "trainer":
+                setSelectedTrainers(selectedTrainers.filter(id => id !== userId));
+                break;
+            case "student":
+                setSelectedStudents(selectedStudents.filter(id => id !== userId));
+                break;
+            default:
+                break;
         }
-    };
-
-    const addStudent = () => {
-        if (selectedStudent && !selectedStudents.includes(Number(selectedStudent))) {
-            setSelectedStudents([...selectedStudents, Number(selectedStudent)]);
-        }
-    };
-
-    const removeSupervisor = (id) => {
-        setSelectedSupervisors(selectedSupervisors.filter(supervisorId => supervisorId !== id));
-    };
-
-    const removeTrainer = (id) => {
-        setSelectedTrainers(selectedTrainers.filter(trainerId => trainerId !== id));
-    };
-
-    const removeStudent = (id) => {
-        setSelectedStudents(selectedStudents.filter(studentId => studentId !== id));
     };
 
     const handleSubmit = async () => {
@@ -103,7 +112,6 @@ function AdminAddPromotionPage() {
         }
 
         try {
-            console.log(promotion)
             await PromotionsService.addPromotion(promotion);
             navigate(FRONT_ADMIN_PROMOTION);
         } catch (error) {
@@ -135,65 +143,45 @@ function AdminAddPromotionPage() {
                                 labelName="Nom de la promotion :" 
                                 type="text" 
                                 value={promotion.title} 
+                                className={"color-black-text"}
                             />
                         </div>
 
                         {/* Sélection du superviseur */}
-                        <div className="d-flex gap-2">
-                            <select value={selectedSupervisor} onChange={(e) => setSelectedSupervisor(e.target.value)}>
-                                <option value="" disabled>Choisissez un superviseur</option>
-                                {supervisors.map((supervisor) => (
-                                    <option key={supervisor.id} value={supervisor.id}>
-                                        {supervisor.firstname} {supervisor.lastname}
-                                    </option>
-                                ))}
-                            </select>
-                            <button onClick={addSupervisor} className="primary-button">Ajouter</button>
-                        </div>
-                        <ul>
-                            {selectedSupervisors.map((id) => {
-                                const user = users.find(user => user.id === id);
-                                return user ? <li key={id}>{user.firstname} {user.lastname} <button onClick={() => removeSupervisor(id)}>❌</button></li> : null;
-                            })}
-                        </ul>
+                        <SelectInputGeneric
+                            label="Sélectionner un superviseur"
+                            options={supervisors}
+                            selectedValue={selectedUser}
+                            onChange={(e) => setSelectedUser(e.target.value)}
+                            onAdd={() => handleAddUser("supervisor")}
+                            selectedItems={selectedSupervisors}
+                            onRemove={(id) => handleRemoveUser("supervisor", id)}
+                            showSelectedList={true}
+                        />
 
                         {/* Sélection du formateur */}
-                        <div className="d-flex gap-2">
-                            <select value={selectedTrainer} onChange={(e) => setSelectedTrainer(e.target.value)}>
-                                <option value="" disabled>Choisissez un formateur</option>
-                                {trainers.map((trainer) => (
-                                    <option key={trainer.id} value={trainer.id}>
-                                        {trainer.firstname} {trainer.lastname}
-                                    </option>
-                                ))}
-                            </select>
-                            <button onClick={addTrainer} className="primary-button">Ajouter</button>
-                        </div>
-                        <ul>
-                            {selectedTrainers.map((id) => {
-                                const user = users.find(user => user.id === id);
-                                return user ? <li key={id}>{user.firstname} {user.lastname} <button onClick={() => removeTrainer(id)}>❌</button></li> : null;
-                            })}
-                        </ul>
+                        <SelectInputGeneric
+                            label="Sélectionner un formateur"
+                            options={trainers}
+                            selectedValue={selectedUser}
+                            onChange={(e) => setSelectedUser(e.target.value)}
+                            onAdd={() => handleAddUser("trainer")}
+                            selectedItems={selectedTrainers}
+                            onRemove={(id) => handleRemoveUser("trainer", id)}
+                            showSelectedList={true}
+                        />
 
                         {/* Sélection des étudiants */}
-                        <div className="d-flex gap-2">
-                            <select value={selectedStudent} onChange={(e) => setSelectedStudent(e.target.value)}>
-                                <option value="" disabled>Choisissez un étudiant</option>
-                                {students.map((student) => (
-                                    <option key={student.id} value={student.id}>
-                                        {student.firstname} {student.lastname}
-                                    </option>
-                                ))}
-                            </select>
-                            <button onClick={addStudent} className="primary-button">Ajouter</button>
-                        </div>
-                        <ul>
-                            {selectedStudents.map((id) => {
-                                const user = users.find(user => user.id === id);
-                                return user ? <li key={id}>{user.firstname} {user.lastname} <button onClick={() => removeStudent(id)}>❌</button></li> : null;
-                            })}
-                        </ul>
+                        <SelectInputGeneric
+                            label="Sélectionner un étudiant"
+                            options={students}
+                            selectedValue={selectedUser}
+                            onChange={(e) => setSelectedUser(e.target.value)}
+                            onAdd={() => handleAddUser("student")}
+                            selectedItems={selectedStudents}
+                            onRemove={(id) => handleRemoveUser("student", id)}
+                            showSelectedList={true}
+                        />
 
                         <button onClick={handleSubmit} className="primary-button">
                             Ajouter la promotion
