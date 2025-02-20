@@ -55,6 +55,15 @@ class UserServices {
     }
 
     /**
+     * Supprime un utilisateur.
+     * @param {number} id - ID de l'utilisateur.
+     * @returns {Promise} - Promesse contenant la réponse du serveur.
+     */
+    static deleteUser(id) {
+        return axios.delete(`${process.env.REACT_APP_API_URL}/users/${id}`);
+    }
+
+    /**
      * Définit le token JWT dans les headers d'axios pour les futures requêtes authentifiées.
      * @param {string} token - Jeton JWT de l'utilisateur.
      */
@@ -116,6 +125,18 @@ class UserServices {
         }
         return false;
     }
+    /**
+     * Récupère le nom de l'utilisateur à partir du token JWT.
+     * @returns {string} - Le nom de l'utilisateur.
+     */
+    static userName() {
+        if (UserServices.isAuthenticated()){
+        const token = window.localStorage.getItem("authToken");
+        const tokenData = jwtDecode(token);
+        return tokenData.username;
+        }
+        return false;
+    }
 
     /**
      * Récupère l'ID de l'utilisateur à partir du token JWT.
@@ -132,6 +153,7 @@ class UserServices {
       static getUserByRole(role) {
         return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
       }
+
 }
 
 export default UserServices;

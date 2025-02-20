@@ -1,7 +1,8 @@
 import React from "react";
 import "../../../styles/Footer/Footer.css";
 import DOMPurify from 'dompurify';
-import { FRONT_HOME } from "../../../utils/frontUrl";
+import { FRONT_HOME, FRONT_CGU, FRONT_CONFIDENTIAL, FRONT_RULES, FRONT_POLICY } from "../../../utils/frontUrl";
+import { Link } from "react-router-dom";
 
 function Footer() {
   // URLs des réseaux sociaux
@@ -38,25 +39,24 @@ function Footer() {
     <footer id="footer">
       <div className="footer-container">
         <div className="logo-icons-box footer-section">
-          <a href={FRONT_HOME}>
+          <Link to={FRONT_HOME}>
             <img
               src={process.env.PUBLIC_URL + "/images/fe_logo.png"}
               alt="Logo Foreach Academy"
               className="footer-logo-image"
             />
-          </a>
+          </Link>
           <div className="social-media">
             <h3>Suivez-nous</h3>
             <ul className="social-icons">
               {socialMediaLinks.map((link, index) => (
                 <li key={index}>
-                  <a
-                    href={sanitizeUrl(link.href)} // Nettoyage de l'URL
+                  <Link to={sanitizeUrl(link.href)} // Nettoyage de l'URL
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <img src={link.icon} alt={link.alt} />
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -69,7 +69,7 @@ function Footer() {
               <span>03 20 74 87 30</span>
             </li>
             <li>
-              <a href={sanitizeUrl("https://www.foreach-academy.fr")}>www.foreach-academy.fr</a>
+              <Link to={sanitizeUrl("https://www.foreach-academy.fr")}>www.foreach-academy.fr</Link>
             </li>
             <li>
               <span>393 Rue du Général de Gaulle 59700 Marcq-en-Barœul</span>
@@ -80,16 +80,16 @@ function Footer() {
           <h3>En savoir plus</h3>
           <ul>
             <li>
-              <a href="#">Conditions Générales d'Utilisation</a>
+              <Link to={FRONT_CGU}>Conditions Générales d'Utilisation</Link>
             </li>
             <li>
-              <a href="#">Confidentialité</a>
+              <Link to={FRONT_CONFIDENTIAL}>Confidentialité</Link>
             </li>
             <li>
-              <a href="#">Règlement</a>
+              <Link to={FRONT_RULES}>Règlement</Link>
             </li>
             <li>
-              <a href="#">Politique</a>
+              <Link to={FRONT_POLICY}>Politique</Link>
             </li>
           </ul>
         </section>
