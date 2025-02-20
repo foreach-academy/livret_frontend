@@ -18,7 +18,7 @@ const LoginPage = () => {
   const countdownInterval = useRef(null);
 
   const login = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
     try {
       const response = await AuthenticateService.login(user);
@@ -34,8 +34,8 @@ const LoginPage = () => {
         console.log(decodedToken.user);
         setUserName(decodedToken.user);
         setIsAdmin(decodedToken.role === "Admin");
-        setIsTrainer(decodedToken.role === "Formateur");
-        navigate(decodedToken.role === "Admin" || decodedToken.role === "Formateur" ? FRONT_ADMIN_DASHBOARD : FRONT_HOME);
+        setIsTrainer(decodedToken.role === "Formateur"); // A changer vers un context role
+        navigate(FRONT_HOME);
         toast.success(`${response.data.message}`);
       } else {
         toast.error("Aucun token fourni");
@@ -95,7 +95,7 @@ const LoginPage = () => {
                 type="email"
                 value={user.email}
                 changeFunction={(e) => setUser((prevState) => ({ ...prevState, email: e.target.value }))}
-                className={"color-white-text"}
+                className="color-white-text"
               />
             </div>
             <div className="form-group">
@@ -104,7 +104,7 @@ const LoginPage = () => {
                 type="password"
                 value={user.password}
                 changeFunction={(e) => setUser((prevState) => ({ ...prevState, password: e.target.value }))}
-                className={"color-white-text"}
+                className="color-white-text"
               />
               {timeLeft !== null && timeLeft > 0 && (
                 <p className="security_error">
