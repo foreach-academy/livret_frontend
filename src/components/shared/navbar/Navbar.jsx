@@ -69,7 +69,7 @@ const Navbar = () => {
 
   return (
     <header >
-      <div className="container ">
+      <div className="container">
         <nav>
           <div className="logo">
             <Link to={FRONT_HOME}>
