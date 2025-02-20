@@ -240,16 +240,16 @@ function TrainingDetailPage() {
                                             {promotion && promotion.map((promo) => (
                                                 <tr key={promo.id}>
                                                     <td>{promo.title}</td>
-                                                    {isAdmin && (
+                                                   
                                                         <td className="d-flex justify-content-center">
                                                             <button
-                                                                className="primary-button "
+                                                                className="tertiary-button "
                                                                 onClick={() => navigate(`/admin/promotions/${promo.id}`)}>
-                                                                Modifier
+                                                                Voir plus
                                                             </button >
 
                                                         </td>
-                                                    )}
+                                                  
                                                 </tr>
                                             ))}
                                         </tbody>
