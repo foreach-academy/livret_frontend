@@ -11,4 +11,8 @@ function getModuleById(id) {
 function addModule(module) {
     return axios.post(`${process.env.REACT_APP_API_URL}/modules`, module);
 }
-export default { getAllModules, addModule, getModuleById}
+
+function updateModule(id, module) {
+    return axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module);
+}
+export default { getAllModules, addModule, getModuleById, updateModule}
