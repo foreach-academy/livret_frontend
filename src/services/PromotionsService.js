@@ -39,8 +39,12 @@ function deletePromotion(id) {
     return axios.delete(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
 }
 
+function getPromotionByTrainingId(training_id) {
+    return axios.get(`${process.env.REACT_APP_API_URL}/promotions/promoByTraining/${training_id}`);
+}
+
 export default { fetchAllPromotions, fetchPromotionById, addPromotion, updatePromotion, deletePromotion,
     addStudientToPromotion, deleteStudientFromPromotion,
     addTrainerToPromotion, deleteTrainerFromPromotion,
-    addSupervisorToPromotion, deleteSupervisorFromPromotion 
+    addSupervisorToPromotion, deleteSupervisorFromPromotion ,getPromotionByTrainingId
  };
