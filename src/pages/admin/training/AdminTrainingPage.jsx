@@ -77,9 +77,7 @@ function AdminTrainingPage () {
                                 >
                                     Voir plus
                                 </button>
-                                {isAdmin && (
-                                    <button className="primary-button">Modifier</button>
-                                )}
+                                
                             </td>
                         </tr>
                     ))}
