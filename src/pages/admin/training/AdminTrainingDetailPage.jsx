@@ -14,11 +14,9 @@ function TrainingDetailPage() {
     const { isAdmin } = useContext(AuthContext);
     const navigate = useNavigate();
     const [moduleModification, setModuleModification] = useState(null);
-    const [newModule, setNewModule] = useState({
-        title: "",
-        commentary: "",
-        training_id: id
-    });
+    const [newModule, setNewModule] = useState({ title: "", commentary: "", training_id: id });
+    const [isEditing, setIsEditing] = useState(false); // État pour afficher/masquer les inputs
+    const [trainingModification, setTrainingModification] = useState({ id: id, title: "", description: "" });
 
     const getTrainingDetail = async () => {
         try {
@@ -56,67 +54,118 @@ function TrainingDetailPage() {
         try {
             await ModulesService.addModule(newModule);
             setNewModule({ title: "", commentary: "", trainingId: id });
-            getTrainingDetail(); 
+            getTrainingDetail();
         } catch (error) {
             console.error("Erreur lors de la création du module", error);
         }
     };
-    
+
+    const deleteModule = async (id) => {
+        if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce module ? Cette action est irréversible et supprimera toutes les évaluations en lien avec ce module.")) return;
+        try {
+            await ModulesService.deleteModule(id);
+            getTrainingDetail();
+        } catch (error) {
+            console.error("Erreur lors de la suppression du module", error);
+        }
+    };
+
+    const updateTraining = async () => {
+        if (!trainingModification.title || !trainingModification.description) {
+            alert("Veuillez remplir tous les champs avant de valider.");
+            return;
+        }
+
+        try {
+            await TrainingServices.updateTraining(id, trainingModification);
+            getTrainingDetail(); // Recharge les données après la mise à jour
+            setIsEditing(false); // Désactive le mode édition
+            alert("Formation mise à jour avec succès !");
+        } catch (error) {
+            console.error("Erreur lors de la modification de la formation", error);
+        }
+    };
 
     useEffect(() => {
         getTrainingDetail();
         fetchPromotionByTraining();
     }, []);
 
+    useEffect(() => {
+        if (training) {
+            setTrainingModification({
+                id: training.id,
+                title: training.title || "",
+                description: training.description || ""
+            });
+        }
+    }, [training]);
+
     return (
         <AdminLayout>
             <div className="container-admin">
-                <h1>{training.title}</h1>
+                <div className="d-flex flex-row justify-content-between align-items-center">
+                    {isEditing ? (
+                        <input
+                            type="text"
+                            className="form-control"
+                            value={trainingModification.title}
+                            onChange={(e) => setTrainingModification({ ...trainingModification, title: e.target.value })}
+                        />
+                    ) : (
+                        <h1>{training.title}</h1>
+                    )}
+                    
+
+                </div>
+
                 <h3>Description :</h3>
-                <p>{training.description}</p>
+                <div className="d-flex flex-row justify-content-between">
+                {isEditing ? (
+                    <textarea
+                        className="form-control"
+                        value={trainingModification.description}
+                        onChange={(e) => setTrainingModification({ ...trainingModification, description: e.target.value })}
+                    />
+                ) : (
+                    <p>{training.description}</p>
+                )}
+                    {isAdmin && (
+                        <button className="primary-button" onClick={() => setIsEditing(!isEditing)}>
+                            {isEditing ? "Annuler" : "Modifier la formation"}
+                        </button>
+                    )}
+                                    {isEditing && (
+                    <button className="primary-button" onClick={updateTraining}>
+                        Enregistrer
+                    </button>
+                )}
+                </div>
+
 
                 <div className="d-flex flex-column gap-5">
                     {/* Modules */}
                     <div className="accordion" id="accordionExample">
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="headingOne">
-                                <button 
-                                    className="accordion-button" 
-                                    type="button" 
-                                    data-bs-toggle="collapse" 
-                                    data-bs-target="#collapseOne" 
-                                    aria-expanded="true" 
-                                    aria-controls="collapseOne">
+                                <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                     Modules
                                 </button>
                             </h2>
                             <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne">
                                 <div className="accordion-body">
-
-                                {isAdmin && (
-    <div className="d-flex flex-column gap-2">
-        <input 
-            type="text" 
-            placeholder="Nom du module" 
-            value={newModule.title} 
-            onChange={(e) => setNewModule({ ...newModule, title: e.target.value })} 
-        />
-        <input 
-            type="text" 
-            placeholder="Description du module" 
-            value={newModule.commentary} 
-            onChange={(e) => setNewModule({ ...newModule, commentary: e.target.value })} 
-        />
-        <button className="primary-button" onClick={addModule}>Ajouter un module</button>
-    </div>
-)}
-
-                              
+                                    {isAdmin && (
+                                        <div className="d-flex flex-column gap-2">
+                                            <input type="text" placeholder="Nom du module" value={newModule.title} onChange={(e) => setNewModule({ ...newModule, title: e.target.value })} />
+                                            <input type="text" placeholder="Description du module" value={newModule.commentary} onChange={(e) => setNewModule({ ...newModule, commentary: e.target.value })} />
+                                            <button className="primary-button" onClick={addModule}>Ajouter un module</button>
+                                        </div>
+                                    )}
 
                                     <Table striped bordered hover responsive className="mt-4">
                                         <thead>
                                             <tr>
-                                                <th>Nom du module</th>
+                                                <th>Titre des modules</th>
                                                 <th>Description</th>
                                                 {isAdmin && <th>Action</th>}
                                             </tr>
@@ -126,28 +175,14 @@ function TrainingDetailPage() {
                                                 <tr key={module.id}>
                                                     <td>
                                                         {moduleModification?.id === module.id ? (
-                                                            <input 
-                                                                type="text" 
-                                                                value={moduleModification.title} 
-                                                                onChange={(e) => setModuleModification({ 
-                                                                    ...moduleModification, 
-                                                                    title: e.target.value 
-                                                                })}
-                                                            />
+                                                            <input type="text" value={moduleModification.title} onChange={(e) => setModuleModification({ ...moduleModification, title: e.target.value })} />
                                                         ) : (
                                                             module.title
                                                         )}
                                                     </td>
                                                     <td>
                                                         {moduleModification?.id === module.id ? (
-                                                            <input 
-                                                                type="text" 
-                                                                value={moduleModification.commentary} 
-                                                                onChange={(e) => setModuleModification({ 
-                                                                    ...moduleModification, 
-                                                                    commentary: e.target.value 
-                                                                })}
-                                                            />
+                                                            <input type="text" value={moduleModification.commentary} onChange={(e) => setModuleModification({ ...moduleModification, commentary: e.target.value })} />
                                                         ) : (
                                                             module.commentary
                                                         )}
@@ -157,32 +192,37 @@ function TrainingDetailPage() {
                                                             {moduleModification?.id === module.id ? (
                                                                 <>
                                                                     <button className="primary-button" onClick={submitModification}>Enregistrer</button>
-                                                                    <button className="secondary-button" onClick={() => setModuleModification(null)}>Annuler</button>
+                                                                    <button className="btn btn-danger" onClick={() => setModuleModification(null)}>Annuler</button>
                                                                 </>
                                                             ) : (
                                                                 <button className="primary-button" onClick={() => setModuleModification({ id: module.id, title: module.title, commentary: module.commentary })}>Modifier</button>
                                                             )}
+                                                            <button className="btn btn-danger" onClick={() => deleteModule(module.id)}>Supprimer</button>
                                                         </td>
                                                     )}
                                                 </tr>
                                             ))}
                                         </tbody>
                                     </Table>
+                                    
                                 </div>
                             </div>
+
+                            
                         </div>
                     </div>
+                </div>
 
-                    {/* Promotions */}
-                    <div className="accordion" id="accordionExample2">
+                                    {/* Promotions */}
+                                    <div className="accordion" id="accordionExample2">
                         <div className="accordion-item">
                             <h2 className="accordion-header" id="headingTwo">
-                                <button 
-                                    className="accordion-button" 
-                                    type="button" 
-                                    data-bs-toggle="collapse" 
-                                    data-bs-target="#collapseTwo" 
-                                    aria-expanded="true" 
+                                <button
+                                    className="accordion-button"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapseTwo"
+                                    aria-expanded="true"
                                     aria-controls="collapseTwo">
                                     Promotions
                                 </button>
@@ -192,7 +232,7 @@ function TrainingDetailPage() {
                                     <Table striped bordered hover responsive className="mt-4">
                                         <thead>
                                             <tr>
-                                                <th>Nom de la promotion</th>
+                                                <th>Titre des promotions</th>
                                                 {isAdmin && <th>Action</th>}
                                             </tr>
                                         </thead>
@@ -202,11 +242,12 @@ function TrainingDetailPage() {
                                                     <td>{promo.title}</td>
                                                     {isAdmin && (
                                                         <td className="d-flex justify-content-center">
-                                                            <button 
-                                                                className="tertiary-button" 
+                                                            <button
+                                                                className="primary-button "
                                                                 onClick={() => navigate(`/admin/promotions/${promo.id}`)}>
-                                                                Voir plus
-                                                            </button>
+                                                                Modifier
+                                                            </button >
+
                                                         </td>
                                                     )}
                                                 </tr>
@@ -217,8 +258,6 @@ function TrainingDetailPage() {
                             </div>
                         </div>
                     </div>
-
-                </div>
             </div>
         </AdminLayout>
     );

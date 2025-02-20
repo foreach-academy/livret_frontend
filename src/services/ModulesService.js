@@ -15,4 +15,8 @@ function addModule(module) {
 function updateModule(id, module) {
     return axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module);
 }
-export default { getAllModules, addModule, getModuleById, updateModule}
+
+function deleteModule(id) {
+    return axios.delete(`${process.env.REACT_APP_API_URL}/modules/${id}`);
+}
+export default { getAllModules, addModule, getModuleById, updateModule, deleteModule}
