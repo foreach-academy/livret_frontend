@@ -6,6 +6,8 @@ import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import PromotionsService from "../../../services/PromotionsService";
 import ModulesService from "../../../services/ModulesService";
+import Tbody from "../../../components/shared/form/Tbody";
+import Thead from "../../../components/shared/form/Thead";
 
 function TrainingDetailPage() {
     const { id } = useParams();

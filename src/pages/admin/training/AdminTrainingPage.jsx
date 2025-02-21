@@ -6,12 +6,28 @@ import { navigateTo } from "../../../utils/navigate";
 import { FRONT_ADMIN_ADD_TRAINING, FRONT_ADMIN_TRAINING } from "../../../utils/frontUrl";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import Thead from "../../../components/shared/form/Thead";
+import Tbody from "../../../components/shared/form/Tbody";
 
 function AdminTrainingPage () {
     const [trainings, setTrainings] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const navigate = useNavigate();
     const { isAdmin } = useContext(AuthContext);
+    const theadName = [{ 
+        label: "Nom de la formation"
+    },
+    { label: "Action"}
+ ]
+ const columns = [
+    { key: "title", label: "Titre" }
+];
+
+const action = {
+    label: "Voir plus",
+    onClick: (training, navigate) => navigate(`${FRONT_ADMIN_TRAINING}/${training.id}`)
+};
+
 
     const fetchAllTraining = async () => {
         try {
@@ -60,28 +76,8 @@ function AdminTrainingPage () {
               
                 </div>
             <Table striped bordered hover responsive className="mt-4">
-                <thead>
-                    <tr>
-                        <th>Nom de la formation</th>
-                        <th className="d-flex justify-content-center">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredTrainings.map((training) => (
-                        <tr key={training.id}>
-                            <td>{training.title}</td>
-                            <td className="d-flex justify-content-center">
-                                <button 
-                                    className="tertiary-button" 
-                                    onClick={() => navigate(`${FRONT_ADMIN_TRAINING}/${training.id}`)}
-                                >
-                                    Voir plus
-                                </button>
-                                
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
+                <Thead theads={theadName}></Thead>   
+                <Tbody data={filteredTrainings} columns={columns} action={action} />     
             </Table>
         </div>
         </AdminLayout>
