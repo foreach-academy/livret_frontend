@@ -170,23 +170,22 @@
     left: 0;
     top: 0;
     display: flex;
-    align-items: center;
-    justify-content: center;
-  
   }
 
   .navbar_admin {
     width: 100%;
+    margin-top: 95px;
+    
   }
 
   .navbar_admin-list {
     display: flex;
     flex-direction: column;
-    align-items: center;
     list-style: none;
     padding: 0;
     margin: 0;
     width: 100%;
+
   }
 
   .navbar_admin-item {
@@ -198,8 +197,6 @@
     transition: background 0.3s ease-in-out;
     text-decoration: none;
     color: white;
-   
-    
   }
 
   .navbar_admin-item a {
@@ -214,13 +211,6 @@
     background-color: #34495e;
   }
 
-  /* Style du séparateur */
-  .navbar-separator {
-    width: 80%;
-    height: 1px;
-    background-color: #ccc;
-    margin: 5px 0;
-  }
 
   /* Style pour l'onglet actif */
   .navbar_admin-item.active {
