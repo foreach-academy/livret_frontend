@@ -1,45 +1,24 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import PromotionsService from "../../../services/PromotionsService";
 import TrainingService from "../../../services/TrainingServices";
 import { Table, Button, Form, Row, Col } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 
 const AdminPromotionPage = () => {
-  const [promotions, setPromotions] = useState([]);
   const [trainings, setTrainings] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedTraining, setSelectedTraining] = useState(""); // État pour la formation sélectionnée
+  const [selectedTraining, setSelectedTraining] = useState(""); 
   const navigate = useNavigate();
   const { isAdmin } = useContext(AuthContext);
 
-  const fetchAllPromotions = async () => {
-    try {
-      const response = await PromotionsService.fetchAllPromotions();
-      setPromotions(response.data);
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des promotions:",
-        error.response ? error.response.data : error.message
-      );
-    }
-  };
-
   const fetchAllTrainings = async () => {
-    try {
-      const response = await TrainingService.fetchAllTraining();
-      setTrainings(response.data);
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des formations:",
-        error.response ? error.response.data : error.message
-      );
-    }
+    const allTrainings = await TrainingService.fetchAllTraining();
+    setTrainings(allTrainings);
+    console.log(allTrainings);
   };
 
   useEffect(() => {
-    fetchAllPromotions();
     fetchAllTrainings();
   }, []);
 
@@ -51,18 +30,37 @@ const AdminPromotionPage = () => {
     setSelectedTraining(event.target.value);
   };
 
-  // Filtrer les promotions selon la recherche et la formation sélectionnée
-  const filteredPromotions = promotions.filter((promotion) => {
-    const matchesSearch = promotion.title.toLowerCase().includes(searchTerm);
-    const matchesTraining =
-      selectedTraining === "" || promotion.training_id === parseInt(selectedTraining);
-    return matchesSearch && matchesTraining;
-  });
+  // Fonction pour récupérer et filtrer les promotions à afficher
+  const getFilteredPromotions = () => {
+    let promotions = [];
+
+    if (selectedTraining !== "") {
+            const training = trainings.find(
+        (t) => t.id === parseInt(selectedTraining, 10)
+      );
+      if (training && training.promotions) {
+        promotions = training.promotions;
+      }
+    } else {
+// Si aucune formation n’est sélectionnée (selectedTraining === ""),
+// on concatène toutes les promotions de toutes les formations et 
+//on affiche tout via le retour de fetchAlltraiings.
+
+        promotions = trainings.reduce(
+        (acc, training) => acc.concat(training.promotions || []),
+        []
+      );
+    }
+    return promotions.filter((promo) =>
+      promo.title.toLowerCase().includes(searchTerm)
+    );
+  };
+
+  const filteredPromotions = getFilteredPromotions();
 
   return (
     <AdminLayout>
       <div className="container-admin">
-        {/* En-tête de la liste des promotions */}
         <div className="d-flex justify-content-between">
           <h1>Promotions</h1>
           {isAdmin && (
@@ -75,7 +73,7 @@ const AdminPromotionPage = () => {
           )}
         </div>
 
-        {/* Filtres */}
+        {/* recherche */}
         <Row className="mt-3">
           <Col md={6}>
             <Form.Control
@@ -86,7 +84,10 @@ const AdminPromotionPage = () => {
             />
           </Col>
           <Col md={6}>
-            <Form.Select value={selectedTraining} onChange={handleTrainingChange}>
+            <Form.Select
+              value={selectedTraining}
+              onChange={handleTrainingChange}
+            >
               <option value="">Toutes les formations</option>
               {trainings.map((training) => (
                 <option key={training.id} value={training.id}>
@@ -113,7 +114,9 @@ const AdminPromotionPage = () => {
                   <Button
                     variant="warning"
                     size="sm"
-                    onClick={() => navigate(`/admin/promotions/${promotion.id}`)}
+                    onClick={() =>
+                      navigate(`/admin/promotions/${promotion.id}`)
+                    }
                   >
                     Voir plus
                   </Button>
