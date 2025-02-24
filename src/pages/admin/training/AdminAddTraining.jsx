@@ -3,6 +3,7 @@ import TrainingServices from "../../../services/TrainingServices";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import TextArea from "../../../components/shared/form/TextArea";
 
 function AddTraining() {
     const [title, setTitle] = useState("");
@@ -60,11 +61,10 @@ function AddTraining() {
 
                         <div className="form-group">
                             <label htmlFor="description">Description :</label>
-                            <textarea
-                                id="description"
+                            <TextArea
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}
-                            ></textarea>
+                            ></TextArea>
                         </div>
                     </fieldset>
 
@@ -84,10 +84,10 @@ function AddTraining() {
                                 </div>
                                 <div className="form-group">
                                     <label>Description :</label>
-                                    <textarea
+                                    <TextArea
                                         value={module.commentary}
                                         onChange={(e) => handleModuleChange(index, "commentary", e.target.value)}
-                                    ></textarea>
+                                    ></TextArea>
                                 </div>
                                 <button type="button" onClick={() => removeModule(index)}>Supprimer ce module</button>
                             </div>

@@ -39,10 +39,9 @@ function deletePromotion(id) {
     return axios.delete(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
 }
 
-function getPromotionByTrainingId(training_id) {
+function getPromotionByTrainingId(training_id, setPromotion) {
     try{
-        const response = axios.get(`${process.env.REACT_APP_API_URL}/promotions/promoByTraining/${training_id}`)
-        return response;
+         return axios.get(`${process.env.REACT_APP_API_URL}/promotions/promoByTraining/${training_id}`).then(((response) => setPromotion(response.data)))
     }
     catch(error){
         console.error('Erreur lors de la récupération des promotions liées à une formation:', error);

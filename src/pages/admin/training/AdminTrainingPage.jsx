@@ -27,8 +27,6 @@ const action = {
     label: "Voir plus",
     onClick: (training, navigate) => navigate(`${FRONT_ADMIN_TRAINING}/${training.id}`)
 };
-
-
     const fetchAllTraining = async () => {
       const allTrainings=  await TrainingServices.fetchAllTraining();
             setTrainings(allTrainings);      
