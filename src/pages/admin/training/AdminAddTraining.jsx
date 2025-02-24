@@ -8,7 +8,6 @@ function AddTraining() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [modules, setModules] = useState([{ title: "", commentary: "" }]);
-    const [message, setMessage] = useState("");
     const navigate = useNavigate()
 
     const addModule = () => {
@@ -101,7 +100,6 @@ function AddTraining() {
                     <button type="submit" className="submit-btn">Ajouter</button>
                 </form>
 
-                {message && <p className="message">{message}</p>}
             </div>
         </div>
         </AdminLayout>
