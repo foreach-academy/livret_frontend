@@ -21,8 +21,7 @@ function TrainingDetailPage() {
     const [trainingModification, setTrainingModification] = useState({ id: id, title: "", description: "" });
 
     const getTrainingDetail = async () => {
-            const trainings = await TrainingServices.fetchTrainingById(id);
-            setTraining(trainings);
+             await TrainingServices.fetchTrainingById(id, setTraining);
     };
 
     const fetchPromotionByTraining = async () => {

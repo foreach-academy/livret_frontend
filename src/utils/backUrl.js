@@ -1,0 +1,1 @@
+export const URL_BACK_GET_TRAINING_BY_ID =(id) => `/trainings/${id}`
