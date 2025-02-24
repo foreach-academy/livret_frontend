@@ -17,76 +17,56 @@ function TrainingDetailPage() {
     const navigate = useNavigate();
     const [moduleModification, setModuleModification] = useState(null);
     const [newModule, setNewModule] = useState({ title: "", commentary: "", training_id: id });
-    const [isEditing, setIsEditing] = useState(false); // État pour afficher/masquer les inputs
+    const [isEditing, setIsEditing] = useState(false); 
     const [trainingModification, setTrainingModification] = useState({ id: id, title: "", description: "" });
 
     const getTrainingDetail = async () => {
-        try {
-            const response = await TrainingServices.fetchTrainingById(id);
-            setTraining(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération des détails de la formation:", error);
-        }
+            const trainings = await TrainingServices.fetchTrainingById(id);
+            setTraining(trainings);
     };
 
     const fetchPromotionByTraining = async () => {
-        try {
-            const response = await PromotionsService.getPromotionByTrainingId(id);
-            setPromotion(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération des promotions associées à la formation:", error);
-        }
-    };
+            const promos = await PromotionsService.getPromotionByTrainingId(id);
+            setPromotion(promos.data);
+            console.log(promos.data);
+    }
 
     const submitModification = async () => {
         if (!moduleModification) return;
-        try {
-            await ModulesService.updateModule(moduleModification.id, {
-                title: moduleModification.title,
-                commentary: moduleModification.commentary
-            });
-            getTrainingDetail();
-            setModuleModification(null);
-        } catch (error) {
-            console.error("Erreur lors de la modification du module", error);
-        }
-    };
+        await ModulesService.updateModule(moduleModification.id, {
+          title: moduleModification.title,
+          commentary: moduleModification.commentary
+        });
+        getTrainingDetail();
+        setModuleModification(null);
+      };
+      
+      const addModule = async () => {
+        await ModulesService.addModule(newModule);
+        setNewModule({ title: "", commentary: "", trainingId: id });
+        getTrainingDetail();
+      };
+      
 
-    const addModule = async () => {
-        try {
-            await ModulesService.addModule(newModule);
-            setNewModule({ title: "", commentary: "", trainingId: id });
-            getTrainingDetail();
-        } catch (error) {
-            console.error("Erreur lors de la création du module", error);
-        }
-    };
-
-    const deleteModule = async (id) => {
+      const deleteModule = async (id) => {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer ce module ? Cette action est irréversible et supprimera toutes les évaluations en lien avec ce module.")) return;
-        try {
-            await ModulesService.deleteModule(id);
-            getTrainingDetail();
-        } catch (error) {
-            console.error("Erreur lors de la suppression du module", error);
-        }
-    };
+        await ModulesService.deleteModule(id);
+        getTrainingDetail();
+      };
+      
 
-    const updateTraining = async () => {
+      const updateTraining = async () => {
         if (!trainingModification.title || !trainingModification.description) {
-            alert("Veuillez remplir tous les champs avant de valider.");
-            return;
+          alert("Veuillez remplir tous les champs avant de valider.");
+          return;
         }
-
-        try {
-            await TrainingServices.updateTraining(id, trainingModification);
-            getTrainingDetail(); // Recharge les données après la mise à jour
-            setIsEditing(false); // Désactive le mode édition
-            alert("Formation mise à jour avec succès !");
-        } catch (error) {
-            console.error("Erreur lors de la modification de la formation", error);
-        }
-    };
+        
+        await TrainingServices.updateTraining(id, trainingModification);
+        getTrainingDetail();
+        setIsEditing(false);
+        alert("Formation mise à jour avec succès !");
+      };
+      
 
     useEffect(() => {
         getTrainingDetail();

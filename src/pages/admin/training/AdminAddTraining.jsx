@@ -1,12 +1,15 @@
 import { useState } from "react";
 import TrainingServices from "../../../services/TrainingServices";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 function AddTraining() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [modules, setModules] = useState([{ title: "", commentary: "" }]);
     const [message, setMessage] = useState("");
+    const navigate = useNavigate()
 
     const addModule = () => {
         setModules([...modules, { title: "", commentary: "" }]);
@@ -32,18 +35,9 @@ function AddTraining() {
             description,
             modules: modules.filter(module => module.title.trim() !== ""), // Ne pas envoyer les modules vides
         };
-    
-        try {
             await TrainingServices.addTraining(trainingData);
-            setMessage("Formation et modules ajoutés avec succès !");
-            setTitle("");
-            setDescription("");
-            setModules([{ title: "", commentary: "" }]); // Réinitialiser après ajout
-        } catch (error) {
-            console.error("Erreur:", error);
-            setMessage("Erreur lors de la connexion au serveur.");
-            
-        }
+            navigate(-1)
+            toast.success("Formation et modules ajoutés avec succès !");
     };
     
     return (

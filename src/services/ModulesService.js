@@ -1,22 +1,41 @@
 import axios from 'axios';
 
 function getAllModules() {
-    return axios.get(`${process.env.REACT_APP_API_URL}/modules`);
+  return axios.get(`${process.env.REACT_APP_API_URL}/modules`);
 }
 
 function getModuleById(id) {
-    return axios.get(`${process.env.REACT_APP_API_URL}/modules/${id}`);
+  return axios.get(`${process.env.REACT_APP_API_URL}/modules/${id}`);
 }
 
-function addModule(module) {
-    return axios.post(`${process.env.REACT_APP_API_URL}/modules`, module);
+async function addModule(module) {
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/modules`, module);
+      return response.data;
+    } catch (error) {
+      console.error("Erreur lors de la création du module", error);
+      throw error;
+    }
+  }
+
+async function updateModule(id, module) {
+  try {
+    const response = await axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module);
+    return response.data;
+  } catch (error) {
+    console.error("Erreur lors de la modification du module", error);
+    throw error;
+  }
 }
 
-function updateModule(id, module) {
-    return axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module);
-}
+async function deleteModule(id) {
+    try {
+      const response = await axios.delete(`${process.env.REACT_APP_API_URL}/modules/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error("Erreur lors de la suppression du module", error);
+      throw error;
+    }
+  }
 
-function deleteModule(id) {
-    return axios.delete(`${process.env.REACT_APP_API_URL}/modules/${id}`);
-}
-export default { getAllModules, addModule, getModuleById, updateModule, deleteModule}
+export default { getAllModules, getModuleById, addModule, updateModule, deleteModule };

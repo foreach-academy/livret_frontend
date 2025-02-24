@@ -30,12 +30,8 @@ const action = {
 
 
     const fetchAllTraining = async () => {
-        try {
-            const response = await TrainingServices.fetchAllTraining();
-            setTrainings(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération des formations:", error);
-        }
+      const allTrainings=  await TrainingServices.fetchAllTraining();
+            setTrainings(allTrainings);      
     };
 
     useEffect(() => {
