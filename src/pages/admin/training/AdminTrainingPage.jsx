@@ -31,8 +31,7 @@ function AdminTrainingPage() {
 
   const action = {
     label: "Voir plus",
-    onClick: (training, navigate) =>
-      navigate(`${FRONT_ADMIN_TRAINING}/${training.id}`),
+    url: FRONT_ADMIN_TRAINING,
   };
 
   useEffect(() => {

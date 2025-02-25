@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import Button from "../Button";
 
 const Tbody = ({ data, columns, action }) => {
     const navigate = useNavigate();
@@ -12,12 +13,15 @@ const Tbody = ({ data, columns, action }) => {
                     ))}
                     {action && (
                         <td className="d-flex justify-content-center">
-                            <button 
-                                className="tertiary-button" 
-                                onClick={() => action.onClick(item, navigate)}
-                            >
-                                {action.label}
-                            </button>
+                            <Button
+                                className="bg-fe-blue"
+                                setAction={() => navigate(`${action.url}/${item.id}`, navigate)}
+                                buttonTitle={action.label}
+
+
+                            />
+
+
                         </td>
                     )}
                 </tr>
