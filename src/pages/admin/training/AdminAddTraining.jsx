@@ -44,7 +44,7 @@ function AddTraining() {
         <AdminLayout>
             <div className="container-admin">
                 <h1>Ajouter une formation</h1>
-                <div className="grey-background">
+                <div className="bg-fe-light-gray p-3 rounded">
                     <form onSubmit={handleSubmit} className="form-container">
                         <fieldset>
                             <legend>Formation :</legend>
@@ -71,7 +71,7 @@ function AddTraining() {
                         <fieldset className="light-grey-background">
                             <legend>Module(s) :</legend>
                             {modules.map((module, index) => (
-                                <div key={index} className="module-container">
+                                <div key={index} className="module-container bg-fe-gray p-3 m-1 rounded">
                                     <h3>Module #{index + 1} :</h3>
                                     <div className="form-group">
                                         <Input
@@ -105,7 +105,7 @@ function AddTraining() {
                             />
 
                         </fieldset>
-                        <button type="submit" className="submit-btn">Ajouter</button>
+                        <button type="submit" className="bg-fe-orange">Ajouter</button>
                     </form>
 
                 </div>
