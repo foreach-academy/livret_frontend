@@ -9,6 +9,7 @@ import Tbody from "../../../components/shared/form/Tbody";
 import { FRONT_ADMIN_ADD_PROMOTION, FRONT_ADMIN_PROMOTION } from "../../../utils/frontUrl";
 import Button from "../../../components/shared/Button";
 import Input from "../../../components/shared/form/Input";
+import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 
 const AdminPromotionPage = () => {
   const [promotions, setPromotions] = useState([]);
@@ -50,40 +51,35 @@ const AdminPromotionPage = () => {
 
   return (
     <AdminLayout>
-      <div className="container-admin">
-        {/* En-tête de la liste des promotions */}
-        <div className="d-flex justify-content-between">
-          <h1>Promotions</h1>
-          {isAdmin && (
-            <Button
-              buttonTitle="Ajouter une promotion"
-              setAction={() => navigate(FRONT_ADMIN_ADD_PROMOTION)}
-              className="bg-fe-orange"
-            />)}
-        </div>
-        {/* Zone de recherche */}
-        <Input
-          labelName="Rechercher une formation :"
-          type="search"
-          value={searchTerm}
-          changeFunction={(e) => setSearchTerm(e.target.value)}
-          className="w-100"
+      <AdminBodyTitle
+        pageTitle="Promotion"
+        isAdmin={isAdmin}
+        navigate={navigate}
+        navigateUrl={FRONT_ADMIN_ADD_PROMOTION}
+        buttonTitle="Ajouter une formation"
+      />
+      <Input
+        labelName="Rechercher une formation :"
+        type="search"
+        value={searchTerm}
+        changeFunction={(e) => setSearchTerm(e.target.value)}
+        className="w-100"
+      />
+
+      {/* Liste des promotions */}
+      <Table striped bordered hover responsive className="mt-4">
+        <Thead
+          theads={theads}
+        />
+        <Tbody
+          data={filteredPromotions}
+          columns={columns}
+          action={action}
+
         />
 
-        {/* Liste des promotions */}
-        <Table striped bordered hover responsive className="mt-4">
-          <Thead
-            theads={theads}
-          />
-          <Tbody
-            data={filteredPromotions}
-            columns={columns}
-            action={action}
+      </Table>
 
-          />
-
-        </Table>
-      </div>
     </AdminLayout>
   );
 };
