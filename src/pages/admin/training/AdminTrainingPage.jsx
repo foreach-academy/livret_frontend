@@ -1,8 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import TrainingServices from "../../../services/TrainingServices";
 import { Table } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { navigateTo } from "../../../utils/navigate";
+import {useNavigate } from "react-router-dom";
 import {
   FRONT_ADMIN_ADD_TRAINING,
   FRONT_ADMIN_TRAINING,

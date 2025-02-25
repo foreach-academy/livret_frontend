@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import TrainingServices from "../../../services/TrainingServices";
