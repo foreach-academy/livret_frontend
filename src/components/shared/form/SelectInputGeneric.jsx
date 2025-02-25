@@ -22,9 +22,11 @@ const SelectInputGeneric = ({
                         </option>
                     ))}
                 </select>
-                <button className="primary-button" onClick={onAdd} disabled={!selectedValue}>
-                    Ajouter
-                </button>
+                {onAdd ? null : (
+                    <button className="primary-button" onClick={onAdd} disabled={!selectedValue}>
+                        Ajouter
+                    </button>
+                )}
             </div>
 
             {showSelectedList && selectedItems.length > 0 && (
