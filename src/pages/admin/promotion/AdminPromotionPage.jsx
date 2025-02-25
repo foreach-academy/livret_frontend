@@ -8,6 +8,7 @@ import Thead from "../../../components/shared/form/Thead";
 import Tbody from "../../../components/shared/form/Tbody";
 import { FRONT_ADMIN_ADD_PROMOTION, FRONT_ADMIN_PROMOTION } from "../../../utils/frontUrl";
 import Button from "../../../components/shared/Button";
+import Input from "../../../components/shared/form/Input";
 
 const AdminPromotionPage = () => {
   const [promotions, setPromotions] = useState([]);
@@ -32,8 +33,8 @@ const AdminPromotionPage = () => {
 
 
   const fetchAllPromotions = async () => {
-  await PromotionsService.fetchAllPromotions(setPromotions);
-    };
+    await PromotionsService.fetchAllPromotions(setPromotions);
+  };
 
   useEffect(() => {
     fetchAllPromotions();
@@ -61,12 +62,12 @@ const AdminPromotionPage = () => {
             />)}
         </div>
         {/* Zone de recherche */}
-
-        <Form.Control
-          type="text"
-          placeholder="🔍 Rechercher une promotion..."
+        <Input
+          labelName="Rechercher une formation :"
+          type="search"
           value={searchTerm}
-          onChange={handleSearchChange}
+          changeFunction={(e) => setSearchTerm(e.target.value)}
+          className="w-100"
         />
 
         {/* Liste des promotions */}

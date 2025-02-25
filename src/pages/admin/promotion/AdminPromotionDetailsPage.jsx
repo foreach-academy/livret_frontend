@@ -8,6 +8,7 @@ import { FRONT_ADMIN_DASHBOARD } from "../../../utils/frontUrl";
 import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 import Accordion from "../../../components/shared/Accordion";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle"
+import Button from "../../../components/shared/Button";
 
 function PromotionDetailsPage() {
     const { isAdmin } = useContext(AuthContext);
@@ -100,9 +101,12 @@ function PromotionDetailsPage() {
                         <li key={user.id} className="d-flex justify-content-between align-items-center">
                             {user.supervisorUser.firstname} {user.supervisorUser.lastname}
                             {isAdmin && (
-                                <button className="btn btn-danger btn-sm ms-2" onClick={() => handleRemoveUser("supervisor", user.supervisorUser.id)}>
-                                    Retirer
-                                </button>
+                                <Button
+                                    buttonTitle="Retirer"
+                                    className="bg-danger"
+                                    setAction={() => handleRemoveUser("supervisor", user.supervisorUser.id)}
+
+                                />
                             )}
                         </li>
                     ))}
@@ -124,9 +128,11 @@ function PromotionDetailsPage() {
                         <li key={user.id} className="d-flex justify-content-between align-items-center">
                             {user.trainerUser.firstname} {user.trainerUser.lastname}
                             {isAdmin && (
-                                <button className="btn btn-danger btn-sm ms-2" onClick={() => handleRemoveUser("trainer", user.trainerUser.id)}>
-                                    Retirer
-                                </button>
+                                <Button
+                                buttonTitle="Retirer"
+                                    className="bg-danger"
+                                    setAction={() => handleRemoveUser("trainer", user.trainerUser.id)}
+                                />
                             )}
                         </li>
                     ))}
@@ -148,9 +154,11 @@ function PromotionDetailsPage() {
                         <li key={user.studient_id} className="d-flex justify-content-between align-items-center">
                             {user.studientUser.firstname} {user.studientUser.lastname}
                             {isAdmin && (
-                                <button className="btn btn-danger btn-sm ms-2" onClick={() => handleRemoveUser("student", user.studientUser.id)}>
-                                    Retirer
-                                </button>
+                                  <Button
+                                  buttonTitle="Retirer"
+                                      className="bg-danger"
+                                      setAction={() => handleRemoveUser("student", user.studientUser.id)}
+                                  />
                             )}
                         </li>
                     ))}

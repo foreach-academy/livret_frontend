@@ -98,7 +98,6 @@ function AdminAddPromotionPage() {
                                 options={options}
                                 selectedValue=""
                                 onChange={(e) => handleUserSelection(role, Number(e.target.value))}
-                                onAdd={() => {}}
                                 selectedItems={promotion[role]}
                                 onRemove={(id) => handleUserRemoval(role, id)}
                                 showSelectedList={true}
