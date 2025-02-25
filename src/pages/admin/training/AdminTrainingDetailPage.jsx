@@ -36,8 +36,8 @@ function TrainingDetailPage() {
     ];
 
     const moduleColumns = [
-        {key: "title"},
-        {key: "commentary"}
+        { key: "title" },
+        { key: "commentary" }
     ];
 
     const promotionHeaders = [
@@ -59,7 +59,7 @@ function TrainingDetailPage() {
         await ModulesService.updateModule(moduleModification.id, {
             title: moduleModification.title,
             commentary: moduleModification.commentary,
-        },toast,setRefresh, setModuleModification); 
+        }, toast, setRefresh, setModuleModification);
     };
 
     const addModule = async () => {

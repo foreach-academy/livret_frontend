@@ -26,10 +26,14 @@ async function fetchTrainingById(id, setTraining) {
     }
 }
 
-async function addTraining(trainings) {
+async function addTraining(trainings, navigate, toast) {
     try {
-        const response = await axios.post(`${process.env.REACT_APP_API_URL}/trainings`, trainings);
-        return response.data;
+        await axios.post(`${process.env.REACT_APP_API_URL}/trainings`, trainings).then((response) => {
+            navigate(-1)
+            toast.success("Formation et modules ajoutés avec succès !");
+            return response.data;
+    })
+       
     } catch (error) {
         console.error("Erreur lors de la création de la formation", error);
         throw error;
