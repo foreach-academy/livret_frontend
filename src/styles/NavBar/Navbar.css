@@ -26,13 +26,6 @@
     margin: 0 70px;
   } */
 
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-  }
-
   nav li {
     list-style: none;
   }
@@ -114,7 +107,6 @@
       position: absolute;
       background-color: #ffffff;
       min-width: 200px;
-      overflow: auto;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       right: 0;
       z-index: 1;
@@ -163,12 +155,8 @@
 
   /* Navbar Admin*/
   .navbar_admin-container {
-    width: 250px;
-    height: 100vh;
+    width: 20%;
     background-color: #2a2c42;
-    position: fixed;
-    left: 0;
-    top: 0;
     display: flex;
   }
 

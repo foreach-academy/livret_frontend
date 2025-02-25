@@ -1,14 +1,19 @@
-import React from 'react'
-import Navbar from '../../shared/navbar/Navbar'
-import NavbarAdmin from '../../shared/navbar/AdminNavbar'
+import React, { useState } from "react";
+import AdminNavbar from "../../shared/navbar/AdminNavbar";
+import Header from "../../shared/navbar/Header";
 
-const AdminLayout = ({children}) => {
-    return (
-        <>
-            <NavbarAdmin />
-            {children}
-        </>
-    )
-}
+const AdminLayout = ({ children }) => {
+  const [headerHeight, setHeaderHeight] = useState(null);
 
-export default AdminLayout
+  return (
+    <div>
+      <Header setHeaderHeight={setHeaderHeight}/>
+      <div className="d-flex">
+        <AdminNavbar headerHeight={headerHeight}/>
+        <div className="w-100 p-3">{children}</div>
+      </div>
+    </div>
+  );
+};
+
+export default AdminLayout;

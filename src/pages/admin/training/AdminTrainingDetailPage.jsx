@@ -167,7 +167,6 @@ function TrainingDetailPage() {
                     {isEditing ? (
                         <input
                             type="text"
-                            className="form-control"
                             value={trainingModification.title}
                             onChange={(e) =>
                                 setTrainingModification({ ...trainingModification, title: e.target.value })
@@ -182,7 +181,6 @@ function TrainingDetailPage() {
                 <div className="d-flex flex-row justify-content-between">
                     {isEditing ? (
                         <TextArea
-                            className="form-control"
                             value={trainingModification.description}
                             onChange={(e) =>
                                 setTrainingModification({ ...trainingModification, description: e.target.value })

@@ -6,16 +6,6 @@
 }
 html, body {
     height: 100%;
-    overflow: auto; /* Active le scroll */
-}
-
-.container-admin{
-  position: absolute;
-  width: 80vw;
-  right: 0;
-  top: 10;
-  padding-right: 3%;  
-  padding-top: 3%;
 }
 .color-black-text{
   color: black;

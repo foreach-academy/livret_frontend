@@ -1,10 +1,13 @@
 import axios from "axios";
 import { URL_BACK_GET_TRAINING_BY_ID } from "../utils/backUrl";
 
-async function fetchAllTraining() {
+async function fetchAllTrainings(setTrainings) {
     try {
-        const response = await axios.get(`${process.env.REACT_APP_API_URL}/trainings`);
-        return response.data;
+        await axios.get(`${process.env.REACT_APP_API_URL}/trainings`).then(
+            (response) => {
+                setTrainings(response.data)
+            }
+        )
     } catch (error) {
         console.error("Erreur lors de la récupération des formations:", error);
         throw error;
@@ -48,7 +51,7 @@ function deleteTraining(id) {
 }
 
 export default {
-    fetchAllTraining,
+    fetchAllTrainings,
     fetchTrainingById,
     addTraining,
     updateTraining,
