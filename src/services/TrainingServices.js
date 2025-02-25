@@ -36,10 +36,15 @@ async function addTraining(trainings) {
     }
 }
 
-async function updateTraining(id, trainings) {
+async function updateTraining(id, trainings, setRefresh , setIsEditing, toast) {
     try {
-        const response = await axios.patch(`${process.env.REACT_APP_API_URL}/trainings/${id}`, trainings);
-        return response.data;
+        await axios.patch(`${process.env.REACT_APP_API_URL}/trainings/${id}`, trainings).then((response) => {
+            setRefresh(true);
+            setIsEditing(false);
+            toast.success(`La formation ${trainings.title} a été mise à jour`)
+            return response.data;
+        })
+       
     } catch (error) {
         console.error("Erreur lors de la modification de la formation", error);
         throw error;

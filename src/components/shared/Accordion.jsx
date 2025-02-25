@@ -14,7 +14,7 @@ const Accordion = ({ accordionLabel, accordionColor, children }) => {
         }}
       >
         <span>{accordionLabel}</span>
-        <span class="material-symbols-outlined text-white">keyboard_arrow_down</span>{" "}
+        <span className="material-symbols-outlined text-white">keyboard_arrow_down</span>{" "}
       </div>
       {isDisplayed && <div className="p-2 border bg-fe-light-gray">{children}</div>}
     </div>

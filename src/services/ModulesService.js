@@ -11,7 +11,7 @@ function getModuleById(id) {
 async function addModule(module, setRefresh, setDisplayAddModule, toast) {
   try {
     await axios.post(`${process.env.REACT_APP_API_URL}/modules`, module).then((response) => {
-      toast.success("Ajout du module")
+      toast.success(`Module ${module.title} ajouté`)
       setRefresh(true);
       setDisplayAddModule(false);
     })
@@ -21,10 +21,14 @@ async function addModule(module, setRefresh, setDisplayAddModule, toast) {
   }
 }
 
-async function updateModule(id, module) {
+async function updateModule(id, module, toast, setRefresh, setModuleModification) {
   try {
-    const response = await axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module);
-    return response.data;
+    await axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module).then((response) => {
+      toast.success(`Mise à jour du module ${module.title}`)
+      setRefresh(true);
+      setModuleModification(null);
+      return response.data
+  })
   } catch (error) {
     console.error("Erreur lors de la modification du module", error);
     throw error;
