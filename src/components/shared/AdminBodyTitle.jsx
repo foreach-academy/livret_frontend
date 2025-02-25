@@ -2,7 +2,7 @@ import React from "react";
 import { navigateTo } from "../../utils/navigate";
 import Button from "../shared/Button";
 
-const AdminBodyTitle = ({ pageTitle, isAdmin, navigate, navigateUrl, buttonTitle }) => {
+const AdminBodyTitle = ({ pageTitle, isAdmin, navigate, navigateUrl, buttonTitle, action, buttonClassName }) => {
   return (
     <div className="d-flex justify-content-between align-items-center mb-3">
       <h1>{pageTitle}</h1>
@@ -14,8 +14,11 @@ const AdminBodyTitle = ({ pageTitle, isAdmin, navigate, navigateUrl, buttonTitle
               <span className="ms-2">{buttonTitle}</span>
             </>
           }
-          className="bg-fe-orange"
-          setAction={() => navigateTo(navigateUrl, navigate)}
+          className={buttonClassName ? buttonClassName : "bg-fe-orange"}
+          setAction={() => {
+            if (navigate) navigateTo(navigateUrl, navigate);
+            if (action) action();
+          }}
         />
       )}
     </div>
