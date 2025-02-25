@@ -1,7 +1,9 @@
 import axios from "axios";
 
-function fetchAllPromotions() {
-    return axios.get(`${process.env.REACT_APP_API_URL}/promotions`);
+async function fetchAllPromotions(setPromotion) {
+    await axios.get(`${process.env.REACT_APP_API_URL}/promotions`).then((response)=> {
+        setPromotion(response.data);
+    });
 }
 
 function fetchPromotionById(id) {
