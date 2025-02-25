@@ -1,8 +1,8 @@
 import React from 'react'
 
-function TextArea() {
+function TextArea({value, onChange}) {
   return (
-    <textarea/>
+    <textarea value={value} onChange={onChange}/>
   )
 }
 

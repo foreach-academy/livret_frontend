@@ -5,7 +5,7 @@ const AdminBodyTitle = ({ pageTitle, isAdmin, navigate, navigateUrl, buttonTitle
   return (
     <div className="d-flex justify-content-between align-items-center mb-3">
       <h1>{pageTitle}</h1>
-      {isAdmin && (
+      {isAdmin && buttonTitle && (
         <button
           className="primary-button"
           onClick={() => navigateTo(navigateUrl, navigate)}
