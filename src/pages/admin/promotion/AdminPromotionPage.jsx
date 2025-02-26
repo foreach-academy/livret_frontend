@@ -67,7 +67,8 @@ const AdminPromotionPage = () => {
       />
 
       {/* Liste des promotions */}
-      <Table striped bordered hover responsive className="mt-4">
+      {filteredPromotions.length === 0 ?  <div className="d-flex justify-content-center mt-5 text-align">Aucune promotion trouvée</div>
+ : <Table striped bordered hover responsive className="mt-4">
         <Thead
           theads={theads}
         />
@@ -77,7 +78,7 @@ const AdminPromotionPage = () => {
           action={action}
         />
 
-      </Table>
+      </Table>}
 
     </AdminLayout>
   );

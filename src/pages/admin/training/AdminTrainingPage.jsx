@@ -60,10 +60,15 @@ function AdminTrainingPage() {
         className="w-100"
       />
 
-      <Table striped bordered hover responsive className="mt-4">
-        <Thead theads={theadName}></Thead>
-        <Tbody data={filteredTrainings} columns={columns} action={action} />
-      </Table>
+{filteredTrainings.length === 0 ? (
+  <div className="d-flex justify-content-center mt-5 text-align">Aucune formation trouvée</div>
+) : (
+  <Table striped bordered hover responsive className="mt-4">
+    <Thead theads={theadName} />
+    <Tbody data={filteredTrainings} columns={columns} action={action} />
+  </Table>
+)}
+
 
     </AdminLayout>
   );
