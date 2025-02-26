@@ -98,7 +98,9 @@ function TrainingDetailPage() {
                     {isAdmin && (
                         <Button
                             className={isEditing ? "bg-danger" : "bg-fe-orange"}
-                            buttonTitle={isEditing ? "Annuler" : "Modifier la formation"}
+                            buttonTitle={isEditing ? "Annuler" : ( <><span class="material-symbols-outlined">
+edit
+</span><span > Modifier la formation </span></>)}
                             setAction={() => setIsEditing(!isEditing)}
                         />
                     )}
