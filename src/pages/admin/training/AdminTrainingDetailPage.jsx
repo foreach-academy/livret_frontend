@@ -114,9 +114,10 @@ function TrainingDetailPage() {
 
             <div className="">
                 <div className="d-flex flex-column">
-                    <label htmlFor="">Titre: *</label>
+               
                     {isEditing ? (
                         <Input
+                        labelName="Titre"
                             type="text"
                             value={training.title}
                             changeFunction={(e) =>
@@ -125,16 +126,19 @@ function TrainingDetailPage() {
                                     title: e.target.value,
                                 })
                             }
+                            required={true}
                         />
-                    ) : (
+                    ) : (<>
+                        <label className="fw-bold" htmlFor="">Titre: </label>
                         <p>{training.title}</p>
+                        </>
                     )}
                 </div>
 
                 <div className="d-flex flex-column">
-                    <label htmlFor="">Description: *</label>
                     {isEditing ? (
                         <TextArea
+                        labelName="Description"
                             value={training.description}
                             onChange={(e) =>
                                 setTraining({
@@ -142,9 +146,14 @@ function TrainingDetailPage() {
                                     description: e.target.value,
                                 })
                             }
+                            required={true}
                         />
                     ) : (
-                        <p>{training.description}</p>
+                        <>
+                             <label className="fw-bold" htmlFor="">Description: </label>
+                             <p>{training.description}</p>
+                        </>
+                      
                     )}
                 </div>
             </div>
