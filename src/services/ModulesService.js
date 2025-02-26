@@ -8,12 +8,19 @@ function getModuleById(id) {
   return axios.get(`${process.env.REACT_APP_API_URL}/modules/${id}`);
 }
 
-async function addModule(module, setRefresh, setDisplayAddModule, toast) {
+async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
+  console.log("Module reçu :", module);
+  if (!module.title ||!module.commentary) {
+    toast.error("Impossible d'ajouter un module vide")
+    return
+  }
   try {
     await axios.post(`${process.env.REACT_APP_API_URL}/modules`, module).then((response) => {
       toast.success(`Module ${module.title} ajouté`)
       setRefresh(true);
       setDisplayAddModule(false);
+      setNewModule({ title: "", commentary: "", training_id: id });
+ 
     })
   } catch (error) {
     console.error("Erreur lors de la création du module", error);

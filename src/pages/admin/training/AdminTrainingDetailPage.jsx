@@ -63,8 +63,7 @@ function TrainingDetailPage() {
     };
 
     const addModule = async () => {
-        await ModulesService.addModule(newModule, setRefresh, setDisplayAddModule, toast);
-        setNewModule({ title: "", commentary: "", training_id: id });
+        await ModulesService.addModule(newModule, setRefresh, setDisplayAddModule, toast, setNewModule);     
     };
 
     const deleteModule = async (id) => {
