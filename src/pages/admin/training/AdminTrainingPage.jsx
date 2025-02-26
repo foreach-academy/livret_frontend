@@ -49,6 +49,7 @@ function AdminTrainingPage() {
         navigate={navigate}
         navigateUrl={FRONT_ADMIN_ADD_TRAINING}
         buttonTitle="Ajouter une formation"
+        icon="add"
       />
 
       <Input

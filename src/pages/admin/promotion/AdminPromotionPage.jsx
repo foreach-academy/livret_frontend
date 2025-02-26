@@ -56,6 +56,7 @@ const AdminPromotionPage = () => {
         navigate={navigate}
         navigateUrl={FRONT_ADMIN_ADD_PROMOTION}
         buttonTitle="Ajouter une formation"
+        icon="add"
       />
       <Input
         labelName="Rechercher une formation :"
@@ -74,7 +75,6 @@ const AdminPromotionPage = () => {
           data={filteredPromotions}
           columns={columns}
           action={action}
-
         />
 
       </Table>

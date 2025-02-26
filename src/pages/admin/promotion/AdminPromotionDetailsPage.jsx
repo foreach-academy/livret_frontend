@@ -94,6 +94,7 @@ function PromotionDetailsPage() {
                 pageTitle={promoDetail?.title}
                 action={deletePromotion}
                 buttonClassName="bg-danger"
+                icon="delete"
             />
             <Accordion accordionLabel="Responsables" accordionColor="bg-fe-purple">
                 <ul>

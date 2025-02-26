@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/TraineePracticalLife/TraineePracticalLife.css";
+import Header from "../../components/shared/navbar/Header";
 
 
 const TraineePracticalLifePage = () => {
+
+  const [headerHeight, setHeaderHeight] = useState(null);
   return (
     <>
-
+  <Header setHeaderHeight={setHeaderHeight}/>
       <div className="practical_life_section">
         <div id="practical_life_container">
           <div id="practical_life_title">

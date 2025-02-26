@@ -6,11 +6,12 @@ import StrategicInfo from '../../components/pages/homePage/StrategicInfo';
 import DOMPurify from 'dompurify'; // Importation de DOMPurify
 import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
 import TrainingServices from '../../services/TrainingServices';
+import Header from '../../components/shared/navbar/Header'
 
 
 const HomePage = () => {
   const [trainings, setTrainings] = useState([]);
-
+  const [headerHeight, setHeaderHeight] = useState(null);
   const fetchAllTrainings = async () => {
  try {
    const response = await TrainingServices.fetchAllTraining();
@@ -72,7 +73,7 @@ const HomePage = () => {
 
   return (
     <>
-
+  <Header setHeaderHeight={setHeaderHeight}/>
       <div className="homepage">
         <div className="header-image">
           <img src={process.env.PUBLIC_URL + "/images/bg/slider-developpeur-web.jpeg"} alt="Accueil" />
