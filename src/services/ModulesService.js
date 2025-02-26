@@ -45,7 +45,7 @@ async function updateModule(id, module, toast, setRefresh, setModuleModification
 async function deleteModule(id, toast, setRefresh) {
   try {
     await axios.delete(`${process.env.REACT_APP_API_URL}/modules/${id}`).then((response) => {
-      toast.success(response.data.message)
+      toast.success("Le module a bien été supprimé")
       setRefresh(true);
     })
   } catch (error) {

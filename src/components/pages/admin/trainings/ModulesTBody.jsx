@@ -60,11 +60,12 @@ const ModulesTBody = ({
                   }
                 />
               )}
-              <Button
-                buttonTitle="Supprimer"
-                className="bg-danger"
-                setAction={() => deleteModule(item.id)}
-              />
+<Button
+    buttonTitle="Supprimer"
+    className="bg-danger"
+    setAction={() => deleteModule(item.id, item.title)}
+/>
+
             </td>
           )}
         </tr>

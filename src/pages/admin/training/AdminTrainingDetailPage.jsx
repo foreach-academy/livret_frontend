@@ -1,4 +1,4 @@
-import {useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import TrainingServices from "../../../services/TrainingServices";
@@ -14,6 +14,8 @@ import Input from "../../../components/shared/form/Input";
 import Accordion from "../../../components/shared/Accordion";
 import ModulesTBody from "../../../components/pages/admin/trainings/ModulesTBody";
 import { toast } from "react-toastify";
+import CustomModal from "../../../components/shared/modal/CustomModal";
+
 
 function TrainingDetailPage() {
     const { id } = useParams();
@@ -47,6 +49,9 @@ function TrainingDetailPage() {
 
     const promotionColumns = [{ key: "title" }];
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [moduleToDelete, setModuleToDelete] = useState(null);
+
     const getTrainingDetail = async () => {
         await TrainingServices.fetchTrainingById(id, setTraining);
     };
@@ -63,17 +68,22 @@ function TrainingDetailPage() {
     };
 
     const addModule = async () => {
-        await ModulesService.addModule(newModule, setRefresh, setDisplayAddModule, toast, setNewModule);     
+        await ModulesService.addModule(newModule, setRefresh, setDisplayAddModule, toast, setNewModule);
     };
 
-    const deleteModule = async (id) => {
-        if (
-            !window.confirm(
-                "Êtes-vous sûr de vouloir supprimer ce module ? Cette action est irréversible et supprimera toutes les évaluations en lien avec ce module."
-            )
-        )
-            return;
+    const handleDeleteRequest = (id, title) => {
+        console.log("Module à supprimer :", id, title);
+        setModuleToDelete({ id, title });
+        setIsModalOpen(true);
+    };
+    
+
+    const confirmDeleteModule = async () => {
+        if (!moduleToDelete) return;
+        const { id, title } = moduleToDelete;
         await ModulesService.deleteModule(id, toast, setRefresh);
+        setIsModalOpen(false);
+        setModuleToDelete(null);
     };
 
     const updateTraining = async () => {
@@ -91,15 +101,16 @@ function TrainingDetailPage() {
 
     return (
         <AdminLayout>
+
             <div className="d-flex justify-content-between">
                 <h1>Détail de la formation {training.title}</h1>
                 <div className="d-flex align-self-center">
                     {isAdmin && (
                         <Button
                             className={isEditing ? "bg-danger" : "bg-fe-orange"}
-                            buttonTitle={isEditing ? "Annuler" : ( <><span class="material-symbols-outlined">
-edit
-</span><span > Modifier la formation </span></>)}
+                            buttonTitle={isEditing ? "Annuler" : (<><span class="material-symbols-outlined">
+                                edit
+                            </span><span > Modifier la formation </span></>)}
                             setAction={() => setIsEditing(!isEditing)}
                         />
                     )}
@@ -115,10 +126,10 @@ edit
 
             <div className="">
                 <div className="d-flex flex-column">
-               
+
                     {isEditing ? (
                         <Input
-                        labelName="Titre"
+                            labelName="Titre"
                             type="text"
                             value={training.title}
                             changeFunction={(e) =>
@@ -132,14 +143,14 @@ edit
                     ) : (<>
                         <label className="fw-bold" htmlFor="">Titre: </label>
                         <p>{training.title}</p>
-                        </>
+                    </>
                     )}
                 </div>
 
                 <div className="d-flex flex-column">
                     {isEditing ? (
                         <TextArea
-                        labelName="Description"
+                            labelName="Description"
                             value={training.description}
                             onChange={(e) =>
                                 setTraining({
@@ -151,10 +162,10 @@ edit
                         />
                     ) : (
                         <>
-                             <label className="fw-bold" htmlFor="">Description: </label>
-                             <p>{training.description}</p>
+                            <label className="fw-bold" htmlFor="">Description: </label>
+                            <p>{training.description}</p>
                         </>
-                      
+
                     )}
                 </div>
             </div>
@@ -169,7 +180,7 @@ edit
                             columns={moduleColumns}
                             isAdmin={isAdmin}
                             moduleModification={moduleModification}
-                            deleteModule={deleteModule}
+                            deleteModule={handleDeleteRequest}
                             submitModification={submitModification}
                             setModuleModification={setModuleModification}
 
@@ -238,6 +249,25 @@ edit
                     </Table>
                 </Accordion>
             </div>
+            <CustomModal 
+    isOpen={isModalOpen} 
+    onClose={() => setIsModalOpen(false)} 
+    title={moduleToDelete && `Confirmer la suppression du module : ${moduleToDelete.title}`} 
+    description={moduleToDelete &&
+        <>
+        <span> Êtes-vous sûr de vouloir supprimer le module " 
+            <span className="fw-bold"> {moduleToDelete.title} </span>" ? Cette action est irréversible. Toutes les évaluations en lien avec ce module seront perdues</span>
+        </>
+    }
+>
+
+    <div className="d-flex justify-content-end">
+        <Button buttonTitle="Annuler" className="bg-fe-orange" setAction={() => setIsModalOpen(false)} />
+        <Button buttonTitle="Supprimer" className="bg-danger ms-2" setAction={confirmDeleteModule} />
+    </div>
+</CustomModal>
+
+
         </AdminLayout>
     );
 }
