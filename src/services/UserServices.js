@@ -32,7 +32,7 @@ class UserServices {
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
     static addUser(user) {
-        return axios.post(process.env.REACT_APP_API_URL + '/users', user);
+        return axios.post(process.env.REACT_APP_API_URL + '/users', user)
     }
 
     /**

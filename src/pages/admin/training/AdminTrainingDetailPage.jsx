@@ -76,7 +76,7 @@ function TrainingDetailPage() {
         setModuleToDelete({ id, title });
         setIsModalOpen(true);
     };
-    
+
 
     const confirmDeleteModule = async () => {
         if (!moduleToDelete) return;
@@ -249,23 +249,23 @@ function TrainingDetailPage() {
                     </Table>
                 </Accordion>
             </div>
-            <CustomModal 
-    isOpen={isModalOpen} 
-    onClose={() => setIsModalOpen(false)} 
-    title={moduleToDelete && `Confirmer la suppression du module : ${moduleToDelete.title}`} 
-    description={moduleToDelete &&
-        <>
-        <span> Êtes-vous sûr de vouloir supprimer le module " 
-            <span className="fw-bold"> {moduleToDelete.title} </span>" ? Cette action est irréversible. Toutes les évaluations en lien avec ce module seront perdues</span>
-        </>
-    }
->
+            <CustomModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                title={moduleToDelete && `Confirmer la suppression du module : ${moduleToDelete.title}`}
+                description={moduleToDelete &&
+                    <>
+                        <span> Êtes-vous sûr de vouloir supprimer le module "
+                            <span className="fw-bold"> {moduleToDelete.title} </span>" ? Cette action est irréversible. Toutes les évaluations en lien avec ce module seront perdues</span>
+                    </>
+                }
+            >
 
-    <div className="d-flex justify-content-end">
-        <Button buttonTitle="Annuler" className="bg-fe-orange" setAction={() => setIsModalOpen(false)} />
-        <Button buttonTitle="Supprimer" className="bg-danger ms-2" setAction={confirmDeleteModule} />
-    </div>
-</CustomModal>
+                <div className="d-flex justify-content-end">
+                    <Button buttonTitle="Annuler" className="bg-fe-orange" setAction={() => setIsModalOpen(false)} />
+                    <Button buttonTitle="Supprimer" className="bg-danger ms-2" setAction={confirmDeleteModule} />
+                </div>
+            </CustomModal>
 
 
         </AdminLayout>

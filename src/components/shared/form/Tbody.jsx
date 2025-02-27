@@ -17,8 +17,6 @@ const Tbody = ({ data, columns, action }) => {
                                 className="bg-fe-blue"
                                 setAction={() => navigate(`${action.url}/${item.id}`, navigate)}
                                 buttonTitle={action.label}
-
-
                             />
 
 

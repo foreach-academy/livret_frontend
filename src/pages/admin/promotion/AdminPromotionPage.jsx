@@ -55,11 +55,11 @@ const AdminPromotionPage = () => {
         isAdmin={isAdmin}
         navigate={navigate}
         navigateUrl={FRONT_ADMIN_ADD_PROMOTION}
-        buttonTitle="Ajouter une formation"
+        buttonTitle="Ajouter une promotion"
         icon="add"
       />
       <Input
-        labelName="Rechercher une formation :"
+        labelName="Rechercher une promotion :"
         type="search"
         value={searchTerm}
         changeFunction={(e) => setSearchTerm(e.target.value)}

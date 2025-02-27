@@ -4,8 +4,10 @@ import axios from "axios"; // Importe axios pour les requêtes HTTP
 class RoleServices {
     
     // Récupère tous les rôles disponibles
-    static fetchAllRoles() {
-        return axios.get(process.env.REACT_APP_API_URL + '/roles'); // Envoie une requête GET à l'endpoint /role pour obtenir tous les rôles
+    static fetchAllRoles(setRoles) {
+        return axios.get(process.env.REACT_APP_API_URL + '/roles').then((response)=> {
+            setRoles(response.data);
+        }); // Envoie une requête GET à l'endpoint /role pour obtenir tous les rôles
     }
 
     // Récupère les détails d'un rôle spécifique via son ID
