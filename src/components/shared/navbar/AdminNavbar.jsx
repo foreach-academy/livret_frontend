@@ -6,6 +6,8 @@ import {
   FRONT_ADMIN_USERS,
   FRONT_ADMIN_PROMOTION,
 } from "../../../utils/frontUrl";
+
+
 import TileNavbar from "./TileNavbar";
 
 const NavbarAdmin = ({headerHeight}) => {
@@ -56,5 +58,4 @@ const NavbarAdmin = ({headerHeight}) => {
     </div>
   );
 };
-
 export default NavbarAdmin;

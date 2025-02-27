@@ -133,7 +133,8 @@ class UserServices {
         if (UserServices.isAuthenticated()) {
             const token = window.localStorage.getItem("authToken");
             const tokenData = jwtDecode(token);
-            return tokenData.username;
+            console.log(tokenData)
+            return tokenData.user;
         }
         return false;
     }

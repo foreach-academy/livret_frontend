@@ -23,7 +23,6 @@ const Header = ({ setHeaderHeight }) => {
     userName,
   } = useContext(AuthContext);
   const ref = useRef(null);
-
   const location = useLocation();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

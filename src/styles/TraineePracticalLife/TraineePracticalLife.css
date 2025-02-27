@@ -1,6 +1,7 @@
 .practical_life_section {
     font-size: 1.2em;
     line-height: 1.6em;
+    overflow-y: scroll;
 }
 
 #practical_life_container {

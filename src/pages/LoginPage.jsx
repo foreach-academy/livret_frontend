@@ -33,7 +33,6 @@ const LoginPage = () => {
         setIsAuthenticated(true);
         setToken(token);
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken.user);
         setUserName(decodedToken.user);
         setIsAdmin(decodedToken.role === "Admin");
         setIsTrainer(decodedToken.role === "Formateur"); // A changer vers un context role

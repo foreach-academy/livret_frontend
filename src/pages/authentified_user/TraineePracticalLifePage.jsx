@@ -9,7 +9,7 @@ const TraineePracticalLifePage = () => {
   return (
     <>
   <Header setHeaderHeight={setHeaderHeight}/>
-      <div className="practical_life_section">
+      <div className="practical_life_section" style={{height: 'calc(100vh - 80px)'}}>
         <div id="practical_life_container">
           <div id="practical_life_title">
             <h1>Vie pratique du stagiaire</h1>

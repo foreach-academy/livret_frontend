@@ -13,12 +13,8 @@ const HomePage = () => {
   const [trainings, setTrainings] = useState([]);
   const [headerHeight, setHeaderHeight] = useState(null);
   const fetchAllTrainings = async () => {
- try {
-   const response = await TrainingServices.fetchAllTraining();
-   setTrainings(response.data);
- } catch (error) {
-   console.error("Erreur lors de la récupération des formations:", error);
-  }}
+await TrainingServices.fetchAllTrainings(setTrainings);
+}
 
   useEffect(() => {
     fetchAllTrainings();
@@ -74,7 +70,7 @@ const HomePage = () => {
   return (
     <>
   <Header setHeaderHeight={setHeaderHeight}/>
-      <div className="homepage">
+      <div className="homepage" style={{height: 'calc(100vh - 80px)'}}>
         <div className="header-image">
           <img src={process.env.PUBLIC_URL + "/images/bg/slider-developpeur-web.jpeg"} alt="Accueil" />
         </div>
