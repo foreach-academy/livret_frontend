@@ -35,7 +35,8 @@ function AddUserPage() {
 
 
   const fetchRoles = async () => {
-    await RoleServices.fetchAllRoles(setRoles);}
+    await RoleServices.fetchAllRoles(setRoles);
+  }
   useEffect(() => {
     fetchRoles();
   }, []);
@@ -56,8 +57,8 @@ function AddUserPage() {
     }));
   };
 
-  const handleSubmit = async () => {
-
+  const handleSubmit = async (e) => {
+e.preventDefault();
 
     if (user.password !== user.confirmPassword) {
       return;
@@ -88,43 +89,45 @@ function AddUserPage() {
   };
 
   return (
-<AdminLayout>
-  <AdminBodyTitle 
-  pageTitle="Ajouter un utilisateur"
-  />
+    <AdminLayout>
+      <AdminBodyTitle
+        pageTitle="Ajouter un utilisateur"
+      />
 
-        <div className="form_blue_contener wider">
-          <div className="form_blue">
+      <div className="form_blue_contener wider">
+        <div className="form_blue">
 
-            <label>Rôle</label>
-            <select value={selectedRole} onChange={handleRoleChange}>
-              <option value="" disabled>Choisissez un rôle</option>
-              {roles.map((role) => (
-                <option key={role.id} value={role.id}>{role.name}</option>
-              ))}
-            </select>
+          <label>Rôle</label>
+          <select value={selectedRole} onChange={handleRoleChange}>
+            <option value="" disabled>Choisissez un rôle</option>
+            {roles.map((role) => (
+              <option key={role.id} value={role.id}>{role.name}</option>
+            ))}
+          </select>
 
-            {selectedRole && (
-              <>
+          {selectedRole && (
+            <>
+              <form onSubmit={handleSubmit}>
                 <div className="d-flex flex-wrap w-100">
                   <div className="d-flex justify-content-between w-100">
-                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, firstname: e.target.value })} labelName="Prénom" type="text" value={user.firstname} required={true}/>
-                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, lastname: e.target.value })} labelName="Nom" type="text" value={user.lastname} required={true}/>
+
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, firstname: e.target.value })} labelName="Prénom" type="text" value={user.firstname} required={true} />
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, lastname: e.target.value })} labelName="Nom" type="text" value={user.lastname} required={true} />
                   </div>
 
                   <div className="d-flex justify-content-between   w-100">
-                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName="E-mail" type="email" value={user.email} required={true}/>
-                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, birthdate: e.target.value })} labelName="Date de naissance" type={"date"} value={user.birthdate} required={true}/>
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName="E-mail" type="email" value={user.email} required={true} />
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, birthdate: e.target.value })} labelName="Date de naissance" type={"date"} value={user.birthdate} required={true} />
                   </div>
 
                   <div className="d-flex justify-content-between   w-100">
-                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, password: e.target.value })} labelName="Mot de passe" type="password" value={user.password} required={true}/>
-                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, confirmPassword: e.target.value })} labelName="Confirmer le mot de passe" type="password" value={user.confirmPassword} required={true}/>
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, password: e.target.value })} labelName="Mot de passe" type="password" value={user.password} required={true} />
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, confirmPassword: e.target.value })} labelName="Confirmer le mot de passe" type="password" value={user.confirmPassword} required={true} />
                   </div>
 
                   {selectedRole === "1" && (
                     <>
-                   <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, position: e.target.value })} labelName="Emploi" type="text" value={user.position} required={true}/>
+                      <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, position: e.target.value })} labelName="Emploi" type="text" value={user.position} required={true} />
                       <div className="input-group d-flex flex-column">
                         <label className="color-black-text fw-bold">Photo</label>
                         <input type="file" accept="image/*" onChange={handleFileChange} />
@@ -132,19 +135,21 @@ function AddUserPage() {
                     </>
                   )}
                   <div className="d-flex justify-content-end mt-4">
-                    <Button 
-                    className="bg-fe-orange"
-                    setAction={handleSubmit}
-                    buttonTitle="Ajouter l'utilisateur"
-              
+                    <Button
+                      className="bg-fe-orange"
+                      type="submit"
+                      buttonTitle="Ajouter l'utilisateur"
+
                     />
+
                   </div>
                 </div>
-              </>
-            )}
-          </div>
+              </form>
+            </>
+          )}
         </div>
-      </AdminLayout>
+      </div>
+    </AdminLayout>
   );
 }
 

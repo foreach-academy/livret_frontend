@@ -105,7 +105,7 @@ function AddTraining() {
                             />
 
                         </fieldset>
-                        <button type="submit" className="bg-fe-orange">Ajouter</button>
+                        <Button buttonTitle="Enregistrer la formation" className="bg-fe-orange" type="submit" />
                     </form>
 
                 </div>
