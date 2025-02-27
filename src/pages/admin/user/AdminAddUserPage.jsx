@@ -7,33 +7,16 @@ import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import { FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
 import { navigateTo } from "../../../utils/navigate";
-import TrainingServices from "../../../services/TrainingServices";
-import PromotionsService from "../../../services/PromotionsService";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Input from "../../../components/shared/form/Input";
-import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 import Button from "../../../components/shared/Button";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 
 function AddUserPage() {
-  const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    roleId: "",
-    password: "",
-    confirmPassword: "",
-    birthdate: "",
-    position: "",
-    photo: null,
-    promo: null
-  });
+  const [user, setUser] = useState({});
   const [selectedRole, setSelectedRole] = useState("");
   const navigate = useNavigate();
   const [roles, setRoles] = useState([]);
-
-
-
   const fetchRoles = async () => {
     await RoleServices.fetchAllRoles(setRoles);
   }
@@ -138,10 +121,7 @@ e.preventDefault();
                     <Button
                       className="bg-fe-orange"
                       type="submit"
-                      buttonTitle="Ajouter l'utilisateur"
-
-                    />
-
+                      buttonTitle="Ajouter l'utilisateur" />
                   </div>
                 </div>
               </form>

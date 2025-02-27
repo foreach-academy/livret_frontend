@@ -17,7 +17,7 @@ const AdminPromotionPage = () => {
   const { isAdmin } = useContext(AuthContext);
   const theads = [
     {
-      label: "Nom"
+      label: "Nom de la promotion"
     },
     {
       label: "Action"

@@ -11,25 +11,29 @@ const CustomModal = ({ isOpen, onClose, title, description, children }) => {
     }
   }, [isOpen]);
 
+  if (!isOpen) return null;
+
   return (
-    <div className={`modal fade ${isOpen ? "show d-block" : "d-none"}`} tabIndex="-1" role="dialog">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          <div className="modal-header bg-fe-blue d-flex justify-content-between">
-            <h5 className="modal-title">{title}</h5>
-            <Button buttonTitle="×" className="close" setAction={onClose} />
+    <>
+
+      <div className="modal-backdrop fade show"></div>
+      <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header bg-fe-blue d-flex justify-content-between">
+              <h5 className="modal-title">{title}</h5>
+              <Button buttonTitle="×" className="bg-danger" setAction={onClose} />
+            </div>
+            <div className="modal-body">
+              {description && <p>{description}</p>}
+              {children}
+            </div>
           </div>
-          <div className="modal-body">
-            {description && <p>{description}</p>}
-            {children}
-          </div>
-          {/* <div className="modal-footer">
-            <Button buttonTitle="Fermer" className="btn btn-secondary" setAction={onClose} />
-          </div> */}
         </div>
       </div>
-    </div>
+    </>
   );
 };
+
 
 export default CustomModal;

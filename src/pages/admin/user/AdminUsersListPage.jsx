@@ -66,7 +66,7 @@ const UsersListPage = () => {
   }
 
   const fetchAllUsers = async () => {
-await UserServices.fetchAllUsers(setUsers);
+    await UserServices.fetchAllUsers(setUsers);
   };
 
   const fetchRoles = async () => {
@@ -107,32 +107,34 @@ await UserServices.fetchAllUsers(setUsers);
         pageTitle="Utlisateurs"
         navigate={navigate}
       />
-<div className="d-flex align-items-end">
-          <Input
+      <div className="d-flex align-items-end">
+        <Input
           className="w-75 me-2"
           labelName="Recherche un utilisateur :"
-            type="search"
-            value={searchTerm}
-            changeFunction={handleSearchChange}
-       
-          />
+          type="search"
+          value={searchTerm}
+          changeFunction={handleSearchChange}
+
+        />
 
 
-          <Form.Select value={selectedRole} className="w-25 h-75 "onChange={handleRoleChange}>
-            <option value="Tous">Tous les rôles</option>
-            {roles.map((role) => (
-              <option key={role.id} value={role.name}>
-                {role.name}
-              </option>
-            ))}
-          </Form.Select>
-</div>
+        <Form.Select value={selectedRole} className="w-25 h-75 " onChange={handleRoleChange}>
+          <option value="Tous">Tous les rôles</option>
+          {roles.map((role) => (
+            <option key={role.id} value={role.name}>
+              {role.name}
+            </option>
+          ))}
+        </Form.Select>
+      </div>
 
       {/* Liste des utilisateurs */}
-      <Table striped bordered hover responsive className="mt-4">
-        <Thead theads={Theads} />
-        <Tbody data={filteredUsers} columns={columns} />
-      </Table>
+      {filteredUsers.length === 0 ? <div className="d-flex justify-content-center mt-5 text-align">Aucun utilisateur trouvé</div>
+        : <Table striped bordered hover responsive className="mt-4">
+          <Thead theads={Theads} />
+          <Tbody data={filteredUsers} columns={columns} />
+        </Table>}
+
     </AdminLayout>
   );
 };
