@@ -66,15 +66,7 @@ const UsersListPage = () => {
   }
 
   const fetchAllUsers = async () => {
-    try {
-      const response = await UserServices.fetchAllUsers();
-      setUsers(response.data);
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des utilisateurs:",
-        error.response ? error.response.data : error.message
-      );
-    }
+await UserServices.fetchAllUsers(setUsers);
   };
 
   const fetchRoles = async () => {

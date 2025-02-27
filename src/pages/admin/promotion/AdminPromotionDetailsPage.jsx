@@ -25,21 +25,11 @@ function PromotionDetailsPage() {
     }, [id]);
 
     const getPromotionDetails = async () => {
-        try {
-            const response = await PromotionsService.fetchPromotionById(id);
-            setPromoDetail(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération de la promotion:", error.response?.data || error.message);
-        }
+        await PromotionsService.fetchPromotionById(id, setPromoDetail);
     };
 
     const getAllUsers = async () => {
-        try {
-            const response = await UserServices.fetchAllUsers();
-            setUsers(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération des utilisateurs:", error.response?.data || error.message);
-        }
+        await UserServices.fetchAllUsers(setUsers);
     };
 
     const handleAddUser = async (role) => {
@@ -130,7 +120,7 @@ function PromotionDetailsPage() {
                             {user.trainerUser.firstname} {user.trainerUser.lastname}
                             {isAdmin && (
                                 <Button
-                                buttonTitle="Retirer"
+                                    buttonTitle="Retirer"
                                     className="bg-danger"
                                     setAction={() => handleRemoveUser("trainer", user.trainerUser.id)}
                                 />
@@ -155,11 +145,11 @@ function PromotionDetailsPage() {
                         <li key={user.studient_id} className="d-flex justify-content-between align-items-center">
                             {user.studientUser.firstname} {user.studientUser.lastname}
                             {isAdmin && (
-                                  <Button
-                                  buttonTitle="Retirer"
-                                      className="bg-danger"
-                                      setAction={() => handleRemoveUser("student", user.studientUser.id)}
-                                  />
+                                <Button
+                                    buttonTitle="Retirer"
+                                    className="bg-danger"
+                                    setAction={() => handleRemoveUser("student", user.studientUser.id)}
+                                />
                             )}
                         </li>
                     ))}
@@ -174,6 +164,8 @@ function PromotionDetailsPage() {
                     />
                 )}
             </Accordion>
+
+
 
         </AdminLayout>
     );

@@ -26,12 +26,9 @@ function AdminAddPromotionPage() {
     }, []);
 
     const fetchUsers = async () => {
-        try {
-            const response = await UserServices.fetchAllUsers();
-            setUsers(response.data);
-        } catch (error) {
-            console.error("Erreur lors de la récupération des utilisateurs:", error.response?.data || error.message);
-        }
+        await UserServices.fetchAllUsers(setUsers);
+
+
     };
 
     const getUsersByRole = (roleId) => users.filter(user => user.userRole.id === roleId);

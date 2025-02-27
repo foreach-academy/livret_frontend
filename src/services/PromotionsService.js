@@ -6,8 +6,10 @@ async function fetchAllPromotions(setPromotion) {
     });
 }
 
-function fetchPromotionById(id) {
-    return axios.get(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
+function fetchPromotionById(id, setPromoDetail) {
+    return axios.get(`${process.env.REACT_APP_API_URL}/promotions/${id}`).then((response) => {
+        setPromoDetail(response.data)
+    });
 }
 
 function addPromotion(promotion) {

@@ -3,14 +3,14 @@ import { jwtDecode } from "jwt-decode";
 import AuthenticateService from "./AuthenticateServices";
 
 class UserServices {
-    
+
     /**
      * Récupère la liste complète de tous les utilisateurs.
      * @returns {Promise} - Promesse contenant les données de tous les utilisateurs.
      */
-    static async fetchAllUsers() {
+    static async fetchAllUsers(setUsers) {
         try {
-            return await axios.get(process.env.REACT_APP_API_URL + '/users');
+            return await axios.get(process.env.REACT_APP_API_URL + '/users').then((response) => setUsers(response.data));
         } catch (error) {
             console.error("Erreur lors de la récupération des utilisateurs:", error);
             throw error;
@@ -130,10 +130,10 @@ class UserServices {
      * @returns {string} - Le nom de l'utilisateur.
      */
     static userName() {
-        if (UserServices.isAuthenticated()){
-        const token = window.localStorage.getItem("authToken");
-        const tokenData = jwtDecode(token);
-        return tokenData.username;
+        if (UserServices.isAuthenticated()) {
+            const token = window.localStorage.getItem("authToken");
+            const tokenData = jwtDecode(token);
+            return tokenData.username;
         }
         return false;
     }
@@ -149,10 +149,10 @@ class UserServices {
     }
     /**
      * Récupère les utilisateurs à partir du rôle
-       */ 
-      static getUserByRole(role) {
+       */
+    static getUserByRole(role) {
         return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
-      }
+    }
 
 }
 

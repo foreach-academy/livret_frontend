@@ -13,6 +13,7 @@ import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Input from "../../../components/shared/form/Input";
 import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 import Button from "../../../components/shared/Button";
+import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 
 function AddUserPage() {
   const [user, setUser] = useState({
@@ -88,8 +89,10 @@ function AddUserPage() {
 
   return (
 <AdminLayout>
-      <div className="container-admin">
-        <h1 className="title_Pages">Ajouter un utilisateur</h1>
+  <AdminBodyTitle 
+  pageTitle="Ajouter un utilisateur"
+  />
+
         <div className="form_blue_contener wider">
           <div className="form_blue">
 
@@ -104,24 +107,24 @@ function AddUserPage() {
             {selectedRole && (
               <>
                 <div className="d-flex flex-wrap w-100">
-                  <div className="d-flex justify-content-between gap-5 w-100">
-                    <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, firstname: e.target.value })} labelName="Prénom" type="text" value={user.firstname} required={true}/>
-                    <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, lastname: e.target.value })} labelName="Nom" type="text" value={user.lastname} required={true}/>
+                  <div className="d-flex justify-content-between w-100">
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, firstname: e.target.value })} labelName="Prénom" type="text" value={user.firstname} required={true}/>
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, lastname: e.target.value })} labelName="Nom" type="text" value={user.lastname} required={true}/>
                   </div>
 
-                  <div className="d-flex justify-content-between gap-5  w-100">
-                  <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName="E-mail" type="email" value={user.email} required={true}/>
-                  <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, birthdate: e.target.value })} labelName="Date de naissance" type={"date"} value={user.birthdate} required={true}/>
+                  <div className="d-flex justify-content-between   w-100">
+                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName="E-mail" type="email" value={user.email} required={true}/>
+                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, birthdate: e.target.value })} labelName="Date de naissance" type={"date"} value={user.birthdate} required={true}/>
                   </div>
 
-                  <div className="d-flex justify-content-between  gap-5 w-100">
-                  <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, password: e.target.value })} labelName="Mot de passe" type="password" value={user.password} required={true}/>
-                  <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, confirmPassword: e.target.value })} labelName="Confirmer le mot de passe" type="password" value={user.confirmPassword} required={true}/>
+                  <div className="d-flex justify-content-between   w-100">
+                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, password: e.target.value })} labelName="Mot de passe" type="password" value={user.password} required={true}/>
+                  <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, confirmPassword: e.target.value })} labelName="Confirmer le mot de passe" type="password" value={user.confirmPassword} required={true}/>
                   </div>
 
                   {selectedRole === "1" && (
                     <>
-                   <Input className="color-black-text" changeFunction={(e) => setUser({ ...user, position: e.target.value })} labelName="Emploi" type="text" value={user.position} required={true}/>
+                   <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, position: e.target.value })} labelName="Emploi" type="text" value={user.position} required={true}/>
                       <div className="input-group d-flex flex-column">
                         <label className="color-black-text fw-bold">Photo</label>
                         <input type="file" accept="image/*" onChange={handleFileChange} />
@@ -141,7 +144,6 @@ function AddUserPage() {
             )}
           </div>
         </div>
-      </div>
       </AdminLayout>
   );
 }
