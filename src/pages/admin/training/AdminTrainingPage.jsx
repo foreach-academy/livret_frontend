@@ -26,11 +26,12 @@ function AdminTrainingPage() {
     { label: "Action" },
   ];
   
-  const columns = [{ key: "title", label: "Titre" }];
+  const columns = [{ label: "title"}];
 
   const action = {
     label: "Voir plus",
     url: FRONT_ADMIN_TRAINING,
+    className: "bg-fe-blue"
   };
 
   useEffect(() => {
