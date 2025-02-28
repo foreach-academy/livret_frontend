@@ -12,7 +12,7 @@ export const FRONT_POLICY = "/policy"
 export const FRONT_HOME = "/home"
 export const FRONT_TRAINER_PRATICAL_LIFE = "/trainer-pratical-life"
 
-export const FRONT_FORMATION_DETAIL = "/formations/:id"
+export const FRONT_FORMATION_DETAIL = "/trainings/:id"
 export const FRONT_FORMATION_DETAIL_PROMOTION_DETAIL = "/formations/:formationId/promotions/:promotionId"
 
 
