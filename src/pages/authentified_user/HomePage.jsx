@@ -7,6 +7,7 @@ import DOMPurify from 'dompurify'; // Importation de DOMPurify
 import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
 import TrainingServices from '../../services/TrainingServices';
 import Header from '../../components/shared/navbar/Header'
+import { FRONT_FORMATION_DETAIL } from '../../utils/frontUrl';
 
 
 const HomePage = () => {
@@ -102,7 +103,7 @@ await TrainingServices.fetchAllTrainings(setTrainings);
                 key={training.id}
                 title={training.title}
                 description={training.description}
-                moreInfoLink={`/formations/${training.id}`}
+                url={`trainings/${training.id}`}
               />
             ))}
           </div>
