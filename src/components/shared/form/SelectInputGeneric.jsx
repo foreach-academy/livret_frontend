@@ -23,20 +23,20 @@ const SelectInputGeneric = ({
                         </option>
                     ))}
                 </select>
-                {onAdd ? (
+                {onAdd && (
                     <Button
                         buttonTitle="Ajouter"
                         className="bg-fe-orange"
                         setAction={onAdd}
                     />
-                ) : null}
+                )}
             </div>
 
             {showSelectedList && selectedItems.length > 0 && (
                 <ul>
                     {selectedItems.map((id) => {
                         const user = options.find((user) => user.id === id);
-                        return user ? (
+                        return user && (
                             <li key={id}>
                                 {user.firstname} {user.lastname}
                                 <Button
@@ -46,7 +46,7 @@ const SelectInputGeneric = ({
                                 />
 
                             </li>
-                        ) : null;
+                        )
                     })}
                 </ul>
             )}

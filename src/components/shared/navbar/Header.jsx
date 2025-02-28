@@ -52,33 +52,6 @@ const Header = ({ setHeaderHeight }) => {
 
   useEffect(() => {
     setHeaderHeight(ref?.current?.clientHeight);
-    // const hamburger = hamburgerRef.current;
-    // const navLinks = document.querySelectorAll(".nav-link");
-    // const hamburgerIcon = document.querySelector(
-    //   ".hamburger .material-icons-outlined"
-    // );
-
-    // if (!hamburger || !hamburgerIcon) return; // Vérification que l'élément existe
-
-    // const mobileMenu = () => {
-    //   setIsMenuOpen((prevState) => !prevState);
-    //   hamburgerIcon.innerText = isMenuOpen ? "menu" : "close";
-    // };
-
-    // const closeMenu = () => {
-    //   setIsMenuOpen(false);
-    //   hamburgerIcon.innerText = "menu";
-    // };
-
-    // hamburger.addEventListener("click", mobileMenu);
-    // navLinks.forEach((n) => n.addEventListener("click", closeMenu));
-
-    // return () => {
-    //   hamburger.removeEventListener("click", mobileMenu);
-    //   navLinks.forEach((link) => {
-    //     link.removeEventListener("click", closeMenu);
-    //   });
-    // };
   }, [ref?.current?.clientHeight]); // Exécuter l'effet uniquement si `isMenuOpen` change
 
   return (

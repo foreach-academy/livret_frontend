@@ -93,7 +93,7 @@ function App() {
           isAdmin={isAdmin}
           isTrainer={isTrainer}
         />
-        {isAdmin || isTrainer ? null : <Footer />}
+        {(!isAdmin & !isTrainer) && <Footer />}
         <ToastContainer
           position="bottom-right"
           autoClose={5000}

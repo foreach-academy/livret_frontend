@@ -88,8 +88,8 @@ function PromotionDetailsPage() {
             />
             <Accordion accordionLabel="Responsables" accordionColor="bg-fe-purple">
                 <ul>
-                    {promoDetail?.promotionSupervisors?.map(user => (
-                        <li key={user.id} className="d-flex justify-content-between align-items-center">
+                    {promoDetail?.promotionSupervisors?.map((user, index) => (
+                        <li key={index} className="d-flex justify-content-between align-items-center">
                             {user.supervisorUser.firstname} {user.supervisorUser.lastname}
                             {isAdmin && (
                                 <Button
@@ -115,8 +115,8 @@ function PromotionDetailsPage() {
 
             <Accordion accordionLabel="Formateurs" accordionColor="bg-fe-green">
                 <ul>
-                    {promoDetail?.promotionTrainers?.map(user => (
-                        <li key={user.id} className="d-flex justify-content-between align-items-center">
+                    {promoDetail?.promotionTrainers?.map((user, index) => (
+                        <li key={index} className="d-flex justify-content-between align-items-center">
                             {user.trainerUser.firstname} {user.trainerUser.lastname}
                             {isAdmin && (
                                 <Button
@@ -141,8 +141,8 @@ function PromotionDetailsPage() {
 
             <Accordion accordionLabel="Étudiants" accordionColor="bg-fe-dark-blue">
                 <ul>
-                    {promoDetail?.promotionStudients?.map(user => (
-                        <li key={user.studient_id} className="d-flex justify-content-between align-items-center">
+                    {promoDetail?.promotionStudients?.map((user, index) => (
+                        <li key={index} className="d-flex justify-content-between align-items-center">
                             {user.studientUser.firstname} {user.studientUser.lastname}
                             {isAdmin && (
                                 <Button
@@ -164,9 +164,6 @@ function PromotionDetailsPage() {
                     />
                 )}
             </Accordion>
-
-
-
         </AdminLayout>
     );
 }

@@ -6,8 +6,8 @@ const Tbody = ({ data, columns, action }) => {
 
     return (
         <tbody>
-            {data.map((item) => (
-                <tr key={item.id}>
+            {data.map((item, index) => (
+                <tr key={index}>
                     {columns.map((col) => (
                         <td key={col.key}>{col.render ? col.render(item) : item[col.key]}</td>
                     ))}
@@ -18,8 +18,6 @@ const Tbody = ({ data, columns, action }) => {
                                 setAction={() => navigate(`${action.url}/${item.id}`, navigate)}
                                 buttonTitle={action.label}
                             />
-
-
                         </td>
                     )}
                 </tr>

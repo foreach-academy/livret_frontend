@@ -22,14 +22,8 @@ function AdminAddPromotionPage() {
 
     useEffect(() => {
         TrainingServices.fetchAllTrainings(setTrainings);
-        fetchUsers();
+        UserServices.fetchAllUsers(setUsers);
     }, []);
-
-    const fetchUsers = async () => {
-        await UserServices.fetchAllUsers(setUsers);
-
-
-    };
 
     const getUsersByRole = (roleId) => users.filter(user => user.userRole.id === roleId);
     const listSelector = [
@@ -76,8 +70,8 @@ function AdminAddPromotionPage() {
                                 onChange={(e) => setPromotion({ ...promotion, training_id: e.target.value })}
                             >
                                 <option value="" disabled>Choisissez une formation</option>
-                                {trainings.map(training => (
-                                    <option key={training.id} value={training.id}>{training.title}</option>
+                                {trainings.map((training, index) => (
+                                    <option key={index} value={training.id}>{training.title}</option>
                                 ))}
                             </select>
                             <Input
@@ -88,9 +82,9 @@ function AdminAddPromotionPage() {
                                 className="color-black-text"
                             />
                         </div>
-                        {listSelector.map(({ label, role, options }) => (
+                        {listSelector.map(({ label, role, options, index }) => (
                             <SelectInputGeneric
-                                key={role}
+                                key={index}
                                 label={label}
                                 options={options}
                                 selectedValue=""

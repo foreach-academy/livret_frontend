@@ -94,9 +94,9 @@ await TrainingServices.fetchAllTrainings(setTrainings);
             </p>
           </div>
         </div>
-        <div className="formations">
-          <h2>Nos formations</h2>
-          <div className="formation-cards">
+        <div className="text-center mb-5">
+          <h2 className='mb-5'>Nos formations</h2>
+          <div className="d-flex justify-content-center flex-wrap">
             {trainings && trainings.map((training)=>(
               <FormationCard
                 key={training.id}

@@ -57,22 +57,6 @@
   .presentation-section {
     opacity: 0; 
   }
-  
-  .formations {
-    padding: 20px;
-    text-align: center;
-  }
-
-  .formations h2 {
-    font-size: 2em;
-    margin-bottom: 20px;
-  }
-  
-  .formation-cards {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
 
   .strategic-info {
     opacity: 0; 
