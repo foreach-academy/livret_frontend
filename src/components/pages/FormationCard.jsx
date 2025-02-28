@@ -1,27 +1,32 @@
 import React from "react";
 import "../../styles/FormationCard/FormationCard.css";
+import Card from 'react-bootstrap/Card';
+import Button from "../shared/Button"
+import { useNavigate } from "react-router-dom";
 
 const FormationCard = ({
   title,
   description,
-  moreInfoLink,
+  photo,
+  url
 }) => {
+  const navigate = useNavigate();
 
   return (
-    <div className="w-25 d-inline-block me-2 p-2 text-center rounded" style={{backgroundColor: "rgba(0,0,255,.1)"}}>
-      <h3>{title}</h3>
-      <p className="truncateText">{description}</p>
-
-      <button
-        id="button_savoir_plus_formation_card"
-        onClick={() =>
-          window.open(moreInfoLink, "_blank", "noopener,noreferrer")
-        }
-
-      >
-        En savoir plus
-      </button>
-    </div>
+<Card className="m-4 rounded" style={{ width: '18rem' }}>
+{photo && <Card.Img variant="top" src="holder.js/100px180" />}
+<Card.Body className="bg-fe-black-blue rounded">
+  <Card.Title className="text-white">{title}</Card.Title>
+  <Card.Text  className="text-white truncateText">
+{description}
+  </Card.Text>
+  <Button 
+  buttonTitle="En savoir plus"
+  className="bg-fe-orange"
+  setAction={() => navigate(`/${url}`)}
+  />
+</Card.Body>
+</Card>
   );
 };
 
