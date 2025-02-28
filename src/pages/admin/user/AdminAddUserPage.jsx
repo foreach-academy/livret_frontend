@@ -4,9 +4,6 @@ import UserServices from "../../../services/UserServices";
 import RoleServices from "../../../services/RoleServices";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import DOMPurify from "dompurify";
-import { FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
-import { navigateTo } from "../../../utils/navigate";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Input from "../../../components/shared/form/Input";
 import Button from "../../../components/shared/Button";
@@ -17,6 +14,7 @@ function AddUserPage() {
   const [selectedRole, setSelectedRole] = useState("");
   const navigate = useNavigate();
   const [roles, setRoles] = useState([]);
+
   const fetchRoles = async () => {
     await RoleServices.fetchAllRoles(setRoles);
   }
@@ -29,10 +27,9 @@ function AddUserPage() {
     setSelectedRole(selected);
     setUser((prevState) => ({
       ...prevState,
-      roleId: selected,
+      role_id: selected
     }));
   };
-
   const handleFileChange = (e) => {
     setUser((prevState) => ({
       ...prevState,
@@ -44,31 +41,11 @@ function AddUserPage() {
 e.preventDefault();
 
     if (user.password !== user.confirmPassword) {
+      toast.error("Les mots de passe ne correspondent pas.");
       return;
     }
-
-    const sanitizedUser = {
-      firstname: DOMPurify.sanitize(user.firstname),
-      lastname: DOMPurify.sanitize(user.lastname),
-      email: DOMPurify.sanitize(user.email),
-      birthdate: user.birthdate,
-      role_id: user.roleId,
-      password: DOMPurify.sanitize(user.password),
-      position: user.position,
-      photo: user.photo,
-      promo: user.promo || null,
-    };
-
-    try {
-      await UserServices.addUser(sanitizedUser);
-
-      navigateTo(FRONT_ADMIN_USERS, navigate);
-      toast.success("Utilisateur ajouté avec succès");
-    } catch (error) {
-      console.log(sanitizedUser)
-      console.error("Erreur lors de l'ajout de l'utilisateur:", error);
-      toast.error("Erreur lors de l'ajout de l'utilisateur");
-    }
+    console.log("Utilisateur envoyé :", user); 
+      await UserServices.addUser(user, navigate, toast);
   };
 
   return (

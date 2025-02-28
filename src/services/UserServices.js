@@ -6,11 +6,14 @@ class UserServices {
 
     /**
      * Récupère la liste complète de tous les utilisateurs.
+     * @param {Function} setUsers - Fonction pour mettre à jour l'état des utilisateurs.
      * @returns {Promise} - Promesse contenant les données de tous les utilisateurs.
      */
     static async fetchAllUsers(setUsers) {
         try {
-            return await axios.get(process.env.REACT_APP_API_URL + '/users').then((response) => setUsers(response.data));
+            const response = await axios.get(process.env.REACT_APP_API_URL + '/users');
+            setUsers(response.data);
+            return response.data;
         } catch (error) {
             console.error("Erreur lors de la récupération des utilisateurs:", error);
             throw error;
@@ -23,34 +26,45 @@ class UserServices {
      * @returns {Promise} - Promesse contenant les données de l'utilisateur.
      */
     static fetchUserById(id) {
-        return axios.get(process.env.REACT_APP_API_URL + "/users/" + id);
+        return axios.get(`${process.env.REACT_APP_API_URL}/users/${id}`);
     }
 
     /**
      * Ajoute un nouvel utilisateur.
-     * @param {Object} users - Objet contenant les informations de l'utilisateur.
+     * @param {Object} user - Objet contenant les informations de l'utilisateur.
+     * @param {Function} navigate - Fonction de navigation pour rediriger après l'ajout.
+     * @param {Object} toast - Instance de notification pour afficher un message.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static addUser(user) {
-        return axios.post(process.env.REACT_APP_API_URL + '/users', user)
+    static async addUser(user, navigate, toast) {
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_URL}/users`, user);
+            navigate(-1);
+            toast.success(`Utilisateur ${user.firstname} ajouté avec succès!`);
+            return response.data;
+        } catch (error) {
+            toast.error("Erreur lors de l'ajout de l'utilisateur.");
+            console.error("Erreur lors de l'ajout de l'utilisateur:", error);
+            throw error;
+        }
     }
 
     /**
      * Récupère les utilisateurs associés à un rôle spécifique.
-     * @param {string} roleName - Nom du rôle à rechercher.
+     * @param {string} role - Nom du rôle à rechercher.
      * @returns {Promise} - Promesse contenant les données des utilisateurs correspondant.
      */
-    static getUserByRole(roleName) {
-        return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${roleName}`);
+    static getUserByRole(role) {
+        return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
     }
 
     /**
-     * Met à jour le rôle d'un utilisateur.
+     * Met à jour les informations d'un utilisateur.
      * @param {number} id - ID de l'utilisateur.
-     * @param {number} roleId - ID du nouveau rôle.
+     * @param {Object} user - Objet contenant les nouvelles informations de l'utilisateur.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static UpdateUser(id, user) {
+    static updateUser(id, user) {
         return axios.patch(`${process.env.REACT_APP_API_URL}/users/${id}`, user);
     }
 
@@ -68,7 +82,7 @@ class UserServices {
      * @param {string} token - Jeton JWT de l'utilisateur.
      */
     static setAxiosToken(token) {
-        axios.defaults.headers["Authorization"] = "Bearer " + token;
+        axios.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
 
     /**
@@ -93,8 +107,8 @@ class UserServices {
      * Vérifie et actualise l'état d'authentification de l'utilisateur en utilisant le token stocké.
      */
     static checkToken() {
-        if (UserServices.isAuthenticated()) {
-            const token = window.localStorage.getItem("authToken");
+        const token = window.localStorage.getItem("authToken");
+        if (token && UserServices.isAuthenticated()) {
             UserServices.setAxiosToken(token); // Actualise le token dans les headers axios
         } else {
             AuthenticateService.logout(); // Déconnecte si le token est invalide
@@ -113,6 +127,7 @@ class UserServices {
         }
         return false;
     }
+
     /**
      * Vérifie si l'utilisateur authentifié est un formateur.
      * @returns {boolean} - Vrai si l'utilisateur a un rôle "Formateur", faux sinon.
@@ -125,36 +140,40 @@ class UserServices {
         }
         return false;
     }
+
     /**
      * Récupère le nom de l'utilisateur à partir du token JWT.
-     * @returns {string} - Le nom de l'utilisateur.
+     * @returns {string | null} - Le nom de l'utilisateur ou null en cas d'erreur.
      */
     static userName() {
         if (UserServices.isAuthenticated()) {
             const token = window.localStorage.getItem("authToken");
-            const tokenData = jwtDecode(token);
-            console.log(tokenData)
-            return tokenData.user;
+            try {
+                const { user } = jwtDecode(token);
+                return user;
+            } catch (error) {
+                console.error("Erreur lors de la récupération du nom d'utilisateur:", error);
+                return null;
+            }
         }
-        return false;
+        return null;
     }
 
     /**
      * Récupère l'ID de l'utilisateur à partir du token JWT.
-     * @returns {number} - L'ID de l'utilisateur.
+     * @returns {number | null} - L'ID de l'utilisateur ou null en cas d'erreur.
      */
     static getUserId() {
         const token = window.localStorage.getItem("authToken");
-        const tokenData = jwtDecode(token);
-        return tokenData.id;
+        if (!token) return null;
+        try {
+            const { id } = jwtDecode(token);
+            return id;
+        } catch (error) {
+            console.error("Erreur lors de la récupération de l'ID utilisateur:", error);
+            return null;
+        }
     }
-    /**
-     * Récupère les utilisateurs à partir du rôle
-       */
-    static getUserByRole(role) {
-        return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
-    }
-
 }
 
 export default UserServices;
