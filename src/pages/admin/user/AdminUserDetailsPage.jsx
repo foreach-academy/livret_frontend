@@ -7,11 +7,13 @@ import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Button from "../../../components/shared/Button";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 import Input from "../../../components/shared/form/Input";
+import CustomModal from "../../../components/shared/modal/CustomModal";
 
 
 function UserDetailsPage() {
   const { id: userId } = useParams();
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false)
 
   const [user, setUser] = useState({});
 
@@ -43,89 +45,80 @@ function UserDetailsPage() {
 
   const handleUpdate = async (e) => {
     e.preventDefault();
-    try {
-      await UserServices.UpdateUser(userId, user);
-      toast.success("Utilisateur mis à jour avec succès !");
-      navigate(-1);
-    } catch (error) {
-      console.error("Erreur lors de la mise à jour:", error);
-      toast.error("Erreur lors de la mise à jour.");
-    }
+    await UserServices.updateUser(userId, user, navigate, toast);
   };
 
   const handleDelete = async () => {
-    try {
-      const confirmation = window.confirm("Voulez-vous vraiment supprimer cet utilisateur?");
-      if (!confirmation) return;
-      await UserServices.deleteUser(userId);
-      toast.success("Utilisateur supprimé avec succès!");
-      navigate(-1);
-    } catch (error) {
-      console.error("Erreur lors de la suppression:", error);
-      toast.error("Erreur lors de la suppression.");
-    }
+    await UserServices.deleteUser(userId, navigate, toast);
   };
 
   return (
     <AdminLayout>
       <AdminBodyTitle pageTitle={`Modifier ${user.firstname} ${user.lastname}`} />
       <form onSubmit={handleUpdate}>
-      <label className="fw-bold">Rôle</label>
-      <Form.Select aria-label="Rôle" name="role_id" value={user.role_id} onChange={(e) => setUser({ ...user, role_id: e.target.value })}>
-        <option value="1">Admin</option>
-        <option value="2">Formateur</option>
-        <option value="3">Étudiant</option>
-      </Form.Select>
+        <label className="fw-bold">Rôle</label>
+        <Form.Select aria-label="Rôle" name="role_id" value={user.role_id} onChange={(e) => setUser({ ...user, role_id: e.target.value })}>
+          <option value="1">Admin</option>
+          <option value="2">Formateur</option>
+          <option value="3">Étudiant</option>
+        </Form.Select>
 
-      <Input
-        type="text"
-        name="firstname"
-        labelName="Prénom"
-        value={user.firstname}
-        changeFunction={(e) => setUser({ ...user, firstname: e.target.value })}
-        required={true}
-      />
-
-      <Input
-        type="text"
-        name="lastname"
-        labelName="Nom"
-        value={user.lastname}
-        changeFunction={(e) => setUser({ ...user, lastname: e.target.value })}
-        required
-      />
-
-      <Input
-        type="email"
-        name="email"
-        labelName="Email"
-        value={user.email}
-        changeFunction={(e) => setUser({ ...user, email: e.target.value })}
-        required
-      />
-
-      {parseInt(user.role_id) === 1 &&
         <Input
           type="text"
-          name="position"
-          labelName="Emploi"
-          value={user.position}
-          changeFunction={(e) => setUser({ ...user, position: e.target.value })}
-          placeholder="Ex : Directeur Technique" 
-          required
-        />}
+          name="firstname"
+          labelName="Prénom"
+          value={user.firstname}
+          changeFunction={(e) => setUser({ ...user, firstname: e.target.value })}
+          required={true}
+        />
 
-      {parseInt(user.role_id) === 1 &&
         <Input
-          type="file"
-          accept="image/*"
-          labelName="Photo"
-          changeFunction={(e) => setUser({ ...user, photo: e.target.value })}
-        />}
-      <Button type="submit" buttonTitle="Enregistrer les modifications" className="bg-fe-orange" />
-      <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={handleDelete} />
-   
+          type="text"
+          name="lastname"
+          labelName="Nom"
+          value={user.lastname}
+          changeFunction={(e) => setUser({ ...user, lastname: e.target.value })}
+          required
+        />
+
+        <Input
+          type="email"
+          name="email"
+          labelName="Email"
+          value={user.email}
+          changeFunction={(e) => setUser({ ...user, email: e.target.value })}
+          required
+        />
+
+        {parseInt(user.role_id) === 1 &&
+          <Input
+            type="text"
+            name="position"
+            labelName="Emploi"
+            value={user.position}
+            changeFunction={(e) => setUser({ ...user, position: e.target.value })}
+            placeholder="Ex : Directeur Technique"
+            required
+          />}
+
+        {parseInt(user.role_id) === 1 &&
+          <Input
+            type="file"
+            accept="image/*"
+            labelName="Photo"
+            changeFunction={(e) => setUser({ ...user, photo: e.target.value })}
+          />}
+        <Button type="submit" buttonTitle="Enregistrer les modifications" className="bg-fe-orange" />
       </form>
+      <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={() => { setIsOpen(true) }} />
+      <CustomModal
+        description="Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible"
+        title={`Supprimer le compte de ${user.firstname}`}
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+      >
+        <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={handleDelete} />
+      </CustomModal>
     </AdminLayout>
   );
 }

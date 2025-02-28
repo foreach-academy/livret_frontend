@@ -62,20 +62,45 @@ class UserServices {
      * Met à jour les informations d'un utilisateur.
      * @param {number} id - ID de l'utilisateur.
      * @param {Object} user - Objet contenant les nouvelles informations de l'utilisateur.
+     * @param {Function} navigate - Fonction de navigation pour rediriger après la mise à jour.
+     * @param {Object} toast - Instance de notification pour afficher un message.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static updateUser(id, user) {
-        return axios.patch(`${process.env.REACT_APP_API_URL}/users/${id}`, user);
+    static async updateUser(id, user, navigate, toast) {
+        try {
+            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/users/${id}`, user);
+            navigate(-1);
+            toast.success("Les informations de l'utilisateur ont été mises à jour avec succès !");
+            return response.data;
+        } catch (error) {
+            toast.error("Erreur lors de la mise à jour de l'utilisateur.");
+            console.error("Erreur lors de la mise à jour de l'utilisateur:", error);
+            throw error;
+        }
     }
 
-    /**
-     * Supprime un utilisateur.
-     * @param {number} id - ID de l'utilisateur.
-     * @returns {Promise} - Promesse contenant la réponse du serveur.
-     */
-    static deleteUser(id) {
-        return axios.delete(`${process.env.REACT_APP_API_URL}/users/${id}`);
-    }
+/**
+ * Supprime un utilisateur.
+ * @param {number} id - ID de l'utilisateur.
+ * @param {Function} navigate - Fonction de navigation pour rediriger après la suppression.
+ * @param {Object} toast - Instance de notification pour afficher un message.
+ * @returns {Promise} - Promesse contenant la réponse du serveur.
+ */
+static async deleteUser(id, navigate, toast) {
+    return axios
+        .delete(`${process.env.REACT_APP_API_URL}/users/${id}`)
+        .then(() => {
+            toast.success("L'utilisateur a bien été supprimé.");
+            navigate(-1);
+        })
+        .catch((error) => {
+            toast.error("Erreur lors de la suppression de l'utilisateur.");
+            console.error("Erreur lors de la suppression de l'utilisateur:", error);
+            throw error;
+        });
+}
+
+
 
     /**
      * Définit le token JWT dans les headers d'axios pour les futures requêtes authentifiées.

@@ -38,14 +38,14 @@ function AddUserPage() {
   };
 
   const handleSubmit = async (e) => {
-e.preventDefault();
+    e.preventDefault();
 
     if (user.password !== user.confirmPassword) {
       toast.error("Les mots de passe ne correspondent pas.");
       return;
     }
-    console.log("Utilisateur envoyé :", user); 
-      await UserServices.addUser(user, navigate, toast);
+    console.log("Utilisateur envoyé :", user);
+    await UserServices.addUser(user, navigate, toast);
   };
 
   return (
