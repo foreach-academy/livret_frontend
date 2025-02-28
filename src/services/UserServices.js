@@ -25,8 +25,10 @@ class UserServices {
      * @param {number} id - L'identifiant de l'utilisateur.
      * @returns {Promise} - Promesse contenant les données de l'utilisateur.
      */
-    static fetchUserById(id) {
-        return axios.get(`${process.env.REACT_APP_API_URL}/users/${id}`);
+    static fetchUserById(id, setUser) {
+        return axios.get(`${process.env.REACT_APP_API_URL}/users/${id}`).then((response) => {
+            setUser(response.data)
+        });
     }
 
     /**

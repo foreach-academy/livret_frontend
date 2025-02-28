@@ -15,6 +15,7 @@ import Accordion from "../../../components/shared/Accordion";
 import ModulesTBody from "../../../components/pages/admin/trainings/ModulesTBody";
 import { toast } from "react-toastify";
 import CustomModal from "../../../components/shared/modal/CustomModal";
+import { FRONT_ADMIN_PROMOTION } from "../../../utils/frontUrl";
 
 
 function TrainingDetailPage() {
@@ -47,7 +48,13 @@ function TrainingDetailPage() {
         { id: "action", label: "Action" },
     ];
 
-    const promotionColumns = [{ key: "title" }];
+    const promotionColumns = [{ label: "title" }];
+
+    const action = {
+        label: "Voir plus",
+        url: FRONT_ADMIN_PROMOTION,
+        className: "bg-fe-blue"
+      };
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [moduleToDelete, setModuleToDelete] = useState(null);
@@ -76,7 +83,7 @@ function TrainingDetailPage() {
         setModuleToDelete({ id, title });
         setIsModalOpen(true);
     };
-
+    
 
     const confirmDeleteModule = async () => {
         if (!moduleToDelete) return;
@@ -240,32 +247,28 @@ function TrainingDetailPage() {
                         <Tbody
                             data={promotion}
                             columns={promotionColumns}
-                            action={{
-                                label: "Voir plus",
-                                onClick: (promo, navigate) =>
-                                    navigate(`/admin/promotions/${promo.id}`),
-                            }}
+                            action={action}
                         />
                     </Table>
                 </Accordion>
             </div>
-            <CustomModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
-                title={moduleToDelete && `Confirmer la suppression du module : ${moduleToDelete.title}`}
-                description={moduleToDelete &&
-                    <>
-                        <span> Êtes-vous sûr de vouloir supprimer le module "
-                            <span className="fw-bold"> {moduleToDelete.title} </span>" ? Cette action est irréversible. Toutes les évaluations en lien avec ce module seront perdues</span>
-                    </>
-                }
-            >
+            <CustomModal 
+    isOpen={isModalOpen} 
+    onClose={() => setIsModalOpen(false)} 
+    title={moduleToDelete && `Confirmer la suppression du module : ${moduleToDelete.title}`} 
+    description={moduleToDelete &&
+        <>
+        <span> Êtes-vous sûr de vouloir supprimer le module " 
+            <span className="fw-bold"> {moduleToDelete.title} </span>" ? Cette action est irréversible. Toutes les évaluations en lien avec ce module seront perdues</span>
+        </>
+    }
+>
 
-                <div className="d-flex justify-content-end">
-                    <Button buttonTitle="Annuler" className="bg-fe-orange" setAction={() => setIsModalOpen(false)} />
-                    <Button buttonTitle="Supprimer" className="bg-danger ms-2" setAction={confirmDeleteModule} />
-                </div>
-            </CustomModal>
+    <div className="d-flex justify-content-end">
+        <Button buttonTitle="Annuler" className="bg-fe-orange" setAction={() => setIsModalOpen(false)} />
+        <Button buttonTitle="Supprimer" className="bg-danger ms-2" setAction={confirmDeleteModule} />
+    </div>
+</CustomModal>
 
 
         </AdminLayout>

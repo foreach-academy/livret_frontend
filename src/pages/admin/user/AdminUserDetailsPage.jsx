@@ -14,35 +14,13 @@ function UserDetailsPage() {
   const { id: userId } = useParams();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false)
-
   const [user, setUser] = useState({});
 
-  const fetchUserDetails = async () => {
-    try {
-      const response = await UserServices.fetchUserById(userId);
-      setUser({
-        ...response.data,
-        role_id: parseInt(response.data.role_id, 10),
-      });
-      console.log("Données utilisateur récupérées :", response.data);
-    } catch (error) {
-      console.error("Erreur lors de la récupération des informations de l'utilisateur:", error);
-    }
-  };
 
   useEffect(() => {
-    fetchUserDetails();
+    UserServices.fetchUserById(userId, setUser);  
   }, []);
-
-
-  const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    setUser((prevUser) => ({
-      ...prevUser,
-      photo: file,
-    }));
-  };
-
+  
   const handleUpdate = async (e) => {
     e.preventDefault();
     await UserServices.updateUser(userId, user, navigate, toast);
@@ -51,7 +29,7 @@ function UserDetailsPage() {
   const handleDelete = async () => {
     await UserServices.deleteUser(userId, navigate, toast);
   };
-
+  
   return (
     <AdminLayout>
       <AdminBodyTitle pageTitle={`Modifier ${user.firstname} ${user.lastname}`} />
@@ -107,6 +85,7 @@ function UserDetailsPage() {
             accept="image/*"
             labelName="Photo"
             changeFunction={(e) => setUser({ ...user, photo: e.target.value })}
+            value={user.photo}
           />}
         <Button type="submit" buttonTitle="Enregistrer les modifications" className="bg-fe-orange" />
       </form>

@@ -26,21 +26,22 @@ code {
 }
 
 .bg-fe-orange {
-  background-color: #f39c12;
+  background-color: #f39c12 !important;
 }
+
 .bg-fe-blue {
-  background-color: #108cb7;
+  background-color: #108cb7 !important;
 }
 .bg-fe-purple{
-  background-color: #BC92D9;
+  background-color: #BC92D9 !important;
 }
 
 .bg-fe-green {
-  background-color: #48D18C;
+  background-color: #48D18C !important;
 }
 
 .bg-fe-dark-blue {
-  background-color: #4A80FD;
+  background-color: #4A80FD !important;
 }
 
 .bg-fe-gray {
@@ -49,6 +50,15 @@ code {
 
 .bg-fe-light-gray {
   background-color: #cecece;
+}
+.bg-fe-Admin{
+  background-color: #BC92D9 !important;
+}
+.bg-fe-Formateur{
+  background-color: #48D18C !important;
+}
+.bg-fe-Etudiant{
+  background-color: #4A80FD !important;
 }
 
 /* badge */

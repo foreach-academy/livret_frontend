@@ -4,8 +4,7 @@ import "../../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
 import UserServices from "../../../services/UserServices";
 import RoleServices from "../../../services/RoleServices";
 import { FRONT_ADMIN_ADD_USERS, FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
-import { navigateTo } from "../../../utils/navigate";
-import { Table, Form, Row, Col } from "react-bootstrap";
+import { Table, Form} from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Thead from "../../../components/shared/form/Thead";
@@ -30,53 +29,22 @@ const UsersListPage = () => {
   ];
 
   const columns = [
-    { key: "lastname" },
-    { key: "firstname" },
-    { key: "email" },
-    {
-      key: "userRole?.name",
-      render: (user) => (
-        <span
-          className={`badge ${user.userRole?.name === "Admin"
-            ? "bg-purple"
-            : user.userRole?.name === "Formateur"
-              ? "bg-success"
-              : user.userRole?.name === "Etudiant"
-                ? "bg-primary"
-                : "bg-danger"
-            }`}
-        >
-          {user.userRole?.name || "Aucun rôle"}
-        </span>
-      ),
-    },
+    { label: "lastname" },
+    { label: "firstname" },
+    { label: "email" },
+    { label: "userRole", subkey: "name"}
   ];
 
-  if (isAdmin) {
-    columns.push({
-      key: "action",
-      render: (user) => (
-        <Button
-          buttonTitle="Modifier"
-          className="bg-fe-orange"
-          setAction={() => navigate(`${FRONT_ADMIN_USERS}/${user.id}`)}
-        />
-      ),
-    });
-  }
-
-  const fetchAllUsers = async () => {
-    await UserServices.fetchAllUsers(setUsers);
-  };
-
-  const fetchRoles = async () => {
-    await RoleServices.fetchAllRoles(setRoles);
+  const action = {
+    url: FRONT_ADMIN_USERS,
+    label: "Modifier",
+    className: "bg-fe-orange",
   };
 
   useEffect(() => {
-    fetchAllUsers();
-    fetchRoles();
-  }, []);
+    UserServices.fetchAllUsers(setUsers);
+    RoleServices.fetchAllRoles(setRoles);
+    }, []);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
@@ -96,7 +64,6 @@ const UsersListPage = () => {
 
     return matchesSearch && matchesRole;
   });
-
   return (
     <AdminLayout>
       <AdminBodyTitle
@@ -104,7 +71,7 @@ const UsersListPage = () => {
         buttonTitle="Ajouter un utilisateur"
         navigateUrl={FRONT_ADMIN_ADD_USERS}
         icon="add"
-        pageTitle="Utlisateurs"
+        pageTitle="Utilisateurs"
         navigate={navigate}
       />
       <div className="d-flex align-items-end">
@@ -132,7 +99,7 @@ const UsersListPage = () => {
       {filteredUsers.length === 0 ? <div className="d-flex justify-content-center mt-5 text-align">Aucun utilisateur trouvé</div>
         : <Table striped bordered hover responsive className="mt-4">
           <Thead theads={Theads} />
-          <Tbody data={filteredUsers} columns={columns} />
+          <Tbody data={filteredUsers} columns={columns} action={action}/>
         </Table>}
 
     </AdminLayout>

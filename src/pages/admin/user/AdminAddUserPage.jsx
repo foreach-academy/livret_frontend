@@ -15,11 +15,8 @@ function AddUserPage() {
   const navigate = useNavigate();
   const [roles, setRoles] = useState([]);
 
-  const fetchRoles = async () => {
-    await RoleServices.fetchAllRoles(setRoles);
-  }
   useEffect(() => {
-    fetchRoles();
+    RoleServices.fetchAllRoles(setRoles);
   }, []);
 
   const handleRoleChange = (e) => {
@@ -44,7 +41,6 @@ function AddUserPage() {
       toast.error("Les mots de passe ne correspondent pas.");
       return;
     }
-    console.log("Utilisateur envoyé :", user);
     await UserServices.addUser(user, navigate, toast);
   };
 

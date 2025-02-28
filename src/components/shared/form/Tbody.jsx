@@ -4,18 +4,27 @@ import Button from "../Button";
 const Tbody = ({ data, columns, action }) => {
     const navigate = useNavigate();
 
+
     return (
         <tbody>
             {data.map((item, index) => (
+             
                 <tr key={index}>
-                    {columns.map((col) => (
-                        <td key={col.key}>{col.render ? col.render(item) : item[col.key]}</td>
+                    {columns.map((col,index) => (
+                        <td key={index} className={`bg-fe-${item[col.label]?.[col.subkey]}`}>
+                            {col.render
+                                ? col.render(item) 
+                                : col.subkey 
+                                    ? item[col.label]?.[col.subkey]
+                                    : item[col.label] 
+                            }
+                        </td>
                     ))}
                     {action && (
                         <td className="d-flex justify-content-center">
                             <Button
-                                className="bg-fe-blue"
-                                setAction={() => navigate(`${action.url}/${item.id}`, navigate)}
+                                className={action.className}
+                                setAction={() => navigate(`${action.url}/${item.id}`)}
                                 buttonTitle={action.label}
                             />
                         </td>
@@ -27,3 +36,7 @@ const Tbody = ({ data, columns, action }) => {
 };
 
 export default Tbody;
+
+
+
+
