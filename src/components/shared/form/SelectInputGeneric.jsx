@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "../Button";
 
 const SelectInputGeneric = ({
     label,
@@ -22,23 +23,30 @@ const SelectInputGeneric = ({
                         </option>
                     ))}
                 </select>
-                <button className="primary-button" onClick={onAdd} disabled={!selectedValue}>
-                    Ajouter
-                </button>
+                {onAdd && (
+                    <Button
+                        buttonTitle="Ajouter"
+                        className="bg-fe-orange"
+                        setAction={onAdd}
+                    />
+                )}
             </div>
 
             {showSelectedList && selectedItems.length > 0 && (
                 <ul>
                     {selectedItems.map((id) => {
                         const user = options.find((user) => user.id === id);
-                        return user ? (
+                        return user && (
                             <li key={id}>
                                 {user.firstname} {user.lastname}
-                                <button className="btn btn-danger ms-2" onClick={() => onRemove(id)}>
-                                    Supprimer
-                                </button>
+                                <Button
+                                    buttonTitle="Retirer"
+                                    className="bg-danger"
+                                    setAction={() => onRemove(id)}
+                                />
+
                             </li>
-                        ) : null;
+                        )
                     })}
                 </ul>
             )}

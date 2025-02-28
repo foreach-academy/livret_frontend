@@ -1,26 +1,39 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import PromotionsService from "../../../services/PromotionsService";
-import { Table, Button, Form, Row, Col } from "react-bootstrap";
+import { Table} from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import Thead from "../../../components/shared/form/Thead";
+import Tbody from "../../../components/shared/form/Tbody";
+import { FRONT_ADMIN_ADD_PROMOTION, FRONT_ADMIN_PROMOTION } from "../../../utils/frontUrl";
+import Input from "../../../components/shared/form/Input";
+import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 
 const AdminPromotionPage = () => {
   const [promotions, setPromotions] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
   const { isAdmin } = useContext(AuthContext);
+  const theads = [
+    {
+      label: "Nom de la promotion"
+    },
+    {
+      label: "Action"
+    }
+  ]
+
+  const columns = [{ key: "title", label: "Titre" }];
+
+  const action = {
+    label: "Voir plus",
+    url: FRONT_ADMIN_PROMOTION,
+  };
+
 
   const fetchAllPromotions = async () => {
-    try {
-      const response = await PromotionsService.fetchAllPromotions();
-      setPromotions(response.data);
-    } catch (error) {
-      console.error(
-        "Erreur lors de la récupération des promotions:",
-        error.response ? error.response.data : error.message
-      );
-    }
+    await PromotionsService.fetchAllPromotions(setPromotions);
   };
 
   useEffect(() => {
@@ -37,61 +50,36 @@ const AdminPromotionPage = () => {
 
   return (
     <AdminLayout>
-    <div className="container-admin">
-      {/* En-tête de la liste des promotions */}
-      <div className="d-flex justify-content-between">
-        <h1>Promotions</h1>
-        {isAdmin && (
-          <button
-            className="primary-button"
-            onClick={() => navigate("/admin/promotions/add")}
-          >
-            Ajouter une promotion
-          </button>
-        )}
-      </div>
-
-      {/* Zone de recherche */}
-      <Row className="mt-3">
-        <Col md={6}>
-          <Form.Control
-            type="text"
-            placeholder="🔍 Rechercher une promotion..."
-            value={searchTerm}
-            onChange={handleSearchChange}
-          />
-        </Col>
-      </Row>
+      <AdminBodyTitle
+        pageTitle="Promotion"
+        isAdmin={isAdmin}
+        navigate={navigate}
+        navigateUrl={FRONT_ADMIN_ADD_PROMOTION}
+        buttonTitle="Ajouter une promotion"
+        icon="add"
+      />
+      <Input
+        labelName="Rechercher une promotion :"
+        type="search"
+        value={searchTerm}
+        changeFunction={(e) => setSearchTerm(e.target.value)}
+        className="w-100"
+      />
 
       {/* Liste des promotions */}
-      <Table striped bordered hover responsive className="mt-4">
-        <thead>
-          <tr>
-            <th>Nom</th>
+      {filteredPromotions.length === 0 ?  <div className="d-flex justify-content-center mt-5 text-align">Aucune promotion trouvée</div>
+ : <Table striped bordered hover responsive className="mt-4">
+        <Thead
+          theads={theads}
+        />
+        <Tbody
+          data={filteredPromotions}
+          columns={columns}
+          action={action}
+        />
 
-            {isAdmin && <th>Actions</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {filteredPromotions.map((promotion) => (
-            <tr key={promotion.id}>
-              <td>{promotion.title}</td>
-             
-                <td>
-                  <Button
-                    variant="warning"
-                    size="sm"
-                    onClick={() => navigate(`/admin/promotions/${promotion.id}`)}
-                  >
-                    Voir plus
-                  </Button>
-                </td>
-              
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+      </Table>}
+
     </AdminLayout>
   );
 };

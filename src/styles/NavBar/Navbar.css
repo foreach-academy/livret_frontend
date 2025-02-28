@@ -1,20 +1,12 @@
-  body,
-  html {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-
 
   header {
-    position: sticky; 
+    position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     background-color: #2a2c42;
     color: white;
-    z-index: 1000; 
+    z-index: 1000;
   }
 
 
@@ -25,13 +17,6 @@
     padding: 0 20px;
     margin: 0 70px;
   } */
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 1.5rem;
-  }
 
   nav li {
     list-style: none;
@@ -62,12 +47,14 @@
     padding: 10px 15px;
     display: block;
   }
+
   .dropdown {
     color: white;
     text-decoration: none;
     padding: 10px 15px;
     display: block;
   }
+
   .dropdown-toggle {
     display: flex !important;
     align-items: center;
@@ -85,10 +72,12 @@
     padding: 8px;
     border-radius: 6px;
   }
+
   .dropdown-profil-button:hover {
     cursor: pointer;
     background-color: #32354e;
-  } 
+  }
+
   .dropdown-profil-content-flex {
     display: flex;
     align-items: center;
@@ -99,6 +88,7 @@
     border-radius: 8px;
     text-decoration: none;
   }
+
   .dropdown-profil-content-flex:hover {
     background-color: #ddd;
     cursor: pointer;
@@ -109,22 +99,23 @@
       position: relative;
       display: inline-block;
     }
+
     .dropdown-profil-content {
       display: none;
       position: absolute;
       background-color: #ffffff;
       min-width: 200px;
-      overflow: auto;
       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
       right: 0;
       z-index: 1;
       border-radius: 8px;
       padding: 4px;
     }
-    
+
     .show {
       display: block;
-    } 
+    }
+
     .dropdown-menu {
       display: none;
       position: absolute;
@@ -137,21 +128,21 @@
       width: 200px;
       z-index: 1000;
     }
-    
+
     .dropdown-menu li {
       border-bottom: 1px solid #444;
     }
-    
+
     .dropdown-menu li:last-child {
       border-bottom: none;
     }
-    
+
     .dropdown-menu a {
       color: white;
       padding: 10px 15px;
       display: block;
     }
-    
+
     .dropdown-menu a:hover {
       background-color: #f39c12;
     }
@@ -163,12 +154,8 @@
 
   /* Navbar Admin*/
   .navbar_admin-container {
-    width: 250px;
-    height: 100vh;
+    width: 20%;
     background-color: #2a2c42;
-    position: fixed;
-    left: 0;
-    top: 0;
     display: flex;
   }
 
@@ -197,6 +184,8 @@
     transition: background 0.3s ease-in-out;
     text-decoration: none;
     color: white;
+
+
   }
 
   .navbar_admin-item a {
@@ -204,7 +193,7 @@
     text-decoration: none;
     display: block;
     width: 100%;
-    
+
   }
 
   .navbar_admin-item:hover {
@@ -214,7 +203,8 @@
 
   /* Style pour l'onglet actif */
   .navbar_admin-item.active {
-    background-color: #575B76; /* Bleu clair */
+    background-color: #575B76;
+    /* Bleu clair */
     font-weight: bold;
 
   }
@@ -224,38 +214,49 @@
     .dropdown-profil-button {
       display: none;
     }
+
     .dropdown-profil-content {
       border-top: 1px solid lightgray;
     }
-    .dropdown-profil-content, .dropdown-profil-content-flex {
+
+    .dropdown-profil-content,
+    .dropdown-profil-content-flex {
       padding-left: 0;
     }
+
     .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 6rem;
-        flex-direction: column;
-        background-color: #fff;
-        width: 100%;
-        height: 100%;
-        text-align: center;
-        transition: 0.3s;
+      position: fixed;
+      left: -100%;
+      top: 6rem;
+      flex-direction: column;
+      background-color: #fff;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: 0.3s;
     }
-    .nav-menu.active{
-        left: 0;
+
+    .nav-menu.active {
+      left: 0;
     }
-    .nav-menu a, .dropdown-profil, .dropdown {
+
+    .nav-menu a,
+    .dropdown-profil,
+    .dropdown {
       color: var(--secondary-color);
       padding: 24px;
       font-size: 18px;
     }
+
     .nav-menu .dropdown-menu a {
       padding: 16px;
     }
+
     .hamburger {
-        display: block;
-        cursor: pointer;
+      display: block;
+      cursor: pointer;
     }
+
     .dropdown-menu {
       width: 100%;
       padding-left: 0;

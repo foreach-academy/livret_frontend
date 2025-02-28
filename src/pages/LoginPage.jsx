@@ -9,6 +9,7 @@ import { FRONT_ADMIN_DASHBOARD, FRONT_FORGOT_PASSWORD, FRONT_HOME } from "../uti
 import AuthenticateService from "../services/AuthenticateServices";
 import { formatRetryTime } from "../utils/timeFormat";
 import Input from "../components/shared/form/Input";
+import Header from "../components/shared/navbar/Header";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -16,6 +17,7 @@ const LoginPage = () => {
   const { setIsAuthenticated, setToken, setIsAdmin, setIsTrainer, setUserName } = useContext(AuthContext);
   const navigate = useNavigate();
   const countdownInterval = useRef(null);
+  const [headerHeight, setHeaderHeight] = useState(null)
 
   const login = async (e) => {
   e.preventDefault();
@@ -31,7 +33,6 @@ const LoginPage = () => {
         setIsAuthenticated(true);
         setToken(token);
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken.user);
         setUserName(decodedToken.user);
         setIsAdmin(decodedToken.role === "Admin");
         setIsTrainer(decodedToken.role === "Formateur"); // A changer vers un context role
@@ -70,6 +71,7 @@ const LoginPage = () => {
 
   return (
     <>
+      <Header setHeaderHeight={setHeaderHeight}/>
       <div className="page-title">
         <h1>Bienvenue sur votre plateforme de suivi</h1>
       </div>

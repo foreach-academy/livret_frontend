@@ -1,11 +1,15 @@
 import axios from "axios";
 
-function fetchAllPromotions() {
-    return axios.get(`${process.env.REACT_APP_API_URL}/promotions`);
+async function fetchAllPromotions(setPromotion) {
+    await axios.get(`${process.env.REACT_APP_API_URL}/promotions`).then((response)=> {
+        setPromotion(response.data);
+    });
 }
 
-function fetchPromotionById(id) {
-    return axios.get(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
+function fetchPromotionById(id, setPromoDetail) {
+    return axios.get(`${process.env.REACT_APP_API_URL}/promotions/${id}`).then((response) => {
+        setPromoDetail(response.data)
+    });
 }
 
 function addPromotion(promotion) {
@@ -39,8 +43,18 @@ function deletePromotion(id) {
     return axios.delete(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
 }
 
+function getPromotionByTrainingId(training_id, setPromotion) {
+    try{
+         return axios.get(`${process.env.REACT_APP_API_URL}/promotions/promoByTraining/${training_id}`).then(((response) => setPromotion(response.data)))
+    }
+    catch(error){
+        console.error('Erreur lors de la récupération des promotions liées à une formation:', error);
+        throw error;
+    }
+}
+
 export default { fetchAllPromotions, fetchPromotionById, addPromotion, updatePromotion, deletePromotion,
     addStudientToPromotion, deleteStudientFromPromotion,
     addTrainerToPromotion, deleteTrainerFromPromotion,
-    addSupervisorToPromotion, deleteSupervisorFromPromotion 
+    addSupervisorToPromotion, deleteSupervisorFromPromotion ,getPromotionByTrainingId
  };

@@ -2,31 +2,25 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import UserServices from "../../../services/UserServices";
 import { toast } from "react-toastify";
-import { Table, Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import Button from "../../../components/shared/Button";
+import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
+import Input from "../../../components/shared/form/Input";
+
 
 function UserDetailsPage() {
   const { id: userId } = useParams();
   const navigate = useNavigate();
 
-  const [user, setUser] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    role_id: "",
-    position: "",
-    formation: "",
-    promotion: "",
-    photo: "",
-  });
+  const [user, setUser] = useState({});
 
-  // Récupération des informations de l'utilisateur
   const fetchUserDetails = async () => {
     try {
       const response = await UserServices.fetchUserById(userId);
       setUser({
         ...response.data,
-        role_id: parseInt(response.data.role_id, 10), // S'assurer que role_id est bien un nombre
+        role_id: parseInt(response.data.role_id, 10),
       });
       console.log("Données utilisateur récupérées :", response.data);
     } catch (error) {
@@ -38,30 +32,7 @@ function UserDetailsPage() {
     fetchUserDetails();
   }, []);
 
-  // Gestion des changements dans les inputs
-  const handleChange = (e) => {
-    const { name, value } = e.target;
 
-    setUser((prevUser) => {
-      let updatedUser = { ...prevUser, [name]: value };
-
-      // Si le rôle change, réinitialiser les champs non pertinents
-      if (name === "role_id") {
-        const role = parseInt(value, 10);
-        if (role === 1) {
-          updatedUser = { ...updatedUser, formation: "", promotion: "" };
-        } else if (role === 3) {
-          updatedUser = { ...updatedUser, position: "" };
-        } else {
-          updatedUser = { ...updatedUser, position: "", formation: "", promotion: "" };
-        }
-      }
-
-      return updatedUser;
-    });
-  };
-
-  // Gestion du changement de photo
   const handlePhotoChange = (e) => {
     const file = e.target.files[0];
     setUser((prevUser) => ({
@@ -70,8 +41,8 @@ function UserDetailsPage() {
     }));
   };
 
-  // Envoi des modifications
-  const handleUpdate = async () => {
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     try {
       await UserServices.UpdateUser(userId, user);
       toast.success("Utilisateur mis à jour avec succès !");
@@ -81,6 +52,7 @@ function UserDetailsPage() {
       toast.error("Erreur lors de la mise à jour.");
     }
   };
+
   const handleDelete = async () => {
     try {
       const confirmation = window.confirm("Voulez-vous vraiment supprimer cet utilisateur?");
@@ -96,121 +68,64 @@ function UserDetailsPage() {
 
   return (
     <AdminLayout>
-      <div className="container-admin">
-        <h1>Modifier {user.firstname} {user.lastname}</h1>
+      <AdminBodyTitle pageTitle={`Modifier ${user.firstname} ${user.lastname}`} />
+      <form onSubmit={handleUpdate}>
+      <label className="fw-bold">Rôle</label>
+      <Form.Select aria-label="Rôle" name="role_id" value={user.role_id} onChange={(e) => setUser({ ...user, role_id: e.target.value })}>
+        <option value="1">Admin</option>
+        <option value="2">Formateur</option>
+        <option value="3">Étudiant</option>
+      </Form.Select>
 
-        <Table striped bordered hover className="mt-4">
-          <tbody>
-            <tr>
-              <th>Prénom</th>
-              <td>
-                <Form.Control
-                  type="text"
-                  name="firstname"
-                  value={user.firstname}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Nom</th>
-              <td>
-                <Form.Control
-                  type="text"
-                  name="lastname"
-                  value={user.lastname}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Email</th>
-              <td>
-                <Form.Control
-                  type="email"
-                  name="email"
-                  value={user.email}
-                  onChange={handleChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Rôle</th>
-              <td>
-                <Form.Select name="role_id" value={user.role_id} onChange={handleChange}>
-                  <option value="1">Admin</option>
-                  <option value="2">Formateur</option>
-                  <option value="3">Étudiant</option>
-                </Form.Select>
-              </td>
-            </tr>
+      <Input
+        type="text"
+        name="firstname"
+        labelName="Prénom"
+        value={user.firstname}
+        changeFunction={(e) => setUser({ ...user, firstname: e.target.value })}
+        required={true}
+      />
 
-            {parseInt(user.role_id) === 1 && (
-              <tr>
-                <th>Emploi (Position)</th>
-                <td>
-                  <Form.Control
-                    type="text"
-                    name="position"
-                    value={user.position}
-                    onChange={handleChange}
-                    placeholder="Ex : Directeur Technique"
-                  />
-                </td>
-              </tr>
-            )}
+      <Input
+        type="text"
+        name="lastname"
+        labelName="Nom"
+        value={user.lastname}
+        changeFunction={(e) => setUser({ ...user, lastname: e.target.value })}
+        required
+      />
 
-            {parseInt(user.role_id) === 3 && (
-              <>
-                <tr>
-                  <th>Formation en cours</th>
-                  <td>
-                    <Form.Control
-                      type="text"
-                      name="formation"
-                      value={user.formation}
-                      onChange={handleChange}
-                      placeholder="Ex : Développement Web"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <th>Promotion en cours</th>
-                  <td>
-                    <Form.Control
-                      type="text"
-                      name="promotion"
-                      value={user.promotion}
-                      onChange={handleChange}
-                      placeholder="Ex : 2024-2025"
-                    />
-                  </td>
-                </tr>
-              </>
-            )}
+      <Input
+        type="email"
+        name="email"
+        labelName="Email"
+        value={user.email}
+        changeFunction={(e) => setUser({ ...user, email: e.target.value })}
+        required
+      />
 
-            {parseInt(user.role_id) === 1 && (
-              <tr>
-                <th>Photo</th>
-                <td>
-                  <Form.Control
-                    type="file"
-                    accept="image/*"
-                    onChange={handlePhotoChange}
-                  />
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </Table>
+      {parseInt(user.role_id) === 1 &&
+        <Input
+          type="text"
+          name="position"
+          labelName="Emploi"
+          value={user.position}
+          changeFunction={(e) => setUser({ ...user, position: e.target.value })}
+          placeholder="Ex : Directeur Technique" 
+          required
+        />}
 
-        <button onClick={handleUpdate} className="primary-button mt-3">
-          Enregistrer les modifications
-        </button>
-        <button onClick={handleDelete} className="btn btn-danger mt-3">
-          Supprimer l'utilisateur
-        </button>
-      </div>
+      {parseInt(user.role_id) === 1 &&
+        <Input
+          type="file"
+          accept="image/*"
+          labelName="Photo"
+          changeFunction={(e) => setUser({ ...user, photo: e.target.value })}
+        />}
+      <Button type="submit" buttonTitle="Enregistrer les modifications" className="bg-fe-orange" />
+      <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={handleDelete} />
+   
+      </form>
     </AdminLayout>
   );
 }

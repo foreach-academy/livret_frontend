@@ -6,18 +6,15 @@ import StrategicInfo from '../../components/pages/homePage/StrategicInfo';
 import DOMPurify from 'dompurify'; // Importation de DOMPurify
 import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
 import TrainingServices from '../../services/TrainingServices';
+import Header from '../../components/shared/navbar/Header'
 
 
 const HomePage = () => {
   const [trainings, setTrainings] = useState([]);
-
+  const [headerHeight, setHeaderHeight] = useState(null);
   const fetchAllTrainings = async () => {
- try {
-   const response = await TrainingServices.fetchAllTraining();
-   setTrainings(response.data);
- } catch (error) {
-   console.error("Erreur lors de la récupération des formations:", error);
-  }}
+await TrainingServices.fetchAllTrainings(setTrainings);
+}
 
   useEffect(() => {
     fetchAllTrainings();
@@ -72,8 +69,8 @@ const HomePage = () => {
 
   return (
     <>
-
-      <div className="homepage">
+  <Header setHeaderHeight={setHeaderHeight}/>
+      <div className="homepage" style={{height: 'calc(100vh - 80px)'}}>
         <div className="header-image">
           <img src={process.env.PUBLIC_URL + "/images/bg/slider-developpeur-web.jpeg"} alt="Accueil" />
         </div>
@@ -97,9 +94,9 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <div className="formations">
-          <h2>Nos formations</h2>
-          <div className="formation-cards">
+        <div className="text-center mb-5">
+          <h2 className='mb-5'>Nos formations</h2>
+          <div className="d-flex justify-content-center flex-wrap">
             {trainings && trainings.map((training)=>(
               <FormationCard
                 key={training.id}

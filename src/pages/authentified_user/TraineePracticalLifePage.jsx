@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import "../../styles/TraineePracticalLife/TraineePracticalLife.css";
+import Header from "../../components/shared/navbar/Header";
 
 
 const TraineePracticalLifePage = () => {
+
+  const [headerHeight, setHeaderHeight] = useState(null);
   return (
     <>
-
-      <div className="practical_life_section">
+  <Header setHeaderHeight={setHeaderHeight}/>
+      <div className="practical_life_section" style={{height: 'calc(100vh - 80px)'}}>
         <div id="practical_life_container">
           <div id="practical_life_title">
             <h1>Vie pratique du stagiaire</h1>

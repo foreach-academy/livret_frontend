@@ -1,14 +1,23 @@
-import React from 'react'
+import React from "react";
 
-function Input({labelName,type,value,changeFunction, className}) {
+function Input({ labelName, type, value, changeFunction, className, placeholder, required }) {
   return (
-    <>
-     <div className={`input-group d-flex flex-column  ${className} `}>
-    <label>{labelName}</label>
-    <input type={type} value={value} onChange={changeFunction} />
+    <div className={`d-flex flex-column ${className}`}>
+      {labelName && (
+        <label className="fw-bold">
+          {labelName} {required && <span style={{ color: "red" }}>*</span>}
+        </label>
+      )}
+      <input
+        placeholder={placeholder}
+        className="p-1"
+        type={type}
+        value={value}
+        onChange={changeFunction}
+        required={required}
+      />
     </div>
-    </>
-  )
+  );
 }
 
-export default Input
+export default Input;
