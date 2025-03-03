@@ -3,7 +3,7 @@ import '../../../styles/StrategicInfo/StrategicInfo.css';
 
 const StrategicInfo = () => {
   return (
-    <div className="strategic-info">
+    <div className='d-flex flex-column align-items-center p-3'>
       <h1>La qualité étant une des valeurs que nous revendiquons.</h1>
       <p>
         Un Comité de Pilotage regroupant enseignants, stagiaires, financeurs, prescripteurs et clients qui valide les choix stratégiques de ForEach Academy

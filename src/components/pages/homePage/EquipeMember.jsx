@@ -6,10 +6,10 @@ import { Card } from 'react-bootstrap';
 const EquipeMember = ({ photo, name, position, email }) => {
   return (
     <Card className="m-4 rounded" style={{ width: '18rem' }}>
-    {photo && <Card.Img variant="top" src={photo} />}
-    <Card.Body className="bg-fe-black-blue rounded-bottom">
-      <Card.Title className="text-white fw-bold">{name}</Card.Title>
-      <Card.Text  className="text-white fst-italic truncateText">
+    {photo ? <Card.Img variant="top" src={photo} /> : <Card.Img variant="top" src="/images/workers/fe-avatar.png" />}
+    <Card.Body className="bg-fe-black-blue rounded-bottom d-flex flex-column align-items-center">
+      <Card.Title className="text-white fw-bold ">{name}</Card.Title>
+      <Card.Text  className="text-white fst-italic truncateText  d-flex flex-column align-items-center">
         {position}<br />
     <span className="text-orange"> {email}</span>
       </Card.Text>

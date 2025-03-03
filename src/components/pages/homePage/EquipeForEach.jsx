@@ -16,7 +16,6 @@ const EquipeForEach = forwardRef((props, ref) => {
 
   const response = await UserServices.getUserByRole(AdminRole.id)
   SetMembers(response.data)
-  console.log(response.data)
 }
 
 useEffect(() => {
