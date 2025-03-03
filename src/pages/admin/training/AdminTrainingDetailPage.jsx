@@ -79,7 +79,6 @@ function TrainingDetailPage() {
     };
 
     const handleDeleteRequest = (id, title) => {
-        console.log("Module à supprimer :", id, title);
         setModuleToDelete({ id, title });
         setIsModalOpen(true);
     };

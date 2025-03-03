@@ -26,8 +26,7 @@ const HomePage = () => {
   const fetchMembersByRole = async () => {
     const response = await UserServices.getUserByRole(AdminRole.id)
     SetMembers(response.data)
-    console.log("Données utilisateur récupérées :", response.data);
-  }
+    }
 
   useEffect(() => {
     RoleServices.fetchAllRoles(setRoles);
