@@ -4,8 +4,7 @@ import "../../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
 import UserServices from "../../../services/UserServices";
 import RoleServices from "../../../services/RoleServices";
 import { FRONT_ADMIN_ADD_USERS, FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
-import { navigateTo } from "../../../utils/navigate";
-import { Table, Form, Row, Col } from "react-bootstrap";
+import { Table, Form } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Thead from "../../../components/shared/form/Thead";
@@ -13,6 +12,7 @@ import Tbody from "../../../components/shared/form/Tbody";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 import Button from "../../../components/shared/Button";
 import Input from "../../../components/shared/form/Input";
+import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 
 const UsersListPage = () => {
   const [users, setUsers] = useState([]);
@@ -30,52 +30,21 @@ const UsersListPage = () => {
   ];
 
   const columns = [
-    { key: "lastname" },
-    { key: "firstname" },
-    { key: "email" },
-    {
-      key: "userRole?.name",
-      render: (user) => (
-        <span
-          className={`badge ${user.userRole?.name === "Admin"
-            ? "bg-purple"
-            : user.userRole?.name === "Formateur"
-              ? "bg-success"
-              : user.userRole?.name === "Etudiant"
-                ? "bg-primary"
-                : "bg-danger"
-            }`}
-        >
-          {user.userRole?.name || "Aucun rôle"}
-        </span>
-      ),
-    },
+    { label: "lastname" },
+    { label: "firstname" },
+    { label: "email" },
+    { label: "userRole", subkey: "name" }
   ];
 
-  if (isAdmin) {
-    columns.push({
-      key: "action",
-      render: (user) => (
-        <Button
-          buttonTitle="Modifier"
-          className="bg-fe-orange"
-          setAction={() => navigate(`${FRONT_ADMIN_USERS}/${user.id}`)}
-        />
-      ),
-    });
-  }
-
-  const fetchAllUsers = async () => {
-    await UserServices.fetchAllUsers(setUsers);
-  };
-
-  const fetchRoles = async () => {
-    await RoleServices.fetchAllRoles(setRoles);
+  const action = {
+    url: FRONT_ADMIN_USERS,
+    label: "Modifier",
+    className: "bg-fe-orange",
   };
 
   useEffect(() => {
-    fetchAllUsers();
-    fetchRoles();
+    UserServices.fetchAllUsers(setUsers);
+    RoleServices.fetchAllRoles(setRoles);
   }, []);
 
   const handleSearchChange = (event) => {
@@ -83,20 +52,23 @@ const UsersListPage = () => {
   };
 
   const handleRoleChange = (event) => {
+    console.log("Valeur sélectionnée :", event.target.value);
     setSelectedRole(event.target.value);
   };
+  
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
       user.lastname.toLowerCase().includes(searchTerm) ||
       user.firstname.toLowerCase().includes(searchTerm);
 
-    const matchesRole =
-      selectedRole === "Tous" || user.userRole?.name === selectedRole;
+      const matchesRole =
+      selectedRole === "" || user.userRole?.id == selectedRole || selectedRole === "Tous";
+    
+
 
     return matchesSearch && matchesRole;
   });
-
   return (
     <AdminLayout>
       <AdminBodyTitle
@@ -104,7 +76,7 @@ const UsersListPage = () => {
         buttonTitle="Ajouter un utilisateur"
         navigateUrl={FRONT_ADMIN_ADD_USERS}
         icon="add"
-        pageTitle="Utlisateurs"
+        pageTitle="Utilisateurs"
         navigate={navigate}
       />
       <div className="d-flex align-items-end">
@@ -116,23 +88,19 @@ const UsersListPage = () => {
           changeFunction={handleSearchChange}
 
         />
-
-
-        <Form.Select value={selectedRole} className="w-25 h-75 " onChange={handleRoleChange}>
-          <option value="Tous">Tous les rôles</option>
-          {roles.map((role) => (
-            <option key={role.id} value={role.name}>
-              {role.name}
-            </option>
-          ))}
-        </Form.Select>
+        <SelectInputGeneric
+          label="Tous les rôles"
+          options={roles}
+          selectedValue={selectedRole}
+          onChange={handleRoleChange}
+          getOptionLabel={(role) => role.name}
+          className="w-25"
+        />
       </div>
-
-      {/* Liste des utilisateurs */}
       {filteredUsers.length === 0 ? <div className="d-flex justify-content-center mt-5 text-align">Aucun utilisateur trouvé</div>
         : <Table striped bordered hover responsive className="mt-4">
           <Thead theads={Theads} />
-          <Tbody data={filteredUsers} columns={columns} />
+          <Tbody data={filteredUsers} columns={columns} action={action} />
         </Table>}
 
     </AdminLayout>

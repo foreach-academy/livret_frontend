@@ -6,7 +6,7 @@ import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Thead from "../../../components/shared/form/Thead";
 import Tbody from "../../../components/shared/form/Tbody";
-import { FRONT_ADMIN_ADD_PROMOTION, FRONT_ADMIN_PROMOTION } from "../../../utils/frontUrl";
+import { FRONT_ADMIN_ADD_PROMOTION, FRONT_ADMIN_PROMOTION, FRONT_ADMIN_PROMOTIONDETAILS } from "../../../utils/frontUrl";
 import Input from "../../../components/shared/form/Input";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 
@@ -24,11 +24,12 @@ const AdminPromotionPage = () => {
     }
   ]
 
-  const columns = [{ key: "title", label: "Titre" }];
+  const columns = [{ label: "title" }];
 
   const action = {
     label: "Voir plus",
     url: FRONT_ADMIN_PROMOTION,
+    className: "bg-fe-blue"
   };
 
 

@@ -7,6 +7,7 @@ import PromotionsService from '../../../services/PromotionsService';
 import UserServices from '../../../services/UserServices';
 import SelectInputGeneric from '../../../components/shared/form/SelectInputGeneric';
 import { FRONT_ADMIN_PROMOTION } from '../../../utils/frontUrl';
+import { admin, student, trainer } from '../../../utils/roleList'
 
 function AdminAddPromotionPage() {
     const navigate = useNavigate();
@@ -25,11 +26,11 @@ function AdminAddPromotionPage() {
         UserServices.fetchAllUsers(setUsers);
     }, []);
 
-    const getUsersByRole = (roleId) => users.filter(user => user.userRole.id === roleId);
+    const getUsersByRole = (roleName) => users.filter(user => user.userRole.name === roleName);
     const listSelector = [
-        { label: "Sélectionner un superviseur", role: "supervisors", options: getUsersByRole(1) },
-        { label: "Sélectionner un formateur", role: "trainers", options: getUsersByRole(2) },
-        { label: "Sélectionner un étudiant", role: "students", options: getUsersByRole(3) }
+        { label: "Sélectionner un superviseur", role: "supervisors", options: getUsersByRole(admin) },
+        { label: "Sélectionner un formateur", role: "trainers", options: getUsersByRole(trainer) },
+        { label: "Sélectionner un étudiant", role: "students", options: getUsersByRole(student) }
     ]
     const handleUserSelection = (role, userId) => {
         if (!userId) return;
@@ -65,15 +66,14 @@ function AdminAddPromotionPage() {
                 <div className="form_blue_contener wider">
                     <div className="form_blue gap-3">
                         <div className='d-flex flex-row gap-3'>
-                            <select
-                                value={promotion.training_id}
+                            <SelectInputGeneric
+                                label="Choisissez une formation"
+                                options={trainings}
+                                selectedValue={promotion.training_id}
                                 onChange={(e) => setPromotion({ ...promotion, training_id: e.target.value })}
-                            >
-                                <option value="" disabled>Choisissez une formation</option>
-                                {trainings.map((training, index) => (
-                                    <option key={index} value={training.id}>{training.title}</option>
-                                ))}
-                            </select>
+                                getOptionLabel={(training) => training.title}
+                            />
+
                             <Input
                                 changeFunction={(e) => setPromotion({ ...promotion, title: e.target.value })}
                                 labelName="Nom de la promotion :"
@@ -82,7 +82,7 @@ function AdminAddPromotionPage() {
                                 className="color-black-text"
                             />
                         </div>
-                        {listSelector.map(({ label, role, options, index }) => (
+                        {listSelector.map(({ label, role, options }, index) => (
                             <SelectInputGeneric
                                 key={index}
                                 label={label}
@@ -92,8 +92,10 @@ function AdminAddPromotionPage() {
                                 selectedItems={promotion[role]}
                                 onRemove={(id) => handleUserRemoval(role, id)}
                                 showSelectedList={true}
+                                getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
                             />
                         ))}
+
 
                         <button onClick={handleSubmit} className="primary-button">
                             Ajouter la promotion

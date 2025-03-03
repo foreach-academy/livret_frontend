@@ -9,6 +9,7 @@ import SelectInputGeneric from "../../../components/shared/form/SelectInputGener
 import Accordion from "../../../components/shared/Accordion";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle"
 import Button from "../../../components/shared/Button";
+import { admin, student, trainer } from "../../../utils/roleList";
 
 function PromotionDetailsPage() {
     const { isAdmin } = useContext(AuthContext);
@@ -72,9 +73,9 @@ function PromotionDetailsPage() {
         }
     };
 
-    const supervisors = users.filter(user => user.userRole.id === 1);
-    const trainers = users.filter(user => user.userRole.id === 2);
-    const students = users.filter(user => user.userRole.id === 3);
+    const supervisors = users.filter(user => user.userRole.name === admin);
+    const trainers = users.filter(user => user.userRole.name === trainer);
+    const students = users.filter(user => user.userRole.name === student);
 
     return (
         <AdminLayout>
@@ -109,8 +110,10 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("supervisor")}
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
                     />
                 )}
+
             </Accordion>
 
             <Accordion accordionLabel="Formateurs" accordionColor="bg-fe-green">
@@ -135,8 +138,10 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("trainer")}
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
                     />
                 )}
+
             </Accordion>
 
             <Accordion accordionLabel="Étudiants" accordionColor="bg-fe-dark-blue">
@@ -161,8 +166,10 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("student")}
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`} 
                     />
                 )}
+
             </Accordion>
         </AdminLayout>
     );

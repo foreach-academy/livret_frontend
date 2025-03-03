@@ -15,7 +15,6 @@ const CustomModal = ({ isOpen, onClose, title, description, children }) => {
 
   return (
     <>
-
       <div className="modal-backdrop fade show"></div>
       <div className="modal fade show d-block" tabIndex="-1" role="dialog">
         <div className="modal-dialog modal-dialog-centered" role="document">
@@ -25,7 +24,6 @@ const CustomModal = ({ isOpen, onClose, title, description, children }) => {
               <Button buttonTitle="×" className="bg-danger" setAction={onClose} />
             </div>
             <div className="modal-body">
-              {description && <p>{description}</p>}
               {children}
             </div>
           </div>

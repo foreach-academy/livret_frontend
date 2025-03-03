@@ -10,16 +10,18 @@ const SelectInputGeneric = ({
     selectedItems = [],
     onRemove,
     showSelectedList = false,
+    getOptionLabel = (option) => option.id, 
+    className
 }) => {
     return (
-        <div className="d-flex flex-column gap-2">
+        <div className={`d-flex flex-column gap-2 ${className}`}>
             <label>{label}</label>
             <div className="d-flex gap-2">
                 <select className="form-select me-2" value={selectedValue} onChange={onChange}>
                     <option value="">{label}</option>
                     {options.map((option) => (
                         <option key={option.id} value={option.id}>
-                            {option.firstname} {option.lastname}
+                            {getOptionLabel(option)} 
                         </option>
                     ))}
                 </select>
@@ -35,18 +37,17 @@ const SelectInputGeneric = ({
             {showSelectedList && selectedItems.length > 0 && (
                 <ul>
                     {selectedItems.map((id) => {
-                        const user = options.find((user) => user.id === id);
-                        return user && (
+                        const item = options.find((item) => item.id === id);
+                        return item && (
                             <li key={id}>
-                                {user.firstname} {user.lastname}
+                                {getOptionLabel(item)}
                                 <Button
                                     buttonTitle="Retirer"
                                     className="bg-danger"
                                     setAction={() => onRemove(id)}
                                 />
-
                             </li>
-                        )
+                        );
                     })}
                 </ul>
             )}
