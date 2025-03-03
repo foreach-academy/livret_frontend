@@ -5,22 +5,34 @@ import Button from "../../shared/Button";
 const Slider = ({ itemsPerPage, children }) => {
     const [index, setIndex] = useState(0);
     const items = Array.isArray(children) ? children : [children];
+    const totalItems = items.length;
+    const shouldScroll = totalItems > itemsPerPage;
 
     const nextSlide = () => {
-        if (index + itemsPerPage < items.length) {
-            setIndex(index + itemsPerPage);
+        if (shouldScroll) {
+            setIndex((prevIndex) => (prevIndex + 1) % totalItems);
         }
     };
+
     const prevSlide = () => {
-        if (index - itemsPerPage >= 0) {
-            setIndex(index - itemsPerPage);
+        if (shouldScroll) {
+            setIndex((prevIndex) => (prevIndex - 1 + totalItems) % totalItems);
         }
+    };
+
+    const getVisibleItems = () => {
+        if (!shouldScroll) {
+            return items; 
+        }
+        return Array.from({ length: itemsPerPage }).map((_, i) =>
+            items[(index + i) % totalItems] 
+        );
     };
 
     return (
         <div className="container mt-4">
             <div className="d-flex justify-content-between align-items-center">
-                {index > 0 && (
+                {shouldScroll && (
                     <Button
                         buttonTitle={
                             <span className="material-symbols-outlined">
@@ -31,11 +43,12 @@ const Slider = ({ itemsPerPage, children }) => {
                         className="bg-fe-orange"
                     />
                 )}
+
                 <div className="d-flex justify-content-center w-100">
-                    {items.slice(index, index + itemsPerPage)}
+                    {getVisibleItems()}
                 </div>
 
-                {index + itemsPerPage < items.length && (
+                {shouldScroll && (
                     <Button
                         buttonTitle={
                             <span className="material-symbols-outlined">

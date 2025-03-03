@@ -4,7 +4,7 @@ import '../../../styles/StrategicInfo/StrategicInfo.css';
 const StrategicInfo = () => {
   return (
     <div className='d-flex flex-column align-items-center p-3'>
-      <p>
+      <p >
         Un Comité de Pilotage regroupant enseignants, stagiaires, financeurs, prescripteurs et clients qui valide les choix stratégiques de ForEach Academy
       </p>
       <p>

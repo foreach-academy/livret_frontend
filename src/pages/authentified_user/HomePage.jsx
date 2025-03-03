@@ -61,7 +61,8 @@ const HomePage = () => {
           </Slider>
         </HomePageSection>
         <HomePageSection title="Notre Equipe">
-        <Slider itemsPerPage={4}>
+        <Slider
+        itemsPerPage={4}>
           {members.map((member, index) => (
             <EquipeMember
               key={index}
