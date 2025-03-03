@@ -110,8 +110,10 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("supervisor")}
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
                     />
                 )}
+
             </Accordion>
 
             <Accordion accordionLabel="Formateurs" accordionColor="bg-fe-green">
@@ -136,8 +138,10 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("trainer")}
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
                     />
                 )}
+
             </Accordion>
 
             <Accordion accordionLabel="Étudiants" accordionColor="bg-fe-dark-blue">
@@ -162,8 +166,10 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("student")}
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`} 
                     />
                 )}
+
             </Accordion>
         </AdminLayout>
     );
