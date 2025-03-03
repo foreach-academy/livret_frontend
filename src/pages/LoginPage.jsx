@@ -10,6 +10,7 @@ import AuthenticateService from "../services/AuthenticateServices";
 import { formatRetryTime } from "../utils/timeFormat";
 import Input from "../components/shared/form/Input";
 import Header from "../components/shared/navbar/Header";
+import { admin, trainer } from "../utils/roleList";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -34,8 +35,8 @@ const LoginPage = () => {
         setToken(token);
         const decodedToken = jwtDecode(token);
         setUserName(decodedToken.user);
-        setIsAdmin(decodedToken.role === "Admin");
-        setIsTrainer(decodedToken.role === "Formateur"); // A changer vers un context role
+        setIsAdmin(decodedToken.role === admin);
+        setIsTrainer(decodedToken.role === trainer); // A changer vers un context role
         navigate(FRONT_HOME);
         toast.success(`${response.data.message}`);
       } else {

@@ -51,13 +51,13 @@ code {
 .bg-fe-light-gray {
   background-color: #cecece;
 }
-.bg-fe-Admin{
+.bg-fe-admin{
   background-color: #BC92D9 !important;
 }
-.bg-fe-Formateur{
+.bg-fe-formateur{
   background-color: #48D18C !important;
 }
-.bg-fe-Etudiant{
+.bg-fe-etudiant{
   background-color: #4A80FD !important;
 }
 

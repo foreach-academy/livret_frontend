@@ -8,6 +8,7 @@ import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Input from "../../../components/shared/form/Input";
 import Button from "../../../components/shared/Button";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
+import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 
 function AddUserPage() {
   const [user, setUser] = useState({});
@@ -49,18 +50,15 @@ function AddUserPage() {
       <AdminBodyTitle
         pageTitle="Ajouter un utilisateur"
       />
-
       <div className="form_blue_contener wider">
         <div className="form_blue">
-
-          <label>Rôle</label>
-          <select value={selectedRole} onChange={handleRoleChange}>
-            <option value="" disabled>Choisissez un rôle</option>
-            {roles.map((role) => (
-              <option key={role.id} value={role.id}>{role.name}</option>
-            ))}
-          </select>
-
+          <SelectInputGeneric
+            label="Rôle"
+            options={roles}
+            selectedValue={selectedRole}
+            onChange={handleRoleChange}
+            getOptionLabel={(role) => role.name}
+          />
           {selectedRole && (
             <>
               <form onSubmit={handleSubmit}>

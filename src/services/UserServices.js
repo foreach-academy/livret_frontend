@@ -1,6 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import AuthenticateService from "./AuthenticateServices";
+import { admin } from "../utils/roleList";
 
 class UserServices {
 
@@ -150,7 +151,7 @@ static async deleteUser(id, navigate, toast) {
         if (UserServices.isAuthenticated()) {
             const token = window.localStorage.getItem("authToken");
             const { role } = jwtDecode(token); // Décodage pour extraire le rôle
-            return role === "Admin"; // Vérifie si le rôle est "Admin"
+            return role === admin; // Vérifie si le rôle est "Admin"
         }
         return false;
     }

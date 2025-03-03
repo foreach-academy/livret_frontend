@@ -3,44 +3,31 @@ import EquipeMember from './EquipeMember';
 import '../../../styles/EquipeForEach/EquipeForEach.css'; 
 import DOMPurify from 'dompurify';
 import UserServices from '../../../services/UserServices';
+import RoleServices from '../../../services/RoleServices';
+import { admin } from '../../../utils/roleList';
 
-// const members = [
-//   {
-//     photo: process.env.PUBLIC_URL + "/images/workers/laury.jpg", 
-//     name: 'Laury BOSSAERT',
-//     position: 'Responsable Campus - Référente Handicap',
-//     email: 'laury.bossaert@foreach-academy.fr'
-//   },
-//   {
-//     photo: process.env.PUBLIC_URL + "/images/workers/flore.png", 
-//     name: 'Flore WICART',
-//     position: 'Conseillère formation',
-//     email: 'flore.wicart@foreach-academy.fr'
-//   },
-//   {
-//     photo: process.env.PUBLIC_URL + "/images/workers/ines.png", 
-//     name: 'Inès HIMOUR',
-//     position: 'Assistante administrative',
-//     email: 'ines.himour@foreach-academy.fr'
-//   }
-// ];
-
-
-
-
-// Utiliser forwardRef pour accepter une ref
 const EquipeForEach = forwardRef((props, ref) => {
   const [members,SetMembers] = useState([]);
+  const [roles, setRoles] = useState([]);
+  const AdminRole = roles.find(role => role.name === admin);
 
-const fetchMembersByRole = async () => {
-  const response = await UserServices.getUserByRole(1)
+  console.log(AdminRole)
+  const fetchMembersByRole = async () => {
+
+  const response = await UserServices.getUserByRole(AdminRole.id)
   SetMembers(response.data)
   console.log(response.data)
 }
 
 useEffect(() => {
-fetchMembersByRole()
+  RoleServices.fetchAllRoles(setRoles);
 }, []);
+
+useEffect(() => {
+  if (AdminRole) {
+    fetchMembersByRole();
+  }
+}, [AdminRole]);
   return (
     <div className="equipe-for-each" ref={ref}>
       <h2>Equipe ForEach Academy</h2>

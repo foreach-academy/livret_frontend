@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import UserServices from "../../../services/UserServices";
 import { toast } from "react-toastify";
-import { Form } from "react-bootstrap";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Button from "../../../components/shared/Button";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 import Input from "../../../components/shared/form/Input";
 import CustomModal from "../../../components/shared/modal/CustomModal";
+import RoleServices from "../../../services/RoleServices";
+import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
+import { admin } from "../../../utils/roleList";
 
 
 function UserDetailsPage() {
@@ -15,12 +17,14 @@ function UserDetailsPage() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false)
   const [user, setUser] = useState({});
+  const [roles, setRoles] = useState([]);
 
 
   useEffect(() => {
-    UserServices.fetchUserById(userId, setUser);  
+    UserServices.fetchUserById(userId, setUser);
+    RoleServices.fetchAllRoles(setRoles)
   }, []);
-  
+
   const handleUpdate = async (e) => {
     e.preventDefault();
     await UserServices.updateUser(userId, user, navigate, toast);
@@ -29,17 +33,18 @@ function UserDetailsPage() {
   const handleDelete = async () => {
     await UserServices.deleteUser(userId, navigate, toast);
   };
-  
+
   return (
     <AdminLayout>
       <AdminBodyTitle pageTitle={`Modifier ${user.firstname} ${user.lastname}`} />
       <form onSubmit={handleUpdate}>
-        <label className="fw-bold">Rôle</label>
-        <Form.Select aria-label="Rôle" name="role_id" value={user.role_id} onChange={(e) => setUser({ ...user, role_id: e.target.value })}>
-          <option value="1">Admin</option>
-          <option value="2">Formateur</option>
-          <option value="3">Étudiant</option>
-        </Form.Select>
+        <SelectInputGeneric
+          label="Rôle"
+          options={roles}
+          selectedValue={user.role_id}
+          onChange={(e) => setUser({ ...user, role_id: e.target.value })}
+          getOptionLabel={(role) => role.name}
+        />
 
         <Input
           type="text"
@@ -68,7 +73,7 @@ function UserDetailsPage() {
           required
         />
 
-        {parseInt(user.role_id) === 1 &&
+        {user.userRole.name === admin &&
           <Input
             type="text"
             name="position"
@@ -79,7 +84,7 @@ function UserDetailsPage() {
             required
           />}
 
-        {parseInt(user.role_id) === 1 &&
+        {user.userRole.name === admin &&
           <Input
             type="file"
             accept="image/*"
@@ -91,11 +96,12 @@ function UserDetailsPage() {
       </form>
       <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={() => { setIsOpen(true) }} />
       <CustomModal
-        description="Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible"
         title={`Supprimer le compte de ${user.firstname}`}
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
       >
+        <span>Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible.</span>
+        <br />
         <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={handleDelete} />
       </CustomModal>
     </AdminLayout>

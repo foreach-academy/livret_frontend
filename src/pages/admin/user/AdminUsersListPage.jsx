@@ -4,7 +4,7 @@ import "../../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
 import UserServices from "../../../services/UserServices";
 import RoleServices from "../../../services/RoleServices";
 import { FRONT_ADMIN_ADD_USERS, FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
-import { Table, Form} from "react-bootstrap";
+import { Table, Form } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Thead from "../../../components/shared/form/Thead";
@@ -12,6 +12,7 @@ import Tbody from "../../../components/shared/form/Tbody";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 import Button from "../../../components/shared/Button";
 import Input from "../../../components/shared/form/Input";
+import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 
 const UsersListPage = () => {
   const [users, setUsers] = useState([]);
@@ -32,7 +33,7 @@ const UsersListPage = () => {
     { label: "lastname" },
     { label: "firstname" },
     { label: "email" },
-    { label: "userRole", subkey: "name"}
+    { label: "userRole", subkey: "name" }
   ];
 
   const action = {
@@ -44,23 +45,27 @@ const UsersListPage = () => {
   useEffect(() => {
     UserServices.fetchAllUsers(setUsers);
     RoleServices.fetchAllRoles(setRoles);
-    }, []);
+  }, []);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
   };
 
   const handleRoleChange = (event) => {
+    console.log("Valeur sélectionnée :", event.target.value);
     setSelectedRole(event.target.value);
   };
+  
 
   const filteredUsers = users.filter((user) => {
     const matchesSearch =
       user.lastname.toLowerCase().includes(searchTerm) ||
       user.firstname.toLowerCase().includes(searchTerm);
 
-    const matchesRole =
-      selectedRole === "Tous" || user.userRole?.name === selectedRole;
+      const matchesRole =
+      selectedRole === "" || user.userRole?.id == selectedRole || selectedRole === "Tous";
+    
+
 
     return matchesSearch && matchesRole;
   });
@@ -83,23 +88,19 @@ const UsersListPage = () => {
           changeFunction={handleSearchChange}
 
         />
-
-
-        <Form.Select value={selectedRole} className="w-25 h-75 " onChange={handleRoleChange}>
-          <option value="Tous">Tous les rôles</option>
-          {roles.map((role) => (
-            <option key={role.id} value={role.name}>
-              {role.name}
-            </option>
-          ))}
-        </Form.Select>
+        <SelectInputGeneric
+          label="Tous les rôles"
+          options={roles}
+          selectedValue={selectedRole}
+          onChange={handleRoleChange}
+          getOptionLabel={(role) => role.name}
+          className="w-25"
+        />
       </div>
-
-      {/* Liste des utilisateurs */}
       {filteredUsers.length === 0 ? <div className="d-flex justify-content-center mt-5 text-align">Aucun utilisateur trouvé</div>
         : <Table striped bordered hover responsive className="mt-4">
           <Thead theads={Theads} />
-          <Tbody data={filteredUsers} columns={columns} action={action}/>
+          <Tbody data={filteredUsers} columns={columns} action={action} />
         </Table>}
 
     </AdminLayout>

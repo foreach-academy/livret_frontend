@@ -8,15 +8,15 @@ const Tbody = ({ data, columns, action }) => {
     return (
         <tbody>
             {data.map((item, index) => (
-             
+
                 <tr key={index}>
-                    {columns.map((col,index) => (
-                        <td key={index} className={`bg-fe-${item[col.label]?.[col.subkey]}`}>
+                    {columns.map((col, index) => (
+                        <td key={index} className={`bg-fe-${item[col.label]?.[col.subkey]?.toLowerCase()}`}>
                             {col.render
-                                ? col.render(item) 
-                                : col.subkey 
+                                ? col.render(item)
+                                : col.subkey
                                     ? item[col.label]?.[col.subkey]
-                                    : item[col.label] 
+                                    : item[col.label]
                             }
                         </td>
                     ))}
@@ -36,7 +36,3 @@ const Tbody = ({ data, columns, action }) => {
 };
 
 export default Tbody;
-
-
-
-
