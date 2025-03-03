@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import '../../styles/HomePage/HomePage.css';
 import FormationCard from '../../components/pages/FormationCard';
-import EquipeForEach from '../../components/pages/homePage/EquipeForEach';
 import StrategicInfo from '../../components/pages/homePage/StrategicInfo';
-import DOMPurify from 'dompurify'; // Importation de DOMPurify
-import { Link } from 'react-router-dom'; // Importation de Link pour la navigation interne
+import DOMPurify from 'dompurify'; 
 import TrainingServices from '../../services/TrainingServices';
 import Header from '../../components/shared/navbar/Header'
-import { FRONT_FORMATION_DETAIL } from '../../utils/frontUrl';
 import HomePageSection from '../../components/pages/homePage/HomePageSection';
 import DescriptionHomePage from '../../components/pages/homePage/DescriptionHomePage';
 import UserServices from '../../services/UserServices';
 import EquipeMember from '../../components/pages/homePage/EquipeMember';
 import RoleServices from '../../services/RoleServices'
+import Slider from '../../components/pages/homePage/Slider';
 const HomePage = () => {
   const [trainings, setTrainings] = useState([]);
   const [headerHeight, setHeaderHeight] = useState(null);
@@ -51,6 +49,7 @@ const HomePage = () => {
           <DescriptionHomePage />
         </HomePageSection>
         <HomePageSection title="Nos Formations">
+          <Slider itemsPerPage={4}>
           {trainings && trainings.map((training) => (
             <FormationCard
               key={training.id}
@@ -59,8 +58,10 @@ const HomePage = () => {
               url={`trainings/${training.id}`}
             />
           ))}
+          </Slider>
         </HomePageSection>
         <HomePageSection title="Notre Equipe">
+        <Slider itemsPerPage={4}>
           {members.map((member, index) => (
             <EquipeMember
               key={index}
@@ -70,6 +71,7 @@ const HomePage = () => {
               email={DOMPurify.sanitize(member.email)}
             />
           ))}
+          </Slider>
         </HomePageSection>
         <HomePageSection title="La qualité étant une des valeurs que nous revendiquons.">
           <StrategicInfo />
