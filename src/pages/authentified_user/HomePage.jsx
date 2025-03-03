@@ -47,7 +47,9 @@ const HomePage = () => {
         <div className="header-image">
           <img src={process.env.PUBLIC_URL + "/images/bg/slider-developpeur-web.jpeg"} alt="Accueil" />
         </div>
-        <DescriptionHomePage />
+        <HomePageSection title="Présentation de l'organisme">
+          <DescriptionHomePage />
+        </HomePageSection>
         <HomePageSection title="Nos Formations">
           {trainings && trainings.map((training) => (
             <FormationCard
@@ -69,8 +71,9 @@ const HomePage = () => {
             />
           ))}
         </HomePageSection>
-
-        <StrategicInfo />
+        <HomePageSection title="La qualité étant une des valeurs que nous revendiquons.">
+          <StrategicInfo />
+        </HomePageSection>
       </div>
     </>
   );
