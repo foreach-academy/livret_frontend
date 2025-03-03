@@ -72,26 +72,27 @@ function UserDetailsPage() {
           changeFunction={(e) => setUser({ ...user, email: e.target.value })}
           required
         />
-
-        {user.userRole.name === admin &&
+        {user.userRole?.name === admin &&
           <Input
             type="text"
             name="position"
             labelName="Emploi"
-            value={user.position}
+            value={user.position || ""}
             changeFunction={(e) => setUser({ ...user, position: e.target.value })}
             placeholder="Ex : Directeur Technique"
             required
-          />}
+          />
+        }
 
-        {user.userRole.name === admin &&
+        {user.userRole?.name === admin &&
           <Input
             type="file"
             accept="image/*"
             labelName="Photo"
             changeFunction={(e) => setUser({ ...user, photo: e.target.value })}
-            value={user.photo}
+            value={user.photo || ""}
           />}
+
         <Button type="submit" buttonTitle="Enregistrer les modifications" className="bg-fe-orange" />
       </form>
       <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={() => { setIsOpen(true) }} />
