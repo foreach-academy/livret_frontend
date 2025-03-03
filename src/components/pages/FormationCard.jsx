@@ -12,8 +12,8 @@ const FormationCard = ({
   const navigate = useNavigate();
 
   return (
-<Card className="m-4 rounded" style={{ width: '18rem' }}>
-<Card.Body className="bg-fe-black-blue rounded d-flex flex-column align-items-center text-center">
+<Card className="m-4 rounded " style={{ width: '18rem' , height:'20rem' }}>
+<Card.Body className="bg-fe-black-blue rounded d-flex flex-column align-items-center text-center justify-content-between">
   <Card.Title className="text-white">{title}</Card.Title>
   <Card.Text  className="text-white truncateText">
 {description}
