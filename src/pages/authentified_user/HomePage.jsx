@@ -14,7 +14,7 @@ import Slider from '../../components/pages/homePage/Slider';
 const HomePage = () => {
   const [trainings, setTrainings] = useState([]);
   const [headerHeight, setHeaderHeight] = useState(null);
-  const [members, SetMembers] = useState([]);
+  const [members, setMembers] = useState([]);
   const [roles, setRoles] = useState([]);
 
   const AdminRole = roles.find(role => role.name === "Admin");
@@ -25,7 +25,7 @@ const HomePage = () => {
 
   const fetchMembersByRole = async () => {
     const response = await UserServices.getUserByRole(AdminRole.id)
-    SetMembers(response.data)
+    setMembers(response.data)
     }
 
   useEffect(() => {
