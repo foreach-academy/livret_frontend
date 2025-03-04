@@ -9,7 +9,6 @@ function getModuleById(id) {
 }
 
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
-  console.log("Module reçu :", module);
   if (!module.title ||!module.commentary) {
     toast.error("Impossible d'ajouter un module vide")
     return

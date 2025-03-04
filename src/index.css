@@ -43,6 +43,9 @@ code {
 .bg-fe-dark-blue {
   background-color: #4A80FD !important;
 }
+.bg-fe-black-blue{
+  background-color: #292C42; 
+}
 
 .bg-fe-gray {
   background-color: #9f9f9f;

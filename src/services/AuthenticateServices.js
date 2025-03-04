@@ -31,13 +31,11 @@ class AuthenticateService {
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/authenticate/login`, user);
             return response; // Retourne la réponse si la connexion est réussie
         } catch (error) {
-            console.log(error);
             if (error.response) {
                 if (error.response.status === 429) { // Trop de tentatives de connexion
                     const retryAfter = error.response.headers['retry-after']; // Récupère le temps d'attente en secondes
                     const minutes = Math.floor(retryAfter / 60);// Convertit en minutes
                     const seconds = retryAfter % 60; // Récupère les secondes restantes
-                    console.log(`login : il reste ${minutes} minutes et ${seconds} seconde(s)`);
         
                     throw { message: `Trop de tentatives. Veuillez réessayer dans ${minutes} minute(s) et ${seconds} seconde(s).`, retryAfter: retryAfter};
                 }
