@@ -1,4 +1,5 @@
 import axios from "axios";
+import apiClient from "../utils/apiClient";
 
 async function fetchAllPromotions(setPromotion) {
     await axios.get(`${process.env.REACT_APP_API_URL}/promotions`).then((response)=> {
@@ -39,9 +40,15 @@ function deleteSupervisorFromPromotion(promotion_id, supervisor_id) {
 }
 
 
+
 function deletePromotion(id) {
-    return axios.delete(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
+    return apiClient.delete(`/promotions/${id}`)
+        .then(response => response.data)
+        .catch(error => {
+            throw error; 
+        }); 
 }
+
 
 function getPromotionByTrainingId(training_id, setPromotion) {
     try{
@@ -58,3 +65,6 @@ export default { fetchAllPromotions, fetchPromotionById, addPromotion, updatePro
     addTrainerToPromotion, deleteTrainerFromPromotion,
     addSupervisorToPromotion, deleteSupervisorFromPromotion ,getPromotionByTrainingId
  };
+
+
+
