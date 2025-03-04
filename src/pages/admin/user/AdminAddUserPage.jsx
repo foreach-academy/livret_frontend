@@ -70,7 +70,7 @@ function AddUserPage() {
                   </div>
 
                   <div className="d-flex justify-content-between   w-100">
-                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName="E-mail" type="email" value={user.email} required={true} />
+                    <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, email: e.target.value })} labelName="E-mail" type="text" value={user.email} required={true} />
                     <Input className="color-black-text w-25" changeFunction={(e) => setUser({ ...user, birthdate: e.target.value })} labelName="Date de naissance" type={"date"} value={user.birthdate} required={true} />
                   </div>
 
