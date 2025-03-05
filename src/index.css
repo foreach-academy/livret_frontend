@@ -64,6 +64,12 @@ code {
   background-color: #4A80FD !important;
 }
 
+.toast-error {
+  background-color: #f39c12 !important;
+  color: rgb(0, 0, 0) !important;
+}
+
+
 /* badge */
 .badge {
   padding: 4px 12px;

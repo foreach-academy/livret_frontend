@@ -21,7 +21,9 @@ apiClient.interceptors.response.use(
       }
     }
 
-    toast.error(errorMessage);
+    toast.error(errorMessage, {
+      className: "toast-error",
+    });
     return Promise.reject(error);
   }
 );

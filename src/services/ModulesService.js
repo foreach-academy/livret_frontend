@@ -28,7 +28,9 @@ function getModuleById(id) {
  */
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
   if (!module.title || !module.commentary) {
-    toast.error("Impossible d'ajouter un module vide");
+    toast.error("Impossible d'ajouter un module vide", {
+      className: "toast-error",
+    });
     return;
   }
   try {
