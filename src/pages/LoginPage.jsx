@@ -43,31 +43,10 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.error("Erreur Axios capturée :", error);
-  
-      if (error.response) {
-        console.log("Réponse complète de l'erreur :", error.response);
-  
-        if (error.response.status === 429) {
-          // Vérifier où se trouve réellement retryTime
-          console.log("Données de la réponse :", error.response.data);
-          console.log("retryTime attendu :", error.response.data.retryTime);
-          
-          const retryTime = error.response.data?.retryTime || error.response.headers['retry-after'];
-  
-          if (retryTime) {
-            const retryAfterSeconds = parseInt(retryTime, 10);
+        if (error.retryAfter) {
+            const retryAfterSeconds = parseInt(error.retryAfter, 10);
             startCountdown(retryAfterSeconds);
-            toast.error(`Trop de tentatives. Réessayez dans ${Math.floor(retryAfterSeconds / 60)} min et ${retryAfterSeconds % 60} sec.`);
-          } else {
-            toast.error("Trop de tentatives. Veuillez réessayer plus tard.");
-          }
-        } else {
-          toast.error(error.response.data?.message || "Erreur lors de la connexion.");
-        }
-      } else {
-        console.error("Erreur non liée à la réponse HTTP :", error);
-        toast.error("Une erreur est survenue. Veuillez réessayer.");
-      }
+          } 
     }
   };
   
