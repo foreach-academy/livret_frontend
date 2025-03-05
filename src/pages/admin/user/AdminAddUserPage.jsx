@@ -39,7 +39,9 @@ function AddUserPage() {
     e.preventDefault();
 
     if (user.password !== user.confirmPassword) {
-      toast.error("Les mots de passe ne correspondent pas.");
+      toast.error("Les mots de passe ne correspondent pas.", {
+        className: "toast-error",
+      });
       return;
     }
     await UserServices.addUser(user, navigate, toast);

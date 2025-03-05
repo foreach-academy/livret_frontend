@@ -38,9 +38,7 @@ const LoginPage = () => {
         setIsTrainer(decodedToken.role === trainer); // A changer vers un context role
         navigate(FRONT_HOME);
         toast.success(`${response.data.message}`);
-      } else {
-        toast.error("Aucun token fourni");
-      }
+      } 
     } catch (error) {
       console.error("Erreur Axios capturée :", error);
         if (error.retryAfter) {
@@ -49,9 +47,6 @@ const LoginPage = () => {
           } 
     }
   };
-  
-  
-
   const startCountdown = (duration) => {
     if (countdownInterval.current) clearInterval(countdownInterval.current); 
     setTimeLeft(duration);
