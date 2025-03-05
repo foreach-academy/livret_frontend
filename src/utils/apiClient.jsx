@@ -12,7 +12,6 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error) => {
     let errorMessage = "Une erreur inconnue s'est produite.";
-    console.log("erreur api :", error)
     if (error.response && error.response.data) {
       if (error.response.data.errors && error.response.data.errors.length > 0) {
         errorMessage = error.response.data.errors[0];
@@ -20,7 +19,6 @@ apiClient.interceptors.response.use(
         errorMessage = error.response.data.message;
       }
     }
-
     toast.error(errorMessage, {
       className: "toast-error",
     });
