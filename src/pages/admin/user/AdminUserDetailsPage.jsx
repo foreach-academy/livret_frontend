@@ -16,14 +16,15 @@ function UserDetailsPage() {
   const { id: userId } = useParams();
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false)
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    role_id: "",
+    position: "",
+    photo: "",
+  });
   const [roles, setRoles] = useState([]);
-
-
-  useEffect(() => {
-    UserServices.fetchUserById(userId, setUser);
-    RoleServices.fetchAllRoles(setRoles)
-  }, []);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -33,7 +34,10 @@ function UserDetailsPage() {
   const handleDelete = async () => {
     await UserServices.deleteUser(userId, navigate, toast);
   };
-
+  useEffect(() => {
+     UserServices.fetchUserById(userId, setUser);
+     RoleServices.fetchAllRoles(setRoles)
+ }, []);
   return (
     <AdminLayout>
       <AdminBodyTitle pageTitle={`Modifier ${user.firstname} ${user.lastname}`} />
@@ -90,7 +94,7 @@ function UserDetailsPage() {
             accept="image/*"
             labelName="Photo"
             changeFunction={(e) => setUser({ ...user, photo: e.target.value })}
-            value={user.photo || ""}
+            // value={user.photo || ""}
           />}
         <Button type="submit" buttonTitle="Enregistrer les modifications" className="bg-fe-orange" />
       </form>
@@ -102,7 +106,7 @@ function UserDetailsPage() {
       >
         <span>Voulez-vous vraiment supprimer cet utilisateur ? Cette action est irréversible.</span>
         <br />
-        <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={handleDelete} />
+        <Button buttonTitle="Supprimer l'utilisateur" className="bg-danger" setAction={() => handleDelete()} />
       </CustomModal>
     </AdminLayout>
   );
