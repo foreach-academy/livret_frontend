@@ -10,20 +10,36 @@ import Accordion from "../../../components/shared/Accordion";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle"
 import Button from "../../../components/shared/Button";
 import { admin, student, trainer } from "../../../utils/roleList";
+import ModulesService from "../../../services/ModulesService";
+import Input from "../../../components/shared/form/Input"
 
 function PromotionDetailsPage() {
     const { isAdmin } = useContext(AuthContext);
     const { id } = useParams();
-    const [promoDetail, setPromoDetail] = useState(null);
+    const [promoDetail, setPromoDetail] = useState({});
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState("");
-
+    const [modules, setModules] = useState([]);
     const navigate = useNavigate();
+    const [trainingId, setTrainingId] = useState()
 
     useEffect(() => {
         getPromotionDetails();
         getAllUsers();
+
     }, [id]);
+    console.log(modules)
+    useEffect(() => {
+        if (promoDetail?.training?.id) {
+            setTrainingId(promoDetail.training.id);
+        }
+    }, [promoDetail]);
+    
+    useEffect(() => {
+        if (trainingId) {
+            ModulesService.getModulesByTraining(trainingId, setModules);
+        }
+    }, [trainingId]);
 
     const getPromotionDetails = async () => {
         await PromotionsService.fetchPromotionById(id, setPromoDetail);
@@ -76,6 +92,10 @@ function PromotionDetailsPage() {
     const supervisors = users.filter(user => user.userRole.name === admin);
     const trainers = users.filter(user => user.userRole.name === trainer);
     const students = users.filter(user => user.userRole.name === student);
+
+// const handleSubmit = async (e) => {
+//     e.preventDefault
+// }
 
     return (
         <AdminLayout>
@@ -166,10 +186,29 @@ function PromotionDetailsPage() {
                         selectedValue={selectedUser}
                         onChange={(e) => setSelectedUser(e.target.value)}
                         onAdd={() => handleAddUser("student")}
-                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`} 
+                        getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
                     />
                 )}
 
+            </Accordion>
+            <Accordion accordionLabel="Modules" accordionColor="bg-fe-orange">
+                <form>
+                    <ul>
+                        {modules.map((module, index) => (
+                            <li key={index} className="d-flex justify-content-between align-items-center">
+                                {module.title}
+                                {isAdmin && (
+                                    <>
+                                        <Input type="date" labelName="Date de début"></Input>
+                                        <Input type="date" labelName="Date de fin"></Input>
+                                        <SelectInputGeneric options={trainers} getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}></SelectInputGeneric>
+                                    </>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+                    {/* <Button type="submit" buttonTitle="Enregistrer les informations" setAction={()=>handleSubmit()} className="bg-fe-orange"/> */}
+                </form>
             </Accordion>
         </AdminLayout>
     );

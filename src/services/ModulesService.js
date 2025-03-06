@@ -7,6 +7,11 @@ function getAllModules() {
 function getModuleById(id) {
   return axios.get(`${process.env.REACT_APP_API_URL}/modules/${id}`);
 }
+function getModulesByTraining(training_id, setModules){
+ axios.get(`${process.env.REACT_APP_API_URL}/modules/training/${training_id}`).then((response) => {
+  setModules(response.data)
+ });
+}
 
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
   if (!module.title ||!module.commentary) {
@@ -19,7 +24,6 @@ async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewM
       setRefresh(true);
       setDisplayAddModule(false);
       setNewModule({ title: "", commentary: "", training_id: id });
- 
     })
   } catch (error) {
     console.error("Erreur lors de la création du module", error);
@@ -52,5 +56,15 @@ async function deleteModule(id, toast, setRefresh) {
     throw error;
   }
 }
+async function updateModulePromotion(module){
+  try {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
+      console.log(response.data);
+    })
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du module promotionnel", error);
+    throw error;
+  }
+}
 
-export default { getAllModules, getModuleById, addModule, updateModule, deleteModule };
+export default { getAllModules, getModuleById, addModule, updateModule, deleteModule, getModulesByTraining, updateModulePromotion };
