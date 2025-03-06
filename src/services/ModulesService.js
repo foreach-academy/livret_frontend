@@ -25,7 +25,12 @@ function getModuleById(id) {
  * @param {Object} toast - Instance de notification pour afficher un message.
  * @param {Function} setNewModule - Fonction pour réinitialiser le formulaire d'ajout.
  * @param {number} id - ID de la formation associée.
- */
+ */function getModulesByTraining(training_id, setModules){
+ axios.get(`${process.env.REACT_APP_API_URL}/modules/training/${training_id}`).then((response) => {
+  setModules(response.data)
+ });
+}
+
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
   if (!module.title || !module.commentary) {
     toast.error("Impossible d'ajouter un module vide", {
@@ -77,6 +82,26 @@ async function deleteModule(id, toast, setRefresh) {
     toast.success("Le module a bien été supprimé");
     setRefresh(true);
   } catch (error) {
+    throw error;
+  }
+}
+async function updateModulePromotion(module){
+  try {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
+      console.log(response.data);
+    })
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du module promotionnel", error);
+    throw error;
+  }
+}
+async function updateModulePromotion(module){
+  try {
+    await axios.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
+      console.log(response.data);
+    })
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour du module promotionnel", error);
     throw error;
   }
 }
