@@ -21,13 +21,12 @@ const LoginPage = () => {
   const [headerHeight, setHeaderHeight] = useState(null)
 
   const login = async (e) => {
-  e.preventDefault();
-
+    e.preventDefault();
+  
     try {
       const response = await AuthenticateService.login(user);
-      
+  
       if (response.data.token) {
-        
         const token = response.data.token;
         UserServices.setAxiosToken(token);
         window.localStorage.setItem("authToken", token);
@@ -39,21 +38,15 @@ const LoginPage = () => {
         setIsTrainer(decodedToken.role === trainer); // A changer vers un context role
         navigate(FRONT_HOME);
         toast.success(`${response.data.message}`);
-      } else {
-        toast.error("Aucun token fourni");
-      }
-    } catch (error) {
-    
-      if (error.retryAfter) {
-        const retryAfterSeconds = parseInt(error.retryAfter, 10); 
-        startCountdown(retryAfterSeconds);
       } 
-    
-      toast.error(error.message);
+    } catch (error) {
+      console.error("Erreur Axios capturée :", error);
+        if (error.retryAfter) {
+            const retryAfterSeconds = parseInt(error.retryAfter, 10);
+            startCountdown(retryAfterSeconds);
+          } 
     }
-    
   };
-
   const startCountdown = (duration) => {
     if (countdownInterval.current) clearInterval(countdownInterval.current); 
     setTimeLeft(duration);

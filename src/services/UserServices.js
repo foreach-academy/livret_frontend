@@ -1,10 +1,9 @@
-import axios from "axios";
+import apiClient from "../utils/apiClient";
 import { jwtDecode } from "jwt-decode";
 import AuthenticateService from "./AuthenticateServices";
 import { admin } from "../utils/roleList";
 
 class UserServices {
-
     /**
      * Récupère la liste complète de tous les utilisateurs.
      * @param {Function} setUsers - Fonction pour mettre à jour l'état des utilisateurs.
@@ -12,7 +11,7 @@ class UserServices {
      */
     static async fetchAllUsers(setUsers) {
         try {
-            const response = await axios.get(process.env.REACT_APP_API_URL + '/users');
+            const response = await apiClient.get('/users');
             setUsers(response.data);
             return response.data;
         } catch (error) {
@@ -26,10 +25,19 @@ class UserServices {
      * @param {number} id - L'identifiant de l'utilisateur.
      * @returns {Promise} - Promesse contenant les données de l'utilisateur.
      */
-    static fetchUserById(id, setUser) {
-        return axios.get(`${process.env.REACT_APP_API_URL}/users/${id}`).then((response) => {
-            setUser(response.data)
-        });
+    static async fetchUserById(id, setUser) {
+        try {
+            await apiClient.get(`/users/${id}`).then((response) => {
+            console.log(response)
+            setUser(response.data);
+            
+            })
+        }
+        catch (error) {
+            console.error(`Erreur lors de la récupération de l'utilisateur avec ID ${id}:`, error);
+            throw error;
+        }
+
     }
 
     /**
@@ -39,15 +47,13 @@ class UserServices {
      * @param {Object} toast - Instance de notification pour afficher un message.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static async addUser(user, navigate, toast) {
+    static addUser(user, navigate, toast) {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/users`, user);
+            const response = apiClient.post('/users', user);
             navigate(-1);
             toast.success(`Utilisateur ${user.firstname} ajouté avec succès!`);
             return response.data;
         } catch (error) {
-            toast.error("Erreur lors de l'ajout de l'utilisateur.");
-            console.error("Erreur lors de l'ajout de l'utilisateur:", error);
             throw error;
         }
     }
@@ -58,7 +64,7 @@ class UserServices {
      * @returns {Promise} - Promesse contenant les données des utilisateurs correspondant.
      */
     static getUserByRole(role) {
-        return axios.get(`${process.env.REACT_APP_API_URL}/users/role/${role}`);
+        return apiClient.get(`/users/role/${role}`);
     }
 
     /**
@@ -69,48 +75,42 @@ class UserServices {
      * @param {Object} toast - Instance de notification pour afficher un message.
      * @returns {Promise} - Promesse contenant la réponse du serveur.
      */
-    static async updateUser(id, user, navigate, toast) {
+    static updateUser(id, user, navigate, toast) {
         try {
-            const response = await axios.patch(`${process.env.REACT_APP_API_URL}/users/${id}`, user);
+            const response = apiClient.patch(`/users/${id}`, user);
             navigate(-1);
             toast.success("Les informations de l'utilisateur ont été mises à jour avec succès !");
             return response.data;
         } catch (error) {
-            toast.error("Erreur lors de la mise à jour de l'utilisateur.");
-            console.error("Erreur lors de la mise à jour de l'utilisateur:", error);
             throw error;
         }
     }
 
-/**
- * Supprime un utilisateur.
- * @param {number} id - ID de l'utilisateur.
- * @param {Function} navigate - Fonction de navigation pour rediriger après la suppression.
- * @param {Object} toast - Instance de notification pour afficher un message.
- * @returns {Promise} - Promesse contenant la réponse du serveur.
- */
-static async deleteUser(id, navigate, toast) {
-    return axios
-        .delete(`${process.env.REACT_APP_API_URL}/users/${id}`)
-        .then(() => {
-            toast.success("L'utilisateur a bien été supprimé.");
-            navigate(-1);
-        })
-        .catch((error) => {
-            toast.error("Erreur lors de la suppression de l'utilisateur.");
-            console.error("Erreur lors de la suppression de l'utilisateur:", error);
-            throw error;
-        });
-}
-
-
+    /**
+     * Supprime un utilisateur.
+     * @param {number} id - ID de l'utilisateur.
+     * @param {Function} navigate - Fonction de navigation pour rediriger après la suppression.
+     * @param {Object} toast - Instance de notification pour afficher un message.
+     * @returns {Promise} - Promesse contenant la réponse du serveur.
+     */
+    static deleteUser(id, navigate, toast) {
+        return apiClient
+            .delete(`/users/${id}`)
+            .then(() => {
+                toast.success("L'utilisateur a bien été supprimé.");
+                navigate(-1);
+            })
+            .catch((error) => {
+                throw error;
+            });
+    }
 
     /**
      * Définit le token JWT dans les headers d'axios pour les futures requêtes authentifiées.
      * @param {string} token - Jeton JWT de l'utilisateur.
      */
     static setAxiosToken(token) {
-        axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+        apiClient.defaults.headers["Authorization"] = `Bearer ${token}`;
     }
 
     /**

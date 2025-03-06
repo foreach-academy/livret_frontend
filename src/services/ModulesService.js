@@ -1,54 +1,82 @@
-import axios from 'axios';
+import apiClient from "../utils/apiClient";
 
+/**
+ * Récupère tous les modules disponibles.
+ * @returns {Promise} - Promesse contenant les données des modules.
+ */
 function getAllModules() {
-  return axios.get(`${process.env.REACT_APP_API_URL}/modules`);
+  return apiClient.get('/modules');
 }
 
+/**
+ * Récupère les détails d'un module spécifique par son ID.
+ * @param {number} id - L'identifiant du module.
+ * @returns {Promise} - Promesse contenant les données du module.
+ */
 function getModuleById(id) {
-  return axios.get(`${process.env.REACT_APP_API_URL}/modules/${id}`);
+  return apiClient.get(`/modules/${id}`);
 }
 
+/**
+ * Ajoute un nouveau module.
+ * @param {Object} module - Objet contenant les informations du module.
+ * @param {Function} setRefresh - Fonction pour rafraîchir les données après l'ajout.
+ * @param {Function} setDisplayAddModule - Fonction pour masquer le formulaire d'ajout.
+ * @param {Object} toast - Instance de notification pour afficher un message.
+ * @param {Function} setNewModule - Fonction pour réinitialiser le formulaire d'ajout.
+ * @param {number} id - ID de la formation associée.
+ */
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
-  if (!module.title ||!module.commentary) {
-    toast.error("Impossible d'ajouter un module vide")
-    return
+  if (!module.title || !module.commentary) {
+    toast.error("Impossible d'ajouter un module vide", {
+      className: "toast-error",
+    });
+    return;
   }
   try {
-    await axios.post(`${process.env.REACT_APP_API_URL}/modules`, module).then((response) => {
-      toast.success(`Module ${module.title} ajouté`)
-      setRefresh(true);
-      setDisplayAddModule(false);
-      setNewModule({ title: "", commentary: "", training_id: id });
- 
-    })
+    const response = await apiClient.post('/modules', module);
+    toast.success(`Module ${module.title} ajouté`);
+    setRefresh(true);
+    setDisplayAddModule(false);
+    setNewModule({ title: "", commentary: "", training_id: id });
+    return response.data;
   } catch (error) {
-    console.error("Erreur lors de la création du module", error);
     throw error;
   }
 }
 
+/**
+ * Met à jour un module existant.
+ * @param {number} id - ID du module à mettre à jour.
+ * @param {Object} module - Objet contenant les nouvelles informations du module.
+ * @param {Object} toast - Instance de notification pour afficher un message.
+ * @param {Function} setRefresh - Fonction pour rafraîchir les données après la mise à jour.
+ * @param {Function} setModuleModification - Fonction pour désactiver le mode d'édition.
+ */
 async function updateModule(id, module, toast, setRefresh, setModuleModification) {
   try {
-    await axios.put(`${process.env.REACT_APP_API_URL}/modules/${id}`, module).then((response) => {
-      toast.success(`Mise à jour du module ${module.title}`)
-      setRefresh(true);
-      setModuleModification(null);
-      return response.data
-  })
+    const response = await apiClient.put(`/modules/${id}`, module);
+    toast.success(`Mise à jour du module ${module.title}`);
+    setRefresh(true);
+    setModuleModification(null);
+    return response.data;
   } catch (error) {
-    console.error("Erreur lors de la modification du module", error);
     throw error;
   }
 }
 
+/**
+ * Supprime un module existant.
+ * @param {number} id - ID du module à supprimer.
+ * @param {Object} toast - Instance de notification pour afficher un message.
+ * @param {Function} setRefresh - Fonction pour rafraîchir les données après la suppression.
+ */
 async function deleteModule(id, toast, setRefresh) {
   try {
-    await axios.delete(`${process.env.REACT_APP_API_URL}/modules/${id}`).then((response) => {
-      toast.success("Le module a bien été supprimé")
-      setRefresh(true);
-    })
+    await apiClient.delete(`/modules/${id}`);
+    toast.success("Le module a bien été supprimé");
+    setRefresh(true);
   } catch (error) {
-    console.error("Erreur lors de la suppression du module", error);
     throw error;
   }
 }
