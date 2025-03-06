@@ -81,4 +81,4 @@ async function deleteModule(id, toast, setRefresh) {
   }
 }
 
-export default { getAllModules, getModuleById, addModule, updateModule, deleteModule };
+export default { getAllModules, getModuleById, addModule, updateModule, deleteModule, getModulesByTraining, updateModulePromotion };
