@@ -9,14 +9,14 @@ import SelectInputGeneric from '../../../components/shared/form/SelectInputGener
 import { FRONT_ADMIN_PROMOTION } from '../../../utils/frontUrl';
 import { admin, student, trainer } from '../../../utils/roleList';
 import ModulesService from '../../../services/ModulesService';
-import ModulePromotionService from '../../../services/ModulePromotionService';
+import ModulePromotionService from '../../../services/ModulePromotionService.js';
 import Button from '../../../components/shared/Button'
+import { toast } from 'react-toastify';
 
 function AdminAddPromotionPage() {
     const navigate = useNavigate();
     const [trainings, setTrainings] = useState([]);
     const [users, setUsers] = useState([]);
-    const [modules, setModules] = useState([]);
     const [promotion, setPromotion] = useState({
         title: "",
         training_id: "",
@@ -25,19 +25,18 @@ function AdminAddPromotionPage() {
         students: [],
         modules: []
     });
-
     const selectedTraining = promotion.training_id;
 
     useEffect(() => {
         TrainingServices.fetchAllTrainings(setTrainings);
         UserServices.fetchAllUsers(setUsers);
         if (selectedTraining) {
-            ModulesService.getModulesByTraining(selectedTraining, setModules);
+            ModulesService.getModulesByTraining(selectedTraining, setPromotion);
         }
     }, [selectedTraining]);
 
     const getUsersByRole = (roleName) => users.filter(user => user.userRole.name === roleName);
-    
+
     const listSelector = [
         { label: "Sélectionner un superviseur", role: "supervisors", options: getUsersByRole(admin) },
         { label: "Sélectionner un formateur", role: "trainers", options: getUsersByRole(trainer) },
@@ -68,29 +67,20 @@ function AdminAddPromotionPage() {
 
     const handleSubmit = async () => {
         if (!promotion.title || !promotion.training_id) {
-            console.error("Veuillez renseigner tous les champs.");
+            toast.error("Veuillez renseigner tous les champs.");
             return;
         }
 
         if (promotion.students.length === 0 || promotion.trainers.length === 0) {
-            console.error("Veuillez sélectionner au moins un étudiant et un formateur.");
+            toast.error("Veuillez sélectionner au moins un étudiant et un formateur.");
             return;
         }
 
         try {
+
             const newPromotion = await PromotionsService.addPromotion(promotion);
             
-            if (newPromotion?.id) {
-                await Promise.all(promotion.modules.map(module => 
-                    ModulePromotionService.addModulePromotion({
-                        trainer_id: module.trainerId,
-                        promotion_id: newPromotion.id,
-                        module_id: module.id,
-                        start_date: module.startDate,
-                        end_date: module.endDate
-                    })
-                ));
-            }
+            
 
             navigate(FRONT_ADMIN_PROMOTION);
         } catch (error) {
@@ -134,7 +124,7 @@ function AdminAddPromotionPage() {
                         ))}
 
                         <h2>Modules</h2>
-                        {modules.map(module => (
+                        {promotion.modules.map(module => (
                             <div key={module.id} className="d-flex gap-3 align-items-center">
                                 <span>{module.title}</span>
                                 <Input
@@ -151,14 +141,18 @@ function AdminAddPromotionPage() {
                                 />
                                 <SelectInputGeneric
                                     label="Formateur"
-                                    options={getUsersByRole(trainer)}
+                                    options={promotion.trainers.map(trainerId => {
+                                        const trainer = users.find(user => user.id === trainerId);
+                                        return trainer ? { value: trainer.id, label: `${trainer.firstname} ${trainer.lastname}` } : null;
+                                    }).filter(Boolean)}
                                     selectedValue={module.trainerId || ""}
-                                    onChange={(e) => handleModuleChange(module.id, "trainerId", Number(e.target.value))}
-                                    getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
+                                    onChange={(selectedOption) => handleModuleChange(module.id, "trainerId", selectedOption.value)}
+                                    getOptionLabel={(trainer) => trainer.label}
                                 />
+
                             </div>
                         ))}
-                        <Button buttonTitle="Ajouter la promotion" className="bg-fe-orange" setAction={handleSubmit} /> 
+                        <Button buttonTitle="Ajouter la promotion" className="bg-fe-orange" setAction={handleSubmit} />
                     </div>
                 </div>
             </div>

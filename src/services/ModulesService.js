@@ -25,11 +25,24 @@ function getModuleById(id) {
  * @param {Object} toast - Instance de notification pour afficher un message.
  * @param {Function} setNewModule - Fonction pour réinitialiser le formulaire d'ajout.
  * @param {number} id - ID de la formation associée.
- */function getModulesByTraining(training_id, setModules){
- axios.get(`${process.env.REACT_APP_API_URL}/modules/training/${training_id}`).then((response) => {
-  setModules(response.data)
- });
+ */function getModulesByTraining(training_id, setPromotion) {
+  apiClient.get(`${process.env.REACT_APP_API_URL}/modules/training/${training_id}`)
+  .then((response) => {
+      setPromotion((prev) => ({
+          ...prev,
+          modules: response.data.map(module => ({
+              ...module,
+              trainerId: "", 
+              startDate: "", 
+              endDate: ""
+          }))
+      }));
+  })
+  .catch(error => {
+      console.error("Erreur lors de la récupération des modules :", error);
+  });
 }
+
 
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
   if (!module.title || !module.commentary) {
@@ -78,26 +91,18 @@ async function updateModule(id, module, toast, setRefresh, setModuleModification
  */
 async function deleteModule(id, toast, setRefresh) {
   try {
-    await apiClient.delete(`/modules/${id}`);
-    toast.success("Le module a bien été supprimé");
-    setRefresh(true);
-  } catch (error) {
-    throw error;
-  }
-}
-async function updateModulePromotion(module){
-  try {
-    await axios.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
-      console.log(response.data);
+    await apiClient.delete(`${process.env.REACT_APP_API_URL}/modules/${id}`).then((response) => {
+      toast.success("Le module a bien été supprimé")
+      setRefresh(true);
     })
   } catch (error) {
-    console.error("Erreur lors de la mise à jour du module promotionnel", error);
+    console.error("Erreur lors de la suppression du module", error);
     throw error;
   }
 }
 async function updateModulePromotion(module){
   try {
-    await axios.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
+    await apiClient.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
       console.log(response.data);
     })
   } catch (error) {
