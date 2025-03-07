@@ -9,7 +9,6 @@ import SelectInputGeneric from '../../../components/shared/form/SelectInputGener
 import { FRONT_ADMIN_PROMOTION } from '../../../utils/frontUrl';
 import { admin, student, trainer } from '../../../utils/roleList';
 import ModulesService from '../../../services/ModulesService';
-import ModulePromotionService from '../../../services/ModulePromotionService.js';
 import Button from '../../../components/shared/Button'
 import { toast } from 'react-toastify';
 import AdminBodyTitle from '../../../components/shared/AdminBodyTitle.jsx';
@@ -39,7 +38,7 @@ function AdminAddPromotionPage() {
     const getUsersByRole = (roleName) => users.filter(user => user.userRole.name === roleName);
 
     const listSelector = [
-        { label: "Sélectionner un superviseur", role: "supervisors", options: getUsersByRole(admin) },
+        { label: "Sélectionner un responsable", role: "supervisors", options: getUsersByRole(admin) },
         { label: "Sélectionner un formateur", role: "trainers", options: getUsersByRole(trainer) },
         { label: "Sélectionner un étudiant", role: "students", options: getUsersByRole(student) }
     ];
@@ -89,13 +88,13 @@ function AdminAddPromotionPage() {
 
         }
     };
-
+    console.log(promotion.modules)
     return (
         <AdminLayout>
             <AdminBodyTitle pageTitle="Ajouter une promotion" />
             <div className="form_blue_contener wider">
                 <div className="form_blue gap-3">
-                    <div className='d-flex flex-row gap-3'>
+                    <div className='d-flex align-items-center'>
                         <SelectInputGeneric
                             label="Choisissez une formation"
                             options={trainings}
@@ -111,30 +110,35 @@ function AdminAddPromotionPage() {
                             className="color-black-text"
                         />
                     </div>
-                    {listSelector.map(({ label, role, options }, index) => (
-                        <SelectInputGeneric
-                            key={index}
-                            label={label}
-                            options={options}
-                            onChange={(e) => handleUserSelection(role, Number(e.target.value))}
-                            selectedItems={promotion[role].map(user => user.id)}
-                            onRemove={(id) => handleUserRemoval(role, id)}
-                            showSelectedList={true}
-                            getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
-                        />
-                    ))}
-
-                    <h2>Modules</h2>
+                    <div className='d-flex flex-row'>
+                        {listSelector.map(({ label, role, options }, index) => (
+                            <div>
+                                <SelectInputGeneric
+                                    key={index}
+                                    label={label}
+                                    options={options}
+                                    onChange={(e) => handleUserSelection(role, Number(e.target.value))}
+                                    selectedItems={promotion[role].map(user => user.id)}
+                                    onRemove={(id) => handleUserRemoval(role, id)}
+                                    showSelectedList={true}
+                                    getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <h2 className='text-black'>Modules</h2>
                     {promotion.modules.map(module => (
-                        <div key={module.id} className="d-flex gap-3 align-items-center">
-                            <span>{module.title}</span>
+                        <div key={module.id} className="d-flex justify-content-start align-items-end">
+                            <span className='text-black'>{module.title}</span>
                             <Input
+                                className="text-black"
                                 labelName="Date de début"
                                 type="date"
                                 value={module.startDate || ""}
                                 changeFunction={(e) => handleModuleChange(module.id, "startDate", e.target.value)}
                             />
                             <Input
+                                className="text-black"
                                 labelName="Date de fin"
                                 type="date"
                                 value={module.endDate || ""}
