@@ -1,8 +1,8 @@
-import axios from 'axios';
+import apiClient from '../utils/apiClient';
 
 async function addModulePromotion(modulePromotion) {
     try {
-        const response = await axios.post(
+        const response = await apiClient.post(
             `${process.env.REACT_APP_API_URL}/module_promotion`, 
             modulePromotion
         );
