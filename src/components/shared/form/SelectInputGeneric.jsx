@@ -16,7 +16,7 @@ const SelectInputGeneric = ({
 
     return (
         <div className={`d-flex flex-column gap-2 ${className}`}>
-            <label>{label}</label>
+            <label className="text-black fw-bold">{label}</label>
             <div className="d-flex gap-2">
                 <select className="form-select me-2" value={selectedValue} onChange={onChange}>
                     <option value="">{label}</option>

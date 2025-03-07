@@ -192,23 +192,7 @@ function PromotionDetailsPage() {
 
             </Accordion>
             <Accordion accordionLabel="Modules" accordionColor="bg-fe-orange">
-                <form>
-                    <ul>
-                        {modules.map((module, index) => (
-                            <li key={index} className="d-flex justify-content-between align-items-center">
-                                {module.title}
-                                {isAdmin && (
-                                    <>
-                                        <Input type="date" labelName="Date de début"></Input>
-                                        <Input type="date" labelName="Date de fin"></Input>
-                                        <SelectInputGeneric options={trainers} getOptionLabel={(user) => `${user.firstname} ${user.lastname}`}></SelectInputGeneric>
-                                    </>
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                    {/* <Button type="submit" buttonTitle="Enregistrer les informations" setAction={()=>handleSubmit()} className="bg-fe-orange"/> */}
-                </form>
+
             </Accordion>
         </AdminLayout>
     );
