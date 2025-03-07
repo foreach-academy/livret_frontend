@@ -22,6 +22,11 @@ function PromotionDetailsPage() {
     const [modules, setModules] = useState([]);
     const navigate = useNavigate();
     const [trainingId, setTrainingId] = useState()
+    const formatDate = (dateString) => {
+        return new Intl.DateTimeFormat("fr-FR").format(new Date(dateString));
+    };
+    const [editingModules, setEditingModules] = useState({});
+
 
     useEffect(() => {
         getPromotionDetails();
@@ -34,12 +39,10 @@ function PromotionDetailsPage() {
             setTrainingId(promoDetail.training.id);
         }
     }, [promoDetail]);
-    
+    console.log(modules)
     useEffect(() => {
-        if (trainingId) {
-            ModulesService.getModulesByTraining(trainingId, setModules);
-        }
-    }, [trainingId]);
+        ModulesService.getModuleByPromotion(id, setModules);
+    }, []);
 
     const getPromotionDetails = async () => {
         await PromotionsService.fetchPromotionById(id, setPromoDetail);
@@ -93,9 +96,9 @@ function PromotionDetailsPage() {
     const trainers = users.filter(user => user.userRole.name === trainer);
     const students = users.filter(user => user.userRole.name === student);
 
-// const handleSubmit = async (e) => {
-//     e.preventDefault
-// }
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault
+    // }
 
     return (
         <AdminLayout>
@@ -192,6 +195,27 @@ function PromotionDetailsPage() {
 
             </Accordion>
             <Accordion accordionLabel="Modules" accordionColor="bg-fe-orange">
+                <ul>
+                    {modules && modules.map((module, index) => (
+                        <div key={index}>
+                            {editingModules[module.id] ? (
+                                <div>
+                                    <Input type="text" value={module.moduleInfo.title} />
+                                    <Button buttonTitle="Enregistrer" className="bg-fe-green" setAction={() => setEditingModules({ ...editingModules, [module.id]: false })} />
+                                </div>
+                            ) : (
+                                <li className="d-flex justify-content-between align-items-center">
+                                    {module.moduleInfo.title} {formatDate(module.start_date)} {formatDate(module.end_date)} {module.trainerInfo.firstname} {module.trainerInfo.lastname}
+                                </li>
+                            )}
+                            <Button
+                                buttonTitle={editingModules[module.id] ? "Annuler" : "Modifier"}
+                                className="bg-fe-orange"
+                                setAction={() => setEditingModules({ ...editingModules, [module.id]: !editingModules[module.id] })}
+                            />
+                        </div>
+                    ))}
+                </ul>
 
             </Accordion>
         </AdminLayout>

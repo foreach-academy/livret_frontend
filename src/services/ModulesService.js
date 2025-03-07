@@ -42,6 +42,17 @@ function getModuleById(id) {
       console.error("Erreur lors de la récupération des modules :", error);
   });
 }
+async function getModuleByPromotion(promotion_id, setModules){
+  try{
+    const response = await apiClient.get(`${process.env.REACT_APP_API_URL}/modules-promotion/${promotion_id}`)
+    setModules(response.data);
+    return response.data;
+  }
+  catch(error){
+      console.error('Erreur lors de la récupération des modules liées à une formation:', error);
+      throw error;
+  }
+}
 
 
 async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewModule, id) {
@@ -111,4 +122,4 @@ async function updateModulePromotion(module){
   }
 }
 
-export default { getAllModules, getModuleById, addModule, updateModule, deleteModule, getModulesByTraining, updateModulePromotion };
+export default {getModuleByPromotion, getAllModules, getModuleById, addModule, updateModule, deleteModule, getModulesByTraining, updateModulePromotion };
