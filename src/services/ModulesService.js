@@ -113,7 +113,7 @@ async function deleteModule(id, toast, setRefresh) {
 }
 async function updateModulePromotion(module){
   try {
-    await apiClient.patch(`${process.env.REACT_APP_API_URL}/modules/promotion`, module).then((response) => {
+    await apiClient.patch(`${process.env.REACT_APP_API_URL}/modules-promotion`, module).then((response) => {
       console.log(response.data);
     })
   } catch (error) {
