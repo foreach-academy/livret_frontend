@@ -12,6 +12,7 @@ import Button from "../../../components/shared/Button";
 import { admin, student, trainer } from "../../../utils/roleList";
 import ModulesService from "../../../services/ModulesService";
 import Input from "../../../components/shared/form/Input"
+import { toast } from "react-toastify";
 
 function PromotionDetailsPage() {
     const { isAdmin } = useContext(AuthContext);
@@ -21,25 +22,19 @@ function PromotionDetailsPage() {
     const [selectedUser, setSelectedUser] = useState("");
     const [modules, setModules] = useState([]);
     const navigate = useNavigate();
+    const [moduleEdits, setModuleEdits] = useState({});
     const [trainingId, setTrainingId] = useState()
-    const formatDate = (dateString) => {
-        return new Intl.DateTimeFormat("fr-FR").format(new Date(dateString));
-    };
     const [editingModules, setEditingModules] = useState({});
-
-
     useEffect(() => {
         getPromotionDetails();
         getAllUsers();
 
     }, [id]);
-    console.log(modules)
     useEffect(() => {
         if (promoDetail?.training?.id) {
             setTrainingId(promoDetail.training.id);
         }
     }, [promoDetail]);
-    console.log(modules)
     useEffect(() => {
         ModulesService.getModuleByPromotion(id, setModules);
     }, []);
@@ -96,9 +91,53 @@ function PromotionDetailsPage() {
     const trainers = users.filter(user => user.userRole.name === trainer);
     const students = users.filter(user => user.userRole.name === student);
 
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault
-    // }
+    const handleEditModule = (module) => {
+        setEditingModules({ ...editingModules, [module.module_id]: true });
+
+        setModuleEdits((prev) => ({
+            ...prev,
+            [module.module_id]: {
+                module_id: module.module_id,
+                startDate: module.start_date,
+                endDate: module.end_date,
+                trainerId: module.trainer_id
+            }
+        }));
+    };
+
+    const handleSaveModule = async (moduleId) => {
+
+        const moduleData = moduleEdits[moduleId];
+        if (!moduleData) {
+            console.error("Erreur: moduleData est undefined pour moduleId", moduleId, "Contenu actuel de moduleEdits:", moduleEdits);
+            return;
+        }
+
+        const updatedModule = {
+            promotion_id: id,
+            module_id: moduleData.module_id,
+            trainer_id: moduleData.trainerId,
+            start_date: moduleData.startDate,
+            end_date: moduleData.endDate
+        };
+
+        try {
+            await ModulesService.updateModulePromotion(updatedModule);
+            setEditingModules({ ...editingModules, [moduleId]: false });
+            ModulesService.getModuleByPromotion(id, setModules);
+            toast.success(`Module mis à jour avec succès`);
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour du module :", error.response?.data || error.message);
+        }
+    };
+
+    const handleCancelEdit = (moduleId) => {
+        setEditingModules((prev) => ({
+            ...prev,
+            [moduleId]: false
+        }));
+    };
+
 
     return (
         <AdminLayout>
@@ -196,27 +235,72 @@ function PromotionDetailsPage() {
             </Accordion>
             <Accordion accordionLabel="Modules" accordionColor="bg-fe-orange">
                 <ul>
-                    {modules && modules.map((module, index) => (
-                        <div key={index}>
-                            {editingModules[module.id] ? (
-                                <div>
-                                    <Input type="text" value={module.moduleInfo.title} />
-                                    <Button buttonTitle="Enregistrer" className="bg-fe-green" setAction={() => setEditingModules({ ...editingModules, [module.id]: false })} />
+                    {modules.map((module, index) => (
+                        <div key={index} className="mb-3">
+                            {editingModules[module.module_id] ? (
+                                <div className="d-flex flex-column gap-2">
+                                    {module.moduleInfo.title}
+                                    <Input
+                                        type="date"
+                                        label="Date de début"
+                                        value={moduleEdits[module.module_id]?.startDate || ""}
+                                        changeFunction={(e) => setModuleEdits({
+                                            ...moduleEdits,
+                                            [module.module_id]: {
+                                                ...moduleEdits[module.module_id],
+                                                startDate: e.target.value
+                                            }
+                                        })}
+                                    />
+
+                                    <Input
+                                        type="date"
+                                        label="Date de fin"
+                                        value={moduleEdits[module.module_id]?.endDate || ""}
+                                        changeFunction={(e) => setModuleEdits({
+                                            ...moduleEdits,
+                                            [module.module_id]: {
+                                                ...moduleEdits[module.module_id],
+                                                endDate: e.target.value
+                                            }
+                                        })}
+                                    />
+                                    <SelectInputGeneric
+                                        label="Formateur"
+                                        options={promoDetail?.promotionTrainers || []}
+                                        selectedValue={promoDetail?.promotionTrainers?.find(t => t.trainer_id === moduleEdits[module.module_id]?.trainerId)?.id || ""}
+                                        onChange={(e) => {
+                                            const selectedTrainerId = Number(e.target.value);
+                                            const selectedTrainer = promoDetail?.promotionTrainers.find(t => t.id === selectedTrainerId);
+                                            setModuleEdits({
+                                                ...moduleEdits,
+                                                [module.module_id]: {
+                                                    ...moduleEdits[module.module_id],
+                                                    trainerId: selectedTrainer?.trainer_id
+                                                }
+                                            });
+                                        }}
+                                        getOptionLabel={(user) => `${user.trainerUser.firstname} ${user.trainerUser.lastname}`}
+                                        getOptionValue={(user) => user.id}
+                                    />
+                                    <div className="d-flex gap-2">
+                                        <Button buttonTitle="Enregistrer" className="bg-fe-green" setAction={() => handleSaveModule(module.module_id)} />
+                                        <Button buttonTitle="Annuler" className="bg-danger" setAction={() => handleCancelEdit(module.module_id)} />
+                                    </div>
                                 </div>
                             ) : (
                                 <li className="d-flex justify-content-between align-items-center">
-                                    {module.moduleInfo.title} {formatDate(module.start_date)} {formatDate(module.end_date)} {module.trainerInfo.firstname} {module.trainerInfo.lastname}
+                                    {module.moduleInfo.title}
+                                    {` - ${new Intl.DateTimeFormat("fr-FR").format(new Date(module.start_date))}`}
+                                    {` au ${new Intl.DateTimeFormat("fr-FR").format(new Date(module.end_date))}`}
+                                    {` - ${module.trainerInfo.firstname} ${module.trainerInfo.lastname}`}
+                                    <Button  buttonTitle="Modifier" className="bg-fe-orange" setAction={() => handleEditModule(module)} />
                                 </li>
                             )}
-                            <Button
-                                buttonTitle={editingModules[module.id] ? "Annuler" : "Modifier"}
-                                className="bg-fe-orange"
-                                setAction={() => setEditingModules({ ...editingModules, [module.id]: !editingModules[module.id] })}
-                            />
                         </div>
                     ))}
-                </ul>
 
+                </ul>
             </Accordion>
         </AdminLayout>
     );

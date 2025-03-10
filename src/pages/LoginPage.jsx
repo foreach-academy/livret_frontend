@@ -5,7 +5,7 @@ import UserServices from "../services/UserServices";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { FRONT_ADMIN_DASHBOARD, FRONT_FORGOT_PASSWORD, FRONT_HOME } from "../utils/frontUrl";
+import { FRONT_FORGOT_PASSWORD, FRONT_HOME } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
 import { formatRetryTime } from "../utils/timeFormat";
 import Input from "../components/shared/form/Input";
@@ -112,7 +112,6 @@ const LoginPage = () => {
           <div className="login-form">
             <h2 className="connexion-title">Connexion</h2>
               <form><div className="form-group">
-            
               <Input
                 labelName="Email"
                 type="email"
