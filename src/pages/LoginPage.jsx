@@ -25,7 +25,7 @@ const LoginPage = () => {
   
     try {
       const response = await AuthenticateService.login(user);
-  
+  console.log(user)
       if (response.data.token) {
         const token = response.data.token;
         UserServices.setAxiosToken(token);
@@ -35,7 +35,7 @@ const LoginPage = () => {
         const decodedToken = jwtDecode(token);
         setUserName(decodedToken.user);
         setIsAdmin(decodedToken.role === admin);
-        setIsTrainer(decodedToken.role === trainer); // A changer vers un context role
+        setIsTrainer(decodedToken.role === trainer); 
         navigate(FRONT_HOME);
         toast.success(`${response.data.message}`);
       } 
@@ -90,7 +90,7 @@ const LoginPage = () => {
                 labelName="Email"
                 type="email"
                 value={user.email}
-                changeFunction={(e) => setUser((prevState) => ({ ...prevState, email: e.target.value }))}
+                changeFunction={(e) => setUser((prevState) => ({ ...prevState, email: e.target.value}))}
                 className="color-white-text"
               />
             </div>

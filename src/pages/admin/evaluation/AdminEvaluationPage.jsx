@@ -1,12 +1,11 @@
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
+import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
 
 function AdminEvaluationPage () {
 
     return (
         <AdminLayout>
-            <div className="container-admin">
-                
-            </div>
+           <AdminBodyTitle pageTitle="Evaluations"/>
         </AdminLayout>
     )
 
