@@ -5,6 +5,9 @@ import "../styles/ResetPassword/ResetPassword.css";
 import { validatePassword } from "../utils/validators";
 import { FRONT_LOGIN } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
+import Header from "../components/shared/navbar/Header";
+import Input from "../components/shared/form/Input";
+import Button from "../components/shared/Button";
 
 function ResetPasswordPage() {
   const [newPassword, setNewPassword] = useState("");
@@ -12,6 +15,7 @@ function ResetPasswordPage() {
   const [passwordError, setPasswordError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
+  const [headerHeight, setHeaderHeight] = useState(null);
 
   const params = new URLSearchParams(location.search);
   const tokenFromUrl = useParams()
@@ -41,52 +45,32 @@ function ResetPasswordPage() {
 
   return (
     <>
-      <h1 className="title_Pages">Réinitialisation du mot de passe</h1>
-      <div className="form_blue_contener">
+      <Header setHeaderHeight={setHeaderHeight} />
+      <h1 className="d-flex justify-content-center mt-5">Création de votre mot de passe</h1>
+      <span className="d-flex justify-content-center">Veuillez créer un mot de passe que vous utiliserez pour accéder à votre compte.</span>
+      <div className="form_blue_contener bg-fe-blue">
         <div className="form_blue">
-          <label
-            id="target_labelNewPassword_resetP"
-            className="label_form_blue label_form_blue_resetP"
-            htmlFor="input_password"
-          >
-            Nouveau mot de passe
-          </label>
-          <input
-            className="input_form_blue"
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            id="input_password"
-            type="password"
-            required
-          />
 
-          <label
-            id="target_labelConfirm_resetP"
-            className="label_form_blue label_form_blue_resetP"
-            htmlFor="confirm_password"
-          >
-            Confirmation du mot de passe
-          </label>
-          <input
-            className="input_form_blue"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            id="confirm_password"
+          <Input
+            labelName="Mot de passe"
             type="password"
-            required
+            changeFunction={(e) => setNewPassword(e.target.value)}
+            className="w-100"
           />
-          {/* Affichage du message d'erreur de validation de mot de passe */}
+          <Input
+            labelName="Confirmation du mot de passe"
+            type="password"
+            changeFunction={(e) => setConfirmPassword(e.target.value)}
+            className="w-100"
+          />
           {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
-
-          <button
-            id="target_buttonConfirmNewPassword"
-            className="primary-button"
-            onClick={() => {
-              resetPassword();
-            }}
-          >
-            Confirmer
-          </button>
+          <Button 
+          className="bg-fe-orange w-100 mt-4"
+          buttonTitle="Confirmer"
+          setAction={() => {
+            resetPassword()
+          }}
+          />
         </div>
       </div>
     </>

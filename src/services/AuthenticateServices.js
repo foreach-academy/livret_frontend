@@ -1,4 +1,5 @@
 import apiClient from "../utils/apiClient"; // Importe apiClient pour centraliser les requêtes HTTP
+import { FRONT_LOGIN } from "../utils/frontUrl";
 
 class AuthenticateService {
     /**
@@ -54,6 +55,20 @@ class AuthenticateService {
     static logout() {
         window.localStorage.removeItem("authToken"); // Supprime le token JWT
         delete apiClient.defaults.headers["Authorization"];
+    }
+
+    /**
+     * Envoi un mail de récupération de mot de passe 
+     * 
+     */
+    static async sendForgotPasswordMail(email, navigate) {
+        try {
+            await apiClient.post('/emails/request-password-reset',  email );
+            navigate(FRONT_LOGIN)
+        } catch (error) {
+            console.error('Erreur lors de l\'envoi du mail de récupération:', error);
+            throw error;
+        }
     }
 }
 
