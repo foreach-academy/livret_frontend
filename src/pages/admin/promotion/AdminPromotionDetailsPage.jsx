@@ -80,8 +80,8 @@ function PromotionDetailsPage() {
     const deletePromotion = async () => {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette promotion ?")) return;
         try {
-            await PromotionsService.deletePromotion(id);
-            navigate(FRONT_ADMIN_DASHBOARD);
+            await PromotionsService.deletePromotion(id, navigate);
+            
         } catch (error) {
             console.error("Erreur lors de la suppression de la promotion:", error.response?.data || error.message);
         }

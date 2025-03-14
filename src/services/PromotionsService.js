@@ -7,10 +7,9 @@ async function fetchAllPromotions(setPromotion) {
     });
 }
 
-function fetchPromotionById(id, setPromoDetail) {
-    return apiClient.get(`${process.env.REACT_APP_API_URL}/promotions/${id}`).then((response) => {
-        setPromoDetail(response.data)
-    });
+async function fetchPromotionById(id, setPromoDetail) {
+    const response = await apiClient.get(`${process.env.REACT_APP_API_URL}/promotions/${id}`);
+    setPromoDetail(response.data);
 }
 
 async function addPromotion(promotion, navigate) {
@@ -42,12 +41,14 @@ function deleteSupervisorFromPromotion(promotion_id, supervisor_id) {
 
 
 
-function deletePromotion(id) {
-    return apiClient.delete(`/promotions/${id}`)
-        .then(response => response.data)
-        .catch(error => {
-             
-        }); 
+async function deletePromotion(id, navigate) {
+    try {
+        const response = await apiClient.delete(`/promotions/${id}`);
+        navigate(-1);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la suppression de la formation", error);
+     } 
 }
 
 
