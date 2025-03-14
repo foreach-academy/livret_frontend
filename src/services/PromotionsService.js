@@ -1,4 +1,5 @@
 import apiClient from "../utils/apiClient";
+import { FRONT_ADMIN_PROMOTION } from "../utils/frontUrl";
 
 async function fetchAllPromotions(setPromotion) {
     await apiClient.get(`${process.env.REACT_APP_API_URL}/promotions`).then((response)=> {
@@ -12,8 +13,9 @@ function fetchPromotionById(id, setPromoDetail) {
     });
 }
 
-function addPromotion(promotion) {
-    return apiClient.post(`${process.env.REACT_APP_API_URL}/promotions`, promotion);
+async function addPromotion(promotion, navigate) {
+    await apiClient.post(`${process.env.REACT_APP_API_URL}/promotions`, promotion);
+    navigate(FRONT_ADMIN_PROMOTION);
 }
 
 function updatePromotion(id, promotion) {
@@ -44,7 +46,7 @@ function deletePromotion(id) {
     return apiClient.delete(`/promotions/${id}`)
         .then(response => response.data)
         .catch(error => {
-            throw error; 
+             
         }); 
 }
 
@@ -55,7 +57,7 @@ function getPromotionByTrainingId(training_id, setPromotion) {
     }
     catch(error){
         console.error('Erreur lors de la récupération des promotions liées à une formation:', error);
-        throw error;
+        
     }
 }
 

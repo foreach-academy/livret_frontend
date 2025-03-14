@@ -16,7 +16,7 @@ class UserServices {
             return response.data;
         } catch (error) {
             console.error("Erreur lors de la récupération des utilisateurs:", error);
-            throw error;
+            
         }
     }
 
@@ -45,7 +45,7 @@ class UserServices {
             toast.success(`Utilisateur ${user.firstname} ajouté avec succès!`);
             return response.data;
         } catch (error) {
-            throw error;
+            
         }
     }
 
@@ -74,7 +74,7 @@ class UserServices {
             toast.success("Les informations de l'utilisateur ont été mises à jour avec succès !");
             return response.data;
         } catch (error) {
-            throw error;
+            
         }
     }
 
@@ -93,7 +93,7 @@ class UserServices {
                 navigate(-1);
             })
             .catch((error) => {
-                throw error;
+                
             });
     }
 

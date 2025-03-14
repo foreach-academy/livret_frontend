@@ -80,12 +80,10 @@ function AdminAddPromotionPage() {
         }
 
         try {
-            await PromotionsService.addPromotion(promotion);
-            navigate(FRONT_ADMIN_PROMOTION);
+            await PromotionsService.addPromotion(promotion, navigate);
+            
         } catch (error) {
             console.error("Erreur lors de l'ajout de la promotion ou des modules:", error);
-            throw (error);
-
         }
     };
     console.log(promotion.modules)

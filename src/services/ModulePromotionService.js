@@ -9,7 +9,6 @@ async function addModulePromotion(modulePromotion) {
         return response.data;
     } catch (error) {
         console.error("Erreur lors de l'ajout du module à la promotion", error);
-        throw error;
     }
 }
 

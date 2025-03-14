@@ -50,7 +50,7 @@ async function getModuleByPromotion(promotion_id, setModules){
   }
   catch(error){
       console.error('Erreur lors de la récupération des modules liées à une formation:', error);
-      throw error;
+      
   }
 }
 
@@ -70,7 +70,7 @@ async function addModule(module, setRefresh, setDisplayAddModule, toast, setNewM
     setNewModule({ title: "", commentary: "", training_id: id });
     return response.data;
   } catch (error) {
-    throw error;
+    
   }
 }
 
@@ -90,7 +90,7 @@ async function updateModule(id, module, toast, setRefresh, setModuleModification
     setModuleModification(null);
     return response.data;
   } catch (error) {
-    throw error;
+    
   }
 }
 
@@ -108,7 +108,7 @@ async function deleteModule(id, toast, setRefresh) {
     })
   } catch (error) {
     console.error("Erreur lors de la suppression du module", error);
-    throw error;
+    
   }
 }
 async function updateModulePromotion(module){
@@ -118,7 +118,7 @@ async function updateModulePromotion(module){
     })
   } catch (error) {
     console.error("Erreur lors de la mise à jour du module promotionnel", error);
-    throw error;
+    
   }
 }
 
