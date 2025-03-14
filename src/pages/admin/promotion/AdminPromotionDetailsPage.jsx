@@ -293,7 +293,7 @@ function PromotionDetailsPage() {
                                     {module.moduleInfo.title}
                                     {` - ${new Intl.DateTimeFormat("fr-FR").format(new Date(module.start_date))}`}
                                     {` au ${new Intl.DateTimeFormat("fr-FR").format(new Date(module.end_date))}`}
-                                    {` - ${module.trainerInfo.firstname} ${module.trainerInfo.lastname}`}
+                                    {module.trainerInfo ? ` - ${module.trainerInfo.firstname} ${module.trainerInfo.lastname}` : " - Pas de formateur assigné"}
                                     <Button  buttonTitle="Modifier" className="bg-fe-orange" setAction={() => handleEditModule(module)} />
                                 </li>
                             )}

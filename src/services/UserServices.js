@@ -1,5 +1,4 @@
 import apiClient from "../utils/apiClient";
-import apiClient from "../utils/apiClient";
 import { jwtDecode } from "jwt-decode";
 import AuthenticateService from "./AuthenticateServices";
 import { admin } from "../utils/roleList";
@@ -12,7 +11,6 @@ class UserServices {
      */
     static async fetchAllUsers(setUsers) {
         try {
-            const response = await apiClient.get('/users');
             const response = await apiClient.get('/users');
             setUsers(response.data);
             return response.data;
@@ -42,7 +40,7 @@ class UserServices {
      */
     static addUser(user, navigate, toast) {
         try {
-            const response = await apiClient.post('/users', user);
+            const response =  apiClient.post('/users', user);
             navigate(-1);
             toast.success(`Utilisateur ${user.firstname} ajouté avec succès!`);
             return response.data;
@@ -71,7 +69,7 @@ class UserServices {
      */
     static updateUser(id, user, navigate, toast) {
         try {
-            const response = await apiClient.patch(`/users/${id}`, user);
+            const response = apiClient.patch(`/users/${id}`, user);
             navigate(-1);
             toast.success("Les informations de l'utilisateur ont été mises à jour avec succès !");
             return response.data;
