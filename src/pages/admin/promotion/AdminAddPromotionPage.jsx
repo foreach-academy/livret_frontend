@@ -23,7 +23,9 @@ function AdminAddPromotionPage() {
         supervisors: [],
         trainers: [],
         students: [],
-        modules: []
+        modules: [],
+        start_date: "",
+        end_date: "",
     });
     const selectedTraining = promotion.training_id;
 
@@ -81,7 +83,7 @@ function AdminAddPromotionPage() {
 
         try {
             await PromotionsService.addPromotion(promotion, navigate);
-            
+
         } catch (error) {
             console.error("Erreur lors de l'ajout de la promotion ou des modules:", error);
         }
@@ -91,22 +93,38 @@ function AdminAddPromotionPage() {
         <AdminLayout>
             <AdminBodyTitle pageTitle="Ajouter une promotion" />
             <div className="form_blue_contener wider">
-                <div className="form_blue gap-3">
-                    <div className='d-flex align-items-center'>
+                <div className="form_blue">
+                    <div className='d-flex align-items-center mb-3 '>
                         <SelectInputGeneric
                             label="Choisissez une formation"
                             options={trainings}
                             selectedValue={promotion.training_id}
                             onChange={(e) => setPromotion({ ...promotion, training_id: e.target.value })}
                             getOptionLabel={(training) => training.title}
+                            className="me-3"
                         />
                         <Input
                             changeFunction={(e) => setPromotion({ ...promotion, title: e.target.value })}
                             labelName="Nom de la promotion :"
                             type="text"
                             value={promotion.title}
-                            className="color-black-text"
+                            className="color-black-text me-3"
                         />
+                        <Input
+                            className="text-black me-3"
+                            labelName="Date de début"
+                            type="date"
+                            value={promotion.start_date || ""}
+                            changeFunction={(e) => setPromotion({ ...promotion, start_date: e.target.value })}
+                        />
+                        <Input
+                            className="text-black"
+                            labelName="Date de fin"
+                            type="date"
+                            value={promotion.end_date || ""}
+                            changeFunction={(e) => setPromotion({ ...promotion, end_date: e.target.value })}
+                        />
+
                     </div>
                     <div className='d-flex flex-row'>
                         {listSelector.map(({ label, role, options }, index) => (
@@ -133,6 +151,8 @@ function AdminAddPromotionPage() {
                                 labelName="Date de début"
                                 type="date"
                                 value={module.startDate || ""}
+                                min={promotion.start_date} // Ajout de la restriction
+                                max={promotion.end_date} // Ajout de la restriction
                                 changeFunction={(e) => handleModuleChange(module.id, "startDate", e.target.value)}
                             />
                             <Input
@@ -140,6 +160,8 @@ function AdminAddPromotionPage() {
                                 labelName="Date de fin"
                                 type="date"
                                 value={module.endDate || ""}
+                                min={promotion.start_date} // Ajout de la restriction
+                                max={promotion.end_date} // Ajout de la restriction
                                 changeFunction={(e) => handleModuleChange(module.id, "endDate", e.target.value)}
                             />
                             <SelectInputGeneric
@@ -152,6 +174,7 @@ function AdminAddPromotionPage() {
                             />
                         </div>
                     ))}
+
                     <Button buttonTitle="Ajouter la promotion" className="bg-fe-orange" setAction={handleSubmit} />
                 </div>
             </div>
