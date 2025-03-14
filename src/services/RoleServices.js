@@ -14,7 +14,7 @@ class RoleServices {
             return response.data;
         } catch (error) {
             console.error("Erreur lors de la récupération des rôles:", error);
-            throw error;
+            
         }
     }
 
@@ -28,7 +28,7 @@ class RoleServices {
             return await apiClient.get(`/roles/${id}`);
         } catch (error) {
             console.error(`Erreur lors de la récupération du rôle avec ID ${id}:`, error);
-            throw error;
+            
         }
     }
 
@@ -42,7 +42,7 @@ class RoleServices {
             return await apiClient.post('/roles/', role);
         } catch (error) {
             console.error("Erreur lors de l'ajout du rôle:", error);
-            throw error;
+            
         }
     }
 }
