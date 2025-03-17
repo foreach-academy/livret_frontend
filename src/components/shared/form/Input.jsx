@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ labelName, type, value, changeFunction, className, placeholder, required }) {
+function Input({ labelName, type, value, changeFunction, className, placeholder, required , min , max }) {
   return (
     <div className={`d-flex flex-column ${className}`}>
       {labelName && (
@@ -15,6 +15,8 @@ function Input({ labelName, type, value, changeFunction, className, placeholder,
         value={value}
         onChange={changeFunction}
         required={required}
+        min={min}
+        max={max}
       />
     </div>
   );

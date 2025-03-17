@@ -151,8 +151,8 @@ function AdminAddPromotionPage() {
                                 labelName="Date de début"
                                 type="date"
                                 value={module.startDate || ""}
-                                min={promotion.start_date} // Ajout de la restriction
-                                max={promotion.end_date} // Ajout de la restriction
+                                min={promotion.start_date} 
+                                max={promotion.end_date} 
                                 changeFunction={(e) => handleModuleChange(module.id, "startDate", e.target.value)}
                             />
                             <Input
@@ -160,8 +160,8 @@ function AdminAddPromotionPage() {
                                 labelName="Date de fin"
                                 type="date"
                                 value={module.endDate || ""}
-                                min={promotion.start_date} // Ajout de la restriction
-                                max={promotion.end_date} // Ajout de la restriction
+                                min={promotion.start_date} 
+                                max={promotion.end_date} 
                                 changeFunction={(e) => handleModuleChange(module.id, "endDate", e.target.value)}
                             />
                             <SelectInputGeneric
