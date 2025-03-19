@@ -31,6 +31,7 @@ const AdminPromotionPage = () => {
     const trainingId = promo.training.id;
     if (!acc[trainingId]) {
       acc[trainingId] = {
+        id: trainingId,
         title: promo.training.title,
         promotions: []
       };
@@ -41,10 +42,10 @@ const AdminPromotionPage = () => {
 
   // Filtrer les formations
   const filteredPromotions = Object.entries(groupedPromotions)
-    .filter(([id, training]) =>
-      (selectedTraining === "" || selectedTraining === id) &&
-      training.promotions.some(promo => promo.title.toLowerCase().includes(searchTerm))
-    );
+    .filter(([id, training]) => {
+      return (selectedTraining === "" || selectedTraining === id) &&
+      training.promotions.some(promo => promo.title.toLowerCase().includes(searchTerm));
+    });
 
   return (
     <AdminLayout>
@@ -67,7 +68,7 @@ const AdminPromotionPage = () => {
         />
         <SelectInputGeneric
           label="Filtrer par formation"
-          options={Object.values(groupedPromotions).map((training, index) => ({ id: index.toString(), title: training.title }))}
+          options={Object.values(groupedPromotions).map(training => ({ id: training.id.toString(), title: training.title }))}
           selectedValue={selectedTraining}
           onChange={(e) => setSelectedTraining(e.target.value)}
           getOptionLabel={(option) => option.title}
