@@ -23,22 +23,14 @@ function PromotionDetailsPage() {
     const [modules, setModules] = useState([]);
     const navigate = useNavigate();
     const [moduleEdits, setModuleEdits] = useState({});
-    const [trainingId, setTrainingId] = useState()
     const [editingModules, setEditingModules] = useState({});
     useEffect(() => {
         getPromotionDetails();
         getAllUsers();
-
     }, [id]);
-    useEffect(() => {
-        if (promoDetail?.training?.id) {
-            setTrainingId(promoDetail.training.id);
-        }
-    }, [promoDetail]);
     useEffect(() => {
         ModulesService.getModuleByPromotion(id, setModules);
     }, []);
-
     const getPromotionDetails = async () => {
         await PromotionsService.fetchPromotionById(id, setPromoDetail);
     };
@@ -46,7 +38,6 @@ function PromotionDetailsPage() {
     const getAllUsers = async () => {
         await UserServices.fetchAllUsers(setUsers);
     };
-
     const handleAddUser = async (role) => {
         if (!selectedUser) return;
         try {
@@ -81,11 +72,18 @@ function PromotionDetailsPage() {
         if (!window.confirm("Êtes-vous sûr de vouloir supprimer cette promotion ?")) return;
         try {
             await PromotionsService.deletePromotion(id, navigate);
-            
+
         } catch (error) {
             console.error("Erreur lors de la suppression de la promotion:", error.response?.data || error.message);
         }
     };
+    const formatDateForInput = (dateString) => {
+        if (!dateString) return "";
+        const date = new Date(dateString);
+        if (isNaN(date)) return "";
+        return date.toISOString().split("T")[0]; 
+    };
+    
 
     const supervisors = users.filter(user => user.userRole.name === admin);
     const trainers = users.filter(user => user.userRole.name === trainer);
@@ -149,6 +147,11 @@ function PromotionDetailsPage() {
                 buttonClassName="bg-danger"
                 icon="delete"
             />
+            <div className="d-flex flex-column">
+                <span>Promotion de la formation {promoDetail?.training?.title}</span>
+                <span>Début : {promoDetail?.start_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.start_date)) : "Date inconnue"} </span>
+                <span>Fin : {promoDetail?.end_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.end_date)) : "Date inconnue"} </span>
+            </div>
             <Accordion accordionLabel="Responsables" accordionColor="bg-fe-purple">
                 <ul>
                     {promoDetail?.promotionSupervisors?.map((user, index) => (
@@ -251,6 +254,8 @@ function PromotionDetailsPage() {
                                                 startDate: e.target.value
                                             }
                                         })}
+                                        min={formatDateForInput(promoDetail?.start_date)}
+                                        max={formatDateForInput(promoDetail?.end_date)}
                                     />
 
                                     <Input
@@ -264,7 +269,10 @@ function PromotionDetailsPage() {
                                                 endDate: e.target.value
                                             }
                                         })}
+                                        min={formatDateForInput(promoDetail?.start_date)}
+                                        max={formatDateForInput(promoDetail?.end_date)}
                                     />
+
                                     <SelectInputGeneric
                                         label="Formateur"
                                         options={promoDetail?.promotionTrainers || []}
@@ -294,7 +302,7 @@ function PromotionDetailsPage() {
                                     {` - ${new Intl.DateTimeFormat("fr-FR").format(new Date(module.start_date))}`}
                                     {` au ${new Intl.DateTimeFormat("fr-FR").format(new Date(module.end_date))}`}
                                     {module.trainerInfo ? ` - ${module.trainerInfo.firstname} ${module.trainerInfo.lastname}` : " - Pas de formateur assigné"}
-                                    <Button  buttonTitle="Modifier" className="bg-fe-orange" setAction={() => handleEditModule(module)} />
+                                    <Button buttonTitle="Modifier" className="bg-fe-orange" setAction={() => handleEditModule(module)} />
                                 </li>
                             )}
                         </div>

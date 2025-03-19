@@ -21,11 +21,11 @@ function AdminAddPromotionPage() {
         title: "",
         training_id: "",
         supervisors: [],
-        trainers: [],
+        trainers: [], 
         students: [],
         modules: [],
-        start_date: "",
-        end_date: "",
+        start_date: null,
+        end_date: null,
     });
     const selectedTraining = promotion.training_id;
 
@@ -88,7 +88,6 @@ function AdminAddPromotionPage() {
             console.error("Erreur lors de l'ajout de la promotion ou des modules:", error);
         }
     };
-    console.log(promotion.modules)
     return (
         <AdminLayout>
             <AdminBodyTitle pageTitle="Ajouter une promotion" />
@@ -102,6 +101,7 @@ function AdminAddPromotionPage() {
                             onChange={(e) => setPromotion({ ...promotion, training_id: e.target.value })}
                             getOptionLabel={(training) => training.title}
                             className="me-3"
+                            required={true}
                         />
                         <Input
                             changeFunction={(e) => setPromotion({ ...promotion, title: e.target.value })}
@@ -109,6 +109,7 @@ function AdminAddPromotionPage() {
                             type="text"
                             value={promotion.title}
                             className="color-black-text me-3"
+                            required={true}
                         />
                         <Input
                             className="text-black me-3"
@@ -116,6 +117,7 @@ function AdminAddPromotionPage() {
                             type="date"
                             value={promotion.start_date || ""}
                             changeFunction={(e) => setPromotion({ ...promotion, start_date: e.target.value })}
+                            required={true}
                         />
                         <Input
                             className="text-black"
@@ -123,6 +125,7 @@ function AdminAddPromotionPage() {
                             type="date"
                             value={promotion.end_date || ""}
                             changeFunction={(e) => setPromotion({ ...promotion, end_date: e.target.value })}
+                            required={true}
                         />
 
                     </div>
@@ -142,7 +145,7 @@ function AdminAddPromotionPage() {
                             </div>
                         ))}
                     </div>
-                    <h2 className='text-black'>Modules</h2>
+                    {promotion.training_id && <h2 className='text-black'>Modules</h2>}
                     {promotion.modules.map(module => (
                         <div key={module.id} className="d-flex justify-content-start align-items-end">
                             <span className='text-black'>{module.title}</span>
@@ -151,8 +154,8 @@ function AdminAddPromotionPage() {
                                 labelName="Date de début"
                                 type="date"
                                 value={module.startDate || ""}
-                                min={promotion.start_date} 
-                                max={promotion.end_date} 
+                                min={promotion.start_date}
+                                max={promotion.end_date}
                                 changeFunction={(e) => handleModuleChange(module.id, "startDate", e.target.value)}
                             />
                             <Input
@@ -160,8 +163,8 @@ function AdminAddPromotionPage() {
                                 labelName="Date de fin"
                                 type="date"
                                 value={module.endDate || ""}
-                                min={promotion.start_date} 
-                                max={promotion.end_date} 
+                                min={promotion.start_date}
+                                max={promotion.end_date}
                                 changeFunction={(e) => handleModuleChange(module.id, "endDate", e.target.value)}
                             />
                             <SelectInputGeneric
