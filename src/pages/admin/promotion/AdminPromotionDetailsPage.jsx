@@ -24,6 +24,7 @@ function PromotionDetailsPage() {
     const navigate = useNavigate();
     const [moduleEdits, setModuleEdits] = useState({});
     const [editingModules, setEditingModules] = useState({});
+    const [isEditingDate, setIsEditingDate] = useState(false)
     useEffect(() => {
         getPromotionDetails();
         getAllUsers();
@@ -81,9 +82,9 @@ function PromotionDetailsPage() {
         if (!dateString) return "";
         const date = new Date(dateString);
         if (isNaN(date)) return "";
-        return date.toISOString().split("T")[0]; 
+        return date.toISOString().split("T")[0];
     };
-    
+
 
     const supervisors = users.filter(user => user.userRole.name === admin);
     const trainers = users.filter(user => user.userRole.name === trainer);
@@ -136,22 +137,56 @@ function PromotionDetailsPage() {
         }));
     };
 
+    const updatePromotion = (id) => {
+        const updatedPromotion = {
+            promotion_id: id,
+            title: promoDetail.title ,
+            start_date: promoDetail.start_date,
+            end_date: promoDetail.end_date,
+        };
+        PromotionsService.updatePromotion(id, updatedPromotion, toast);
+        setIsEditingDate(false);
+    };
 
     return (
         <AdminLayout>
-            <AdminBodyTitle
-                buttonTitle="Supprimer la promotion"
-                isAdmin={isAdmin}
-                pageTitle={promoDetail?.title}
-                action={deletePromotion}
-                buttonClassName="bg-danger"
-                icon="delete"
-            />
-            <div className="d-flex flex-column">
-                <span>Promotion de la formation {promoDetail?.training?.title}</span>
-                <span>Début : {promoDetail?.start_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.start_date)) : "Date inconnue"} </span>
-                <span>Fin : {promoDetail?.end_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.end_date)) : "Date inconnue"} </span>
-            </div>
+        <AdminBodyTitle
+            buttonTitle="Supprimer la promotion"
+            isAdmin={isAdmin}
+            pageTitle={promoDetail?.title}
+            action={deletePromotion}
+            buttonClassName="bg-danger"
+            icon="delete"
+        />
+        <div className="d-flex flex-column">
+            <span>Promotion de la formation {promoDetail?.training?.title}</span>
+            {isEditingDate ? (
+                <>
+                    <Input
+                        type="date"
+                        label="Date de début"
+                        value={formatDateForInput(promoDetail?.start_date)}
+                        changeFunction={(e) => setPromoDetail({ ...promoDetail, start_date: e.target.value })}
+                    />
+                    <Input
+                        type="date"
+                        label="Date de fin"
+                        value={formatDateForInput(promoDetail?.end_date)}
+                        changeFunction={(e) => setPromoDetail({ ...promoDetail, end_date: e.target.value })}
+                    />
+                    <Button buttonTitle="Enregistrer" className="bg-fe-green" setAction={() => updatePromotion(id)} />
+                    <Button buttonTitle="Annuler" className="bg-danger" setAction={() => setIsEditingDate(false)} />
+                </>
+            ) : (
+                <>
+                    <span>Début : {promoDetail?.start_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.start_date)) : "Date inconnue"} </span>
+                    <span>Fin : {promoDetail?.end_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.end_date)) : "Date inconnue"} </span>
+                    {isAdmin && (
+                        <Button buttonTitle="Modifier la date" className="bg-fe-orange" setAction={() => setIsEditingDate(true)} />
+                    )}
+                </>
+            )}
+        </div>
             <Accordion accordionLabel="Responsables" accordionColor="bg-fe-purple">
                 <ul>
                     {promoDetail?.promotionSupervisors?.map((user, index) => (
@@ -180,7 +215,6 @@ function PromotionDetailsPage() {
                 )}
 
             </Accordion>
-
             <Accordion accordionLabel="Formateurs" accordionColor="bg-fe-green">
                 <ul>
                     {promoDetail?.promotionTrainers?.map((user, index) => (
@@ -208,7 +242,6 @@ function PromotionDetailsPage() {
                 )}
 
             </Accordion>
-
             <Accordion accordionLabel="Étudiants" accordionColor="bg-fe-dark-blue">
                 <ul>
                     {promoDetail?.promotionStudients?.map((user, index) => (
