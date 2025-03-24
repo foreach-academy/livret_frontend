@@ -5,7 +5,7 @@ import UserServices from "../services/UserServices";
 import { toast } from "react-toastify";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
-import { FRONT_ADMIN_DASHBOARD, FRONT_FORGOT_PASSWORD, FRONT_HOME } from "../utils/frontUrl";
+import { FRONT_FORGOT_PASSWORD, FRONT_HOME } from "../utils/frontUrl";
 import AuthenticateService from "../services/AuthenticateServices";
 import { formatRetryTime } from "../utils/timeFormat";
 import Input from "../components/shared/form/Input";
@@ -23,8 +23,11 @@ const LoginPage = () => {
   const login = async (e) => {
     e.preventDefault();
   
+    e.preventDefault();
+  
     try {
       const response = await AuthenticateService.login(user);
+  
   
       if (response.data.token) {
         const token = response.data.token;
@@ -41,12 +44,36 @@ const LoginPage = () => {
       } 
     } catch (error) {
       console.error("Erreur Axios capturée :", error);
-        if (error.retryAfter) {
-            const retryAfterSeconds = parseInt(error.retryAfter, 10);
+  
+      if (error.response) {
+        console.log("Réponse complète de l'erreur :", error.response);
+  
+        if (error.response.status === 429) {
+          // Vérifier où se trouve réellement retryTime
+          console.log("Données de la réponse :", error.response.data);
+          console.log("retryTime attendu :", error.response.data.retryTime);
+          
+          const retryTime = error.response.data?.retryTime || error.response.headers['retry-after'];
+  
+          if (retryTime) {
+            const retryAfterSeconds = parseInt(retryTime, 10);
             startCountdown(retryAfterSeconds);
-          } 
+            toast.error(`Trop de tentatives. Réessayez dans ${Math.floor(retryAfterSeconds / 60)} min et ${retryAfterSeconds % 60} sec.`);
+          } else {
+            toast.error("Trop de tentatives. Veuillez réessayer plus tard.");
+          }
+        } else {
+          toast.error(error.response.data?.message || "Erreur lors de la connexion.");
+        }
+      } else {
+        console.error("Erreur non liée à la réponse HTTP :", error);
+        toast.error("Une erreur est survenue. Veuillez réessayer.");
+      }
     }
   };
+  
+  
+
   const startCountdown = (duration) => {
     if (countdownInterval.current) clearInterval(countdownInterval.current); 
     setTimeLeft(duration);
@@ -85,7 +112,6 @@ const LoginPage = () => {
           <div className="login-form">
             <h2 className="connexion-title">Connexion</h2>
               <form><div className="form-group">
-            
               <Input
                 labelName="Email"
                 type="email"

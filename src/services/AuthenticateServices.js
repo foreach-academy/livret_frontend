@@ -17,7 +17,6 @@ class AuthenticateService {
             return response.data;
         } catch (error) {
             console.error('Erreur lors de la mise à jour du mot de passe avec le token:', error);
-            throw error;
         }
     }
 
@@ -67,7 +66,6 @@ class AuthenticateService {
             navigate(FRONT_LOGIN)
         } catch (error) {
             console.error('Erreur lors de l\'envoi du mail de récupération:', error);
-            throw error;
         }
     }
 }

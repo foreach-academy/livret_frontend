@@ -13,7 +13,7 @@ async function fetchAllTrainings(setTrainings) {
         return response.data;
     } catch (error) {
         console.error("Erreur lors de la récupération des formations:", error);
-        throw error;
+        
     }
 }
 
@@ -30,7 +30,7 @@ async function fetchTrainingById(id, setTraining) {
         return response.data;
     } catch (error) {
         console.error("Erreur lors de la récupération de la formation:", error);
-        throw error;
+        
     }
 }
 
@@ -48,7 +48,7 @@ async function addTraining(trainings, navigate, toast) {
         toast.success("Formation et modules ajoutés avec succès !");
         return response.data;
     } catch (error) {
-        throw error;
+        
     }
 }
 
@@ -69,7 +69,7 @@ async function updateTraining(id, trainings, setRefresh, setIsEditing, toast) {
         toast.success(`La formation ${trainings.title} a été mise à jour`);
         return response.data;
     } catch (error) {
-        throw error;
+        
     }
 }
 
