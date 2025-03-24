@@ -140,7 +140,7 @@ function PromotionDetailsPage() {
     const updatePromotion = (id) => {
         const updatedPromotion = {
             promotion_id: id,
-            title: promoDetail.title ,
+            title: promoDetail.title,
             start_date: promoDetail.start_date,
             end_date: promoDetail.end_date,
         };
@@ -150,43 +150,44 @@ function PromotionDetailsPage() {
 
     return (
         <AdminLayout>
-        <AdminBodyTitle
-            buttonTitle="Supprimer la promotion"
-            isAdmin={isAdmin}
-            pageTitle={promoDetail?.title}
-            action={deletePromotion}
-            buttonClassName="bg-danger"
-            icon="delete"
-        />
-        <div className="d-flex flex-column">
-            <span>Promotion de la formation {promoDetail?.training?.title}</span>
-            {isEditingDate ? (
-                <>
-                    <Input
-                        type="date"
-                        label="Date de début"
-                        value={formatDateForInput(promoDetail?.start_date)}
-                        changeFunction={(e) => setPromoDetail({ ...promoDetail, start_date: e.target.value })}
-                    />
-                    <Input
-                        type="date"
-                        label="Date de fin"
-                        value={formatDateForInput(promoDetail?.end_date)}
-                        changeFunction={(e) => setPromoDetail({ ...promoDetail, end_date: e.target.value })}
-                    />
-                    <Button buttonTitle="Enregistrer" className="bg-fe-green" setAction={() => updatePromotion(id)} />
-                    <Button buttonTitle="Annuler" className="bg-danger" setAction={() => setIsEditingDate(false)} />
-                </>
-            ) : (
-                <>
-                    <span>Début : {promoDetail?.start_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.start_date)) : "Date inconnue"} </span>
-                    <span>Fin : {promoDetail?.end_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.end_date)) : "Date inconnue"} </span>
-                    {isAdmin && (
-                        <Button buttonTitle="Modifier la date" className="bg-fe-orange" setAction={() => setIsEditingDate(true)} />
-                    )}
-                </>
-            )}
-        </div>
+            <AdminBodyTitle
+                buttonTitle="Supprimer la promotion"
+                isAdmin={isAdmin}
+                pageTitle={promoDetail?.title}
+                action={deletePromotion}
+                buttonClassName="bg-danger"
+                icon="delete"
+            />
+            <div className="d-flex flex-column">
+                <span>Promotion de la formation {promoDetail?.training?.title}</span>
+                {isEditingDate ? (
+                    <div className="d-flex justify-content-between">
+                        <div><Input
+                            type="date"
+                            label="Date de début"
+                            value={formatDateForInput(promoDetail?.start_date)}
+                            changeFunction={(e) => setPromoDetail({ ...promoDetail, start_date: e.target.value })}
+                        />
+                            <Input
+                                type="date"
+                                label="Date de fin"
+                                value={formatDateForInput(promoDetail?.end_date)}
+                                changeFunction={(e) => setPromoDetail({ ...promoDetail, end_date: e.target.value })}
+                            /></div>
+                        <div> <Button buttonTitle="Enregistrer" className="bg-fe-green" setAction={() => updatePromotion(id)} />
+                            <Button buttonTitle="Annuler" className="bg-danger" setAction={() => setIsEditingDate(false)} /></div>
+                    </div>
+                ) : (
+                    <div className="d-flex justify-content-between">
+                       <div className="d-flex flex-column"><span>Début : {promoDetail?.start_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.start_date)) : "Date inconnue"} </span>
+                        <span>Fin : {promoDetail?.end_date ? new Intl.DateTimeFormat("fr-FR").format(new Date(promoDetail.end_date)) : "Date inconnue"} </span>
+                        </div> 
+                        {isAdmin && (
+                            <Button buttonTitle="Modifier la date" className="bg-fe-orange" setAction={() => setIsEditingDate(true)} />
+                        )}
+                    </div>
+                )}
+            </div>
             <Accordion accordionLabel="Responsables" accordionColor="bg-fe-purple">
                 <ul>
                     {promoDetail?.promotionSupervisors?.map((user, index) => (
