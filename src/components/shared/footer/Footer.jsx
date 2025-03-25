@@ -36,8 +36,8 @@ function Footer() {
   };
 
   return (
-    <footer id="footer">
-      <div className="footer-container">
+    <footer >
+      <div className="d-flex mt-3 pt-3">
         <div className="logo-icons-box footer-section">
           <Link to={FRONT_HOME}>
             <img

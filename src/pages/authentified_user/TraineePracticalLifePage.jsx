@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "../../styles/TraineePracticalLife/TraineePracticalLife.css";
 import Header from "../../components/shared/navbar/Header";
+import Footer from "../../components/shared/footer/Footer";
 
 
 const TraineePracticalLifePage = () => {
@@ -423,6 +424,7 @@ const TraineePracticalLifePage = () => {
             </ul>
           </div>
         </div>
+        <Footer/>
       </div>
     </>
   );

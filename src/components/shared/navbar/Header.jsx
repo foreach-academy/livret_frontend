@@ -11,6 +11,7 @@ import {
   FRONT_TRAINER_PRATICAL_LIFE,
 } from "../../../utils/frontUrl";
 import { navigateTo } from "../../../utils/navigate";
+import Button from "../Button";
 
 const Header = ({ setHeaderHeight }) => {
   const {
@@ -118,9 +119,14 @@ const Header = ({ setHeaderHeight }) => {
         )}
         {!isAuthenticated && (
           <div>
-            <Link to={FRONT_LOGIN} className="primary-button">
-              <span className="material-icons-outlined">home</span>
-              <span>Se connecter</span>
+            <Link to={FRONT_LOGIN} className=" text-decoration-none">
+              <Button 
+              className="bg-fe-orange d-flex text-decoration-none" 
+              buttonTitle={<><span className="material-icons-outlined">home</span>
+                <span >Se connecter</span></>}
+      
+                />
+
             </Link>
           </div>
         )}

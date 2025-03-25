@@ -1,5 +1,5 @@
 import apiClient from "../utils/apiClient"; // Importe apiClient pour centraliser les requêtes HTTP
-import { FRONT_LOGIN } from "../utils/frontUrl";
+import { FRONT_HOME, FRONT_LOGIN } from "../utils/frontUrl";
 
 class AuthenticateService {
     /**
@@ -52,8 +52,11 @@ class AuthenticateService {
      * Déconnecte l'utilisateur en supprimant le token JWT du stockage local et des headers d'apiClient.
      */
     static logout() {
+        console.log('bonjour')
         window.localStorage.removeItem("authToken"); // Supprime le token JWT
         delete apiClient.defaults.headers["Authorization"];
+     
+        
     }
 
     /**

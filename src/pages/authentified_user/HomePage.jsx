@@ -11,6 +11,7 @@ import UserServices from '../../services/UserServices';
 import EquipeMember from '../../components/pages/homePage/EquipeMember';
 import RoleServices from '../../services/RoleServices'
 import Slider from '../../components/pages/homePage/Slider';
+import Footer from '../../components/shared/footer/Footer';
 const HomePage = () => {
   const [trainings, setTrainings] = useState([]);
   const [headerHeight, setHeaderHeight] = useState(null);
@@ -76,7 +77,9 @@ const HomePage = () => {
         <HomePageSection title="La qualité étant une des valeurs que nous revendiquons.">
           <StrategicInfo />
         </HomePageSection>
+        <Footer/>
       </div>
+   
     </>
   );
 };

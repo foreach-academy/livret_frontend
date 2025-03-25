@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
@@ -66,11 +66,27 @@ function App() {
   const [isTrainer, setIsTrainer] = useState(UserServices.isTrainer);
   const [userName, setUserName] = useState(UserServices.userName);
 
+
   const [token, setToken] = useState(
     window.localStorage.getItem("authToken")
       ? window.localStorage.getItem("authToken")
       : null
   );
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const isValid = UserServices.isAuthenticated();
+      if (!isValid) {
+        UserServices.checkToken(); 
+        setIsAuthenticated(false);
+        setIsAdmin(false);
+        setIsTrainer(false);
+        setUserName(null);
+        setToken(null);
+      }
+    },5* 60 * 1000); 
+
+    return () => clearInterval(interval); 
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -93,7 +109,6 @@ function App() {
           isAdmin={isAdmin}
           isTrainer={isTrainer}
         />
-        {(!isAdmin & !isTrainer) && <Footer />}
         <ToastContainer
           position="bottom-right"
           autoClose={5000}
