@@ -28,11 +28,12 @@ const AdminPromotionPage = () => {
 
   // Regrouper les promotions par formation
   const groupedPromotions = promotions.reduce((acc, promo) => {
-    const trainingId = promo.training.id;
+    console.log(promo)
+    const trainingId = promo.training_id;
     if (!acc[trainingId]) {
       acc[trainingId] = {
         id: trainingId,
-        title: promo.training.title,
+        title: promo.title,
         promotions: []
       };
     }
