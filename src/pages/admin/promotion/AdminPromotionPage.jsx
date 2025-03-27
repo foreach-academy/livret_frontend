@@ -33,7 +33,7 @@ const AdminPromotionPage = () => {
     if (!acc[trainingId]) {
       acc[trainingId] = {
         id: trainingId,
-        title: promo.title,
+        title: promo.training.title,
         promotions: []
       };
     }
