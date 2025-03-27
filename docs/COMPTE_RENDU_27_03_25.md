@@ -6,17 +6,17 @@
 
 - Remplacement du CSS par du Bootstrap (certains éléments utilisent quand meme du css notemment pour les variant de couleur)
 
-- Page de gestion des utilisateurs :
+- Page Admin de gestion des utilisateurs :
     * L'ajout d'utilisateur admin, formateur et étudiant est fonctionnel
     * La modification d'utilisateur est fonctionnel
     * le tri et la recherche d'utilisateur est fonctionnel
 
-- Page Formation :
+- Page Admin Formation :
     * Ajouter une formation est fonctionnel et complète
     * Modifier une formation est fonctionnel
     * le tri et la recherche de formation est fonctionnel
 
-- Page Promotion :
+- Page Admin Promotion :
     * Ajouter une promotion
     * Modifier une promotion et ses modules
     * le tri et la recherche de promotion est fonctionnel
