@@ -2,7 +2,7 @@ import apiClient from "../utils/apiClient";
 import { FRONT_ADMIN_PROMOTION } from "../utils/frontUrl";
 
 async function fetchAllPromotions(setPromotion) {
-    await apiClient.get(`${process.env.REACT_APP_API_URL}/promotions`).then((response) => {
+    await apiClient.get(`${process.env.REACT_APP_API_URL}/promotions/`).then((response) => {
         setPromotion(response.data);
     });
 }
@@ -13,7 +13,7 @@ async function fetchPromotionById(id, setPromoDetail) {
 }
 
 async function addPromotion(promotion, navigate) {
-    await apiClient.post(`${process.env.REACT_APP_API_URL}/promotions`, promotion);
+    await apiClient.post(`${process.env.REACT_APP_API_URL}/promotions/`, promotion);
     navigate(FRONT_ADMIN_PROMOTION);
 }
 

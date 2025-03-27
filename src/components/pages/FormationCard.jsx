@@ -18,11 +18,11 @@ const FormationCard = ({
         <Card.Text className="text-white truncateText">
           {description}
         </Card.Text>
-        <Button
+       {url && <Button
           buttonTitle="En savoir plus"
           className="bg-fe-orange"
-          setAction={() => navigate(`/${url}`)}
-        />
+          setAction={() => window.location.href = url}
+        />} 
       </Card.Body>
     </Card>
   );

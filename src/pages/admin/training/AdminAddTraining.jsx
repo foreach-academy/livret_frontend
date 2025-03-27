@@ -10,6 +10,7 @@ import Button from "../../../components/shared/Button";
 function AddTraining() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [url, setUrl] = useState("");
     const [modules, setModules] = useState([{ title: "", commentary: "" }]);
     const navigate = useNavigate()
 
@@ -34,6 +35,7 @@ function AddTraining() {
         const trainingData = {
             title,
             description,
+            url,
             modules: modules.filter(module => module.title.trim() !== ""), // Ne pas envoyer les modules vides
         };
         await TrainingServices.addTraining(trainingData,navigate , toast );
@@ -50,7 +52,6 @@ function AddTraining() {
                             <legend>Formation :</legend>
                             <div className="form-group">
                                 <Input
-
                                     type="text"
                                     changeFunction={(e) => setTitle(e.target.value)}
                                     required
@@ -58,13 +59,18 @@ function AddTraining() {
                                     value={title}
                                 />
                             </div>
-
                             <div className="form-group">
                                 <label htmlFor="description">Description :</label>
                                 <TextArea
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                 ></TextArea>
+                                <Input
+                                type="text"
+                                labelName="Adresse de la page :"
+                                value={url}
+                                changeFunction={(e) => setUrl(e.target.value)}
+                                />
                             </div>
                         </fieldset>
 

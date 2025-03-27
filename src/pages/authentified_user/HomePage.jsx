@@ -55,7 +55,7 @@ const HomePage = () => {
               key={training.id}
               title={training.title}
               description={training.description}
-              url={`trainings/${training.id}`}
+              url={training.url}
             />
           ))}
           </Slider>
