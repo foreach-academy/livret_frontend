@@ -4,13 +4,12 @@ import "../../../styles/ListeUtilisateurAdd/ListeUtilisateurAdd.css";
 import UserServices from "../../../services/UserServices";
 import RoleServices from "../../../services/RoleServices";
 import { FRONT_ADMIN_ADD_USERS, FRONT_ADMIN_USERS } from "../../../utils/frontUrl";
-import { Table, Form } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import AuthContext from "../../../context/AuthContext";
 import AdminLayout from "../../../components/pages/admin/AdminLayout";
 import Thead from "../../../components/shared/form/Thead";
 import Tbody from "../../../components/shared/form/Tbody";
 import AdminBodyTitle from "../../../components/shared/AdminBodyTitle";
-import Button from "../../../components/shared/Button";
 import Input from "../../../components/shared/form/Input";
 import SelectInputGeneric from "../../../components/shared/form/SelectInputGeneric";
 
@@ -63,7 +62,7 @@ const UsersListPage = () => {
       user.firstname.toLowerCase().includes(searchTerm);
 
       const matchesRole =
-      selectedRole === "" || user.userRole?.id == selectedRole || selectedRole === "Tous";
+      selectedRole === "" || user.userRole?.id === selectedRole || selectedRole === "Tous";
     
 
 
