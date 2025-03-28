@@ -45,7 +45,7 @@ const UsersListPage = () => {
   useEffect(() => {
     UserServices.fetchAllUsers(setUsers);
     RoleServices.fetchAllRoles(setRoles);
-  }, []);
+  }, [users]);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value.toLowerCase());
