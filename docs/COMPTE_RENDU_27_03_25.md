@@ -70,3 +70,5 @@
 
     * Un apprenant doit pouvoir consulter toute ses évaluations : Creer une vue apprenant
 
+- Créer le contenu des pages "CGU, Confidentialité, Règlement et politique"
+

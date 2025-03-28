@@ -4,7 +4,7 @@ import DOMPurify from 'dompurify';
 import { FRONT_HOME, FRONT_CGU, FRONT_CONFIDENTIAL, FRONT_RULES, FRONT_POLICY } from "../../../utils/frontUrl";
 import { Link } from "react-router-dom";
 
-function Footer() {
+function Footer({className}) {
   // URLs des réseaux sociaux
   const socialMediaLinks = [
     {
@@ -36,7 +36,7 @@ function Footer() {
   };
 
   return (
-    <footer >
+    <footer className={className}>
       <div className="d-flex mt-3 pt-3">
         <div className="logo-icons-box footer-section">
           <Link to={FRONT_HOME}>

@@ -11,6 +11,7 @@ import { formatRetryTime } from "../utils/timeFormat";
 import Input from "../components/shared/form/Input";
 import Header from "../components/shared/navbar/Header";
 import { admin, trainer } from "../utils/roleList";
+import Footer from "../components/shared/footer/Footer";
 
 const LoginPage = () => {
   const [user, setUser] = useState({ email: "", password: "" });
@@ -140,6 +141,7 @@ const LoginPage = () => {
           </div>
         </div>
       </div>
+      <Footer className="position-absolute  bottom-0 start-0"/>
     </>
   );
 };
